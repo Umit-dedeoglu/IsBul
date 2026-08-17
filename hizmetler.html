@@ -13,10 +13,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <script src="https://unpkg.com/feather-icons"></script>
   <style>
-    /* hizmetler sayfasına ıözel ek stiller */
+    /* Hizmetler sayfasına özel ek stiller */
     .services-page { background: var(--bg); min-height: 100vh; }
 
-    /* Arama ıubuıu (sayfa işi) */
+    /* Arama çubuğu (sayfa içi) */
     .services-search-bar {
       display: flex; gap: 0; align-items: stretch;
       max-width: 540px; margin: 28px auto 0;
@@ -90,7 +90,7 @@
     .price-range input[type=range] { width: 100%; accent-color: var(--primary); }
     .price-range__values { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); margin-top: 6px; }
 
-    /* ıst bar: sıralama + sonuı sayısı */
+    /* Üst bar: sıralama + sonuç sayısı */
     .services-topbar {
       display: flex; align-items: center; justify-content: space-between;
       margin-bottom: 24px; flex-wrap: wrap; gap: 12px;
@@ -105,7 +105,7 @@
     }
     .sort-select:focus { border-color: var(--primary); }
 
-    /* hizmet kartları grid */
+    /* Hizmet kartları grid */
     .services-main { }
     .services-grid-main {
       display: grid;
@@ -188,8 +188,8 @@
         <span class="logo-text"><strong>İşBul</strong></span>
       </a>
       <nav class="navbar__links" id="navLinks">
-        <a href="hizmetler.html" style="color:var(--primary);font-weight:700">hizmetler</a>
-        <a href="nasil-calisir.html">nasıl Çalışır?</a>
+        <a href="hizmetler.html" style="color:var(--primary);font-weight:700">Hizmetler</a>
+        <a href="nasil-calisir.html">Nasıl Çalışır?</a>
         <a href="uzman-ol.html">Uzman Ol</a>
         <a href="mailto:Kurumsal@isbul.com.tr">Kurumsal</a>
       </nav>
@@ -212,7 +212,7 @@
       <div class="services-search-bar" style="margin-top:28px">
         <div class="services-search-wrap">
           <i data-feather="search"></i>
-          <input type="text" id="serviceSearch" placeholder="hizmet veya uzman adı arayın..." />
+          <input type="text" id="serviceSearch" placeholder="Hizmet veya uzman adı arayın..." />
         </div>
         <button class="search-submit-btn" onclick="document.getElementById('serviceSearch').dispatchEvent(new Event('input'))">Ara</button>
       </div>
@@ -234,14 +234,14 @@
           <button class="filter-tab" data-cat="bahce">Bahçe</button>
           <button class="filter-tab" data-cat="diger">Diğer</button>
         </div>
-        <button class="mobile-filter-btn" id="mobilefilterBtn">
-          <i data-feather="sliders" style="width:15px;height:15px"></i> filtrele
+        <button class="mobile-filter-btn" id="mobileFilterBtn">
+          <i data-feather="sliders" style="width:15px;height:15px"></i> Filtrele
         </button>
       </div>
     </div>
   </div>
 
-  <!-- ANA İşERıK -->
+  <!-- ANA İÇERİK -->
   <div class="container">
     <div class="services-layout">
 
@@ -592,31 +592,30 @@
         </div>
         <div class="footer__links">
           <div class="footer__col">
-            <h4>hizmetler</h4>
-            <a href="hizmetler.html?kategori=montaj">Mobilya Montajı</a><a href="hizmetler.html?kategori=temizlik">Ev Temizlişi</a>
-            <a href="hizmetler.html?kategori=nakliyat">Nakliyat</a><a href="hizmetler.html?kategori=elektrik">Elektrikıi</a>
+            <h4>Hizmetler</h4>
+            <a href="hizmetler.html?kategori=montaj">Mobilya Montajı</a>
+            <a href="hizmetler.html?kategori=temizlik">Ev Temizliği</a>
+            <a href="hizmetler.html?kategori=nakliyat">Nakliyat</a>
+            <a href="hizmetler.html?kategori=elektrik">Elektrikçi</a>
           </div>
           <div class="footer__col">
-            <h4>ıirket</h4>
+            <h4>Şirket</h4>
             <a href="hakkimizda.html">Hakkımızda</a>
-            
-            
             <a href="blog.html">Blog</a>
           </div>
-          
           <div class="footer__col">
             <h4>Uzmanlar</h4>
             <a href="uzman-ol.html">Uzman Ol</a>
           </div>
           <div class="footer__col">
             <h4>Destek</h4>
-            <a href="#" onclick="document.getElementById('contactModal').classList.add('active');document.body.style.overflow='hidden';return false">ıletişim</a>
+            <a href="#" onclick="document.getElementById('contactModal').classList.add('active');document.body.style.overflow='hidden';return false">İletişim</a>
             <a href="kvkk.html">KVKK</a>
           </div>
         </div>
       </div>
       <div class="footer__bottom">
-        <p>ı 2026 İşBul Teknoloji A.ı. Tım hakları saklıdır.</p>
+        <p>© 2026 İşBul Teknoloji A.Ş. Tüm hakları saklıdır.</p>
         <div class="footer__badges">
           <span class="footer-badge">🔒 SSL Güvenli</span>
           <span class="footer-badge">✓ KVKK Uyumlu</span>
@@ -645,20 +644,20 @@
         <div class="auth-panel active" id="auth-login">
           <div class="auth-social">
             <button class="auth-social-btn" onclick="handleOAuth('google')">✓ Google</button>
-            <button class="auth-social-btn" onclick="handleOAuth('apple')">? Apple</button>
+            
           </div>
           <div class="auth-divider">veya e-posta ile</div>
           <form id="loginForm" novalidate>
             <div class="form-group"><label>E-posta</label><input type="email" name="email" placeholder="ornek@mail.com" required /></div>
-            <div class="form-group"><label>şifre <a href="#" class="auth-forgot" onclick="showToast('şifre sıfırlama e-postası gönderildi!','info');return false">şifremi unuttum</a></label><input type="password" name="password" placeholder="••••••" required /></div>
+            <div class="form-group"><label>Şifre <a href="#" class="auth-forgot" onclick="showToast('Şifre sıfırlama e-postası gönderildi!','info');return false">Şifremi unuttum</a></label><input type="password" name="password" placeholder="••••••" required /></div>
             <button type="submit" class="auth-submit">Giriş Yap</button>
           </form>
-          <p class="auth-footer">hesabınız yok mu? <a href="#" onclick="document.querySelector('[data-tab=register]').click();return false">Kayıt olun</a></p>
+          <p class="auth-footer">Hesabınız yok mu? <a href="#" onclick="document.querySelector('[data-tab=register]').click();return false">Kayıt olun</a></p>
         </div>
         <div class="auth-panel" id="auth-register">
           <div class="auth-social">
             <button class="auth-social-btn" onclick="handleOAuth('google')">✓ Google</button>
-            <button class="auth-social-btn" onclick="handleOAuth('apple')">? Apple</button>
+            
           </div>
           <div class="auth-divider">veya e-posta ile</div>
           <form id="registerForm" novalidate>
@@ -667,11 +666,11 @@
               <div><label>Soyad</label><input type="text" name="regLastName" placeholder="Soyadınız" required /></div>
             </div>
             <div class="form-group"><label>E-posta</label><input type="email" name="regEmail" placeholder="ornek@mail.com" required /></div>
-            <div class="form-group"><label>şifre</label><input type="password" name="regPassword" placeholder="En az 8 karakter" required /></div>
-            <div class="form-group"><label>şifre Tekrar</label><input type="password" name="regPasswordConfirm" placeholder="şifreyi tekrar girin" required /></div>
+            <div class="form-group"><label>Şifre</label><input type="password" name="regPassword" placeholder="En az 8 karakter" required /></div>
+            <div class="form-group"><label>Şifre Tekrar</label><input type="password" name="regPasswordConfirm" placeholder="Şifreyi tekrar girin" required /></div>
             <button type="submit" class="auth-submit">Hesap oluştur</button>
           </form>
-          <p class="auth-footer">hesabınız var mı? <a href="#" onclick="document.querySelector('[data-tab=login]').click();return false">Giriş yapın</a></p>
+          <p class="auth-footer">Hesabınız var mı? <a href="#" onclick="document.querySelector('[data-tab=login]').click();return false">Giriş yapın</a></p>
         </div>
       </div>
     </div>
@@ -682,32 +681,32 @@
     <div class="booking-modal-inner">
       <div class="booking-modal-header">
         <h3>Rezervasyon</h3>
-        <button onclick="closebookingModal()" style="width:32px;height:32px;border-radius:50%;background:var(--bg);border:none;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center">?</button>
+        <button onclick="closeBookingModal()" style="width:32px;height:32px;border-radius:50%;background:var(--bg);border:none;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center">✕</button>
       </div>
       <div class="booking-modal-body" id="bookingModalBody"></div>
     </div>
   </div>
 
   <script>
-    // Auth durumu gıöncelle
-    // Auth state sayfa deıişiminde korunur ı DOMContentLoaded'da app.js ıaİşrıyor
+    // Auth durumu güncelle
+    // Auth state sayfa değişiminde korunur - DOMContentLoaded'da app.js çağrılıyor
 
     // Mobil filtre toggle
-    document.getElementById('mobilefilterBtn')?.addEventListener('click', () => {
+    document.getElementById('mobileFilterBtn')?.addEventListener('click', () => {
       document.getElementById('sidebar').classList.toggle('open');
     });
 
-    // sticky sidebar için scroll tetikleyici ı ilk yıklemede Çalışır
+    // sticky sidebar için scroll tetikleyici - ilk yüklemede çalışır
     window.addEventListener('load', () => {
-      // Layout yıksekliçini doıru hesapla
+      // Layout yüksekliğini doğru hesapla
       const grid = document.getElementById('servicesgrid');
       const sidebar = document.querySelector('.sidebar');
       if (grid && sidebar) {
-        const gridH = grid.offsetheight;
-        const sidebarH = sidebar.offsetheight;
+        const gridH = grid.offsetHeight;
+        const sidebarH = sidebar.offsetHeight;
         // grid sidebar'dan kısaysa, grid'e min-height ver
         if (gridH < sidebarH + 100) {
-          grid.style.minheight = (sidebarH + 200) + 'px';
+          grid.style.minHeight = (sidebarH + 200) + 'px';
         }
       }
       // Scroll pozisyonunu sıfırla
@@ -715,14 +714,14 @@
     });
   </script>
 
-  <!-- ıLETİşıM MODAL -->
+  <!-- İLETİŞİM MODAL -->
   <div class="modal-overlay" id="contactModal">
     <div style="background:var(--white);border-radius:20px;max-width:480px;width:92%;position:relative;padding:0;overflow:hidden">
       <div style="background:linear-gradient(135deg,#1a1a2e,#0f3460);padding:28px 28px 24px;color:#fff;text-align:center">
         <button onclick="document.getElementById('contactModal').classList.remove('active');document.body.style.overflow=''"
-          style="position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center">?</button>
+          style="position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center">×</button>
         <div style="font-size:40px;margin-bottom:10px">📧</div>
-        <h3 style="font-size:22px;font-weight:900;margin-bottom:6px">ıletişim</h3>
+        <h3 style="font-size:22px;font-weight:900;margin-bottom:6px">İletişim</h3>
         <p style="font-size:14px;opacity:.8">Her sorunuz için 7/24 hazırız.</p>
       </div>
       <div style="padding:28px">
@@ -741,7 +740,7 @@
             <span style="width:40px;height:40px;border-radius:50%;background:var(--primary-light);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">📧</span>
             <div>
               <div style="font-size:13px;color:var(--text-muted);font-weight:400">Rehber</div>
-              <div>nasıl Çalışır? ı</div>
+              <div>Nasıl Çalışır?</div>
             </div>
           </a>
         </div>

@@ -5,6 +5,66 @@
 
 // USERS, ILLER, TÜM_UZMANLAR ve yardımcı fonksiyonlar data.js'den gelir
 
+/* ============================================================
+   ZOOM YÖNETİMİ — Tüm sayfalarda zoom seviyesini korur
+   ============================================================ */
+(function initZoomPersistence() {
+  const ZOOM_KEY = 'isbul_zoom_level';
+  
+  // Sayfa yüklendiğinde kaydedilmiş zoom seviyesini uygula
+  function applyZoom() {
+    try {
+      const savedZoom = localStorage.getItem(ZOOM_KEY);
+      if (savedZoom) {
+        const zoomValue = parseFloat(savedZoom);
+        if (zoomValue >= 0.25 && zoomValue <= 5) {
+          document.body.style.zoom = zoomValue;
+        }
+      }
+    } catch(e) {
+      console.warn('Zoom seviyesi yüklenemedi:', e);
+    }
+  }
+  
+  // Zoom değişikliklerini izle ve kaydet
+  function saveZoom() {
+    try {
+      const currentZoom = parseFloat(document.body.style.zoom) || 1;
+      localStorage.setItem(ZOOM_KEY, currentZoom.toString());
+    } catch(e) {
+      console.warn('Zoom seviyesi kaydedilemedi:', e);
+    }
+  }
+  
+  // Zoom değişikliklerini dinle
+  function observeZoom() {
+    // MutationObserver ile body'nin style değişikliklerini izle
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+          saveZoom();
+        }
+      });
+    });
+    
+    observer.observe(document.body, {
+      attributes: true,
+      attributeFilter: ['style']
+    });
+  }
+  
+  // Sayfa yüklendiğinde zoom'u uygula
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      applyZoom();
+      observeZoom();
+    });
+  } else {
+    applyZoom();
+    observeZoom();
+  }
+})();
+
 /* Expert index to object helper (geriye dönük uyumluluk) */
 function getExpertByIndex(i) { return TÜM_UZMANLAR[i] || TÜM_UZMANLAR[0]; }
 function getExpertsByCategory(cat) {
@@ -25,6 +85,52 @@ function getUsersDB() {
 }
 function saveUsersDB(db) {
   localStorage.setItem(USERS_DB_KEY, JSON.stringify(db));
+}
+
+/* Demo uzman hesabını oluştur / güncelle */
+function seedDemoExpert() {
+  const db = getUsersDB();
+  const email = 'umityakupdedeoglu0@gmail.com';
+  const password = 'Umit311234';
+
+  // Her zaman güncel veriyle kaydet (varsa üstüne yaz, kategoriler dahil)
+  db[email] = {
+    id: 'u_demo_expert_001',
+    firstName: 'Ümit',
+    lastName: 'Dedeoğlu',
+    email: email,
+    passwordHash: btoa(password + '_isbul_salt'),
+    createdAt: db[email]?.createdAt || new Date().toISOString(),
+    avatar: 'ÜD',
+    color: '#6C63FF',
+    role: 'expert',
+    isExpert: true,
+    expertData: {
+      tags:       ['Mobilya Montajı', 'TV Montajı', 'Elektrik'],
+      categories: ['montaj', 'tv', 'elektrik'],
+      city:       'İstanbul',
+      price:      350,
+      rating:     5.0,
+      reviews:    0,
+      experience: '5+ yıl',
+      bio:        'Profesyonel mobilya montajı, TV montajı ve elektrik işleri uzmanı. İstanbul genelinde hizmet veriyorum.',
+      verified:   true,
+      elite:      true,
+      hours:      'Pzt-Cum: 09:00-18:00'
+    }
+  };
+  saveUsersDB(db);
+
+  // Eğer oturum açıksa ve bu kullanıcıysa session'ı da güncelle
+  const session = getSession();
+  if (session && session.email === email) {
+    session.isExpert  = true;
+    session.role      = 'expert';
+    session.expertData = db[email].expertData;
+    saveSession(session);
+  }
+
+  console.log('✅ Demo uzman hesabı senkronize edildi:', email);
 }
 
 /* Oturum yönetimi */
@@ -160,7 +266,6 @@ function _updateNavbarLoggedIn(email, name) {
         ${session?.role === 'admin'
           ? '<a href="admin-panel.html" style="display:flex;align-items:center;gap:10px;padding:12px 16px;font-size:14px;color:#ef4444;text-decoration:none;transition:.15s;font-weight:700;border-bottom:1px solid var(--border)" onmouseover="this.style.background=\'#fef2f2\'" onmouseout="this.style.background=\'\'">🛡️ Admin Paneli</a>'
           : ''}
-        ${session?.isExpert ? '<a href="uzman-panel.html" style="display:flex;align-items:center;gap:10px;padding:12px 16px;font-size:14px;color:var(--primary);text-decoration:none;transition:.15s;font-weight:700" onmouseover="this.style.background=\'var(--primary-light)\'" onmouseout="this.style.background=\'\'">⚡ Uzman Panelim</a>' : '<a href="uzman-ol.html" style="display:flex;align-items:center;gap:10px;padding:12px 16px;font-size:14px;color:var(--text);text-decoration:none;transition:.15s" onmouseover="this.style.background=\'var(--bg)\'" onmouseout="this.style.background=\'\'">🔧 Uzman Ol</a>'}
         <a href="profil.html" style="display:flex;align-items:center;gap:10px;padding:12px 16px;font-size:14px;color:var(--text);text-decoration:none;transition:.15s" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background=''">👤 Profilim</a>
         <button onclick="logoutUser()" style="display:flex;align-items:center;gap:10px;padding:12px 16px;font-size:14px;color:#ef4444;background:none;border:none;cursor:pointer;width:100%;text-align:left;border-top:1px solid var(--border)" onmouseover="this.style.background='#fef2f2'" onmouseout="this.style.background=''">🚪 Çıkış Yap</button>
       </div>`;
@@ -195,8 +300,17 @@ function _updateNavbarGuest() {
 
 /* Sayfa yüklendiğinde oturumu kontrol et ve navbar'ı güncelle */
 function _initAuthState() {
+  // Demo uzman hesabını her zaman güncel veriyle kaydet
+  seedDemoExpert();
+  
   if (isLoggedIn()) {
     _updateNavbarLoggedIn();
+  }
+  
+  // Uzman listesi varsa cache'i sıfırla ve yeniden yükle
+  // (seedDemoExpert çalıştıktan sonra güncel listeyi göstermek için)
+  if (typeof renderExperts === 'function') {
+    renderExperts(true);
   }
   
   // Navbar'daki "Uzman Ol" linkini dinamik yap
@@ -211,8 +325,16 @@ function _initAuthState() {
     } else if (session && session.isExpert) {
       link.href        = 'uzman-panel.html';
       link.textContent = 'Uzman Panelim';
-      link.style.color = '';
-      link.style.fontWeight = '';
+      
+      // Eğer uzman-panel.html sayfasındaysa aktif stili uygula
+      const currentPage = window.location.pathname.split('/').pop();
+      if (currentPage === 'uzman-panel.html') {
+        link.style.color = 'var(--primary)';
+        link.style.fontWeight = '700';
+      } else {
+        link.style.color = '';
+        link.style.fontWeight = '';
+      }
     }
   });
 }

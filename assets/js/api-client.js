@@ -4,7 +4,19 @@
  * localStorage ile paralel çalışır — API başarısız olursa localStorage fallback devreye girer.
  */
 
-const API_BASE = 'http://localhost:3001/api/v1';
+// Ortama göre otomatik base URL tespiti
+// Canlıya alındığında BACKEND_URL sabitini kendi domain'inize göre güncellemeniz yeterli.
+const BACKEND_URL = (() => {
+  const h = window.location.hostname;
+  if (h === 'localhost' || h === '127.0.0.1') {
+    return 'http://localhost:3001';
+  }
+  // Canlı ortam — backend subdomain'i veya ayrı sunucu adresi buraya gelecek.
+  // Örnek: 'https://api.isbul.com' veya 'https://isbul-backend.railway.app'
+  return `https://api.${h}`;
+})();
+
+const API_BASE = `${BACKEND_URL}/api/v1`;
 
 /* ─────────────────────────────────────────────────────────
    TOKEN YÖNETİMİ

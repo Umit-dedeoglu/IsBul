@@ -177,12 +177,24 @@ function getRealExperts() {
         avatar:     u.avatar || (u.firstName[0] + u.lastName[0]).toUpperCase(),
         color:      u.color || '#6C63FF',
         title:      (u.expertData.tags && u.expertData.tags[0]) ? u.expertData.tags[0] + ' Uzmanı' : 'Uzman',
-        categories: (u.expertData.tags || []).map(t => t.toLowerCase().replace(/\s/g, '')),
+        categories: u.expertData.categories || (u.expertData.tags || []).map(t => {
+          // Tag'i kategoriye dönüştür (küçük harf + boşluk kaldır)
+          const tag = t.toLowerCase().trim();
+          if (tag.includes('mobilya')) return 'montaj';
+          if (tag.includes('tv')) return 'tv';
+          if (tag.includes('elektrik')) return 'elektrik';
+          if (tag.includes('tesisat')) return 'tesisat';
+          if (tag.includes('boya')) return 'boya';
+          if (tag.includes('temizlik')) return 'temizlik';
+          if (tag.includes('bahçe') || tag.includes('bahce')) return 'bahce';
+          if (tag.includes('nakliyat')) return 'nakliyat';
+          return 'diger';
+        }),
         rating:     u.expertData.rating || 5.0,
         reviews:    u.expertData.reviews || 0,
         price:      u.expertData.price || 300,
         experience: u.expertData.experience || '1 yıl',
-        elite:      false,
+        elite:      u.expertData.verified || false,
         bio:        u.expertData.bio || '',
         tags:       u.expertData.tags || [],
         hours:      u.expertData.hours || '',

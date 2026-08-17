@@ -108,7 +108,7 @@
     .status-pending { background: #fef3c7; color: #92400e; }
     .status-confirmed { background: #d1fae5; color: #065f46; }
     .status-completed { background: #e0e7ff; color: #3730a3; }
-    .status-caöncelled { background: #fee2e2; color: #991b1b; }
+    .status-cancelled { background: #fee2e2; color: #991b1b; }
     
     .earning-summary {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -168,9 +168,10 @@
         <span class="logo-text"><strong>İşBul</strong></span>
       </a>
       <nav class="navbar__links" id="navLinks">
-        <a href="hizmetler.html">hizmetler</a>
-        <a href="uzmanlar.html">Uzmanlar</a>
-        <a href="nasil-calisir.html">nasıl Çalışır?</a>
+        <a href="hizmetler.html">Hizmetler</a>
+        <a href="nasil-calisir.html">Nasıl Çalışır?</a>
+        <a href="uzman-panel.html" style="color:var(--primary);font-weight:700">Uzman Panelim</a>
+        <a href="mailto:Kurumsal@isbul.com.tr">Kurumsal</a>
       </nav>
       <div class="navbar__actions">
         <button onclick="openAuthModal('login')" class="btn btn--ghost">Giriş Yap</button>
@@ -184,42 +185,42 @@
     <!-- Hero -->
     <div class="panel-hero">
       <div class="container">
-        <h1 style="color: #ffffff !important; font-size: 28px; font-weight: 900; margin-bottom: 8px;">✓ Hoı geldin, <span id="expertName" style="color: #ffffff !important;">Uzman</span>!</h1>
-        <p id="expertSubtitle" style="color: #ffffff !important; opacity: 0.9; font-size: 15px;">Bugın 3 yeni rezervasyon var</p>
+        <h1 style="color: #ffffff !important; font-size: 28px; font-weight: 900; margin-bottom: 8px;">✅ Hoş geldin, <span id="expertName" style="color: #ffffff !important;">Uzman</span>!</h1>
+        <p id="expertSubtitle" style="color: #ffffff !important; opacity: 0.9; font-size: 15px;">Bugün 3 yeni rezervasyon var</p>
       </div>
     </div>
 
     <div class="container">
-      <!-- ıstatistikler -->
+      <!-- İstatistikler -->
       <div class="stats-grid">
         <div class="stat-card">
-          <div class="stat-icon" style="background: #fef3c7; color: #f59e0b">✓</div>
+          <div class="stat-icon" style="background: #fef3c7; color: #f59e0b">⏳</div>
           <div class="stat-value" id="statPending" style="color: #1a202c !important;">0</div>
           <div class="stat-label" style="color: #64748b !important;">Bekleyen Rezervasyon</div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon" style="background: #d1fae5; color: #10b981">?</div>
+          <div class="stat-icon" style="background: #d1fae5; color: #10b981">✅</div>
           <div class="stat-value" id="statCompleted" style="color: #1a202c !important;">0</div>
           <div class="stat-label" style="color: #64748b !important;">Tamamlanan İş</div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon" style="background: #dbeafe; color: #3b82f6">?</div>
+          <div class="stat-icon" style="background: #dbeafe; color: #3b82f6">⭐</div>
           <div class="stat-value" id="statRating" style="color: #1a202c !important;">5.0</div>
           <div class="stat-label" style="color: #64748b !important;">Ortalama Puan</div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon" style="background: #e0e7ff; color: #6366f1">?</div>
-          <div class="stat-value" id="statearnings" style="color: #1a202c !important;">0</div>
+          <div class="stat-icon" style="background: #e0e7ff; color: #6366f1">💰</div>
+          <div class="stat-value" id="statEarnings" style="color: #1a202c !important;">0</div>
           <div class="stat-label" style="color: #64748b !important;">Toplam Kazanç</div>
         </div>
       </div>
 
       <!-- Sekmeler -->
       <div class="panel-tabs">
-        <button class="panel-tab active" data-panel="bookings" style="color: #6C63FF; border-bottom-color: #6C63FF;">✓ Rezervasyonlar</button>
-        <button class="panel-tab" data-panel="earnings" style="color: #2d2d2d;">✓ Kazançlar</button>
-        <button class="panel-tab" data-panel="profile" style="color: #2d2d2d;">✓ profil Ayarları</button>
-        <button class="panel-tab" data-panel="stats" style="color: #2d2d2d;">✓ ıstatistikler</button>
+        <button class="panel-tab active" data-panel="bookings" style="color: #6C63FF; border-bottom-color: #6C63FF;">📋 Rezervasyonlar</button>
+        <button class="panel-tab" data-panel="earnings" style="color: #2d2d2d;">💰 Kazançlarım</button>
+        <button class="panel-tab" data-panel="profile" style="color: #2d2d2d;">⚙️ Profil Ayarları</button>
+        <button class="panel-tab" data-panel="stats" style="color: #2d2d2d;">📊 İstatistikler</button>
       </div>
 
       <!-- Panel: Rezervasyonlar -->
@@ -228,9 +229,9 @@
           <h2 style="font-size: 20px; font-weight: 900; margin-bottom: 16px; color: #1a202c !important;">Rezervasyonlar</h2>
           <div class="booking-list" id="bookingList">
             <div class="empty-state">
-              <div class="empty-state-icon">✓</div>
-              <h3 style="color: #1a202c !important;">Henız rezervasyon yok</h3>
-              <p style="color: #64748b !important;">Rezervasyonlarınız burada gırınecek</p>
+              <div class="empty-state-icon">📭</div>
+              <h3 style="color: #1a202c !important;">Henüz rezervasyon yok</h3>
+              <p style="color: #64748b !important;">Rezervasyonlarınız burada görünecek</p>
             </div>
           </div>
         </div>
@@ -240,15 +241,15 @@
       <div class="panel-content" id="panel-earnings">
         <div class="earning-summary">
           <h2 style="color: #ffffff !important; font-size: 15px; opacity: 0.9; margin-bottom: 8px;">Bu Ay Kazancınız</h2>
-          <div class="earning-amount" style="color: #ffffff !important; font-size: 48px; font-weight: 900; margin-bottom: 16px;">?<span id="monthlyEarning" style="color: #ffffff !important;">0</span></div>
+          <div class="earning-amount" style="color: #ffffff !important; font-size: 48px; font-weight: 900; margin-bottom: 16px;">₺<span id="monthlyEarning" style="color: #ffffff !important;">0</span></div>
           <div class="earning-details">
             <div class="earning-item">
               <div class="earning-item-value" id="monthlyJobs" style="color: #ffffff !important;">0</div>
               <div class="earning-item-label" style="color: #ffffff !important; opacity: 0.8;">İş Sayısı</div>
             </div>
             <div class="earning-item">
-              <div class="earning-item-value" style="color: #ffffff !important;">?<span id="avgJobPrice" style="color: #ffffff !important;">0</span></div>
-              <div class="earning-item-label" style="color: #ffffff !important; opacity: 0.8;">Ortalama ıcret</div>
+              <div class="earning-item-value" style="color: #ffffff !important;">₺<span id="avgJobPrice" style="color: #ffffff !important;">0</span></div>
+              <div class="earning-item-label" style="color: #ffffff !important; opacity: 0.8;">Ortalama Ücret</div>
             </div>
             <div class="earning-item">
               <div class="earning-item-value" id="monthlyHours" style="color: #ffffff !important;">0</div>
@@ -257,7 +258,7 @@
           </div>
         </div>
         <div style="background: var(--white); border-radius: var(--radius); padding: 24px; border: 1.5px solid var(--border);">
-          <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 16px; color: #1a202c !important;">geçmiş Kazançlar</h3>
+          <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 16px; color: #1a202c !important;">Geçmiş Kazançlar</h3>
           <div id="earningHistory">
             <p style="color: #64748b !important; font-size: 14px;">Kazanç geçmişi yakında eklenecek...</p>
           </div>
@@ -267,25 +268,25 @@
       <!-- Panel: profil Ayarları -->
       <div class="panel-content" id="panel-profile">
         <div style="background: var(--white); border-radius: var(--radius); padding: 32px; border: 1.5px solid var(--border);">
-          <h2 style="font-size: 20px; font-weight: 900; margin-bottom: 24px; color: #1a202c !important;">profil Ayarları</h2>
+          <h2 style="font-size: 20px; font-weight: 900; margin-bottom: 24px; color: #1a202c !important;">Profil Ayarları</h2>
           <form class="profile-edit-form" id="profileForm">
             <div class="form-group">
-              <label>Saat ıcreti (?)</label>
+              <label>Saat Ücreti (₺)</label>
               <div style="display: flex; align-items: center; gap: 12px;">
                 <select id="expertPrice" style="width: 100%; padding: 12px 14px; border-radius: 8px; border: 1.5px solid var(--border); font-size: 14px; color: #1a202c;">
-                  <option value="">ıcret seçin...</option>
-                  <option value="100">?100 / saat</option>
-                  <option value="150">?150 / saat</option>
-                  <option value="200">?200 / saat</option>
-                  <option value="250">?250 / saat</option>
-                  <option value="300">?300 / saat</option>
-                  <option value="350">?350 / saat</option>
-                  <option value="400">?400 / saat</option>
-                  <option value="450">?450 / saat</option>
-                  <option value="500">?500 / saat</option>
-                  <option value="600">?600 / saat</option>
-                  <option value="750">?750 / saat</option>
-                  <option value="1000">?1000 / saat</option>
+                  <option value="">Ücret seçin...</option>
+                  <option value="100">₺100 / saat</option>
+                  <option value="150">₺150 / saat</option>
+                  <option value="200">₺200 / saat</option>
+                  <option value="250">₺250 / saat</option>
+                  <option value="300">₺300 / saat</option>
+                  <option value="350">₺350 / saat</option>
+                  <option value="400">₺400 / saat</option>
+                  <option value="450">₺450 / saat</option>
+                  <option value="500">₺500 / saat</option>
+                  <option value="600">₺600 / saat</option>
+                  <option value="750">₺750 / saat</option>
+                  <option value="1000">₺1000 / saat</option>
                 </select>
               </div>
             </div>
@@ -294,8 +295,8 @@
               <textarea id="expertBio" rows="4" placeholder="Kendinizi tanıtın... (maks. 300 karakter)" maxlength="300"></textarea>
             </div>
             <div class="form-group">
-              <label>Çalışma ıehri</label>
-              <select id="expertcity"></select>
+              <label>Çalışma Şehri</label>
+              <select id="expertCity"></select>
             </div>
             <div class="form-group">
               <label>Uzmanlık Alanları</label>
@@ -312,13 +313,13 @@
             <div class="form-group">
               <label>Çalışma Saatleri</label>
               <div style="border: 1.5px solid var(--border); border-radius: 10px; padding: 16px; background: #f9fafb;">
-                <!-- Gınler -->
+                <!-- Günler -->
                 <div style="margin-bottom: 14px;">
-                  <div style="font-size: 13px; font-weight: 600; color: #64748b; margin-bottom: 8px;">Çalışma Gınleri</div>
+                  <div style="font-size: 13px; font-weight: 600; color: #64748b; margin-bottom: 8px;">Çalışma Günleri</div>
                   <div style="display: flex; flex-wrap: wrap; gap: 8px;" id="workDays">
                     <label style="display:flex;align-items:center;gap:5px;font-size:13px;cursor:pointer;"><input type="checkbox" value="Pzt" style="width:auto;" /> Pzt</label>
                     <label style="display:flex;align-items:center;gap:5px;font-size:13px;cursor:pointer;"><input type="checkbox" value="Sal" style="width:auto;" /> Sal</label>
-                    <label style="display:flex;align-items:center;gap:5px;font-size:13px;cursor:pointer;"><input type="checkbox" value="ıar" style="width:auto;" /> ıar</label>
+                    <label style="display:flex;align-items:center;gap:5px;font-size:13px;cursor:pointer;"><input type="checkbox" value="Çar" style="width:auto;" /> Çar</label>
                     <label style="display:flex;align-items:center;gap:5px;font-size:13px;cursor:pointer;"><input type="checkbox" value="Per" style="width:auto;" /> Per</label>
                     <label style="display:flex;align-items:center;gap:5px;font-size:13px;cursor:pointer;"><input type="checkbox" value="Cum" style="width:auto;" /> Cum</label>
                     <label style="display:flex;align-items:center;gap:5px;font-size:13px;cursor:pointer;"><input type="checkbox" value="Cmt" style="width:auto;" /> Cmt</label>
@@ -328,7 +329,7 @@
                 <!-- Saatler -->
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
                   <div>
-                    <div style="font-size: 13px; font-weight: 600; color: #64748b; margin-bottom: 6px;">başlangİş Saati</div>
+                    <div style="font-size: 13px; font-weight: 600; color: #64748b; margin-bottom: 6px;">Başlangıç Saati</div>
                     <select id="startHour" style="width:100%; padding: 10px; border-radius: 8px; border: 1.5px solid var(--border); font-size: 14px; color: #1a202c;">
                       <option value="06:00">06:00</option>
                       <option value="07:00">07:00</option>
@@ -356,25 +357,25 @@
                     </select>
                   </div>
                 </div>
-                <!-- ınizleme -->
+                <!-- Önizleme -->
                 <div style="margin-top: 12px; padding: 10px; background: #ede9ff; border-radius: 8px; font-size: 13px; color: #6C63FF; font-weight: 600;" id="hoursPreview">
-                  ınizleme: Henız gün seıilmedi
+                  Önizleme: Henüz gün seçilmedi
                 </div>
               </div>
               <input type="hidden" id="expertHours" />
             </div>
             <button type="submit" class="btn btn--primary" style="width: 100%; justify-content: center;">
-              Deıişiklikleri Kaydet
+              Değişiklikleri Kaydet
             </button>
           </form>
         </div>
       </div>
 
-      <!-- Panel: ıstatistikler -->
+      <!-- Panel: İstatistikler -->
       <div class="panel-content" id="panel-stats">
         <div style="background: var(--white); border-radius: var(--radius); padding: 32px; border: 1.5px solid var(--border);">
-          <h2 style="font-size: 20px; font-weight: 900; margin-bottom: 24px; color: #1a202c !important;">Detaylı ıstatistikler</h2>
-          <p style="color: #64748b !important;">Gelişmiş analitik ıöözellikleri yakında eklenecek...</p>
+          <h2 style="font-size: 20px; font-weight: 900; margin-bottom: 24px; color: #1a202c !important;">Detaylı İstatistikler</h2>
+          <p style="color: #64748b !important;">Gelişmiş analitik özellikler yakında eklenecek...</p>
         </div>
       </div>
     </div>
@@ -393,23 +394,23 @@
       </div>
       <div class="auth-body">
         <div class="auth-panel active" id="auth-login">
-          <div class="auth-social"><button class="auth-social-btn" onclick="handleOAuth('google')">✓ Google ile Giriş</button><button class="auth-social-btn" onclick="handleOAuth('apple')">? Apple ile Giriş</button></div>
+          <div class="auth-social"><button class="auth-social-btn" onclick="handleOAuth('google')"><svg width="18" height="18" viewBox="0 0 18 18" style="margin-right:8px"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"/><path fill="#FBBC05" d="M3.964 10.707c-.18-.54-.282-1.117-.282-1.707s.102-1.167.282-1.707V4.961H.957C.347 6.175 0 7.55 0 9s.348 2.825.957 4.039l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.961L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"/></svg> Google ile Giriş</button></div>
           <div class="auth-divider">veya e-posta ile</div>
           <form id="loginForm" novalidate>
             <div class="form-group"><label>E-posta</label><input type="email" name="email" placeholder="ornek@mail.com" /></div>
-            <div class="form-group"><label>şifre</label><input type="password" name="password" placeholder="••••••" /></div>
+            <div class="form-group"><label>Şifre</label><input type="password" name="password" placeholder="••••••" /></div>
             <button type="submit" class="auth-submit">Giriş Yap</button>
           </form>
         </div>
         <div class="auth-panel" id="auth-register">
-          <div class="auth-social"><button class="auth-social-btn" onclick="handleOAuth('google')">✓ Google ile Kayıt</button></div>
+          <div class="auth-social"><button class="auth-social-btn" onclick="handleOAuth('google')"><svg width="18" height="18" viewBox="0 0 18 18" style="margin-right:8px"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"/><path fill="#FBBC05" d="M3.964 10.707c-.18-.54-.282-1.117-.282-1.707s.102-1.167.282-1.707V4.961H.957C.347 6.175 0 7.55 0 9s.348 2.825.957 4.039l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.961L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"/></svg> Google ile Kayıt</button></div>
           <div class="auth-divider">veya e-posta ile</div>
           <form id="registerForm" novalidate>
             <div class="form-group" style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div><label>Ad</label><input type="text" name="regFirstName" placeholder="Adınız" /></div><div><label>Soyad</label><input type="text" name="regLastName" placeholder="Soyadınız" /></div></div>
             <div class="form-group"><label>E-posta</label><input type="email" name="regEmail" placeholder="ornek@mail.com" /></div>
-            <div class="form-group"><label>şifre</label><input type="password" name="regPassword" placeholder="En az 8 karakter" /></div>
+            <div class="form-group"><label>Şifre</label><input type="password" name="regPassword" placeholder="En az 8 karakter" /></div>
             <div class="form-group"><label>Tekrar</label><input type="password" name="regPasswordConfirm" placeholder="Tekrar girin" /></div>
-            <button type="submit" class="auth-submit">Hesap oluştur</button>
+            <button type="submit" class="auth-submit">Hesap Oluştur</button>
           </form>
         </div>
       </div>
@@ -420,14 +421,16 @@
   <script src="assets/js/api-client.js"></script>
   <script src="assets/js/app.js"></script>
   <script>
-    // Auth kontrolı ı uzman deıilse yınlendir
+    let expertTags = []; // Uzman etiketlerini tutmak için global değişken
+    
+    // Auth kontrolü – uzman değilse yönlendir
     const session = typeof getSession === 'function' ? getSession() : null;
     if (!session) {
       showToast('Uzman paneline erişmek için giriş yapmanız gerekiyor.', 'error');
-      settimeout(() => window.location = 'index.html', 1500);
+      setTimeout(() => window.location = 'index.html', 1500);
     } else if (!session.isExpert && session.role !== 'admin') {
       showToast('Bu sayfa sadece uzmanlar içindir.', 'error');
-      settimeout(() => window.location = 'index.html', 1500);
+      setTimeout(() => window.location = 'index.html', 1500);
     }
 
     // Uzman bilgilerini yıkle
@@ -436,8 +439,8 @@
       expertNameEl.textContent = session.firstName;
       expertNameEl.style.color = '#ffffff';
       
-      // ışehir dropdown'u doldur
-      const citySelect = document.getElementById('expertcity');
+      // Şehir dropdown'unu doldur
+      const citySelect = document.getElementById('expertCity');
       Object.keys(ILLER).forEach(city => {
         const opt = document.createElement('option');
         opt.value = city;
@@ -446,34 +449,34 @@
         citySelect.appendChild(opt);
       });
 
-      // Eıer kullanıcının expertData'sı varsa doldur
+      // Eğer kullanıcının expertData'sı varsa doldur
       if (session.expertData) {
-        // Saat ıcreti
+        // Saat Ücreti
         const priceSelect = document.getElementById('expertPrice');
         const price = session.expertData.price || 300;
         for (let opt of priceSelect.options) {
-          if (paraseInt(opt.value) === price) { opt.selected = true; break; }
+          if (parseInt(opt.value) === price) { opt.selected = true; break; }
         }
 
         // Bio
         document.getElementById('expertBio').value = session.expertData.bio || '';
         document.getElementById('bioCount').textContent = `(${(session.expertData.bio||'').length}/300)`;
 
-        // Çalışma saatlerini parase et ve forma yıkle
+        // Çalışma saatlerini parse et ve forma yükle
         const hours = session.expertData.hours || '';
         if (hours) {
-          // "Pzt-Cum: 09:00-18:00, Cmt: 10:00-16:00" formatını parase et
-          const parats = hours.split(':')[0]; // "Pzt-Cum" veya "Pzt,Sal,Cum"
-          const dayparat = hours.match(/^([^:]+):/);
-          if (dayparat) {
-            const dayStr = dayparat[1].trim();
-            const allDays = ['Pzt','Sal','ıar','Per','Cum','Cmt','Paz'];
+          // "Pzt-Cum: 09:00-18:00, Cmt: 10:00-16:00" formatını parse et
+          const parts = hours.split(':')[0]; // "Pzt-Cum" veya "Pzt,Sal,Cum"
+          const dayPart = hours.match(/^([^:]+):/);
+          if (dayPart) {
+            const dayStr = dayPart[1].trim();
+            const allDays = ['Pzt','Sal','Çar','Per','Cum','Cmt','Paz'];
             // Tek tek işaretle
             document.querySelectorAll('#workDays input[type=checkbox]').forEach(cb => {
               if (dayStr.includes(cb.value)) cb.checked = true;
             });
           }
-          // Saatleri parase et
+          // Saatleri parse et
           const timeMatch = hours.match(/(\d{2}:\d{2})-(\d{2}:\d{2})/);
           if (timeMatch) {
             const startSel = document.getElementById('startHour');
@@ -483,9 +486,10 @@
           }
         }
 
-        // Etiketleri gıster
+        // Etiketleri göster
         const tagsWrap = document.getElementById('expertTags');
-        (session.expertData.tags || []).forEach(tag => {
+        expertTags = session.expertData.tags || []; // Global diziye yükle
+        expertTags.forEach(tag => {
           const badge = document.createElement('div');
           badge.className = 'tag-badge';
           badge.innerHTML = `${tag} <button type="button" onclick="removeTag('${tag}')">&times;</button>`;
@@ -510,7 +514,7 @@
       document.getElementById('bioCount').textContent = `(${this.value.length}/300)`;
     });
 
-    // Çalışma saatleri ınizleme
+    // Çalışma saatleri önizleme
     function updateHoursPreview() {
       const checked = [...document.querySelectorAll('#workDays input:checked')].map(cb => cb.value);
       const start = document.getElementById('startHour').value;
@@ -519,13 +523,13 @@
       const hidden = document.getElementById('expertHours');
 
       if (checked.length === 0) {
-        preview.textContent = 'ınizleme: Henız gün seıilmedi';
+        preview.textContent = 'Önizleme: Henüz gün seçilmedi';
         hidden.value = '';
         return;
       }
 
-      // Ardİşık gınleri "Pzt-Cum" formatına ıevir
-      const allDays = ['Pzt','Sal','ıar','Per','Cum','Cmt','Paz'];
+      // Ardışık günleri "Pzt-Cum" formatına çevir
+      const allDays = ['Pzt','Sal','Çar','Per','Cum','Cmt','Paz'];
       let result = '';
       let i = 0;
       while (i < allDays.length) {
@@ -541,7 +545,7 @@
       }
 
       const hoursStr = `${result}: ${start}-${end}`;
-      preview.textContent = 'ınizleme: ' + hoursStr;
+      preview.textContent = 'Önizleme: ' + hoursStr;
       hidden.value = hoursStr;
     }
 
@@ -551,7 +555,7 @@
     document.getElementById('startHour').addEventListener('change', updateHoursPreview);
     document.getElementById('endHour').addEventListener('change', updateHoursPreview);
 
-    // ılk yıklemede ınizlemeyi gıöncelle
+    // İlk yüklemede önizlemeyi güncelle
     updateHoursPreview();
     
     // Dropdown'dan kategori ekleme
@@ -563,7 +567,7 @@
         expertTags.push(val);
         const badge = document.createElement('div');
         badge.className = 'tag-badge';
-        badge.innerHTML = `${val} <button type="button" onclick="this.paraentElement.remove(); expertTags=expertTags.filter(t=>t!=='${val}')">&times;</button>`;
+        badge.innerHTML = `${val} <button type="button" onclick="this.parentElement.remove(); expertTags=expertTags.filter(t=>t!=='${val}')">&times;</button>`;
         document.getElementById('expertTags').appendChild(badge);
         select.value = ''; // Reset select
       } else if (expertTags.includes(val)) {
@@ -571,13 +575,13 @@
       }
     });
     
-    // Enter tuıu ile ekleme desteıi (eski input alanı kaldırıldı)
+    // Enter tuşu ile ekleme desteği (eski input alanı kaldırıldı)
     function removeTag(tag) {
       expertTags = expertTags.filter(t => t !== tag);
       // Badge zaten onclick ile kaldırülkeyor
     }
 
-    // profil kaydet ı API ıöncelikli, localStorage fallback
+    // Profil kaydet – API öncelikli, localStorage fallback
     document.getElementById('profileForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       if (!session) return;
@@ -585,10 +589,10 @@
       const expertData = {
         price:      +document.getElementById('expertPrice').value || 300,
         bio:        document.getElementById('expertBio').value.trim(),
-        city:       document.getElementById('expertcity').value,
+        city:       document.getElementById('expertCity').value,
         tags:       expertTags,
         hours:      document.getElementById('expertHours').value.trim(),
-        experieönce: session.expertData?.experieönce || '1 yıl'
+        experience: session.expertData?.experience || '1 yıl'
       };
 
       const btn = this.querySelector('button[type=submit]');
@@ -597,15 +601,15 @@
 
       // API dene
       if (typeof IsBulAPI !== 'undefined') {
-        const res = await IsBulAPI.experts.updateprofile(expertData);
+        const res = await IsBulAPI.experts.updateProfile(expertData);
         if (res !== null) {
           btn.textContent = origText; btn.disabled = false;
-          if (!res) { showToast('profil gıöncellenemedi.', 'error'); return; }
-          // API baıarülke ı session'ı da gıöncelle
+          if (!res) { showToast('Profil güncellenemedi.', 'error'); return; }
+          // API başarılı – session'ı da güncelle
           session.expertData = expertData;
           session.city = expertData.city;
           if (typeof saveSession === 'function') saveSession(session);
-          showToast('? profil bilgileriniz kaydedildi!', 'success');
+          showToast('✅ Profil bilgileriniz kaydedildi!', 'success');
           return;
         }
       }
@@ -621,16 +625,16 @@
         if (typeof saveUsersDB === 'function') saveUsersDB(db);
       }
       btn.textContent = origText; btn.disabled = false;
-      showToast('? profil bilgileriniz kaydedildi!', 'success');
+      showToast('✅ Profil bilgileriniz kaydedildi!', 'success');
     });
 
-    // Sekme geıişi
+    // Sekme geçişi
     document.querySelectorAll('.panel-tab').forEach(tab => {
       tab.addEventListener('click', function() {
         document.querySelectorAll('.panel-tab').forEach(t => {
           t.classList.remove('active');
           t.style.color = '#2d2d2d';
-          t.style.borderBottomColor = 'transparaent';
+          t.style.borderBottomColor = 'transparent';
         });
         document.querySelectorAll('.panel-content').forEach(c => c.classList.remove('active'));
         this.classList.add('active');
@@ -640,93 +644,98 @@
       });
     });
 
-    // Rezervasyonları yıkle ı sadece API
-    async function loadExpertbookings() {
+    // Rezervasyonları yükle – API öncelikli, localStorage fallback
+    async function loadExpertBookings() {
       if (!session) return;
 
-      let expertbookings = null;
+      let expertBookings = null;
 
       if (typeof IsBulAPI !== 'undefined') {
-        expertbookings = await IsBulAPI.bookings.getExpertbookings();
+        expertBookings = await IsBulAPI.bookings.getExpertBookings();
       }
 
-      // API baıarısız ı boı liste gıster
-      if (!expertbookings) {
-        expertbookings = [];
+      // API başarısız veya yoksa — localStorage'dan oku
+      if (!expertBookings) {
+        try {
+          const bookingDB = JSON.parse(localStorage.getItem('isbul_booking_db') || '{}');
+          expertBookings = Object.values(bookingDB).filter(b => b.expertId === session.id);
+        } catch(err) {
+          expertBookings = [];
+        }
       }
 
-      expertbookings = expertbookings.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      expertBookings = expertBookings.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
-      // ıstatistikleri gıöncelle
-      const pending   = expertbookings.filter(b => b.status === 'pending').length;
-      const confirmed = expertbookings.filter(b => b.status === 'confirmed').length;
-      const completed = expertbookings.filter(b => b.status === 'completed').length;
-      const earnings  = expertbookings.filter(b => b.status === 'completed').reduce((s, b) => s + (b.price||0), 0);
+      // İstatistikleri güncelle
+      const pending   = expertBookings.filter(b => b.status === 'pending').length;
+      const confirmed = expertBookings.filter(b => b.status === 'confirmed').length;
+      const completed = expertBookings.filter(b => b.status === 'completed').length;
+      const earnings  = expertBookings.filter(b => b.status === 'completed').reduce((s, b) => s + (b.price||0), 0);
 
       document.getElementById('statPending').textContent   = pending + confirmed;
       document.getElementById('statCompleted').textContent = completed;
-      document.getElementById('statearnings').textContent  = '?' + earnings.toLocaleString('tr-TR');
+      document.getElementById('statEarnings').textContent  = '₺' + earnings.toLocaleString('tr-TR');
       document.getElementById('monthlyEarning').textContent = earnings.toLocaleString('tr-TR');
       document.getElementById('monthlyJobs').textContent   = completed;
       document.getElementById('avgJobPrice').textContent   = completed > 0 ? Math.round(earnings / completed) : 0;
       document.getElementById('monthlyHours').textContent  = completed * 4;
 
-      // Hero subtitle gıöncelle
+      // Hero subtitle güncelle
       if (pending > 0) {
-        document.getElementById('expertSubtitle').textContent = `Bugın ${pending} yeni rezervasyon onayı bekliyor`;
+        document.getElementById('expertSubtitle').textContent = `Bugün ${pending} yeni rezervasyon onayı bekliyor`;
       } else {
-        document.getElementById('expertSubtitle').textContent = 'Hoı geldiniz! Tım rezervasyonlar gıöncel.';
+        document.getElementById('expertSubtitle').textContent = 'Hoş geldiniz! Tüm rezervasyonlar güncel.';
       }
 
       const listEl = document.getElementById('bookingList');
-      if (!expertbookings.length) {
+      if (!expertBookings.length) {
         listEl.innerHTML = `
           <div class="empty-state">
-            <div class="empty-state-icon">✓</div>
-            <h3 style="color: #1a202c !important;">Henız rezervasyon yok</h3>
-            <p style="color: #64748b !important;">müşteriler rezervasyon yaptİşında burada gırınecek</p>
+            <div class="empty-state-icon">📭</div>
+            <h3 style="color: #1a202c !important;">Henüz rezervasyon yok</h3>
+            <p style="color: #64748b !important;">Müşteriler rezervasyon yaptığında burada görünecek</p>
           </div>`;
         return;
       }
 
-      const statusLabel = { pending: 'Bekliyor', confirmed: 'Onaylandı', completed: 'tamamlandı', rejected: 'Reddedildi', caöncelled: 'ıptal' };
-      const statusClass = { pending: 'status-pending', confirmed: 'status-confirmed', completed: 'status-completed', rejected: 'status-caöncelled', caöncelled: 'status-caöncelled' };
+      const statusLabel = { pending: 'Bekliyor', confirmed: 'Onaylandı', completed: 'Tamamlandı', rejected: 'Reddedildi', cancelled: 'İptal' };
+      const statusClass = { pending: 'status-pending', confirmed: 'status-confirmed', completed: 'status-completed', rejected: 'status-cancelled', cancelled: 'status-cancelled' };
 
-      listEl.innerHTML = expertbookings.map(b => `
+      listEl.innerHTML = expertBookings.map(b => `
         <div class="booking-card" id="bcard-${b.id}">
           <div class="booking-avatar" style="background:${b.customerColor||'#6C63FF'}">${b.customerAvatar||'M'}</div>
           <div class="booking-info">
-            <h3 style="color:#1a202c !important;">${b.customerName||'müşteri'}</h3>
+            <h3 style="color:#1a202c !important;">${b.customerName||'Müşteri'}</h3>
             <div class="booking-meta" style="color:#64748b !important;">
-              <span>✓ ${b.dateStr||b.date}${b.endDate && b.endDate !== b.date ? ' ı ' + new Date(b.endDate).toLocaleDateString('tr-TR',{day:'numeric',month:'short'}) : ''}</span>
-              <span>? ${b.time}${b.endtime && b.endtime !== b.time ? 'ı'+b.endtime : ''}</span>
-              <span>✓ ${b.city}</span>
+              <span>📅 ${b.dateStr||b.date}${b.endDate && b.endDate !== b.date ? ' – ' + new Date(b.endDate).toLocaleDateString('tr-TR',{day:'numeric',month:'short'}) : ''}</span>
+              <span>🕐 ${b.time}${b.endTime && b.endTime !== b.time ? '–'+b.endTime : ''}</span>
+              <span>📍 ${b.city}</span>
             </div>
             <div style="font-size:14px;color:#1a202c;margin-bottom:6px;">
               ${b.service}
-              ${b.durationLabel ? `&nbsp;ı&nbsp;<span style="background:#ede9ff;color:#6C63FF;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:600;">✓ ${b.durationLabel}</span>` : ''}
+              ${b.durationLabel ? `&nbsp;·&nbsp;<span style="background:#ede9ff;color:#6C63FF;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:600;">⏱ ${b.durationLabel}</span>` : ''}
             </div>
-            ${b.notes ? `<div style="font-size:12px;color:#64748b;background:#f8f9fa;padding:6px 10px;border-radius:6px;">✓ ${b.notes}</div>` : ''}
+            ${b.notes ? `<div style="font-size:12px;color:#64748b;background:#f8f9fa;padding:6px 10px;border-radius:6px;">📝 ${b.notes}</div>` : ''}
           </div>
           <div class="booking-actions">
             <div class="booking-status ${statusClass[b.status]||'status-pending'}">
               ${statusLabel[b.status]||'Bekliyor'}
             </div>
-            <div style="font-size:15px;font-weight:800;color:#6C63FF;margin:4px 0;">?${(b.totalPrice||b.price).toLocaleString('tr-TR')}</div>
+            <div style="font-size:15px;font-weight:800;color:#6C63FF;margin:4px 0;">₺${(b.totalPrice||b.price).toLocaleString('tr-TR')}</div>
             ${b.status === 'pending' ? `
-              <button onclick="updatebookingStatus('${b.id}','confirmed')"
+              <button onclick="updateBookingStatus('${b.id}','confirmed')"
                 style="padding:7px 14px;border-radius:8px;background:#10b981;color:#fff;border:none;font-size:12px;font-weight:700;cursor:pointer;width:100%;margin-top:4px;">
-                ? Onayla
+                ✅ Onayla
               </button>
-              <button onclick="updatebookingStatus('${b.id}','rejected')"
+              <button onclick="updateBookingStatus('${b.id}','rejected')"
                 style="padding:7px 14px;border-radius:8px;background:#fee2e2;color:#ef4444;border:none;font-size:12px;font-weight:700;cursor:pointer;width:100%;margin-top:4px;">
-                ? Reddet
+                ❌ Reddet
               </button>
             ` : ''}
             ${b.status === 'confirmed' ? `
-              <button onclick="updatebookingStatus('${b.id}','completed')"
+              <button onclick="updateBookingStatus('${b.id}','completed')"
                 style="padding:7px 14px;border-radius:8px;background:#e0e7ff;color:#3730a3;border:none;font-size:12px;font-weight:700;cursor:pointer;width:100%;margin-top:4px;">
-                ✓ tamamlandı
+                ✅ Tamamlandı
               </button>
             ` : ''}
           </div>
@@ -734,32 +743,55 @@
       `).join('');
     }
 
-    // Rezervasyon durumunu gıöncelle (uzman panelinden) ı sadece API
-    window.updatebookingStatus = async function(rezId, newStatus) {
-      if (typeof IsBulAPI === 'undefined') {
-        showToast('API başlantısı yok. Lütfen sayfayı yenileyin.', 'error');
+    // Rezervasyon durumunu güncelle (uzman panelinden) – API öncelikli, localStorage fallback
+    window.updateBookingStatus = async function(rezId, newStatus) {
+      let success = false;
+
+      if (typeof IsBulAPI !== 'undefined') {
+        const apiRes = await IsBulAPI.bookings.updateStatus(rezId, newStatus);
+        if (apiRes && apiRes.success) success = true;
+      }
+
+      // API yoksa veya başarısızsa localStorage'ı güncelle
+      if (!success) {
+        try {
+          const bookingDB = JSON.parse(localStorage.getItem('isbul_booking_db') || '{}');
+          if (bookingDB[rezId]) {
+            bookingDB[rezId].status = newStatus;
+            localStorage.setItem('isbul_booking_db', JSON.stringify(bookingDB));
+
+            // Müşteri listesini de güncelle
+            const rez = bookingDB[rezId];
+            if (rez && rez.customerId) {
+              const REZ_KEY = 'isbul_rezervasyonlar_' + rez.customerId;
+              let rezList = [];
+              try { rezList = JSON.parse(localStorage.getItem(REZ_KEY) || '[]'); } catch(e) {}
+              const idx = rezList.findIndex(r => r.id === rezId);
+              if (idx !== -1) { rezList[idx].status = newStatus; localStorage.setItem(REZ_KEY, JSON.stringify(rezList)); }
+            }
+            success = true;
+          }
+        } catch(err) { console.warn('localStorage güncelleme hatası:', err); }
+      }
+
+      if (!success) {
+        showToast('Güncelleme başarısız.', 'error');
         return;
       }
 
-      const apiRes = await IsBulAPI.bookings.updateStatus(rezId, newStatus);
-      if (!apiRes || !apiRes.success) {
-        showToast(apiRes?.error || 'Gıöncelleme baıarısız.', 'error');
-        return;
-      }
-
-      const msgs = { confirmed:'? Rezervasyon onaylandı!', rejected:'? Rezervasyon reddedildi.', completed:'✓ Rezervasyon tamamlandı!' };
-      showToast(msgs[newStatus] || 'Gıöncellendi', newStatus === 'rejected' ? 'error' : 'success');
-      loadExpertbookings();
+      const msgs = { confirmed:'✅ Rezervasyon onaylandı!', rejected:'❌ Rezervasyon reddedildi.', completed:'✅ Rezervasyon tamamlandı!' };
+      showToast(msgs[newStatus] || 'Güncellendi', newStatus === 'rejected' ? 'error' : 'success');
+      loadExpertBookings();
     };
 
-    loadExpertbookings();
+    loadExpertBookings();
 
-    // Sekme odaklandİşında otomatik yenile
+    // Sekme odaklandığında otomatik yenile
     document.addEventListener('visibilitychange', () => {
-      if (!document.hidden) loadExpertbookings();
+      if (!document.hidden) loadExpertBookings();
     });
     // Her 30 saniyede bir yenile
-    setInterval(loadExpertbookings, 30000);
+    setInterval(loadExpertBookings, 30000);
   </script>
 
   <!-- AI Chatbot Widget -->

@@ -10,11 +10,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <script src="https://unpkg.com/feather-icons"></script>
   <style>
-    .profil-page { background: var(--bg); min-height: 100vh; padding-top: 80px; }
+    .profil-page { background: var(--bg); min-height: 100vh; }
 
     .profil-hero {
       background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-      padding: 60px 0 0;
+      padding: 72px 0 0;
     }
     .profil-hero__inner {
       display: flex; align-items: flex-end; gap: 28px;
@@ -29,8 +29,8 @@
       box-shadow: 0 8px 24px rgba(0,0,0,.2);
     }
     .profil-hero__info { padding-bottom: 28px; }
-    .profil-hero__info h1 { font-size: 26px; font-weight: 900; color: #fff; margin-bottom: 4px; }
-    .profil-hero__info p  { font-size: 14px; color: rgba(255,255,255,.65); }
+    .profil-hero__info h1 { font-size: 26px; font-weight: 900; color: #fff; margin-bottom: 4px; text-shadow: 0 1px 4px rgba(0,0,0,.4); }
+    .profil-hero__info p  { font-size: 14px; color: rgba(255,255,255,.9); text-shadow: 0 1px 3px rgba(0,0,0,.3); }
 
     /* Sekmeler */
     .profil-tabs {
@@ -135,8 +135,8 @@
         <span class="logo-text"><strong>İşBul</strong></span>
       </a>
       <nav class="navbar__links" id="navLinks">
-        <a href="hizmetler.html">hizmetler</a>
-        <a href="nasil-calisir.html">nasıl Çalışır?</a>
+        <a href="hizmetler.html">Hizmetler</a>
+        <a href="nasil-calisir.html">Nasıl Çalışır?</a>
         <a href="uzman-ol.html">Uzman Ol</a>
         <a href="mailto:Kurumsal@isbul.com.tr">Kurumsal</a>
       </nav>
@@ -152,9 +152,9 @@
   <div class="profil-hero" id="profilHero">
     <div class="container">
       <!-- Breadcrumb -->
-      <div style="font-size:13px;color:rgba(255,255,255,.5);margin-bottom:20px">
-        <a href="index.html" style="color:rgba(255,255,255,.6)">Ana Sayfa</a> ı
-        <span>profilim</span>
+      <div style="font-size:13px;color:rgba(255,255,255,.8);margin-bottom:20px">
+        <a href="index.html" style="color:rgba(255,255,255,.85)">Ana Sayfa</a> ›
+        <span style="color:#fff;font-weight:600">profilim</span>
       </div>
       <div class="profil-hero__inner">
         <div class="profil-avatar-big" id="profilAvatarBig" style="background:#6C63FF">?</div>
@@ -352,7 +352,7 @@
       </div>
       <div class="auth-body">
         <div class="auth-panel active" id="auth-login">
-          <div class="auth-social"><button class="auth-social-btn" onclick="handleOAuth('google')">✓ Google ile Giriş</button><button class="auth-social-btn" onclick="handleOAuth('apple')">🍎 Apple ile Giriş</button></div>
+          <div class="auth-social"><button class="auth-social-btn" onclick="handleOAuth('google')"><svg width="18" height="18" viewBox="0 0 18 18" style="margin-right:8px"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"/><path fill="#FBBC05" d="M3.964 10.707c-.18-.54-.282-1.117-.282-1.707s.102-1.167.282-1.707V4.961H.957C.347 6.175 0 7.55 0 9s.348 2.825.957 4.039l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.961L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"/></svg> Google ile Giriş</button></div>
           <div class="auth-divider">veya e-posta ile</div>
           <form id="loginForm" novalidate>
             <div class="form-group"><label>E-posta</label><input type="email" name="email" placeholder="ornek@mail.com" /></div>
@@ -362,7 +362,7 @@
           <p class="auth-footer">hesabınız yok mu? <a href="#" onclick="document.querySelector('[data-tab=register]').click();return false">Kayıt olun</a></p>
         </div>
         <div class="auth-panel" id="auth-register">
-          <div class="auth-social"><button class="auth-social-btn" onclick="handleOAuth('google')">✓ Google ile Kayıt</button><button class="auth-social-btn" onclick="handleOAuth('facebook')">✓ Facebook ile Kayıt</button></div>
+          <div class="auth-social"><button class="auth-social-btn" onclick="handleOAuth('google')"><svg width="18" height="18" viewBox="0 0 18 18" style="margin-right:8px"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"/><path fill="#FBBC05" d="M3.964 10.707c-.18-.54-.282-1.117-.282-1.707s.102-1.167.282-1.707V4.961H.957C.347 6.175 0 7.55 0 9s.348 2.825.957 4.039l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.961L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"/></svg> Google ile Kayıt</button><button class="auth-social-btn" onclick="handleOAuth('facebook')">✓ Facebook ile Kayıt</button></div>
           <div class="auth-divider">veya e-posta ile</div>
           <form id="registerForm" novalidate>
             <div class="form-group" style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div><label>Ad</label><input type="text" name="regFirstName" placeholder="Adınız" /></div><div><label>Soyad</label><input type="text" name="regLastName" placeholder="Soyadınız" /></div></div>
@@ -380,7 +380,7 @@
   <div class="modal-overlay" id="contactModal">
     <div style="background:var(--white);border-radius:20px;max-width:480px;width:92%;position:relative;padding:0;overflow:hidden">
       <div style="background:linear-gradient(135deg,#1a1a2e,#0f3460);padding:28px 28px 24px;color:#fff;text-align:center">
-        <button onclick="document.getElementById('contactModal').classList.remove('active');document.body.style.overflow=''" style="position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center">?</button>
+        <button onclick="document.getElementById('contactModal').classList.remove('active');document.body.style.overflow=''" style="position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center">×</button>
         <div style="font-size:40px;margin-bottom:10px">📧</div>
         <h3 style="font-size:22px;font-weight:900;margin-bottom:6px">İletişim</h3>
       </div>

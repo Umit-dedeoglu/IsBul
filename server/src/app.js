@@ -1,16 +1,15 @@
-ï»¿/**
- * Ä°ÅŸBul API â€” Ana Uygulama
+/**
+ * ÝþBul API — Ana Uygulama
  *
- * Mimari: ModÃ¼ler Monolith
+ * Mimari: Modüler Monolith
  * Versiyon: /api/v1
  * Platform: Web + Mobil (React Native / Flutter uyumlu)
  *
- * TÃ¼m endpointler standart format dÃ¶ndÃ¼rÃ¼r:
- *   BaÅŸarÄ±: { success: true, data: {...}, meta: {...}, timestamp }
+ * Tüm endpointler standart format döndürür:
+ *   Baþarý: { success: true, data: {...}, meta: {...}, timestamp }
  *   Hata:   { success: false, error: { code, message }, timestamp }
  */
 require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') });
-
 const express  = require('express');
 const cors     = require('cors');
 const helmet   = require('helmet');
@@ -19,23 +18,19 @@ const passport = require('./config/passport');
 const { initDb, startAutoSave } = require('./db');
 const responseMiddleware = require('./middleware/response');
 const { generalLimiter, authLimiter, actionLimiter } = require('./middleware/rateLimiter');
-
-// Test ortamÄ±nda rate limiting devre dÄ±ÅŸÄ±
+// Test ortamýnda rate limiting devre dýþý
 const noopMiddleware = (req, res, next) => next();
 const isTest = process.env.NODE_ENV === 'test';
 const _generalLimiter  = isTest ? noopMiddleware : generalLimiter;
 const _authLimiter     = isTest ? noopMiddleware : authLimiter;
 const _actionLimiter   = isTest ? noopMiddleware : actionLimiter;
 const { swaggerUi, swaggerDocument, swaggerOptions } = require('./config/swagger');
-
 const app = express();
-
-// â”€â”€ GÃ¼venlik â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ¦¦ Güvenlik ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
 app.use(helmet({
-  contentSecurityPolicy: false, // Swagger UI iÃ§in kapalÄ±
+  contentSecurityPolicy: false, // Swagger UI için kapalý
 }));
-
-// â”€â”€ CORS â€” Web ve Mobil Ä°Ã§in GeniÅŸletilmiÅŸ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ¦¦ CORS — Web ve Mobil Ýçin Geniþletilmiþ ¦¦¦¦¦¦¦¦¦¦¦¦¦¦
 const allowedOrigins = [
   process.env.FRONTEND_URL || 'http://localhost:4000',
   'http://localhost:3000',     // React dev server
@@ -43,55 +38,45 @@ const allowedOrigins = [
   'http://localhost:19006',    // Expo web
   'capacitor://localhost',     // Ionic/Capacitor mobil
   'ionic://localhost',         // Ionic eski format
-  // Ãœretimde buraya alan adlarÄ± eklenecek:
+  // Üretimde buraya alan adlarý eklenecek:
   // 'https://isbul.com',
   // 'https://app.isbul.com',
 ];
-
 app.use(cors({
   origin: (origin, callback) => {
     // origin yoksa (Postman, mobil native, curl) izin ver
     if (!origin) return callback(null, true);
     if (allowedOrigins.includes(origin)) return callback(null, true);
-    // GeliÅŸtirmede tÃ¼m localhost portlarÄ±na izin ver
+    // Geliþtirmede tüm localhost portlarýna izin ver
     if (process.env.NODE_ENV !== 'production' && /^http:\/\/localhost:\d+$/.test(origin)) {
       return callback(null, true);
     }
-    callback(new Error(`CORS: ${origin} kaynaÄŸÄ±na izin verilmiyor.`));
+    callback(new Error(`CORS: ${origin} kaynaðýna izin verilmiyor.`));
   },
   credentials:     true,
   methods:         ['GET','POST','PUT','PATCH','DELETE','OPTIONS'],
   allowedHeaders:  ['Content-Type','Authorization','X-Platform','X-App-Version'],
   exposedHeaders:  ['X-Total-Count','X-Page','X-Pages'],
 }));
-
-// â”€â”€ Logging â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ¦¦ Logging ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
 if (process.env.NODE_ENV !== 'test') {
   app.use(morgan('dev'));
 }
-
-// â”€â”€ Body Parser â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ¦¦ Body Parser ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
-
-// â”€â”€ Passport â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ¦¦ Passport ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
 app.use(passport.initialize());
-
-// â”€â”€ Standart Response Middleware â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ¦¦ Standart Response Middleware ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
 app.use(responseMiddleware);
-
-// â”€â”€ Global Rate Limiter â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ¦¦ Global Rate Limiter ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
 app.use('/api/', _generalLimiter);
-
-// â”€â”€ Swagger DokÃ¼mantasyonu â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ¦¦ Swagger Dokümantasyonu ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, swaggerOptions));
-
-// â”€â”€ API v1 Routes â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-//   /api/v1/...  â€” Versiyonlu yeni endpointler (web + mobil)
-//   /api/...     â€” Geriye dÃ¶nÃ¼k uyumluluk (web)
-
+// ¦¦ API v1 Routes ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
+//   /api/v1/...  — Versiyonlu yeni endpointler (web + mobil)
+//   /api/...     — Geriye dönük uyumluluk (web)
 const v1 = express.Router();
-
 v1.use('/auth',          _authLimiter,   require('./modules/auth/auth.routes'));
 v1.use('/users',                         require('./modules/users/users.routes'));
 v1.use('/experts',                       require('./modules/experts/experts.routes'));
@@ -101,12 +86,10 @@ v1.use('/reviews',       _actionLimiter, require('./modules/reviews/reviews.rout
 v1.use('/notifications',                 require('./modules/notifications/notifications.routes'));
 v1.use('/admin',                         require('./modules/admin/admin.routes'));
 v1.use('/chatbot',       _actionLimiter, require('./modules/chatbot/chatbot.routes'));
-
-// v1 router'Ä± iki prefix'e baÄŸla â€” geriye dÃ¶nÃ¼k uyumluluk
+// v1 router'ý iki prefix'e baðla — geriye dönük uyumluluk
 app.use('/api/v1', v1);
-app.use('/api',    v1);   // eski /api/... URL'leri Ã§alÄ±ÅŸmaya devam eder
-
-// â”€â”€ Health & Info â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+app.use('/api',    v1);   // eski /api/... URL'leri çalýþmaya devam eder
+// ¦¦ Health & Info ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
 app.get('/api/health', (req, res) => {
   res.json({
     success:   true,
@@ -114,7 +97,7 @@ app.get('/api/health', (req, res) => {
       status:    'ok',
       version:   '1.0.0',
       apiVersion:'v1',
-      message:   'Ä°ÅŸBul API Ã§alÄ±ÅŸÄ±yor',
+      message:   'ÝþBul API çalýþýyor',
       endpoints: {
         docs:       '/api/docs',
         health:     '/api/health',
@@ -128,7 +111,7 @@ app.get('/api/health', (req, res) => {
         admin:      '/api/v1/admin',
         chatbot:    '/api/v1/chatbot',
       },
-      // Mobil geliÅŸtirici bilgisi
+      // Mobil geliþtirici bilgisi
       mobile: {
         platforms:     ['iOS', 'Android', 'Web'],
         authentication:'JWT Bearer Token',
@@ -141,59 +124,53 @@ app.get('/api/health', (req, res) => {
     timestamp: new Date().toISOString(),
   });
 });
-
-// â”€â”€ 404 Handler â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ¦¦ 404 Handler ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
 app.use((req, res) => {
   res.status(404).json({
     success: false,
     error: {
       code:    'NOT_FOUND',
-      message: `Endpoint bulunamadÄ±: ${req.method} ${req.path}`,
+      message: `Endpoint bulunamadý: ${req.method} ${req.path}`,
     },
     timestamp: new Date().toISOString(),
   });
 });
-
-// â”€â”€ Global Error Handler â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ¦¦ Global Error Handler ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
 app.use((err, req, res, next) => {
-  // CORS hatasÄ±
+  // CORS hatasý
   if (err.message?.startsWith('CORS:')) {
     return res.status(403).json({
       success: false,
       error: { code: 'CORS_ERROR', message: err.message },
     });
   }
-
-  console.error('[API HatasÄ±]', err.message || err);
+  console.error('[API Hatasý]', err.message || err);
   res.status(500).json({
     success: false,
     error: {
       code:    'INTERNAL_ERROR',
       message: process.env.NODE_ENV === 'production'
-        ? 'Beklenmeyen bir hata oluÅŸtu.'
-        : err.message || 'Sunucu hatasÄ±.',
+        ? 'Beklenmeyen bir hata oluþtu.'
+        : err.message || 'Sunucu hatasý.',
     },
     timestamp: new Date().toISOString(),
   });
 });
-
-// â”€â”€ BaÅŸlat â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ¦¦ Baþlat ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
 async function start() {
   await initDb();
   startAutoSave();
   const PORT = process.env.PORT || 3001;
   app.listen(PORT, () => {
-    console.log(`\nâš¡ Ä°ÅŸBul API v1`);
+    console.log(`\n? ÝþBul API v1`);
     console.log(`   URL:    http://localhost:${PORT}`);
     console.log(`   Health: http://localhost:${PORT}/api/health`);
     console.log(`   Docs:   http://localhost:${PORT}/api/docs`);
     console.log(`   Mod:    ${process.env.NODE_ENV || 'development'}`);
-    console.log(`   Mobil:  iOS/Android/Web âœ…\n`);
+    console.log(`   Mobil:  iOS/Android/Web ?\n`);
   });
 }
-
 if (require.main === module) {
-  start().catch(err => { console.error('BaÅŸlatma hatasÄ±:', err); process.exit(1); });
+  start().catch(err => { console.error('Baþlatma hatasý:', err); process.exit(1); });
 }
-
 module.exports = { app, initDb };

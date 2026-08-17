@@ -58,7 +58,7 @@
   <script src="assets/js/api-client.js"></script>
   <script src="assets/js/app.js"></script>
   <script>
-    // ıu anki oturumu al
+    // Şu anki oturumu al
     const session = getSession();
     
     if (!session) {
@@ -91,7 +91,7 @@
           _updateNavbarLoggedIn();
         }
         
-        // Baıarı mesajı gıster
+        // Başarı mesajı göster
         settimeout(() => {
           document.getElementById('loading').style.display = 'none';
           document.getElementById('success').style.display = 'block';

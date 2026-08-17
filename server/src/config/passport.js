@@ -13,7 +13,7 @@ passport.use(new GoogleStrategy(
   {
     clientID:     process.env.GOOGLE_CLIENT_ID     || 'placeholder',
     clientSecret: process.env.GOOGLE_CLIENT_SECRET || 'placeholder',
-    callbackURL:  process.env.GOOGLE_CALLBACK_URL  || 'http://localhost:3001/api/auth/google/callback',
+    callbackURL:  process.env.GOOGLE_CALLBACK_URL  || 'http://localhost:3001/api/v1/auth/google/callback',
   },
   async (accessToken, refreshToken, profile, done) => {
     try {
@@ -23,24 +23,25 @@ passport.use(new GoogleStrategy(
       const lastName  = profile.name?.familyName  || profile.displayName.split(' ')[1] || '';
 
       // Mevcut kullanıcıyı bul
-      let user = dbGet('SELECT * FROM users WHERE google_id = ?', googleId);
+      let user = await dbGet('SELECT * FROM users WHERE google_id = $1', [googleId]);
 
       if (!user && email) {
-        user = dbGet('SELECT * FROM users WHERE email = ?', email);
+        user = await dbGet('SELECT * FROM users WHERE email = $1', [email]);
         if (user) {
-          dbRun('UPDATE users SET google_id = ? WHERE id = ?', googleId, user.id);
+          await dbRun('UPDATE users SET google_id = $1 WHERE id = $2', [googleId, user.id]);
         }
       }
 
       if (!user) {
         const id = genId();
-        dbRun(
+        const avatar = getInitials(firstName, lastName);
+        const color = randomColor();
+        await dbRun(
           `INSERT INTO users (id, first_name, last_name, email, avatar, color, role, google_id)
-           VALUES (?, ?, ?, ?, ?, ?, 'customer', ?)`,
-          id, firstName, lastName, email,
-          getInitials(firstName, lastName), randomColor(), googleId
+           VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
+          [id, firstName, lastName, email, avatar, color, 'customer', googleId]
         );
-        user = dbGet('SELECT * FROM users WHERE id = ?', id);
+        user = await dbGet('SELECT * FROM users WHERE id = $1', [id]);
       }
 
       return done(null, {
@@ -53,6 +54,7 @@ passport.use(new GoogleStrategy(
         color:     user.color,
       });
     } catch (err) {
+      console.error('Google OAuth error:', err);
       return done(err, null);
     }
   }
