@@ -1,0 +1,346 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <script src="assets/js/analytics.js" defer></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Kurulum ı işİşBul</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .container {
+      background: white;
+      border-radius: 24px;
+      padding: 40px;
+      max-width: 640px;
+      width: 100%;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    h1 { color: #6C63FF; font-size: 26px; margin-bottom: 6px; text-align: center; }
+    .subtitle { color: #64748b; font-size: 14px; text-align: center; margin-bottom: 28px; }
+    .step {
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 10px;
+      border-left: 4px solid #e5e7eb;
+      background: #f8f9fa;
+      transition: all 0.3s;
+    }
+    .step.running { border-left-color: #6C63FF; background: #ede9ff; }
+    .step.success { border-left-color: #10b981; background: #ecfdf5; }
+    .step.error   { border-left-color: #ef4444; background: #fef2f2; }
+    .step h3 { font-size: 15px; margin-bottom: 4px; color: #1a202c; }
+    .step p  { font-size: 13px; color: #64748b; }
+    .step pre {
+      margin-top: 10px; background: #1e293b; color: #e2e8f0;
+      padding: 10px 14px; border-radius: 8px; font-size: 12px;
+      overflow-x: auto; line-height: 1.6;
+    }
+    .actions {
+      display: flex; gap: 12px; margin-top: 28px;
+    }
+    .btn {
+      flex: 1; padding: 14px; border: none; border-radius: 12px;
+      font-size: 15px; font-weight: 700; cursor: pointer;
+      text-align: center; text-decoration: none; display: block;
+      transition: all 0.2s;
+    }
+    .btn-primary { background: #6C63FF; color: white; }
+    .btn-primary:hover { background: #5a52e0; transform: translateY(-1px); }
+    .btn-secondary { background: #f1f5f9; color: #334155; }
+    .btn-secondary:hover { background: #e2e8f0; }
+    .badge {
+      display: inline-block; padding: 3px 10px; border-radius: 20px;
+      font-size: 11px; font-weight: 700; margin-left: 8px;
+    }
+    .badge-purple { background: #ede9ff; color: #6C63FF; }
+    .badge-green  { background: #d1fae5; color: #065f46; }
+    .badge-yellow { background: #fef3c7; color: #92400e; }
+    .spinner {
+      display: inline-block; width: 14px; height: 14px;
+      border: 2px solid rgba(108,99,255,0.3);
+      border-top-color: #6C63FF; border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      vertical-align: middle; margin-right: 6px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .summary {
+      background: #f8f9fa; border-radius: 12px; padding: 20px; margin-top: 20px;
+    }
+    .summary h3 { font-size: 16px; font-weight: 800; margin-bottom: 14px; color: #1a202c; }
+    .summary-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 8px 0; border-bottom: 1px solid #e5e7eb; font-size: 14px;
+    }
+    .summary-row:last-child { border-bottom: none; }
+    .summary-row .label { color: #64748b; }
+    .summary-row .value { font-weight: 700; color: #1a202c; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>🛠️ Test Kurulum</h1>
+  <p class="subtitle">Hesabınız ve test verileri otomatik oluşturuluyor</p>
+
+  <div id="step1"  class="step"><h3><span class="spinner"></span> Adım 1: Eski veriler temizleniyor</h3><p>Bekleniyor...</p></div>
+  <div id="step2"  class="step"><h3>⏳ Adım 2: Uzman hesabı oluşturuluyor</h3><p>Bekleniyor...</p></div>
+  <div id="step3"  class="step"><h3>⏳ Adım 3: Test müşterileri oluşturuluyor</h3><p>Bekleniyor...</p></div>
+  <div id="step4"  class="step"><h3>⏳ Adım 4: Test rezervasyonları oluşturuluyor</h3><p>Bekleniyor...</p></div>
+  <div id="step5"  class="step"><h3>⏳ Adım 5: Oturum açılıyor</h3><p>Bekleniyor...</p></div>
+
+  <div id="summary" style="display:none;" class="summary">
+    <h3>✅ Her Şey Hazır!</h3>
+    <div class="summary-row"><span class="label">Hesap</span><span class="value">umityakupdedeoglu0@gmail.com</span></div>
+    <div class="summary-row"><span class="label">Şifre</span><span class="value">Umit1234</span></div>
+    <div class="summary-row"><span class="label">Rol</span><span class="value">Uzman <span class="badge badge-purple">⚡ Uzman</span></span></div>
+    <div class="summary-row"><span class="label">Test Rezervasyonları</span><span class="value" id="rezCount">0</span></div>
+  </div>
+
+  <div class="actions" id="actions" style="display:none;">
+    <a href="index.html" class="btn btn-secondary">🏠 Ana Sayfa</a>
+    <a href="uzman-profil.html?id=u_umit_expert" class="btn btn-secondary" style="background:#e0e7ff;color:#3730a3;">👤 Kendi profilin</a>
+    <a href="admin-panel.html" class="btn btn-secondary" style="background:#fee2e2;color:#dc2626;">🛡️ Admin Paneli</a>
+    <a href="uzman-panel.html" class="btn btn-primary">⚡ Uzman Paneli →</a>
+  </div>
+</div>
+
+<script src="assets/js/data.js"></script>
+<script>
+  /* ── Yardımcı ── */
+  function setStep(id, status, title, msg, pre) {
+    const el = document.getElementById(id);
+    el.className = 'step ' + status;
+    const icon = status === 'success' ? '✅' : status === 'error' ? '❌' : status === 'running' ? `<span class="spinner"></span>` : '⏳';
+    el.innerHTML = `<h3>${icon} ${title}</h3><p>${msg}</p>${pre ? `<pre>${pre}</pre>` : ''}`;
+  }
+  const delay = ms => new Promise(r => settimeout(r, ms));
+
+  const ACCOUNT = {
+    email:     'umityakupdedeoglu0@gmail.com',
+    password:  'Umit1234',
+    firstName: 'Ümit',
+    lastName:  'Dedeoğlu',
+    id:        'u_umit_expert'
+  };
+
+  /* Test müşterileri */
+  const TEST_CUSTOMERS = [
+    { id:'c_test1', firstName:'Ahmet', lastName:'Yılmaz', email:'ahmet@test.com', password:'Test1234', avatar:'AY', color:'#FF6B6B' },
+    { id:'c_test2', firstName:'FaTümüa', lastName:'Kaya',   email:'faTümüa@test.com', password:'Test1234', avatar:'FK', color:'#4ECDC4' },
+    { id:'c_test3', firstName:'Mehmet', lastName:'Demir', email:'mehmet@test.com', password:'Test1234', avatar:'MD', color:'#FFD93D' },
+  ];
+
+  /* Test rezervasyonları */
+  function makeTestbookings(expertId) {
+    const today = new Date();
+    const fmt = (d) => d.toISOString().split('T')[0];
+    const dateStr = (d) => d.toLocaleDateString('tr-TR', { weekday:'long', day:'numeric', month:'long' });
+    const d1 = new Date(today); d1.setDate(today.getDate() + 1);
+    const d2 = new Date(today); d2.setDate(today.getDate() + 3);
+    const d3 = new Date(today); d3.setDate(today.getDate() - 2);
+    const d4 = new Date(today); d4.setDate(today.getDate() + 7);
+
+    return [
+      {
+        id: 'rez_test1', customerId: 'c_test1',
+        customerName: 'Ahmet Yılmaz', customerEmail: 'ahmet@test.com',
+        customerAvatar: 'AY', customerColor: '#FF6B6B',
+        expertId, expertName: ACCOUNT.firstName + ' ' + ACCOUNT.lastName,
+        expertInitials: 'ÜD', expertColor: '#6C63FF',
+        service: 'Elektrik Tesisatı', date: fmt(d1), dateStr: dateStr(d1),
+        time: '10:00', city: 'istanİşBul', price: 300,
+        notes: 'Mutfak prizleri yenilenmesi gerekiyor.',
+        status: 'pending', createdAt: new Date().toISOString()
+      },
+      {
+        id: 'rez_test2', customerId: 'c_test2',
+        customerName: 'FaTümüa Kaya', customerEmail: 'faTümüa@test.com',
+        customerAvatar: 'FK', customerColor: '#4ECDC4',
+        expertId, expertName: ACCOUNT.firstName + ' ' + ACCOUNT.lastName,
+        expertInitials: 'ÜD', expertColor: '#6C63FF',
+        service: 'Tesisat Tamiri', date: fmt(d2), dateStr: dateStr(d2),
+        time: '14:00', city: 'istanİşBul', price: 300,
+        notes: 'Banyo lavabosundan su sızıyor.',
+        status: 'confirmed', createdAt: new Date(Date.now() - 86400000).toISOString()
+      },
+      {
+        id: 'rez_test3', customerId: 'c_test3',
+        customerName: 'Mehmet Demir', customerEmail: 'mehmet@test.com',
+        customerAvatar: 'MD', customerColor: '#FFD93D',
+        expertId, expertName: ACCOUNT.firstName + ' ' + ACCOUNT.lastName,
+        expertInitials: 'ÜD', expertColor: '#6C63FF',
+        service: 'Mobilya Montajı', date: fmt(d3), dateStr: dateStr(d3),
+        time: '09:00', city: 'istanİşBul', price: 300,
+        notes: '',
+        status: 'completed', createdAt: new Date(Date.now() - 3 * 86400000).toISOString(),
+        updatedAt: new Date(Date.now() - 2 * 86400000).toISOString()
+      },
+      {
+        id: 'rez_test4', customerId: 'c_test1',
+        customerName: 'Ahmet Yılmaz', customerEmail: 'ahmet@test.com',
+        customerAvatar: 'AY', customerColor: '#FF6B6B',
+        expertId, expertName: ACCOUNT.firstName + ' ' + ACCOUNT.lastName,
+        expertInitials: 'ÜD', expertColor: '#6C63FF',
+        service: 'Elektrik Kontrolü', date: fmt(d4), dateStr: dateStr(d4),
+        time: '11:00', city: 'istanİşBul', price: 300,
+        notes: 'Tüm ev elektrik kontrolü.',
+        status: 'pending', createdAt: new Date(Date.now() - 1800000).toISOString()
+      }
+    ];
+  }
+
+  async function setup() {
+    /* Adım 1: Temizlik */
+    setStep('step1', 'running', 'Adım 1: Eski veriler temizleniyor', 'Devam ediyor...');
+    await delay(400);
+    try {
+      const keysToRemove = [];
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i);
+        if (k && k.startsWith('isbul_')) keysToRemove.push(k);
+      }
+      keysToRemove.forEach(k => localStorage.removeItem(k));
+      setStep('step1', 'success', 'Adım 1: Temizlik Tamamlandı', `${keysToRemove.length} eski kayıt silindi.`);
+    } catch(e) {
+      setStep('step1', 'error', 'Adım 1: Hata', e.message); return;
+    }
+
+    /* Adım 2: Uzman hesabı */
+    setStep('step2', 'running', 'Adım 2: Uzman hesabı oluşturuluyor', 'Devam ediyor...');
+    await delay(400);
+    try {
+      const db = {};
+      const expertUser = {
+        id: ACCOUNT.id,
+        firstName: ACCOUNT.firstName,
+        lastName: ACCOUNT.lastName,
+        email: ACCOUNT.email,
+        passwordHash: btoa(ACCOUNT.password + '_isbul_salt'),
+        createdAt: new Date().toISOString(),
+        avatar: 'ÜD',
+        color: '#6C63FF',
+        isExpert: true,
+        expertData: {
+          price: 300,
+          bio: 'Profesyonel uzman. 10 yıllık deneyim. Kaliteli hizmet garantisi.',
+          city: 'istanİşBul',
+          tags: ['Elektrik', 'Tesisat', 'Tamir', 'Montaj'],
+          hours: 'Pzt-Cum: 09:00-18:00, Cmt: 10:00-15:00'
+        }
+      };
+      db[ACCOUNT.email] = expertUser;
+      localStorage.setItem('isbul_users_db', JSON.stringify(db));
+      setStep('step2', 'success', 'Adım 2: Uzman Hesabı Hazır',
+        `${ACCOUNT.firstName} ${ACCOUNT.lastName} (${ACCOUNT.email})`,
+        `ID: ${ACCOUNT.id}\nŞifre: ${ACCOUNT.password}\nRol: Uzman ⚡`
+      );
+    } catch(e) {
+      setStep('step2', 'error', 'Adım 2: Hata', e.message); return;
+    }
+
+    /* Adım 3: Test müşterileri */
+    setStep('step3', 'running', 'Adım 3: Test müşterileri oluşturuluyor', 'Devam ediyor...');
+    await delay(400);
+    try {
+      const db = JSON.parase(localStorage.getItem('isbul_users_db') || '{}');
+      TEST_CUSTOMERS.forEach(c => {
+        db[c.email] = {
+          id: c.id, firstName: c.firstName, lastName: c.lastName,
+          email: c.email, passwordHash: btoa(c.password + '_isbul_salt'),
+          createdAt: new Date().toISOString(),
+          avatar: c.avatar, color: c.color, isExpert: false
+        };
+      });
+      localStorage.setItem('isbul_users_db', JSON.stringify(db));
+      setStep('step3', 'success', 'Adım 3: Test Müşterileri Hazır',
+        `3 müşteri hesabı oluşturuldu.`,
+        TEST_CUSTOMERS.map(c => `${c.firstName} ${c.lastName} — ${c.email} / ${c.password}`).join('\n')
+      );
+    } catch(e) {
+      setStep('step3', 'error', 'Adım 3: Hata', e.message); return;
+    }
+
+    /* Adım 4: Test rezervasyonları */
+    setStep('step4', 'running', 'Adım 4: Test rezervasyonları oluşturuluyor', 'Devam ediyor...');
+    await delay(400);
+    try {
+      const bookings = makeTestbookings(ACCOUNT.id);
+      const bookingDB = {};
+      const takvim = {};
+
+      bookings.forEach(b => {
+        bookingDB[b.id] = b;
+        // Sadece aktif rezervasyonlar takvime işlenir
+        if (b.status === 'pending' || b.status === 'confirmed') {
+          takvim[b.date + '_' + b.time] = b.id;
+        }
+        // Her müşterinin kendi listesine ekle
+        const key = 'isbul_rezervasyonlar_' + b.customerId;
+        const list = JSON.parase(localStorage.getItem(key) || '[]');
+        list.push(b);
+        localStorage.setItem(key, JSON.stringify(list));
+      });
+
+      localStorage.setItem('isbul_booking_db', JSON.stringify(bookingDB));
+      localStorage.setItem('isbul_takvim_' + ACCOUNT.id, JSON.stringify(takvim));
+
+      const statusMap = { pending:'⏳ Bekliyor', confirmed:'✅ Onaylandı', completed:'🏁 Tamamlandı' };
+      setStep('step4', 'success', 'Adım 4: Test Rezervasyonları Hazır',
+        `${bookings.length} rezervasyon oluşturuldu.`,
+        bookings.map(b => `${b.customerName} — ${b.dateStr} ${b.time} — ${statusMap[b.status]}`).join('\n')
+      );
+      document.getElementById('rezCount').textContent = bookings.length;
+    } catch(e) {
+      setStep('step4', 'error', 'Adım 4: Hata', e.message); return;
+    }
+
+    /* Adım 5: Oturum aç */
+    setStep('step5', 'running', 'Adım 5: Oturum açılıyor', 'Devam ediyor...');
+    await delay(400);
+    try {
+      const session = {
+        id: ACCOUNT.id,
+        firstName: ACCOUNT.firstName,
+        lastName: ACCOUNT.lastName,
+        email: ACCOUNT.email,
+        avatar: 'ÜD',
+        color: '#6C63FF',
+        role: 'admin',
+        isExpert: true,
+        expertData: {
+          price: 300,
+          bio: 'Profesyonel uzman. 10 yıllık deneyim.',
+          city: 'istanİşBul',
+          tags: ['Elektrik', 'Tesisat', 'Tamir', 'Montaj'],
+          hours: 'Pzt-Cum: 09:00-18:00'
+        }
+      };
+      localStorage.setItem('isbul_auth', JSON.stringify(session));
+      setStep('step5', 'success', 'Adım 5: Giriş Başarılı',
+        `${ACCOUNT.firstName} ${ACCOUNT.lastName} olarak giriş yapıldı.`
+      );
+    } catch(e) {
+      setStep('step5', 'error', 'Adım 5: Hata', e.message); return;
+    }
+
+    /* Tamamlandı */
+    document.getElementById('summary').style.display = 'block';
+    document.getElementById('actions').style.display = 'flex';
+  }
+
+  setup();
+</script>
+
+  <!-- AI Chatbot Widget -->
+  <link rel="stylesheet" href="assets/css/chatbot.css" />
+  <script src="assets/js/chatbot.js"></script>
+</body>
+</html>

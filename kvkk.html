@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <script src="assets/js/analytics.js" defer></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KVKK AydınlaTümüa Metni  | İşBul</title>
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body style="background:var(--bg)">
+  <header class="navbar scrolled" id="navbar">
+    <div class="container navbar__inner">
+      <a href="index.html" class="navbar__logo"><span class="logo-icon">⚡</span><span class="logo-text"><strong>İşBul</strong></span></a>
+      <nav class="navbar__links" id="navLinks">
+        <a href="hizmetler.html">hizmetler</a>
+        <a href="nasil-calisir.html">nasıl Çalışır?</a>
+        <a href="uzman-ol.html">Uzman Ol</a>
+      </nav>
+      <div class="navbar__actions">
+        <button onclick="openAuthModal('login')" class="btn btn--ghost">Giriş Yap</button>
+        <button onclick="openAuthModal('register')" class="btn btn--primary">Ücretsiz Kaydol</button>
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <div style="max-width:760px;margin:100px auto 60px;padding:0 24px">
+    <div style="background:var(--white);border-radius:var(--radius);padding:48px;border:1.5px solid var(--border)">
+      <div style="display:inline-block;padding:6px 16px;border-radius:50px;background:var(--primary-light);color:var(--primary);font-size:13px;font-weight:600;margin-bottom:16px">Yasal</div>
+      <h1 style="font-size:32px;font-weight:900;margin-bottom:8px">KVKK AydınlaTümüa Metni</h1>
+      <p style="color:var(--text-muted);font-size:14px;margin-bottom:36px">6698 Sayülke Kişisel Verilerin Korunması Kanunu kapsamında. Son gıöncelleme: 1 Ocak 2026</p>
+      <div style="display:flex;flex-direction:column;gap:28px">
+        <div><h2 style="font-size:18px;font-weight:800;margin-bottom:10px">Veri Sorumlusu</h2>
+        <p style="font-size:14px;color:var(--text-muted);line-height:1.8"><strong>İşBul Teknoloji A.ı.</strong><br>Adres: Levent Mah. Bıyıkdere Cad. No:127, Beıiktaı/ıstanİşBul<br>E-posta: kvkk@isbul.com.tr</p></div>
+        <div><h2 style="font-size:18px;font-weight:800;margin-bottom:10px">İşlenen Kişisel Veriler</h2>
+        <div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:13px">
+          <thead><tr style="background:var(--bg)">
+            <th style="padding:10px 14px;text-align:left;border-bottom:2px solid var(--border)">Veri Kategorisi</th>
+            <th style="padding:10px 14px;text-align:left;border-bottom:2px solid var(--border)">Veri Tırı</th>
+            <th style="padding:10px 14px;text-align:left;border-bottom:2px solid var(--border)">Amaı</th>
+          </tr></thead>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--border)"><td style="padding:10px 14px">Kimlik</td><td style="padding:10px 14px">Ad, soyad, TC kimlik no</td><td style="padding:10px 14px">Kimlik doırulama</td></tr>
+            <tr style="border-bottom:1px solid var(--border)"><td style="padding:10px 14px">ıletişim</td><td style="padding:10px 14px">E-posta, telefon, adres</td><td style="padding:10px 14px">hizmet sunumu</td></tr>
+            <tr style="border-bottom:1px solid var(--border)"><td style="padding:10px 14px">Finansal</td><td style="padding:10px 14px">IBAN, fatura bilgisi</td><td style="padding:10px 14px">Ödeme işlemleri</td></tr>
+            <tr><td style="padding:10px 14px">Teknik</td><td style="padding:10px 14px">IP, cihaz, ıerez</td><td style="padding:10px 14px">güvenlik, analitik</td></tr>
+          </tbody>
+        </table></div></div>
+        <div><h2 style="font-size:18px;font-weight:800;margin-bottom:10px">Hukuki Dayanak</h2>
+        <p style="font-size:14px;color:var(--text-muted);line-height:1.8">Verileriniz; sızleımenin kurulması ve ifası (KVKK md. 5/2-c), meıru menfaat (KVKK md. 5/2-f) ve yasal yıkımlülkek (KVKK md. 5/2-ı) kapsamında işlenmektedir.</p></div>
+        <div><h2 style="font-size:18px;font-weight:800;margin-bottom:10px">Haklarınızı nasıl Kullanırsınız?</h2>
+        <p style="font-size:14px;color:var(--text-muted);line-height:1.8">KVKK md. 11 kapsamındaki haklarınızı kullanmak için <strong>kvkk@isbul.com.tr</strong> adresine e-posta gönderebilirsiniz. Baıvurularınız 30 gün içinde yanıtlanacaktır.</p></div>
+      </div>
+      <div style="margin-top:36px;padding:20px;background:#fef3c7;border-radius:var(--radius-sm)">
+        <p style="font-size:14px;color:#92400e">✓ Bu metin bilgilendirme amaülkedır.</p>
+      </div>
+      <div style="margin-top:20px;text-align:center">
+        <a href="index.html" class="btn btn--ghost">ı Ana Sayfaya Dın</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- AUTH MODAL -->
+  <div class="modal-overlay" id="authModal">
+    <div class="auth-modal-inner">
+      <div class="auth-modal-header">
+        <span class="navbar__logo" style="color:var(--dark)"><span class="logo-icon">⚡</span><span class="logo-text"><strong>İşBul</strong></span></span>
+        <button class="auth-modal-close" id="authModalClose">×</button>
+      </div>
+      <div class="auth-tabs">
+        <button class="auth-tab active" data-tab="login">Giriş Yap</button>
+        <button class="auth-tab" data-tab="register">Ücretsiz Kaydol</button>
+      </div>
+      <div class="auth-body">
+        <div class="auth-panel active" id="auth-login">
+          <div class="auth-social"><button class="auth-social-btn" onclick="handleOAuth('google')">✓ Google ile Giriş</button><button class="auth-social-btn" onclick="handleOAuth('apple')">? Apple ile Giriş</button></div>
+          <div class="auth-divider">veya e-posta ile</div>
+          <form id="loginForm" novalidate>
+            <div class="form-group"><label>E-posta</label><input type="email" name="email" placeholder="ornek@mail.com" /></div>
+            <div class="form-group"><label>şifre</label><input type="password" name="password" placeholder="••••••" /></div>
+            <button type="submit" class="auth-submit">Giriş Yap</button>
+          </form>
+        </div>
+        <div class="auth-panel" id="auth-register">
+          <div class="auth-social"><button class="auth-social-btn" onclick="handleOAuth('google')">✓ Google ile Kayıt</button></div>
+          <div class="auth-divider">veya e-posta ile</div>
+          <form id="registerForm" novalidate>
+            <div class="form-group" style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div><label>Ad</label><input type="text" name="regFirstName" placeholder="Adınız" /></div><div><label>Soyad</label><input type="text" name="regLastName" placeholder="Soyadınız" /></div></div>
+            <div class="form-group"><label>E-posta</label><input type="email" name="regEmail" placeholder="ornek@mail.com" /></div>
+            <div class="form-group"><label>şifre</label><input type="password" name="regPassword" placeholder="En az 8 karakter" /></div>
+            <div class="form-group"><label>Tekrar</label><input type="password" name="regPasswordConfirm" placeholder="Tekrar girin" /></div>
+            <button type="submit" class="auth-submit">Hesap oluştur</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/api-client.js"></script>
+  <script src="assets/js/app.js"></script>
+
+  <!-- AI Chatbot Widget -->
+  <link rel="stylesheet" href="assets/css/chatbot.css" />
+  <script src="assets/js/chatbot.js"></script>
+</body>
+</html>

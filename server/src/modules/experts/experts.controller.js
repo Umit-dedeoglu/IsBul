@@ -1,0 +1,139 @@
+﻿const { dbGet, dbAll, dbRun } = require('../../db');
+
+/** GET /api/experts */
+function listExperts(req, res) {
+  try {
+    const { city, category, search, sort = 'rating' } = req.query;
+    const sortMap = {
+      rating:      'ep.rating DESC',
+      'price-asc': 'ep.price ASC',
+      'price-desc':'ep.price DESC',
+      reviews:     'ep.review_count DESC',
+    };
+
+    let sql = `
+      SELECT u.id, u.first_name, u.last_name, u.avatar, u.color,
+             ep.price, ep.bio, ep.city, ep.tags, ep.hours,
+             ep.rating, ep.review_count, ep.experience, ep.is_elite
+      FROM users u
+      JOIN expert_profiles ep ON ep.user_id = u.id
+      WHERE u.role IN ('expert','admin') AND u.is_active = 1
+    `;
+    const params = [];
+
+    if (city) { sql += ' AND ep.city = ?'; params.push(city); }
+    sql += ` ORDER BY ${sortMap[sort] || 'ep.rating DESC'}`;
+
+    let experts = dbAll(sql, ...params);
+
+    if (search) {
+      const q = search.toLowerCase();
+      experts = experts.filter(e => {
+        const tags = JSON.parse(e.tags || '[]');
+        return `${e.first_name} ${e.last_name}`.toLowerCase().includes(q) ||
+               (e.bio||'').toLowerCase().includes(q) ||
+               tags.some(t => t.toLowerCase().includes(q));
+      });
+    }
+    if (category) {
+      const q = category.toLowerCase();
+      experts = experts.filter(e => {
+        const tags = JSON.parse(e.tags || '[]');
+        return tags.some(t => t.toLowerCase().replace(/\s/g,'') === q || t.toLowerCase().includes(q));
+      });
+    }
+
+    return res.json({ success: true, count: experts.length, experts: experts.map(formatExpert) });
+  } catch (err) {
+    console.error('[experts/list]', err);
+    return res.status(500).json({ success: false, error: 'Sunucu hatası.' });
+  }
+}
+
+/** GET /api/experts/:id */
+function getExpert(req, res) {
+  try {
+    const row = dbGet(`
+      SELECT u.id, u.first_name, u.last_name, u.avatar, u.color,
+             ep.price, ep.bio, ep.city, ep.tags, ep.hours,
+             ep.rating, ep.review_count, ep.experience, ep.is_elite
+      FROM users u
+      JOIN expert_profiles ep ON ep.user_id = u.id
+      WHERE u.id = ?
+    `, req.params.id);
+
+    if (!row) return res.status(404).json({ success: false, error: 'Uzman bulunamadı.' });
+
+    const reviews = dbAll(`
+      SELECT r.*, u.first_name, u.last_name, u.avatar, u.color
+      FROM reviews r JOIN users u ON u.id = r.customer_id
+      WHERE r.expert_id = ? ORDER BY r.created_at DESC LIMIT 20
+    `, req.params.id);
+
+    return res.json({ success: true, expert: { ...formatExpert(row), reviewList: reviews } });
+  } catch (err) {
+    console.error('[experts/get]', err);
+    return res.status(500).json({ success: false, error: 'Sunucu hatası.' });
+  }
+}
+
+/** PATCH /api/experts/profile */
+function updateExpertProfile(req, res) {
+  try {
+    const { price, bio, city, tags, hours, experience } = req.body;
+    const existing = dbGet('SELECT user_id FROM expert_profiles WHERE user_id = ?', req.user.id);
+
+    if (!existing) {
+      dbRun(
+        'INSERT INTO expert_profiles (user_id, price, bio, city, tags, hours, experience) VALUES (?,?,?,?,?,?,?)',
+        req.user.id, price||300, bio||'', city||'İstanbul',
+        JSON.stringify(tags||[]), hours||'', experience||'1 yıl'
+      );
+    } else {
+      if (price !== undefined)      dbRun('UPDATE expert_profiles SET price=? WHERE user_id=?', price, req.user.id);
+      if (bio !== undefined)        dbRun('UPDATE expert_profiles SET bio=? WHERE user_id=?', bio, req.user.id);
+      if (city !== undefined)       dbRun('UPDATE expert_profiles SET city=? WHERE user_id=?', city, req.user.id);
+      if (tags !== undefined)       dbRun('UPDATE expert_profiles SET tags=? WHERE user_id=?', JSON.stringify(tags), req.user.id);
+      if (hours !== undefined)      dbRun('UPDATE expert_profiles SET hours=? WHERE user_id=?', hours, req.user.id);
+      if (experience !== undefined) dbRun('UPDATE expert_profiles SET experience=? WHERE user_id=?', experience, req.user.id);
+    }
+
+    const row = dbGet(`
+      SELECT u.id, u.first_name, u.last_name, u.avatar, u.color,
+             ep.price, ep.bio, ep.city, ep.tags, ep.hours,
+             ep.rating, ep.review_count, ep.experience, ep.is_elite
+      FROM users u JOIN expert_profiles ep ON ep.user_id = u.id WHERE u.id = ?
+    `, req.user.id);
+
+    return res.json({ success: true, expert: formatExpert(row) });
+  } catch (err) {
+    console.error('[experts/update]', err);
+    return res.status(500).json({ success: false, error: 'Sunucu hatası.' });
+  }
+}
+
+function formatExpert(row) {
+  const tags = JSON.parse(row.tags || '[]');
+  return {
+    id:         row.id,
+    name:       `${row.first_name} ${row.last_name}`,
+    firstName:  row.first_name,
+    lastName:   row.last_name,
+    avatar:     row.avatar,
+    color:      row.color,
+    price:      row.price,
+    bio:        row.bio,
+    city:       row.city,
+    tags,
+    hours:      row.hours,
+    rating:     row.rating,
+    reviews:    row.review_count,
+    experience: row.experience,
+    elite:      !!row.is_elite,
+    isRealUser: true,
+    title:      tags[0] ? `${tags[0]} Uzmanı` : 'Uzman',
+    categories: tags.map(t => t.toLowerCase().replace(/\s/g,'')),
+  };
+}
+
+module.exports = { listExperts, getExpert, updateExpertProfile };

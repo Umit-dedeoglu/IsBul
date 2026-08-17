@@ -1,0 +1,315 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1. Bug condition exploration test'ini yaz (DÜZELTMEDEN ÖNCE)": [
+      {
+        "executionId": "ec7b11f6-44d0-46f7-b644-d18c3907a86e",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786884797585
+      },
+      {
+        "executionId": "ec7b11f6-44d0-46f7-b644-d18c3907a86e",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786884807590
+      },
+      {
+        "executionId": "ec7b11f6-44d0-46f7-b644-d18c3907a86e",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786886048181
+      }
+    ],
+    "2. Preservation property test'lerini yaz (DÜZELTMEDEN ÖNCE)": [
+      {
+        "executionId": "ec7b11f6-44d0-46f7-b644-d18c3907a86e",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786884797628
+      },
+      {
+        "executionId": "ec7b11f6-44d0-46f7-b644-d18c3907a86e",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786886052962
+      },
+      {
+        "executionId": "ec7b11f6-44d0-46f7-b644-d18c3907a86e",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786886704852
+      }
+    ],
+    "3.1 Hazırlık ve backup oluştur": [
+      {
+        "executionId": "ec7b11f6-44d0-46f7-b644-d18c3907a86e",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786884797660
+      },
+      {
+        "executionId": "ec7b11f6-44d0-46f7-b644-d18c3907a86e",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786886711251
+      },
+      {
+        "executionId": "ec7b11f6-44d0-46f7-b644-d18c3907a86e",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786886918828
+      }
+    ],
+    "3.2 Encoding düzeltme script'ini oluştur": [
+      {
+        "executionId": "ec7b11f6-44d0-46f7-b644-d18c3907a86e",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786884797711
+      },
+      {
+        "executionId": "ec7b11f6-44d0-46f7-b644-d18c3907a86e",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786886923419
+      },
+      {
+        "executionId": "ec7b11f6-44d0-46f7-b644-d18c3907a86e",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786892779324
+      }
+    ],
+    "3.3 Tek dosyada test et": [
+      {
+        "executionId": "ec7b11f6-44d0-46f7-b644-d18c3907a86e",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786884797759
+      },
+      {
+        "executionId": "ec7b11f6-44d0-46f7-b644-d18c3907a86e",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786892784433
+      },
+      {
+        "executionId": "b26894df-a46b-496b-9637-1e6ab412df57",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786894646655
+      }
+    ],
+    "3.4 Tüm HTML dosyalarına uygula": [
+      {
+        "executionId": "ec7b11f6-44d0-46f7-b644-d18c3907a86e",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786884797787
+      },
+      {
+        "executionId": "b26894df-a46b-496b-9637-1e6ab412df57",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786894651377
+      },
+      {
+        "executionId": "b26894df-a46b-496b-9637-1e6ab412df57",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786896723916
+      }
+    ],
+    "3.5 HTML validator'dan geçir": [
+      {
+        "executionId": "ec7b11f6-44d0-46f7-b644-d18c3907a86e",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786884797814
+      },
+      {
+        "executionId": "b26894df-a46b-496b-9637-1e6ab412df57",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786896729204
+      },
+      {
+        "executionId": "b26894df-a46b-496b-9637-1e6ab412df57",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786897172276
+      }
+    ],
+    "3.6 UTF-8 encoding doğrulama": [
+      {
+        "executionId": "ec7b11f6-44d0-46f7-b644-d18c3907a86e",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786884797841
+      },
+      {
+        "executionId": "b26894df-a46b-496b-9637-1e6ab412df57",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786897175993
+      },
+      {
+        "executionId": "b26894df-a46b-496b-9637-1e6ab412df57",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786897179603
+      }
+    ],
+    "3.7 Bug condition exploration test'ini yeniden çalıştır": [
+      {
+        "executionId": "ec7b11f6-44d0-46f7-b644-d18c3907a86e",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786884797869
+      },
+      {
+        "executionId": "b26894df-a46b-496b-9637-1e6ab412df57",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786897183433
+      },
+      {
+        "executionId": "b26894df-a46b-496b-9637-1e6ab412df57",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786897187297
+      }
+    ],
+    "3.8 Preservation test'lerini yeniden çalıştır": [
+      {
+        "executionId": "ec7b11f6-44d0-46f7-b644-d18c3907a86e",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786884797899
+      },
+      {
+        "executionId": "b26894df-a46b-496b-9637-1e6ab412df57",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786897493133
+      },
+      {
+        "executionId": "b26894df-a46b-496b-9637-1e6ab412df57",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786897497877
+      }
+    ],
+    "4.1 Tarayıcıda görsel kontrol": [
+      {
+        "executionId": "ec7b11f6-44d0-46f7-b644-d18c3907a86e",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786884797928
+      },
+      {
+        "executionId": "b26894df-a46b-496b-9637-1e6ab412df57",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786897502865
+      },
+      {
+        "executionId": "b26894df-a46b-496b-9637-1e6ab412df57",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786898003210
+      }
+    ],
+    "4.2 Fonksiyonel test": [
+      {
+        "executionId": "ec7b11f6-44d0-46f7-b644-d18c3907a86e",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786884797956
+      },
+      {
+        "executionId": "b26894df-a46b-496b-9637-1e6ab412df57",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786898006777
+      },
+      {
+        "executionId": "b26894df-a46b-496b-9637-1e6ab412df57",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786898011533
+      }
+    ],
+    "4.3 Diff comparison": [
+      {
+        "executionId": "ec7b11f6-44d0-46f7-b644-d18c3907a86e",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786884797986
+      },
+      {
+        "executionId": "b26894df-a46b-496b-9637-1e6ab412df57",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786898014933
+      },
+      {
+        "executionId": "b26894df-a46b-496b-9637-1e6ab412df57",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786898018841
+      }
+    ],
+    "5.1 Yeni temiz backup klasörü oluştur": [
+      {
+        "executionId": "ec7b11f6-44d0-46f7-b644-d18c3907a86e",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786884798020
+      },
+      {
+        "executionId": "b26894df-a46b-496b-9637-1e6ab412df57",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786898023442
+      },
+      {
+        "executionId": "8e14cd00-921e-49c8-8f45-f5b33532b9f4",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786946664450
+      }
+    ],
+    "5.2 Eski backup'ı arşivle": [
+      {
+        "executionId": "ec7b11f6-44d0-46f7-b644-d18c3907a86e",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786884798048
+      },
+      {
+        "executionId": "8e14cd00-921e-49c8-8f45-f5b33532b9f4",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786946672638
+      },
+      {
+        "executionId": "8e14cd00-921e-49c8-8f45-f5b33532b9f4",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786946814092
+      }
+    ],
+    "5.3 Düzeltme raporu yaz": [
+      {
+        "executionId": "ec7b11f6-44d0-46f7-b644-d18c3907a86e",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786884798078
+      },
+      {
+        "executionId": "8e14cd00-921e-49c8-8f45-f5b33532b9f4",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786946818315
+      },
+      {
+        "executionId": "8e14cd00-921e-49c8-8f45-f5b33532b9f4",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786946822292
+      }
+    ],
+    "6. Checkpoint - Tüm testlerin başarılı olduğundan emin ol": [
+      {
+        "executionId": "ec7b11f6-44d0-46f7-b644-d18c3907a86e",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786884798141
+      },
+      {
+        "executionId": "8e14cd00-921e-49c8-8f45-f5b33532b9f4",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786946835700
+      },
+      {
+        "executionId": "8e14cd00-921e-49c8-8f45-f5b33532b9f4",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786946954691
+      }
+    ],
+    "3. HTML Encoding Bozulmasını Düzelt": [
+      {
+        "executionId": "b26894df-a46b-496b-9637-1e6ab412df57",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786897497908
+      }
+    ],
+    "4. Manuel doğrulama ve görsel test": [
+      {
+        "executionId": "b26894df-a46b-496b-9637-1e6ab412df57",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786898018873
+      }
+    ],
+    "5. Temiz backup oluştur ve dokümantasyon": [
+      {
+        "executionId": "8e14cd00-921e-49c8-8f45-f5b33532b9f4",
+        "chatSessionId": "sess_b535111a-f2dc-4c2f-bd39-a6454e7061eb",
+        "timestamp": 1786946822344
+      }
+    ]
+  }
+}

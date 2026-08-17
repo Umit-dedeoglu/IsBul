@@ -1,0 +1,1061 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <script src="assets/js/analytics.js" defer></script>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Uzman Ol  | İşBul</title>
+  <meta name="description" content="İşBul'a Uzman Olarak katılın. Esnek Çalışma, kendi fiyatınızı belirleyin, binlerce müşteriye ulaşın." />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/feather-icons"></script>
+  <style>
+    /* ---- Sayfa özel ---- */
+    .uzman-page { background: var(--bg); }
+
+    /* Hero özel */
+    .uzman-hero {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 45%, #0f3460 75%, #533483 100%);
+      padding: 130px 0 80px; position: relative; overflow: hidden;
+    }
+    .uzman-hero::before {
+      content: ''; position: absolute; top: -150px; right: -150px;
+      width: 500px; height: 500px; border-radius: 50%;
+      background: rgba(108,99,255,.15);
+    }
+    .uzman-hero::after {
+      content: ''; position: absolute; bottom: -100px; left: -100px;
+      width: 350px; height: 350px; border-radius: 50%;
+      background: rgba(255,107,107,.1);
+    }
+    .uzman-hero__inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+      align-items: center; position: relative; z-index: 1;
+    }
+    .uzman-hero__content h1 {
+      font-size: clamp(32px,5vw,52px); font-weight: 900;
+      color: var(--white); line-height: 1.15; margin-bottom: 16px;
+    }
+    .uzman-hero__content p {
+      font-size: 17px; color: rgba(255,255,255,.75);
+      line-height: 1.7; margin-bottom: 28px;
+    }
+    .hero-highlights {
+      display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px;
+    }
+    .hero-highlight {
+      display: flex; align-items: center; gap: 10px;
+      color: rgba(255,255,255,.85); font-size: 15px;
+    }
+    .hero-highlight-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--success); flex-shrink: 0;
+      box-shadow: 0 0 8px var(--success);
+    }
+
+    /* Uzman istatistik kartları */
+    .hero-stats-cards {
+      display: grid; grid-template-columns: repeat(2,1fr); gap: 16px;
+    }
+    .hero-stat-card {
+      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12);
+      border-radius: var(--radius); padding: 20px; text-align: center;
+      backdrop-filter: blur(8px); transition: background var(--transition);
+    }
+    .hero-stat-card:hover { background: rgba(255,255,255,.14); }
+    .hero-stat-card__val { font-size: 32px; font-weight: 900; color: var(--white); }
+    .hero-stat-card__suf { font-size: 22px; color: var(--primary); }
+    .hero-stat-card__label { font-size: 12px; color: rgba(255,255,255,.6); margin-top: 4px; }
+
+    /* İlerleme Adımları (form üstü) */
+    .form-steps {
+      display: flex; align-items: center; justify-content: center;
+      gap: 0; margin-bottom: 36px;
+    }
+    .form-step {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 13px; font-weight: 600; color: var(--text-muted);
+      padding: 8px 0;
+    }
+    .form-step.active { color: var(--primary); }
+    .form-step.done  { color: var(--success); }
+    .form-step__circle {
+      width: 28px; height: 28px; border-radius: 50%;
+      border: 2px solid var(--border); background: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700; flex-shrink: 0;
+      transition: all var(--transition);
+    }
+    .form-step.active .form-step__circle { border-color: var(--primary); background: var(--primary); color: var(--white); }
+    .form-step.done  .form-step__circle { border-color: var(--success); background: var(--success); color: var(--white); }
+    .form-step__line {
+      width: 40px; height: 2px; background: var(--border); margin: 0 8px; flex-shrink: 0;
+    }
+    .form-step.done ~ .form-step__line,
+    .form-step.done + .form-step__line { background: var(--success); }
+
+    /* Çok Adımlı form panelleri */
+    .form-panel { display: none; }
+    .form-panel.active { display: block; }
+
+    /* Kategori seçim grid */
+    .cat-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 12px;
+      margin-bottom: 24px;
+    }
+    .cat-check { display: none; }
+    .cat-label {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 6px; padding: 16px 10px; border-radius: var(--radius-sm);
+      border: 1.5px solid var(--border); background: var(--bg);
+      cursor: pointer; transition: all var(--transition); text-align: center;
+      font-size: 13px; font-weight: 500;
+    }
+    .cat-label span { font-size: 28px; }
+    .cat-check:checked + .cat-label {
+      border-color: var(--primary); background: var(--primary-light);
+      color: var(--primary); box-shadow: 0 0 0 3px rgba(108,99,255,.15);
+    }
+
+    /* Dosya yükleme alanı */
+    .file-drop {
+      border: 2px dashed var(--border); border-radius: var(--radius-sm);
+      padding: 32px; text-align: center; cursor: pointer;
+      transition: all var(--transition); background: var(--bg);
+    }
+    .file-drop:hover, .file-drop.dragover {
+      border-color: var(--primary); background: var(--primary-light);
+    }
+    .file-drop__icon { font-size: 36px; margin-bottom: 10px; }
+    .file-drop p { font-size: 14px; color: var(--text-muted); }
+    .file-drop strong { color: var(--primary); }
+    .file-list { margin-top: 12px; display: flex; flex-direction: column; gap: 8px; }
+    .file-item {
+      display: flex; align-items: center; gap: 10px; padding: 8px 14px;
+      background: var(--white); border-radius: var(--radius-sm);
+      border: 1px solid var(--border); font-size: 13px;
+    }
+    .file-item__remove { margin-left: auto; cursor: pointer; color: #ef4444; font-size: 16px; background: none; border: none; }
+
+    /* Ödeme bilgileri kartı */
+    .payment-card {
+      background: linear-gradient(135deg, #1a1a2e, #0f3460);
+      border-radius: var(--radius); padding: 28px; color: var(--white);
+      margin-bottom: 20px;
+    }
+    .payment-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+    .payment-card p { font-size: 13px; opacity: .7; margin-bottom: 16px; }
+    .payment-card .form-group label { color: rgba(255,255,255,.8); }
+    .payment-card input {
+      background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.2);
+      color: var(--white);
+    }
+    .payment-card input::placeholder { color: rgba(255,255,255,.4); }
+    .payment-card input:focus { border-color: var(--primary); background: rgba(255,255,255,.15); }
+
+    /* Sosyal Proof (sağ panel) */
+    .tasker-testimonial {
+      background: var(--white); border-radius: var(--radius);
+      border: 1.5px solid var(--border); padding: 24px; margin-bottom: 16px;
+    }
+    .tasker-testimonial__stars { color: #f59e0b; font-size: 15px; margin-bottom: 10px; }
+    .tasker-testimonial__text { font-size: 14px; color: var(--text); line-height: 1.7; font-style: italic; margin-bottom: 14px; }
+    .tasker-testimonial__author { display: flex; align-items: center; gap: 10px; }
+    .tt-avatar {
+      width: 38px; height: 38px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--white); font-weight: 700; font-size: 12px; flex-shrink: 0;
+    }
+    .tt-name { font-size: 14px; font-weight: 700; }
+    .tt-sub  { font-size: 12px; color: var(--text-muted); }
+
+    /* İlerleme çubuğu (Profil Tamamlanma) */
+    .progress-bar-wrap { margin-bottom: 20px; }
+    .progress-bar-label { display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+    .progress-bar { height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
+    .progress-bar__fill {
+      height: 100%; background: linear-gradient(90deg, var(--primary), #a78bfa);
+      border-radius: 4px; transition: width .5s ease;
+    }
+
+    /* Responsive */
+    @media (max-width: 960px) {
+      .uzman-hero__inner { grid-template-columns: 1fr; }
+      .hero-stats-cards { grid-template-columns: repeat(4,1fr); }
+      .signup-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .hero-stats-cards { grid-template-columns: repeat(2,1fr); }
+      .cat-grid { grid-template-columns: repeat(2,1fr); }
+      .form-step span.step-label { display: none; }
+      .form-step__line { width: 20px; }
+    }
+  </style>
+</head>
+<body class="uzman-page">
+
+  <!-- NAVBAR -->
+  <header class="navbar" id="navbar">
+    <div class="container navbar__inner">
+      <a href="index.html" class="navbar__logo">
+        <span class="logo-icon">⚡</span>
+        <span class="logo-text"><strong>İşBul</strong></span>
+      </a>
+      <nav class="navbar__links" id="navLinks">
+        <a href="hizmetler.html">hizmetler</a>
+        <a href="nasil-calisir.html">nasıl Çalışır?</a>
+        <a href="uzman-ol.html" style="color:var(--accent);font-weight:700">Uzman Ol</a>
+        <a href="mailto:Kurumsal@isbul.com.tr">Kurumsal</a>
+      </nav>
+      <div class="navbar__actions">
+        <button onclick="openAuthModal('login')" class="btn btn--ghost">Giriş Yap</button>
+        <button onclick="openAuthModal('register')" class="btn btn--primary">Ücretsiz Kaydol</button>
+        <button class="hamburger" id="hamburger" aria-label="Menüyü aç">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="uzman-hero">
+    <div class="container uzman-hero__inner">
+      <!-- Sol: Metin -->
+      <div class="uzman-hero__content">
+        <div class="hero__badge" style="margin-bottom:20px">
+          <span class="badge-dot"></span>
+          Şu an 8.500+ uzman aktif olarak kazanıyor
+        </div>
+        <h1>Yeteneklerinizi paraya çevirin</h1>
+        <p>Kendi programınızı belirleyin, fiyatınızı kendiniz koyun. İşBul'da ortalama uzmanlar ayda <strong style="color:var(--accent)">₺8.000+</strong> kazanıyor.</p>
+
+        <div class="hero-highlights">
+          <div class="hero-highlight"><span class="hero-highlight-dot"></span>Kayıt tamamen ücretsiz, gizli ücret yok</div>
+          <div class="hero-highlight"><span class="hero-highlight-dot"></span>Esnek Çalışma ı kendi takvimini kendin yönet</div>
+          <div class="hero-highlight"><span class="hero-highlight-dot"></span>Aynı Gün Ödeme, IBAN'ına anında transfer</div>
+          <div class="hero-highlight"><span class="hero-highlight-dot"></span>Sigorta güvencesi ile güvenli Çalış</div>
+          <div class="hero-highlight"><span class="hero-highlight-dot"></span>81 ilde binlerce müşteriye ulaş</div>
+        </div>
+
+        <a href="#kayit-formu" class="btn btn--primary btn--lg">Hemen Ücretsiz Kaydol ı</a>
+      </div>
+
+      <!-- Saı: istatistik kartları -->
+      <div>
+        <div class="hero-stats-cards">
+          <div class="hero-stat-card">
+            <div><span class="hero-stat-card__val">₺8K</span><span class="hero-stat-card__suf">+</span></div>
+            <div class="hero-stat-card__label">Ortalama Aylık Kazanç</div>
+          </div>
+          <div class="hero-stat-card">
+            <div><span class="hero-stat-card__val">8.500</span><span class="hero-stat-card__suf">+</span></div>
+            <div class="hero-stat-card__label">Aktif Uzman</div>
+          </div>
+          <div class="hero-stat-card">
+            <div><span class="hero-stat-card__val">50K</span><span class="hero-stat-card__suf">+</span></div>
+            <div class="hero-stat-card__label">Tamamlanan Görev</div>
+          </div>
+          <div class="hero-stat-card">
+            <div><span class="hero-stat-card__val">%85</span><span class="hero-stat-card__suf"></span></div>
+            <div class="hero-stat-card__label">Net Kazanç Payı</div>
+          </div>
+        </div>
+
+        <!-- Mini uzman yorumu -->
+        <div style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius);padding:20px;margin-top:16px;backdrop-filter:blur(8px)">
+          <div style="color:#f59e0b;margin-bottom:8px">⭐⭐⭐⭐⭐</div>
+          <p style="font-size:14px;color:rgba(255,255,255,.8);line-height:1.7;font-style:italic;margin-bottom:12px">"İşBul'a katıldığım ilk ayda 12 görev tamamladım ve ?9.200 kazandım. Haftalık Çalışma saatlerimi kendim ayarlayabilmek Çok büyük özgürlük."</p>
+          <div style="display:flex;align-items:center;gap:10px">
+            <div style="width:36px;height:36px;border-radius:50%;background:#6C63FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px">MA</div>
+            <div>
+              <div style="font-size:13px;font-weight:700;color:#fff">Mehmet Arslan</div>
+              <div style="font-size:11px;color:rgba(255,255,255,.6)">Mobilya Montaj Uzmanı ı ıstanİşBul</div>
+            </div>
+            <div style="margin-left:auto;background:rgba(108,99,255,.4);color:#fff;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px">✓ Elite</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KAYIT FORMU + SOSYAL PROOF -->
+  <section class="signup-section" id="kayit-formu">
+    <div class="container">
+      <div class="signup-grid" style="grid-template-columns:1fr 380px;gap:40px;align-items:start">
+
+        <!-- FORM KARTI -->
+        <div class="signup-form-card">
+
+          <!-- Profil tamamlama çubuğu -->
+          <div class="progress-bar-wrap">
+            <div class="progress-bar-label">
+              <span>Profil Tamamlanma</span>
+              <span id="progressPct">0%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-bar__fill" id="progressFill" style="width:0%"></div>
+            </div>
+          </div>
+
+          <!-- Adım göstergesi -->
+          <div class="form-steps" id="formSteps">
+            <div class="form-step active" data-step="1">
+              <div class="form-step__circle">1</div>
+              <span class="step-label">Kişisel Bilgiler</span>
+            </div>
+            <div class="form-step__line"></div>
+            <div class="form-step" data-step="2">
+              <div class="form-step__circle">2</div>
+              <span class="step-label">Uzmanlık Alanı</span>
+            </div>
+            <div class="form-step__line"></div>
+            <div class="form-step" data-step="3">
+              <div class="form-step__circle">3</div>
+              <span class="step-label">Belgeler</span>
+            </div>
+            <div class="form-step__line"></div>
+            <div class="form-step" data-step="4">
+              <div class="form-step__circle">4</div>
+              <span class="step-label">Ödeme Bilgisi</span>
+            </div>
+          </div>
+
+          <form id="expertSignupForm" novalidate>
+
+            <!-- ===== ADIM 1: Kişisel Bilgiler ===== -->
+            <div class="form-panel active" id="step1">
+              <h2>Kişisel Bilgiler</h2>
+              <p>Hesabınızı oluşturmak için temel bilgilerinizi girin.</p>
+
+              <!-- Profil Fotoğrafı -->
+              <div class="form-group" style="text-align:center;margin-bottom:24px">
+                <label style="display:block;margin-bottom:10px">Profil Fotoğrafı</label>
+                <div id="avatarPreviewWrap" style="position:relative;display:inline-block;cursor:pointer" onclick="document.getElementById('avatarInput').click()">
+                  <div id="avatarPreview" style="width:88px;height:88px;border-radius:50%;background:var(--primary-light);border:3px dashed var(--primary);display:flex;align-items:center;justify-content:center;font-size:32px;overflow:hidden;margin:0 auto">
+                    ✓
+                  </div>
+                  <div style="position:absolute;bottom:2px;right:2px;width:26px;height:26px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;border:2px solid #fff">✓</div>
+                </div>
+                <div style="font-size:12px;color:var(--text-muted);margin-top:8px">Tıklayın veya fotoğraf yükleyin</div>
+                <input type="file" id="avatarInput" accept="image/*" style="display:none" />
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="firstName">Ad *</label>
+                  <input type="text" id="firstName" name="firstName" placeholder="Adınız" autocomplete="given-name" />
+                </div>
+                <div class="form-group">
+                  <label for="lastName">Soyad *</label>
+                  <input type="text" id="lastName" name="lastName" placeholder="Soyadınız" autocomplete="family-name" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="email">E-posta Adresi *</label>
+                <input type="email" id="email" name="email" placeholder="ornek@mail.com" autocomplete="email" />
+              </div>
+
+              <div class="form-group">
+                <label for="phone">Telefon Numarası *</label>
+                <input type="tel" id="phone" name="phone" placeholder="05XX XXX XX XX" autocomplete="tel" />
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="city">Şehir *</label>
+                  <select id="city" name="city" onchange="updateDistricts(this.value)">
+                    <option value="">Şehir seçin</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="district">İlçe *</label>
+                  <select id="district" name="district">
+                    <option value="">önce Şehir seçin</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="password">şifre *</label>
+                  <input type="password" id="password" name="password" placeholder="En az 8 karakter" autocomplete="new-password" />
+                </div>
+                <div class="form-group">
+                  <label for="passwordConfirm">şifre Tekrar *</label>
+                  <input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="şifreyi tekrar girin" autocomplete="new-password" />
+                </div>
+              </div>
+
+              <button type="button" class="btn btn--primary form-submit" onclick="nextStep(1)">
+                Devam Et ı Uzmanlık Alanı
+              </button>
+            </div>
+
+            <!-- ===== ADIM 2: Uzmanlık ===== -->
+            <div class="form-panel" id="step2">
+              <h2>Uzmanlık Alanınız</h2>
+              <p>hizmet vermek istediğiniz kategorileri seçin (birden fazla seçebilirsiniz).</p>
+
+              <div class="cat-grid">
+                <div><input type="checkbox" class="cat-check" id="cat1" name="categories" value="mobilya"><label class="cat-label" for="cat1"><span>🔧</span>Mobilya Montajı</label></div>
+                <div><input type="checkbox" class="cat-check" id="cat2" name="categories" value="temizlik"><label class="cat-label" for="cat2"><span>🧹</span>Ev Temizliği</label></div>
+                <div><input type="checkbox" class="cat-check" id="cat3" name="categories" value="nakliyat"><label class="cat-label" for="cat3"><span>🚚</span>Nakliyat</label></div>
+                <div><input type="checkbox" class="cat-check" id="cat4" name="categories" value="elektrik"><label class="cat-label" for="cat4"><span>🔧</span>Elektrikçi</label></div>
+                <div><input type="checkbox" class="cat-check" id="cat5" name="categories" value="tesisat"><label class="cat-label" for="cat5"><span>🔧</span>Tesisat</label></div>
+                <div><input type="checkbox" class="cat-check" id="cat6" name="categories" value="boya"><label class="cat-label" for="cat6"><span>🎨</span>Boyacı</label></div>
+                <div><input type="checkbox" class="cat-check" id="cat7" name="categories" value="tv"><label class="cat-label" for="cat7"><span>📺</span>TV Montajı</label></div>
+                <div><input type="checkbox" class="cat-check" id="cat8" name="categories" value="bahce"><label class="cat-label" for="cat8"><span>🌱</span>Bahçe</label></div>
+                <div><input type="checkbox" class="cat-check" id="cat9" name="categories" value="diger"><label class="cat-label" for="cat9"><span>🔧</span>Diğer</label></div>
+              </div>
+
+              <div class="form-group">
+                <label for="hourlyRate">Saatlik ücret (?) *</label>
+                <input type="number" id="hourlyRate" name="hourlyRate" placeholder="ırn. 300" min="100" max="2000" />
+                <span style="font-size:12px;color:var(--text-muted);margin-top:4px;display:block">Ortalama saatlik ücret: ?280 ı ?450 arasında</span>
+              </div>
+
+              <div class="form-group">
+                <label for="experience">Deneyim Yılı *</label>
+                <select id="experience" name="experience">
+                  <option value="">seçin</option>
+                  <option value="1">1 yıldan az</option>
+                  <option value="1-3">1ı3 yıl</option>
+                  <option value="3-5">3ı5 yıl</option>
+                  <option value="5-10">5ı10 yıl</option>
+                  <option value="10+">10 yıldan fazla</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="description">Kendinizi Tanıtın *</label>
+                <textarea id="description" name="description" placeholder="Uzmanlık alanlarınızı, deneyimlerinizi ve müşterilerinize nasıl değer katacağınızı anlatın. (en az 30 karakter)"></textarea>
+              </div>
+
+              <div style="display:flex;gap:12px">
+                <button type="button" class="btn btn--ghost" onclick="prevStep(2)" style="flex:1">ı Geri</button>
+                <button type="button" class="btn btn--primary" onclick="nextStep(2)" style="flex:2">Devam Et ı Belgeler</button>
+              </div>
+            </div>
+
+            <!-- ===== ADIM 3: Belgeler ===== -->
+            <div class="form-panel" id="step3">
+              <h2>Belge Yükleme</h2>
+              <p>Kimlik doğrulama için aıaİşdaki belgeleri yükleyin. Tım belgeler şifreli olarak saklanır.</p>
+
+              <div class="form-group">
+                <label>TC Kimlik Kartı / Pasaport *</label>
+                <div class="file-drop" id="dropId" onclick="document.getElementById('fileId').click()">
+                  <div class="file-drop__icon">✓</div>
+                  <p><strong>Tıklayın veya sürükleyin</strong><br>JPG, PNG veya PDF ı Maks. 5 MB</p>
+                </div>
+                <input type="file" id="fileId" accept=".jpg,.jpeg,.png,.pdf" style="display:none" />
+                <div class="file-list" id="fileListId"></div>
+              </div>
+
+              <div class="form-group">
+                <label>Yız Fotoğrafı (Selfie) *</label>
+                <div class="file-drop" id="dropSelfie" onclick="document.getElementById('fileSelfie').click()">
+                  <div class="file-drop__icon">✓</div>
+                  <p><strong>Tıklayın veya sürükleyin</strong><br>JPG veya PNG ı Maks. 5 MB</p>
+                </div>
+                <input type="file" id="fileSelfie" accept=".jpg,.jpeg,.png" style="display:none" />
+                <div class="file-list" id="fileListSelfie"></div>
+              </div>
+
+              <div class="form-group">
+                <label>Mesleki Sertifika / Ruhsat <span style="color:var(--text-muted);font-weight:400">(opsiyonel)</span></label>
+                <div class="file-drop" id="dropCert" onclick="document.getElementById('fileCert').click()">
+                  <div class="file-drop__icon">✓</div>
+                  <p><strong>Tıklayın veya sürükleyin</strong><br>JPG, PNG veya PDF ı Maks. 10 MB</p>
+                </div>
+                <input type="file" id="fileCert" accept=".jpg,.jpeg,.png,.pdf" style="display:none" />
+                <div class="file-list" id="fileListCert"></div>
+              </div>
+
+              <div style="background:var(--primary-light);border-radius:var(--radius-sm);padding:14px 18px;display:flex;gap:12px;align-items:flex-start;margin-bottom:24px">
+                <span style="font-size:18px;flex-shrink:0">📧</span>
+                <p style="font-size:13px;color:var(--primary);line-height:1.6;margin:0">Belgeleriniz 256-bit SSL şifresiyle aktarılır ve yalnızca kimlik doğrulama sürecinde kullanülker. İşıncı taraflarla paylaşılmaz.</p>
+              </div>
+
+              <div style="display:flex;gap:12px">
+                <button type="button" class="btn btn--ghost" onclick="prevStep(3)" style="flex:1">ı Geri</button>
+                <button type="button" class="btn btn--primary" onclick="nextStep(3)" style="flex:2">Devam Et ı Ödeme Bilgisi</button>
+              </div>
+            </div>
+
+            <!-- ===== ADIM 4: Ödeme Bilgisi ===== -->
+            <div class="form-panel" id="step4">
+              <h2>Ödeme Bilgisi</h2>
+              <p>Kazançlarınızın aktarılacak banka Hesap bilgilerinizi girin.</p>
+
+              <div class="payment-card">
+                <h4>✓ Banka Hesap Bilgileri</h4>
+                <p>Görev tamamlandıİşnda kazancınız bu hesaba aktarılır.</p>
+
+                <div class="form-group">
+                  <label>IBAN *</label>
+                  <input type="text" name="iban" id="ibanInput" placeholder="TR00 0000 0000 0000 0000 0000 00" maxlength="32" />
+                </div>
+                <div class="form-group">
+                  <label>Hesap Sahibi Ad Soyad *</label>
+                  <input type="text" name="accountName" placeholder="Adınız Soyadınız" />
+                </div>
+                <div class="form-group">
+                  <label>Banka Adı</label>
+                  <select name="bankName" style="background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2);color:#fff">
+                    <option value="" style="color:#333">Banka seçin</option>
+                    <option style="color:#333">Ziraat Bankası</option>
+                    <option style="color:#333">İş Bankası</option>
+                    <option style="color:#333">Garanti BBVA</option>
+                    <option style="color:#333">Yapı Kredi</option>
+                    <option style="color:#333">Halkbank</option>
+                    <option style="color:#333">Vakıfbank</option>
+                    <option style="color:#333">Akbank</option>
+                    <option style="color:#333">QNB Finansbank</option>
+                    <option style="color:#333">Diğer</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-weight:400">
+                  <input type="checkbox" name="agreeTerms" id="agreeTerms" style="margin-top:2px;width:16px;height:16px;flex-shrink:0;accent-color:var(--primary)" />
+                  <span style="font-size:13px;color:var(--text-muted)">
+                    <a href="sartlar.html" target="_blank" style="color:var(--primary)">Kullanım Koşulları</a>'nı ve 
+                    <a href="Gizlilik.html" target="_blank" style="color:var(--primary)">Gizlilik Politikası</a>'nı okudum, kabul ediyorum. *
+                  </span>
+                </label>
+              </div>
+
+              <div class="form-group">
+                <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-weight:400">
+                  <input type="checkbox" name="agreeKvkk" id="agreeKvkk" style="margin-top:2px;width:16px;height:16px;flex-shrink:0;accent-color:var(--primary)" />
+                  <span style="font-size:13px;color:var(--text-muted)">
+                    <a href="kvkk.html" target="_blank" style="color:var(--primary)">KVKK Aydınlatma Metni</a>'ni okudum, kişisel verilerimin işlenmesine izin veriyorum. *
+                  </span>
+                </label>
+              </div>
+
+              <div style="display:flex;gap:12px">
+                <button type="button" class="btn btn--ghost" onclick="prevStep(4)" style="flex:1">ı Geri</button>
+                <button type="submit" class="btn btn--primary form-submit" style="flex:2;border-radius:50px">
+                  ✓ Başvurumu Tamamla
+                </button>
+              </div>
+
+              <p class="form-agree" style="margin-top:16px">
+                ✓ Bilgileriniz 256-bit SSL ile korunmaktadır
+              </p>
+            </div>
+
+          </form>
+        </div>
+
+        <!-- SAı: SOSYAL PROOF -->
+        <aside>
+          <div style="position:sticky;top:96px">
+            <h3 style="font-size:18px;font-weight:800;margin-bottom:16px">Uzmanlarımız Ne Diyor?</h3>
+
+            <div class="tasker-testimonial">
+              <div class="tasker-testimonial__stars">⭐⭐⭐⭐⭐</div>
+              <p class="tasker-testimonial__text">"ılk ayda 12 görev, ?9.200 kazanç. İşBul gerıekten işe yarıyor. müşteriler kaliteli ve Ödemeler sorunsuz geliyor."</p>
+              <div class="tasker-testimonial__author">
+                <div class="tt-avatar" style="background:#6C63FF">MA</div>
+                <div><div class="tt-name">Mehmet Arslan</div><div class="tt-sub">Mobilya Uzmanı ı 2 yıldır aktif</div></div>
+              </div>
+            </div>
+
+            <div class="tasker-testimonial">
+              <div class="tasker-testimonial__stars">⭐⭐⭐⭐⭐</div>
+              <p class="tasker-testimonial__text">"Temizlik işini mesleğe dönüştürmek istiyordum. İşBul sayesinde sabit müşteri tabanım oluştu, artık düzenli gelir var."</p>
+              <div class="tasker-testimonial__author">
+                <div class="tt-avatar" style="background:#FF6B6B">AK</div>
+                <div><div class="tt-name">Ayşe Kaya</div><div class="tt-sub">Temizlik Uzmanı ı 3 yıldır aktif</div></div>
+              </div>
+            </div>
+
+            <div class="tasker-testimonial">
+              <div class="tasker-testimonial__stars">⭐⭐⭐⭐⭐</div>
+              <p class="tasker-testimonial__text">"Emekli olduktan sonra boı zamanlarımı değerlendirmek istedim. Haftada 3 gün çalışıp ?5.000+ kazanıyorum."</p>
+              <div class="tasker-testimonial__author">
+                <div class="tt-avatar" style="background:#4ECDC4">HR</div>
+                <div><div class="tt-name">Hüseyin Ren</div><div class="tt-sub">Elektrikçi ı 1 yıldır aktif</div></div>
+              </div>
+            </div>
+
+            <!-- güven rozeti -->
+            <div style="background:var(--bg);border-radius:var(--radius-sm);padding:16px;border:1.5px solid var(--border)">
+              <div style="font-size:13px;font-weight:700;margin-bottom:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px">Uzman Gıveöncesi</div>
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <div style="display:flex;align-items:center;gap:8px;font-size:13px"><span>🔧</span> Kimlik doğrulamalı Profil</div>
+                <div style="display:flex;align-items:center;gap:8px;font-size:13px"><span>🔧</span> İş sigortası güvencesi</div>
+                <div style="display:flex;align-items:center;gap:8px;font-size:13px"><span>🔧</span> müşteri koruması</div>
+                <div style="display:flex;align-items:center;gap:8px;font-size:13px"><span>🔧</span> 7/24 uzman desteği</div>
+                <div style="display:flex;align-items:center;gap:8px;font-size:13px"><span>🔧</span> Aynı Gün Ödeme</div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ALT CTA ı kaldırıldı, iletişim footer'daki linke taİşndı -->
+
+  <!-- İLETİŞİM MODAL -->
+  <div class="modal-overlay" id="contactModal">
+    <div style="background:var(--white);border-radius:20px;max-width:480px;width:92%;position:relative;padding:0;overflow:hidden">
+      <!-- Header -->
+      <div style="background:linear-gradient(135deg,#1a1a2e,#0f3460);padding:28px 28px 24px;color:#fff;text-align:center">
+        <button onclick="document.getElementById('contactModal').classList.remove('active');document.body.style.overflow=''"
+          style="position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center">?</button>
+        <div style="font-size:40px;margin-bottom:10px">📧</div>
+        <h3 style="font-size:22px;font-weight:900;margin-bottom:6px">Uzman Destek Hattımız</h3>
+        <p style="font-size:14px;opacity:.8">Kayıt süreciyle ilgili her sorunuz için 7/24 hazırız.</p>
+      </div>
+      <!-- İçerik -->
+      <div style="padding:28px">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;align-items:center;gap:14px;padding:16px 20px;border-radius:var(--radius-sm);border:1.5px solid var(--border)">
+            <span style="width:40px;height:40px;border-radius:50%;background:var(--primary-light);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">📧</span>
+            <div>
+              <div style="font-size:13px;color:var(--text-muted);font-weight:400">E-posta</div>
+              <div style="font-weight:600;color:var(--text)">uzman@isbul.com.tr</div>
+            </div>
+          </div>
+          <a href="nasil-calisir.html?rol=tasker"
+            style="display:flex;align-items:center;gap:14px;padding:16px 20px;border-radius:var(--radius-sm);border:1.5px solid var(--border);text-decoration:none;color:var(--text);transition:.2s;font-weight:600"
+            onmouseover="this.style.borderColor='var(--primary)';this.style.color='var(--primary)'"
+            onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text)'">
+            <span style="width:40px;height:40px;border-radius:50%;background:var(--primary-light);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">📧</span>
+            <div>
+              <div style="font-size:13px;color:var(--text-muted);font-weight:400">Rehber</div>
+              <div>Uzman süreci Hakkında ı</div>
+            </div>
+          </a>
+        </div>
+        <p style="font-size:12px;color:var(--text-muted);text-align:center;margin-top:20px">Ortalama yanıt süresi: <strong>15 dakika</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <a href="index.html" class="navbar__logo"><span class="logo-icon">⚡</span><span class="logo-text"><strong>İşBul</strong></span></a>
+          <p>Türkiye'nin güvenilir ev ve ofis hizmetleri platformu.</p>
+          <div class="footer__social"><a href="https://www.linkedin.com/in/%C3%BCmit-yakup-dedeo%C4%9Flu-4321212a7/" target="_blank" rel="noopener" aria-label="LinkedIn" title="Ümit Yakup Dedeoğlu - LinkedIn">🔗</a></div>
+        </div>
+        <div class="footer__links">
+          <div class="footer__col"><h4>hizmetler</h4><a href="hizmetler.html?kategori=montaj">Mobilya Montajı</a><a href="hizmetler.html?kategori=temizlik">Ev Temizlişi</a><a href="hizmetler.html?kategori=nakliyat">Nakliyat</a></div>
+          <div class="footer__col">
+            <h4>Şirket</h4>
+            <a href="hakkimizda.html">Hakkımızda</a>
+            
+            
+            <a href="blog.html">Blog</a>
+          </div>
+          
+          <div class="footer__col"><h4>Uzmanlar</h4><a href="uzman-ol.html">Uzman Ol</a><a href="sartlar.html#sigorta">Sigorta</a></div>
+          <div class="footer__col"><h4>Destek</h4><a href="#" onclick="document.getElementById('contactModal').classList.add('active');document.body.style.overflow='hidden';return false">İletişim</a><a href="kvkk.html">KVKK</a></div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>ı 2026 İşBul Teknoloji A.ı. Tım hakları saklıdır.</p>
+        <div class="footer__badges"><span class="footer-badge">🔒 SSL Güvenli</span><span class="footer-badge">✓ KVKK Uyumlu</span><span class="footer-badge">💳 Güvenli Ödeme</span></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/api-client.js"></script>
+  <script src="assets/js/app.js"></script>
+
+  <script>
+    /* ---- Çok Adımlı form yönetimi ---- */
+    let currentStep = 1;
+    const TOTAL_STEPS = 4;
+
+    const STEP_FIELDS = {
+      1: ['firstName','lastName','email','phone','city','password','passwordConfirm'],
+      2: ['hourlyRate','experience','description'],
+      3: [],   // dosya alanları JS'de kontrol
+      4: ['agreeTerms','agreeKvkk'],
+    };
+
+    function validateStep(step) {
+      const fields = STEP_FIELDS[step] || [];
+      let ok = true;
+
+      fields.forEach(name => {
+        const el = document.getElementById(name) || document.querySelector(`[name="${name}"]`);
+        if (!el) return;
+
+        // Temizle
+        el.style.borderColor = '';
+        const prev = el.parentNode.querySelector('.field-error');
+        if (prev) prev.remove();
+
+        const val = el.type === 'checkbox' ? el.checked : el.value.trim();
+
+        if (!val) {
+          el.style.borderColor = '#ef4444';
+          const err = document.createElement('span');
+          err.className = 'field-error';
+          err.style.cssText = 'display:block;color:#ef4444;font-size:12px;margin-top:4px';
+          err.textContent = 'Bu alan zorunludur.';
+          el.parentNode.appendChild(err);
+          ok = false;
+        }
+      });
+
+      // şifre eşleşme
+      if (step === 1) {
+        const p1 = document.getElementById('password');
+        const p2 = document.getElementById('passwordConfirm');
+        if (p1.value && p2.value && p1.value !== p2.value) {
+          p2.style.borderColor = '#ef4444';
+          const err = document.createElement('span');
+          err.className = 'field-error';
+          err.style.cssText = 'display:block;color:#ef4444;font-size:12px;margin-top:4px';
+          err.textContent = 'şifreler eşleşmiyor.';
+          p2.parentNode.appendChild(err);
+          ok = false;
+        }
+        // E-posta format
+        const email = document.getElementById('email');
+        if (email.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+          email.style.borderColor = '#ef4444';
+          const err = document.createElement('span');
+          err.className = 'field-error';
+          err.style.cssText = 'display:block;color:#ef4444;font-size:12px;margin-top:4px';
+          err.textContent = 'Geçerli bir e-posta girin.';
+          email.parentNode.appendChild(err);
+          ok = false;
+        }
+      }
+
+      // Kategori seçimi (Adım 2)
+      if (step === 2) {
+        const cats = document.querySelectorAll('[name="categories"]:checked');
+        if (!cats.length) {
+          if (window.showToast) showToast('En az bir kategori seçmelisiniz.', 'error');
+          ok = false;
+        }
+      }
+
+      return ok;
+    }
+
+    function nextStep(from) {
+      if (!validateStep(from)) return;
+      goToStep(from + 1);
+    }
+
+    function prevStep(from) {
+      goToStep(from - 1);
+    }
+
+    function goToStep(to) {
+      document.getElementById(`step${currentStep}`).classList.remove('active');
+      document.getElementById(`step${to}`).classList.add('active');
+
+      // Adım göstergesi göncelle
+      document.querySelectorAll('.form-step').forEach(s => {
+        const n = +s.dataset.step;
+        s.classList.remove('active','done');
+        if (n === to) s.classList.add('active');
+        else if (n < to) s.classList.add('done');
+      });
+
+      currentStep = to;
+      updateProgress();
+      window.scrollTo({ top: document.getElementById('kayit-formu').offsetTop - 80, behavior: 'smooth' });
+    }
+
+    function updateProgress() {
+      const pct = Math.round(((currentStep - 1) / TOTAL_STEPS) * 100);
+      document.getElementById('progressFill').style.width = pct + '%';
+      document.getElementById('progressPct').textContent = pct + '%';
+    }
+
+    /* ---- Dosya yükleme ---- */
+    function initFileDrop(dropId, inputId, listId) {
+      const input = document.getElementById(inputId);
+      const list  = document.getElementById(listId);
+      const drop  = document.getElementById(dropId);
+
+      input?.addEventListener('change', () => showFiles(input.files, list));
+
+      drop?.addEventListener('dragover', e => { e.preventDefault(); drop.classList.add('dragover'); });
+      drop?.addEventListener('dragleave', () => drop.classList.remove('dragover'));
+      drop?.addEventListener('drop', e => {
+        e.preventDefault(); drop.classList.remove('dragover');
+        showFiles(e.dataTransfer.files, list);
+      });
+    }
+
+    function showFiles(files, list) {
+      list.innerHTML = '';
+      [...files].forEach(f => {
+        const item = document.createElement('div');
+        item.className = 'file-item';
+        item.innerHTML = `<span>✓</span><span>${f.name}</span><span style="color:var(--text-muted);margin-left:auto;font-size:11px">${(f.size/1024).toFixed(0)} KB</span>`;
+        list.appendChild(item);
+      });
+    }
+
+    initFileDrop('dropId',     'fileId',     'fileListId');
+    initFileDrop('dropSelfie', 'fileSelfie', 'fileListSelfie');
+    initFileDrop('dropCert',   'fileCert',   'fileListCert');
+
+    /* ---- IBAN formatlama ---- */
+    document.getElementById('ibanInput')?.addEventListener('input', function() {
+      let val = this.value.replace(/\s/g,'').toUpperCase();
+      val = val.match(/.{1,4}/g)?.join(' ') || val;
+      this.value = val;
+    });
+
+    /* ---- İletişim modal dİşına tıkla kapat ---- */
+    document.getElementById('contactModal')?.addEventListener('click', function(e) {
+      if (e.target === this) {
+        this.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+
+    /* ---- ıl/İlçe dropdown ---- */
+    function populateCities() {
+      const sel = document.getElementById('city');
+      if (!sel || typeof ILLER === 'undefined') return;
+      IL_LISTESI.forEach(il => {
+        const opt = document.createElement('option');
+        opt.value = il; opt.textContent = il;
+        sel.appendChild(opt);
+      });
+    }
+    function updateDistricts(il) {
+      const sel = document.getElementById('district');
+      if (!sel) return;
+      sel.innerHTML = '<option value="">İlçe seçin</option>';
+      const ilceler = (typeof ILLER !== 'undefined' && ILLER[il]) ? ILLER[il] : [];
+      ilceler.forEach(ilce => {
+        const opt = document.createElement('option');
+        opt.value = ilce; opt.textContent = ilce;
+        sel.appendChild(opt);
+      });
+    }
+    window.updateDistricts = updateDistricts;
+    populateCities();
+
+    /* ---- Profil fotoğrafı preview ---- */
+    document.getElementById('avatarInput')?.addEventListener('change', function() {
+      const file = this.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = e => {
+        const preview = document.getElementById('avatarPreview');
+        preview.innerHTML = `<img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    /* ---- Form submit ---- */
+    document.getElementById('expertSignupForm')?.addEventListener('submit', async e => {
+      e.preventDefault();
+      if (!validateStep(4)) return;
+
+      const btn = e.target.querySelector('.form-submit');
+      btn.textContent = 'gönderiliyor...';
+      btn.disabled = true;
+
+      // Form verilerini topla
+      const firstName  = document.getElementById('firstName')?.value.trim()  || '';
+      const lastName   = document.getElementById('lastName')?.value.trim()   || '';
+      const email      = document.getElementById('email')?.value.trim()      || '';
+      const password   = document.getElementById('password')?.value          || '';
+      const phone      = document.getElementById('phone')?.value.trim()      || '';
+      const city       = document.getElementById('city')?.value              || '';
+      const bio        = document.getElementById('bio')?.value.trim()        || '';
+      const hourlyRate = document.getElementById('hourlyRate')?.value        || '300';
+
+      // Seıilen kategorileri topla
+      const selectedCats = [];
+      document.querySelectorAll('.cat-checkbox:checked, .category-checkbox:checked').forEach(cb => {
+        selectedCats.push(cb.value || cb.dataset.cat || cb.parentElement?.textContent?.trim());
+      });
+
+      try {
+        let success = false;
+
+        // 1) önce API ile kayıt dene ı role: pending_expert (admin onayı bekler)
+        if (typeof IsBulAPI !== 'undefined') {
+          const regRes = await IsBulAPI.auth.register(firstName, lastName, email, password, 'pending_expert');
+          if (regRes !== null) {
+            if (!regRes.success) {
+              showToast(regRes.error || 'Kayıt başarısız.', 'error');
+              btn.textContent = 'Başvuruyu Tamamla'; btn.disabled = false;
+              return;
+            }
+            // Uzman Profilini kaydet
+            await IsBulAPI.experts.updateProfile({
+              price:      parseInt(hourlyRate) || 300,
+              bio:        bio,
+              city:       city,
+              tags:       selectedCats,
+              experience: '1 yıl'
+            });
+            // Session göncelle
+            const session = typeof getSession === 'function' ? getSession() : null;
+            if (session) {
+              session.role       = 'pending_expert';
+              session.isExpert   = false; // onay bekleniyor
+              session.expertData = { price: parseInt(hourlyRate)||300, bio, city, tags: selectedCats };
+              if (typeof saveSession === 'function') saveSession(session);
+            }
+            success = true;
+          }
+        }
+
+        // 2) Fallback: localStorage ile kayıt
+        if (!success) {
+          if (typeof registerUser === 'function') {
+            const res = registerUser(firstName, lastName, email, password);
+            if (!res.success) {
+              showToast(res.error || 'Kayıt başarısız.', 'error');
+              btn.textContent = 'Başvuruyu Tamamla'; btn.disabled = false;
+              return;
+            }
+            // Otomatik giriş yap ve uzman yap
+            if (typeof loginUser === 'function') {
+              const loginRes = loginUser(email, password);
+              if (loginRes.success) {
+                const db = typeof getUsersDB === 'function' ? getUsersDB() : {};
+                if (db[email.toLowerCase()]) {
+                  db[email.toLowerCase()].isExpert   = true;
+                  db[email.toLowerCase()].expertData = {
+                    price: parseInt(hourlyRate)||300, bio, city,
+                    tags: selectedCats, phone
+                  };
+                  if (typeof saveUsersDB === 'function') saveUsersDB(db);
+                  const session = loginRes.user;
+                  session.isExpert   = true;
+                  session.expertData = db[email.toLowerCase()].expertData;
+                  if (typeof saveSession === 'function') saveSession(session);
+                }
+              }
+            }
+            success = true;
+          }
+        }
+
+        // Baıarı ekranı
+        document.querySelector('.signup-form-card').innerHTML = `
+          <div style="text-align:center;padding:48px 20px">
+            <div style="font-size:72px;margin-bottom:20px">✓</div>
+            <h2 style="font-size:26px;font-weight:900;margin-bottom:12px;color:var(--dark)">
+              ${success ? 'hesabınız oluşturuldu!' : 'Baıvurunuz Alındı!'}
+            </h2>
+            <p style="font-size:16px;color:var(--text-muted);line-height:1.7;max-width:400px;margin:0 auto 28px">
+              ${success
+                ? `Hoı geldiniz, <strong>${firstName}</strong>! Uzman Profiliniz oluşturuldu. Hemen panele gidebilirsiniz.`
+                : 'Ekibimiz belgelerinizi inceleyecek ve <strong>24ı48 saat</strong> içinde e-posta ile size geri döneceğiz.'
+              }
+            </p>
+            <div style="background:var(--bg);border-radius:var(--radius-sm);padding:20px;text-align:left;margin-bottom:24px;border:1.5px solid var(--border)">
+              <div style="font-size:13px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px">Sonraki Adımlar</div>
+              <div style="display:flex;flex-direction:column;gap:10px">
+                <div style="display:flex;align-items:center;gap:10px;font-size:14px"><span style="width:24px;height:24px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">1</span>${success ? 'Uzman Panelinize gidin' : 'E-posta kutunuzu kontrol edin'}</div>
+                <div style="display:flex;align-items:center;gap:10px;font-size:14px"><span style="width:24px;height:24px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">2</span>${success ? 'Profilinizi tamamlayın' : 'Kimlik doğrulama onayı (24ı48 saat)'}</div>
+                <div style="display:flex;align-items:center;gap:10px;font-size:14px"><span style="width:24px;height:24px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">3</span>Görev almaya başlayın!</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+              ${success
+                ? '<a href="uzman-panel.html" class="btn btn--primary btn--lg">? Uzman Paneline Git ı</a>'
+                : '<a href="index.html" class="btn btn--primary btn--lg">Ana Sayfaya Dön ı</a>'
+              }
+            </div>
+          </div>`;
+
+      } catch (err) {
+        console.error('[uzman-ol submit]', err);
+        showToast('Bir hata oluştu, Lütfen tekrar deneyin.', 'error');
+        btn.textContent = 'Başvuruyu Tamamla'; btn.disabled = false;
+      }
+    });
+  </script>
+
+  <!-- AUTH MODAL -->
+  <div class="modal-overlay" id="authModal">
+    <div class="auth-modal-inner">
+      <div class="auth-modal-header">
+        <span class="navbar__logo"><span class="logo-icon">⚡</span><span class="logo-text"><strong>İşBul</strong></span></span>
+        <button class="auth-modal-close" id="authModalClose">×</button>
+      </div>
+      <div class="auth-tabs">
+        <button class="auth-tab active" data-tab="login">Giriş Yap</button>
+        <button class="auth-tab" data-tab="register">Ücretsiz Kaydol</button>
+      </div>
+      <div class="auth-body">
+        <div class="auth-panel active" id="auth-login">
+          <div class="auth-social">
+            <button class="auth-social-btn" onclick="handleOAuth('google')">✓ Google ile Giriş</button>
+            <button class="auth-social-btn" onclick="handleOAuth('apple')">? Apple ile Giriş</button>
+          </div>
+          <div class="auth-divider">veya e-posta ile</div>
+          <form id="loginForm" novalidate>
+            <div class="form-group"><label>E-posta</label><input type="email" name="email" placeholder="ornek@mail.com" /></div>
+            <div class="form-group"><label>şifre <a href="#" class="auth-forgot" onclick="showToast('şifre sıfırlama bağlantısı gönderildi!','info');return false">şifremi unuttum</a></label><input type="password" name="password" placeholder="••••••" /></div>
+            <button type="submit" class="auth-submit">Giriş Yap</button>
+          </form>
+          <p class="auth-footer">hesabınız yok mu? <a href="#" onclick="document.querySelector('[data-tab=register]').click();return false">Kayıt olun</a></p>
+        </div>
+        <div class="auth-panel" id="auth-register">
+          <div class="auth-social">
+            <button class="auth-social-btn" onclick="handleOAuth('google')">✓ Google ile Kayıt</button>
+            <button class="auth-social-btn" onclick="handleOAuth('facebook')">✓ Facebook ile Kayıt</button>
+          </div>
+          <div class="auth-divider">veya e-posta ile</div>
+          <form id="registerForm" novalidate>
+            <div class="form-group" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+              <div><label>Ad</label><input type="text" name="regFirstName" placeholder="Adınız" /></div>
+              <div><label>Soyad</label><input type="text" name="regLastName" placeholder="Soyadınız" /></div>
+            </div>
+            <div class="form-group"><label>E-posta</label><input type="email" name="regEmail" placeholder="ornek@mail.com" /></div>
+            <div class="form-group"><label>şifre</label><input type="password" name="regPassword" placeholder="En az 8 karakter" /></div>
+            <div class="form-group"><label>şifre Tekrar</label><input type="password" name="regPasswordConfirm" placeholder="Tekrar girin" /></div>
+            <button type="submit" class="auth-submit">Hesap oluştur</button>
+          </form>
+          <p class="auth-footer">hesabınız var mı? <a href="#" onclick="document.querySelector('[data-tab=login]').click();return false">Giriş yapın</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- AI Chatbot Widget -->
+  <link rel="stylesheet" href="assets/css/chatbot.css" />
+  <script src="assets/js/chatbot.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

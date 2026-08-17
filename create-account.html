@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <script src="assets/js/analytics.js" defer></script>
+  <meta http-equiv="refresh" content="2;url=activate-expert.html" />
+  <title>Hesap oluşturuluyor</title>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      display: flex; align-items: center; justify-content: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white; text-align: center; padding: 20px;
+    }
+    .container {
+      background: rgba(255,255,255,0.1); backdrop-filter: blur(10px);
+      padding: 48px; border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+    h1 { font-size: 28px; margin-bottom: 16px; }
+    .spinner {
+      width: 50px; height: 50px;
+      border: 4px solid rgba(255,255,255,0.3);
+      border-top-color: white; border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 24px auto;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="spinner"></div>
+    <h1>hesabınız oluşturuluyor...</h1>
+    <p>Lütfen bekleyin</p>
+  </div>
+
+  <script src="assets/js/api-client.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    // Hesabı oluştur
+    const email = 'umityakupdedeoglu0@gmail.com';
+    const password = 'Umit1234'; // Varsayılan şifre
+    
+    const user = {
+      id: 'u_' + Date.now(),
+      firstName: 'Ümit',
+      lastName: 'Dedeoğlu',
+      email: email.toLowerCase(),
+      passwordHash: btoa(password + '_isbul_salt'),
+      createdAt: new Date().toISOString(),
+      avatar: 'ıD',
+      color: '#6C63FF',
+      isExpert: true,
+      expertData: {
+        price: 300,
+        bio: 'Profesyonel uzman. Kaliteli hizmet garantisi.',
+        city: 'IstanİşBul',
+        tags: ['Elektrik', 'Tesisat', 'Tamir', 'Montaj'],
+        hours: 'Pzt-Cuma: 09:00-19:00, Cumartesi: 10:00-16:00'
+      }
+    };
+    
+    const db = getUsersDB();
+    db[email.toLowerCase()] = user;
+    saveUsersDB(db);
+    
+    // Oturumu başlat
+    const session = {
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      avatar: user.avatar,
+      color: user.color,
+      isExpert: true,
+      expertData: user.expertData
+    };
+    saveSession(session);
+    
+    console.log('? Hesap oluşturuldu ve uzman yapıldı!');
+    console.log('Email:', email);
+    console.log('şifre:', password);
+    
+    // 2 saniye sonra activate-expert sayfasına yınlendir
+    settimeout(() => {
+      window.location = 'activate-expert.html';
+    }, 2000);
+  </script>
+
+  <!-- AI Chatbot Widget -->
+  <link rel="stylesheet" href="assets/css/chatbot.css" />
+  <script src="assets/js/chatbot.js"></script>
+</body>
+</html>

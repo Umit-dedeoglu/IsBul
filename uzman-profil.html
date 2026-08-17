@@ -1,0 +1,799 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <script src="assets/js/analytics.js" defer></script>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Uzman profili  | İşBul</title>
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/feather-icons"></script>
+  <style>
+    .profile-page { background: var(--bg); min-height: 100vh; padding-top: 80px; }
+
+    /* profil hero */
+    .profile-hero {
+      background: var(--white); border-bottom: 1px solid var(--border);
+      padding: 32px 0 0;
+    }
+    .profile-hero__inner {
+      display: grid; grid-template-columns: auto 1fr auto;
+      gap: 28px; align-items: start; padding-bottom: 0;
+    }
+    .profile-avatar-wrap { position: relative; }
+    .profile-avatar {
+      width: 100px; height: 100px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 900; font-size: 28px;
+      border: 4px solid var(--white); box-shadow: 0 4px 20px rgba(0,0,0,.15);
+    }
+    .profile-online-dot {
+      position: absolute; bottom: 6px; right: 6px;
+      width: 16px; height: 16px; border-radius: 50%;
+      background: var(--success); border: 3px solid var(--white);
+    }
+    .profile-info h1 { font-size: 24px; font-weight: 900; margin-bottom: 4px; }
+    .profile-info__meta { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 10px; }
+    .profile-info__meta span { font-size: 14px; color: var(--text-muted); display: flex; align-items: center; gap: 4px; }
+    .profile-badges { display: flex; gap: 8px; flex-wrap: wrap; }
+    .profile-badge {
+      padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;
+    }
+    .badge-elite { background: #fef3c7; color: #92400e; }
+    .badge-verified { background: #d1fae5; color: #065f46; }
+    .badge-insured { background: #dbeafe; color: #1e40af; }
+
+    .profile-actions { display: flex; flex-direction: column; gap: 10px; min-width: 200px; }
+    .profile-price-card {
+      background: var(--bg); border-radius: var(--radius-sm);
+      padding: 16px; text-align: center; border: 1.5px solid var(--border);
+    }
+    .profile-price-card .price { font-size: 28px; font-weight: 900; color: var(--primary); }
+    .profile-price-card .price-note { font-size: 12px; color: var(--text-muted); }
+
+    /* Sekme navigasyonu */
+    .profile-tabs {
+      display: flex; border-bottom: 2px solid var(--border);
+      margin-top: 20px; gap: 0; overflow-x: auto;
+    }
+    .profile-tab {
+      padding: 14px 24px; font-size: 14px; font-weight: 600;
+      color: var(--text-muted); border: none; background: none;
+      cursor: pointer; border-bottom: 2px solid transparaent;
+      margin-bottom: -2px; white-space: nowrap; transition: all var(--transition);
+    }
+    .profile-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+    .profile-tab:hover { color: var(--text); }
+
+    /* İşerik */
+    .profile-content { padding: 32px 0 60px; }
+    .profile-grid { display: grid; grid-template-columns: 1fr 340px; gap: 32px; align-items: start; }
+
+    .profile-panel { display: none; }
+    .profile-panel.active { display: block; }
+
+    /* hizmet kartları */
+    .service-item {
+      background: var(--white); border-radius: var(--radius); padding: 20px;
+      border: 1.5px solid var(--border); margin-bottom: 16px;
+      display: flex; align-items: center; gap: 16px;
+      transition: all var(--transition);
+    }
+    .service-item:hover { border-color: var(--primary); box-shadow: var(--shadow); }
+    .service-item__icon { font-size: 32px; width: 56px; height: 56px; border-radius: var(--radius-sm); background: var(--primary-light); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .service-item__info { flex: 1; }
+    .service-item__info h4 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+    .service-item__info p { font-size: 13px; color: var(--text-muted); }
+    .service-item__price { font-size: 16px; font-weight: 700; color: var(--primary); white-space: nowrap; }
+
+    /* Yorumlar */
+    .review-item {
+      background: var(--white); border-radius: var(--radius);
+      padding: 20px; border: 1.5px solid var(--border); margin-bottom: 14px;
+    }
+    .review-item__header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .review-item__stars { color: #f59e0b; font-size: 14px; }
+    .review-item__date { font-size: 12px; color: var(--text-muted); margin-left: auto; }
+    .review-item__text { font-size: 14px; color: var(--text); line-height: 1.7; font-style: italic; margin-bottom: 10px; }
+    .review-item__service { display: inline-block; padding: 3px 10px; border-radius: 20px; background: var(--primary-light); color: var(--primary); font-size: 11px; font-weight: 600; }
+
+    /* Rating ızeti */
+    .rating-summary {
+      background: var(--white); border-radius: var(--radius);
+      padding: 24px; border: 1.5px solid var(--border); margin-bottom: 24px;
+    }
+    .rating-summary__top { display: flex; align-items: center; gap: 24px; margin-bottom: 20px; }
+    .rating-big { font-size: 56px; font-weight: 900; color: var(--dark); line-height: 1; }
+    .rating-bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+    .rating-bar-row span:first-child { font-size: 12px; color: var(--text-muted); width: 16px; text-align: right; flex-shrink: 0; }
+    .rating-bar { flex: 1; height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
+    .rating-bar__fill { height: 100%; background: #f59e0b; border-radius: 4px; }
+    .rating-bar-row span:last-child { font-size: 12px; color: var(--text-muted); width: 28px; flex-shrink: 0; }
+
+    /* Yan panel */
+    .sidebar-widget {
+      background: var(--white); border-radius: var(--radius);
+      padding: 20px; border: 1.5px solid var(--border); margin-bottom: 16px;
+    }
+    .sidebar-widget h4 { font-size: 14px; font-weight: 700; margin-bottom: 14px; text-transform: uppercase; letter-spacing: .5px; color: var(--text-muted); }
+    .stat-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+    .stat-row:last-child { border-bottom: none; }
+    .stat-row strong { color: var(--primary); }
+
+    /* Mesajlaıma widget */
+    .chat-widget { background: linear-gradient(135deg, #1a1a2e, #0f3460); border-radius: var(--radius); padding: 24px; color: #fff; }
+    .chat-widget h4 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .chat-widget p { font-size: 13px; opacity: .75; margin-bottom: 16px; }
+    .chat-input-row { display: flex; gap: 8px; }
+    .chat-input-row input {
+      flex: 1; padding: 10px 14px; border-radius: 50px; border: none;
+      font-family: var(--font); font-size: 13px; outline: none;
+    }
+    .chat-send { padding: 10px 18px; border-radius: 50px; background: var(--primary); color: #fff; font-weight: 600; font-size: 13px; border: none; cursor: pointer; transition: background var(--transition); }
+    .chat-send:hover { background: var(--primary-dark); }
+
+    /* Fotoıraf galerisi */
+    .photo-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
+    .photo-item { aspect-ratio: 1; border-radius: var(--radius-sm); overflow: hidden; background: var(--bg); display: flex; align-items: center; justify-content: center; font-size: 28px; border: 1.5px solid var(--border); cursor: pointer; transition: transform var(--transition); }
+    .photo-item:hover { transform: scale(1.04); }
+
+    @media (max-width: 960px) {
+      .profile-hero__inner { grid-template-columns: auto 1fr; }
+      .profile-actions { grid-column: 1 / -1; flex-direction: row; }
+      .profile-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .profile-hero__inner { grid-template-columns: 1fr; }
+      .profile-avatar { width: 72px; height: 72px; font-size: 20px; }
+      .profile-actions { flex-direction: column; }
+    }
+  </style>
+</head>
+<body class="profile-page">
+
+  <!-- NAVBAR -->
+  <header class="navbar scrolled" id="navbar">
+    <div class="container navbar__inner">
+      <a href="index.html" class="navbar__logo">
+        <span class="logo-icon">⚡</span>
+        <span class="logo-text"><strong>İşBul</strong></span>
+      </a>
+      <nav class="navbar__links" id="navLinks">
+        <a href="hizmetler.html">hizmetler</a>
+        <a href="nasil-calisir.html">nasıl Çalışır?</a>
+        <a href="uzman-ol.html">Uzman Ol</a>
+        <a href="mailto:Kurumsal@isbul.com.tr">Kurumsal</a>
+      </nav>
+      <div class="navbar__actions">
+        <button onclick="openAuthModal('login')" class="btn btn--ghost">Giriş Yap</button>
+        <button onclick="openAuthModal('register')" class="btn btn--primary">Ücretsiz Kaydol</button>
+        <button class="hamburger" id="hamburger" aria-label="Menüyü aç"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Breadcrumb -->
+  <div style="background:var(--white);border-bottom:1px solid var(--border);padding:12px 0;margin-top:0">
+    <div class="container" style="font-size:13px;color:var(--text-muted)">
+      <a href="index.html" style="color:var(--primary)">Ana Sayfa</a> › 
+      <a href="hizmetler.html" style="color:var(--primary)">Hizmetler</a> › 
+      <span id="breadcrumbName">Uzman Profili</span>
+    </div>
+  </div>
+
+  <!-- PROFIL HERO -->
+  <div class="profile-hero">
+    <div class="container">
+      <div class="profile-hero__inner">
+        <!-- Avatar -->
+        <div class="profile-avatar-wrap">
+          <div class="profile-avatar" id="profileAvatar" style="background:#6C63FF">MA</div>
+          <div class="profile-online-dot" title="Çevrimiçi"></div>
+        </div>
+
+        <!-- Bilgiler -->
+        <div class="profile-info">
+          <h1 id="profileName">Mehmet Arslan</h1>
+          <div class="profile-info__meta">
+            <span>? <strong id="profileRating">4.97</strong> (<span id="profilereviews">312</span> yorum)</span>
+            <span>📍 <span id="profilecity">İstanbul</span></span>
+            <span>🕐 <span id="profileExp">8 yıl deneyim</span></span>
+            <span id="profileTasks" style="display:none">? <span class="tasks-count"></span> gırev tamamlandı</span>
+          </div>
+          <div class="profile-badges">
+            <span class="profile-badge badge-elite" id="eliteBadge">✓ Elite Uzman</span>
+            <span class="profile-badge badge-verified">✅ Kimlik Doğrulandı</span>
+            <span class="profile-badge badge-insured">🛡️ Sigortalı</span>
+          </div>
+          <p id="profileBio" style="font-size:14px;color:var(--text-muted);margin-top:12px;line-height:1.7;max-width:580px"></p>
+        </div>
+
+        <!-- Fiyat + Rezervasyon -->
+        <div class="profile-actions">
+          <div class="profile-price-card">
+            <div class="price">₺<span id="profilePrice">280</span></div>
+            <div class="price-note">/saat başlangıç fiyatı</div>
+          </div>
+          <button class="btn btn--primary" style="width:100%;justify-content:center" id="bookBtn">
+            ✅ Rezervasyon Yap
+          </button>
+          <button class="btn btn--ghost" style="width:100%;justify-content:center" onclick="document.getElementById('chatSection').scrollIntoView({behavior:'smooth'})">
+            💬 Mesaj Gönder
+          </button>
+        </div>
+      </div>
+
+      <!-- Sekmeler -->
+      <div class="profile-tabs" id="profileTabs">
+        <button class="profile-tab active" data-panel="overview">Genel Bakış</button>
+        <button class="profile-tab" data-panel="reviews">Yorumlar (<span id="reviewCount">3</span>)</button>
+        <button class="profile-tab" data-panel="services">Hizmetler</button>
+        <button class="profile-tab" data-panel="photos">Fotoğraflar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROFIL İşERıK -->
+  <div class="profile-content">
+    <div class="container">
+      <div class="profile-grid">
+
+        <!-- ANA İşERıK -->
+        <div>
+          <!-- GENEL BAKIı -->
+          <div class="profile-panel active" id="panel-overview">
+            <div style="background:var(--white);border-radius:var(--radius);padding:24px;border:1.5px solid var(--border);margin-bottom:20px">
+              <h3 style="font-size:17px;font-weight:800;margin-bottom:14px">Hakkımda</h3>
+              <p id="overviewBio" style="font-size:14px;color:var(--text);line-height:1.8"></p>
+            </div>
+
+            <div style="background:var(--white);border-radius:var(--radius);padding:24px;border:1.5px solid var(--border);margin-bottom:20px">
+              <h3 style="font-size:17px;font-weight:800;margin-bottom:14px">Uzmanlık Alanları</h3>
+              <div id="overviewTags" style="display:flex;flex-wrap:wrap;gap:8px"></div>
+            </div>
+
+            <!-- Son yorumlar ızeti -->
+            <div style="background:var(--white);border-radius:var(--radius);padding:24px;border:1.5px solid var(--border)">
+              <h3 style="font-size:17px;font-weight:800;margin-bottom:16px">Son Müşteri Yorumları</h3>
+              <div id="overviewreviews"></div>
+              <button onclick="switchTab('reviews')" style="color:var(--primary);font-weight:600;font-size:14px;background:none;border:none;cursor:pointer;margin-top:4px">Tüm yorumları gör →</button>
+            </div>
+          </div>
+
+          <!-- YORUMLAR -->
+          <div class="profile-panel" id="panel-reviews">
+            <div class="rating-summary">
+              <div class="rating-summary__top">
+                <div>
+                  <div class="rating-big" id="ratingBig">4.97</div>
+                  <div style="color:#f59e0b;font-size:20px">⭐⭐⭐⭐⭐</div>
+                  <div style="font-size:13px;color:var(--text-muted);margin-top:4px"><span id="ratingTotal">312</span> yorum</div>
+                </div>
+                <div style="flex:1">
+                  <div class="rating-bar-row"><span>5</span><div class="rating-bar"><div class="rating-bar__fill" style="width:92%"></div></div><span>287</span></div>
+                  <div class="rating-bar-row"><span>4</span><div class="rating-bar"><div class="rating-bar__fill" style="width:6%"></div></div><span>18</span></div>
+                  <div class="rating-bar-row"><span>3</span><div class="rating-bar"><div class="rating-bar__fill" style="width:1%"></div></div><span>5</span></div>
+                  <div class="rating-bar-row"><span>2</span><div class="rating-bar"><div class="rating-bar__fill" style="width:0%"></div></div><span>2</span></div>
+                  <div class="rating-bar-row"><span>1</span><div class="rating-bar"><div class="rating-bar__fill" style="width:0%"></div></div><span>0</span></div>
+                </div>
+              </div>
+            </div>
+            <div id="allreviews"></div>
+
+            <!-- YORUM YAZ FORMU -->
+            <div id="reviewFormSection" style="background:var(--bg);border-radius:var(--radius);padding:24px;border:1.5px solid var(--border);margin-top:20px">
+          <h4 style="font-size:16px;font-weight:800;margin-bottom:16px">✍️ Yorum Yaz</h4>
+              <div style="margin-bottom:14px">
+                <label style="font-size:13px;font-weight:600;display:block;margin-bottom:8px">Puanınız</label>
+                <div id="starRating" style="display:flex;gap:8px;font-size:28px;cursor:pointer">
+                  <span data-val="1" style="color:var(--border);transition:.15s">?</span>
+                  <span data-val="2" style="color:var(--border);transition:.15s">?</span>
+                  <span data-val="3" style="color:var(--border);transition:.15s">?</span>
+                  <span data-val="4" style="color:var(--border);transition:.15s">?</span>
+                  <span data-val="5" style="color:var(--border);transition:.15s">?</span>
+                </div>
+              </div>
+              <div style="margin-bottom:14px">
+                <label style="font-size:13px;font-weight:600;display:block;margin-bottom:6px">hizmet</label>
+                <select id="reviewservice" style="width:100%;padding:10px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:var(--font);font-size:14px;outline:none;background:var(--white)">
+                  <option value="">hizmet tırını seçin</option>
+                </select>
+              </div>
+              <div style="margin-bottom:14px">
+                <label style="font-size:13px;font-weight:600;display:block;margin-bottom:6px">Yorumunuz *</label>
+                <textarea id="reviewText" rows="4" placeholder="Bu uzmanla Çalışma deneyiminizi paylaİşn..." style="width:100%;padding:12px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:var(--font);font-size:14px;outline:none;resize:vertical;background:var(--white)"></textarea>
+              </div>
+              <button onclick="submitReview()" class="btn btn--primary" style="border-radius:50px;width:100%;justify-content:center">
+                Yorumu Gönder
+              </button>
+              <p style="font-size:12px;color:var(--text-muted);margin-top:10px;text-align:center">Yalnızca hizmet almış müşteriler yorum yapabilir.</p>
+            </div>
+          </div>
+
+          <!-- HıZMETLER -->
+          <div class="profile-panel" id="panel-services">
+            <div id="servicesList"></div>
+          </div>
+
+          <!-- FOTOıRAFLAR -->
+          <div class="profile-panel" id="panel-photos">
+            <div style="background:var(--white);border-radius:var(--radius);padding:20px;border:1.5px solid var(--border)">
+              <h3 style="font-size:17px;font-weight:800;margin-bottom:16px">Önceki Çalışmalar</h3>
+              <div class="photo-grid" id="photogrid"></div>
+              <p style="font-size:13px;color:var(--text-muted);margin-top:12px;text-align:center">Fotoğraflar uzman tarafından yüklenmektedir.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- YAN PANEL -->
+        <aside>
+          <!-- Mısaitlik -->
+          <div class="sidebar-widget">
+            <h4>Bu Hafta Müsaitlik</h4>
+            <div id="availabilitygrid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:8px"></div>
+            <div style="display:flex;gap:12px;font-size:11px;color:var(--text-muted)">
+              <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;border-radius:2px;background:var(--success);display:inline-block"></span>Mısait</span>
+              <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;border-radius:2px;background:var(--border);display:inline-block"></span>Dolu</span>
+            </div>
+          </div>
+
+          <!-- ıstatistikler -->
+          <div class="sidebar-widget">
+            <h4>İstatistikler</h4>
+            <div id="statsWidget"></div>
+          </div>
+
+          <!-- Mesajlaıma -->
+          <div class="chat-widget" id="chatSection">
+            <h4>💬 Mesaj Gönder</h4>
+            <p>Rezervasyon öncesi sorularınızı doğrudan sorun.</p>
+            <div id="chatMessages" style="max-height:160px;overflow-y:auto;margin-bottom:10px;display:flex;flex-direction:column;gap:8px"></div>
+            <div class="chat-input-row">
+              <input type="text" id="chatInput" placeholder="Mesajınızı yazın..." />
+              <button class="chat-send" onclick="sendChatMessage()">→</button>
+            </div>
+            <p style="font-size:11px;opacity:.5;margin-top:8px">Ortalama yanıt süresi: 15 dakika</p>
+          </div>
+
+          <!-- Benzer Uzmanlar -->
+          <div class="sidebar-widget">
+            <h4>Benzer Uzmanlar</h4>
+            <div id="similarExperts"></div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <!-- AUTH MODAL -->
+  <div class="modal-overlay" id="authModal">
+    <div class="auth-modal-inner">
+      <div class="auth-modal-header">
+        <span class="navbar__logo"><span class="logo-icon">⚡</span><span class="logo-text"><strong>İşBul</strong></span></span>
+        <button class="auth-modal-close" id="authModalClose">×</button>
+      </div>
+      <div class="auth-tabs">
+        <button class="auth-tab active" data-tab="login">Giriş Yap</button>
+        <button class="auth-tab" data-tab="register">ıücretsiz Kaydol</button>
+      </div>
+      <div class="auth-body">
+        <div class="auth-panel active" id="auth-login">
+          <div class="auth-social">
+            <button class="auth-social-btn" onclick="handleOAuth('google')">✓ Google ile Giriş</button>
+            <button class="auth-social-btn" onclick="handleOAuth('apple')">? Apple ile Giriş</button>
+          </div>
+          <div class="auth-divider">veya e-posta ile</div>
+          <form id="loginForm" novalidate>
+            <div class="form-group"><label>E-posta</label><input type="email" name="email" placeholder="ornek@mail.com" /></div>
+            <div class="form-group"><label>şifre <a href="#" class="auth-forgot" onclick="return false">şifremi unuttum</a></label><input type="password" name="password" placeholder="••••••" /></div>
+            <button type="submit" class="auth-submit">Giriş Yap</button>
+          </form>
+          <p class="auth-footer">hesabınız yok mu? <a href="#" onclick="document.querySelector('[data-tab=register]').click();return false">Kayıt olun</a></p>
+        </div>
+        <div class="auth-panel" id="auth-register">
+          <div class="auth-social">
+            <button class="auth-social-btn" onclick="handleOAuth('google')">✓ Google ile Kayıt</button>
+            <button class="auth-social-btn" onclick="handleOAuth('facebook')">✓ Facebook ile Kayıt</button>
+          </div>
+          <div class="auth-divider">veya e-posta ile</div>
+          <form id="registerForm" novalidate>
+            <div class="form-group" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+              <div><label>Ad</label><input type="text" name="regFirstName" placeholder="Adınız" /></div>
+              <div><label>Soyad</label><input type="text" name="regLastName" placeholder="Soyadınız" /></div>
+            </div>
+            <div class="form-group"><label>E-posta</label><input type="email" name="regEmail" placeholder="ornek@mail.com" /></div>
+            <div class="form-group"><label>şifre</label><input type="password" name="regPassword" placeholder="En az 8 karakter" /></div>
+            <div class="form-group"><label>şifre Tekrar</label><input type="password" name="regPasswordConfirm" placeholder="Tekrar girin" /></div>
+            <button type="submit" class="auth-submit">Hesap oluştur</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REZERVASYON MODAL -->
+  <div class="modal-overlay" id="bookingModal">
+    <div class="booking-modal-inner">
+      <div class="booking-modal-header">
+        <h3>Rezervasyon</h3>
+        <button onclick="closebookingModal()" style="width:32px;height:32px;border-radius:50%;background:var(--bg);border:none;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center">?</button>
+      </div>
+      <div class="booking-modal-body" id="bookingModalBody"></div>
+    </div>
+  </div>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/api-client.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const expertId  = params.get('id');
+    const expertIdx = Math.max(0, parseInt(params.get('idx') || '0'));
+
+    // Tüm uzmanlar — gerçek kullanıcılar dahil
+    const tumUzmanlar = typeof getTumUzmanlar === 'function' ? getTumUzmanlar() : TÜM_UZMANLAR;
+
+    // id önce tüm listede, sonra statik listede ara
+    const expert = (expertId ? tumUzmanlar.find(e => e.id === expertId) : null)
+                || TÜM_UZMANLAR[expertIdx]
+                || TÜM_UZMANLAR[0];
+
+    // profili doldur
+    document.title = `${expert.name}  | İşBul`;
+    document.getElementById('breadcrumbName').textContent = expert.name;
+    document.getElementById('profileName').textContent = expert.name;
+    document.getElementById('profileRating').textContent = expert.rating;
+    document.getElementById('profilereviews').textContent = expert.reviews;
+    document.getElementById('profilecity').textContent = expert.city;
+    document.getElementById('profileExp').textContent = expert.experience + ' deneyim';
+    document.getElementById('profilePrice').textContent = expert.price;
+    document.getElementById('profileBio').textContent = expert.bio;
+    document.getElementById('overviewBio').textContent = expert.bio;
+    document.getElementById('profileAvatar').textContent = expert.avatar;
+    document.getElementById('profileAvatar').style.background = expert.color;
+    document.getElementById('ratingBig').textContent = expert.rating;
+    document.getElementById('ratingTotal').textContent = expert.reviews;
+    document.getElementById('reviewCount').textContent = expert.reviewList?.length || 0;
+
+    if (!expert.elite) document.getElementById('eliteBadge').style.display = 'none';
+
+    // Uzmanlık etiketleri
+    const tagsEl = document.getElementById('overviewTags');
+    (expert.tags||[]).forEach(t => {
+      const s = document.createElement('span');
+      s.style.cssText = 'padding:6px 14px;border-radius:20px;background:var(--primary-light);color:var(--primary);font-size:13px;font-weight:500';
+      s.textContent = t;
+      tagsEl.appendChild(s);
+    });
+
+    // Yorumlar ı yardımcı render fonksiyonu
+    function renderreview(r) {
+      const stars = '?'.repeat(r.rating||5) + '?'.repeat(5-(r.rating||5));
+      const avatar = r.avatar || (r.userName||r.user||'M')[0].toUpperCase();
+      const color  = r.color  || '#6C63FF';
+      const name   = r.userName || 'müşteri';
+      return `<div class="review-item">
+        <div class="review-item__header">
+          <div style="width:36px;height:36px;border-radius:50%;background:${color};color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">${avatar}</div>
+          <div><strong style="font-size:14px">${name}</strong><div class="review-item__stars">${stars}</div></div>
+          <span class="review-item__date">${r.date||''}</span>
+        </div>
+        <p class="review-item__text">"${r.text||''}"</p>
+        <span class="review-item__service">${r.service||''}</span>
+      </div>`;
+    }
+
+    // Yorumları API'den yükle
+    async function loadReviews() {
+      let reviews = null;
+
+      if (typeof IsbulAPI !== 'undefined') {
+        reviews = await IsbulAPI.reviews.getReviews(expert.id);
+      }
+
+      // API başarısız — statik yorumları göster
+      if (!reviews) {
+        reviews = (expert.reviewList||[]).map(r => ({
+          ...r,
+          userName: r.userName || (USERS?.customers?.find(c=>c.id===r.user)?.name) || 'Müşteri',
+          color:    r.color    || (USERS?.customers?.find(c=>c.id===r.user)?.color) || '#6C63FF',
+          avatar:   r.avatar   || (USERS?.customers?.find(c=>c.id===r.user)?.avatar) || 'M',
+        }));
+      }
+
+      // Sayfadaki reviewList'i güncelle (submitReview için)
+      expert.reviewList = reviews;
+
+      const html = reviews.length
+        ? reviews.map(renderReview).join('')
+        : '<p style="color:var(--text-muted);text-align:center;padding:20px">Henüz yorum yok.</p>';
+
+      document.getElementById('overviewreviews').innerHTML = reviews.slice(0,2).map(renderReview).join('');
+      document.getElementById('allreviews').innerHTML = html;
+      document.getElementById('reviewCount').textContent = reviews.length;
+
+      // Puan ortalamasını güncelle
+      if (reviews.length) {
+        const avg = reviews.reduce((s,r) => s+(r.rating||5), 0) / reviews.length;
+        document.getElementById('ratingBig').textContent   = avg.toFixed(1);
+        document.getElementById('ratingTotal').textContent = reviews.length;
+        document.getElementById('profileRating').textContent = avg.toFixed(1);
+        document.getElementById('profilereviews').textContent = reviews.length;
+      }
+    }
+
+    loadReviews();
+
+    // hizmetler
+    const catEmojis = { montaj:'🔧', temizlik:'🧹', nakliyat:'🚚', elektrik:'⚡', tesisat:'🔧', boya:'🎨', bahce:'🌱', tv:'📺', diger:'🛠️' };
+    const catNames  = { montaj:'Mobilya Montajı', temizlik:'Ev Temizliği', nakliyat:'Nakliyat', elektrik:'Elektrikçi', tesisat:'Tesisatçı', boya:'Boyacı', bahce:'Bahçe', tv:'TV Montajı', diger:'Diğer Hizmetler' };
+    document.getElementById('servicesList').innerHTML = (expert.categories||[]).map(cat => `
+      <div class="service-item">
+        <div class="service-item__icon">${catEmojis[cat]||'🛠️'}</div>
+        <div class="service-item__info">
+          <h4>${catNames[cat]||cat}</h4>
+          <p>${expert.bio.slice(0,80)}...</p>
+        </div>
+        <div style="text-align:right">
+          <div class="service-item__price">₺${expert.price}/saat</div>
+          <button onclick="openBookingModal('${expert.id}','${catNames[cat]||cat}')" style="margin-top:8px;padding:7px 16px;border-radius:50px;background:var(--primary);color:#fff;border:none;font-size:12px;font-weight:600;cursor:pointer">Rezervasyon</button>
+        </div>
+      </div>`).join('');
+
+    // Fotoğraf galerisi (placeholder)
+    const emojis = ['🔧','🧹','🚚','⚡','🔧','🎨','🌱','📺','🛠️','🏠','🪛','🪚'];
+    document.getElementById('photogrid').innerHTML = emojis.slice(0,6).map(e =>
+      `<div class="photo-item" onclick="showToast('Fotoğraf görüntüleyici yakında!','info')">${e}</div>`
+    ).join('');
+
+    // Müsaitlik takvimi
+    const days = ['Pzt','Sal','Çar','Per','Cum','Cmt','Paz'];
+    const avail = [true,true,false,true,true,true,false];
+    document.getElementById('availabilitygrid').innerHTML = days.map((d,i) => `
+      <div style="text-align:center">
+        <div style="font-size:10px;color:var(--text-muted);margin-bottom:3px">${d}</div>
+        <div style="width:100%;aspect-ratio:1;border-radius:4px;background:${avail[i]?'var(--success)':'var(--border)'};display:flex;align-items:center;justify-content:center;font-size:9px;color:${avail[i]?'#fff':'var(--text-muted)'}">
+          ${avail[i]?'✓':'✗'}
+        </div>
+      </div>`).join('');
+
+    // İstatistikler
+    document.getElementById('statsWidget').innerHTML = `
+      <div class="stat-row"><span>Toplam Görev</span><strong>${expert.reviews}+</strong></div>
+      <div class="stat-row"><span>Tekrar Müşteri</span><strong>%78</strong></div>
+      <div class="stat-row"><span>Yanıt Süresi</span><strong>~15 dk</strong></div>
+      <div class="stat-row"><span>Katılım</span><strong>2023</strong></div>
+      <div class="stat-row"><span>Tamamlanma</span><strong>%98</strong></div>`;
+
+    // Benzer uzmanlar
+    const similar = TÜM_UZMANLAR.filter(e=>e.id!==expert.id&&e.categories.some(c=>expert.categories.includes(c))).slice(0,3);
+    document.getElementById('similarExperts').innerHTML = similar.map((s) => `
+      <a href="uzman-profil.html?id=${s.id}" style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);text-decoration:none;color:inherit">
+        <div style="width:38px;height:38px;border-radius:50%;background:${s.color};color:#fff;font-weight:700;font-size:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0">${s.avatar}</div>
+        <div style="flex:1"><strong style="font-size:13px">${s.name}</strong><div style="font-size:11px;color:var(--text-muted)">⭐ ${s.rating} · ₺${s.price}/saat</div></div>
+      </a>`).join('') || '<p style="font-size:13px;color:var(--text-muted)">Benzer uzman bulunamadı.</p>';
+
+    // Yıldız rating sistemi
+    let selectedRating = 0;
+    const stars = document.querySelectorAll('#starRating span');
+    const updateStars = (val) => {
+      stars.forEach(s => {
+        s.style.color = (+s.dataset.val <= val) ? '#f59e0b' : 'var(--border)';
+      });
+    };
+    stars.forEach(s => {
+      s.addEventListener('mouseover', () => updateStars(+s.dataset.val));
+      s.addEventListener('mouseout',  () => updateStars(selectedRating));
+      s.addEventListener('click',     () => { selectedRating = +s.dataset.val; updateStars(selectedRating); });
+    });
+
+    // hizmet seıeneklerini doldur
+    const reviewsvcSel = document.getElementById('reviewservice');
+    if (reviewsvcSel) {
+      (expert.tags||[]).forEach(t => {
+        const o = document.createElement('option'); o.value = t; o.textContent = t;
+        reviewsvcSel.appendChild(o);
+      });
+    }
+
+    // Rezervasyon butonu — requireAuth ile korumalı
+    document.getElementById('bookBtn').addEventListener('click', function() {
+      if (typeof requireAuth === 'function' && typeof isLoggedIn === 'function' && !isLoggedIn()) {
+        requireAuth(() => {
+          if (typeof openBookingModal === 'function') openBookingModal(expert.id, expert.title);
+        }, 'Rezervasyon yapabilmek için giriş yapmanız gerekiyor.');
+      } else if (typeof openBookingModal === 'function') {
+        openBookingModal(expert.id, expert.title);
+      } else {
+        showToast('Rezervasyon sistemi yükleniyor, lütfen bekleyin.', 'info');
+      }
+    });
+
+    // Yorum gönder fonksiyonu
+    window.submitReview = async function() {
+      if (typeof isLoggedIn === 'function' && !isLoggedIn()) {
+        if (typeof requireAuth === 'function') {
+          requireAuth(window.submitReview, 'Yorum yazabilmek için giriş yapmanız gerekiyor.');
+        }
+        return;
+      }
+      const txt = document.getElementById('reviewText')?.value.trim();
+      const svc = document.getElementById('reviewservice')?.value;
+      if (!selectedRating) { showToast('Lütfen bir puan verin.','error'); return; }
+      if (!txt || txt.length < 10) { showToast('Yorumunuz en az 10 karakter olmalı.','error'); return; }
+
+      const session  = typeof getSession === 'function' ? getSession() : null;
+      const userName = session ? `${session.firstName} ${session.lastName}` : 'Kullanıcı';
+
+      const btn = document.querySelector('button[onclick*="submitReview"]')
+                || document.querySelector('.btn[onclick*="submitReview"]');
+      if (btn) { btn.textContent = 'Gönderiliyor...'; btn.disabled = true; }
+
+      let finalReview = null;
+
+      // 1) API dene
+      if (typeof IsbulAPI !== 'undefined') {
+        const res = await IsbulAPI.reviews.addReview(expert.id, {
+          rating:  selectedRating,
+          text:    txt,
+          service: svc || (expert.tags||[])[0] || 'Hizmet'
+        });
+        if (res === null) {
+          showToast('Bağlantı hatası. Yorumunuz gönderilemedi.', 'error');
+          if (btn) { btn.textContent = 'Yorumu Gönder'; btn.disabled = false; }
+          return;
+        }
+        if (!res.success) {
+          showToast(res.error || 'Yorum eklenemedi.', 'error');
+          if (btn) { btn.textContent = 'Yorumu Gönder'; btn.disabled = false; }
+          return;
+        }
+        finalReview = res.review;
+      } else {
+        // API yoksa localStorage'a yaz
+        finalReview = {
+          rating: selectedRating,
+          text: txt,
+          service: svc || (expert.tags||[])[0] || 'Hizmet',
+          userName,
+          color: session?.color || '#6C63FF',
+          date: new Date().toLocaleDateString('tr-TR'),
+        };
+      }
+
+      // Listeyi güncelle
+      expert.reviewList = expert.reviewList || [];
+      expert.reviewList.unshift(finalReview);
+
+      function renderReviewItem(r) {
+        return `<div class="review-item">
+          <div class="review-item__header">
+            <div style="width:36px;height:36px;border-radius:50%;background:${r.color||'#6C63FF'};color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">${(r.userName||'M')[0].toUpperCase()}</div>
+            <div><strong style="font-size:14px">${r.userName||'Müşteri'}</strong><div class="review-item__stars">${'⭐'.repeat(r.rating||5)}</div></div>
+            <span class="review-item__date">${r.date||''}</span>
+          </div>
+          <p class="review-item__text">"${r.text||''}"</p>
+          <span class="review-item__service">${r.service||''}</span>
+        </div>`;
+      }
+
+      document.getElementById('allreviews').innerHTML = expert.reviewList.map(renderReviewItem).join('');
+      document.getElementById('overviewreviews').innerHTML = expert.reviewList.slice(0,2).map(renderReviewItem).join('');
+      document.getElementById('reviewCount').textContent = expert.reviewList.length;
+      document.getElementById('reviewText').value = '';
+      selectedRating = 0;
+      updateStars(0);
+      if (btn) { btn.textContent = 'Yorumu Gönder'; btn.disabled = false; }
+      showToast('✅ Yorumunuz eklendi, teşekkürler!', 'success');
+    };
+
+
+    // Sekme geçişi — tek tanım
+    function switchTab(name) {
+      document.querySelectorAll('.profile-tab').forEach(t =>
+        t.classList.toggle('active', t.dataset.panel === name)
+      );
+      document.querySelectorAll('.profile-panel').forEach(p =>
+        p.classList.toggle('active', p.id === 'panel-' + name)
+      );
+      // Yorumlar sekmesine geçince scroll en üste
+      if (name === 'reviews') {
+        document.getElementById('panel-reviews')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    document.getElementById('profileTabs')?.querySelectorAll('.profile-tab').forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        switchTab(this.dataset.panel);
+      });
+    });
+
+    window.switchTab = switchTab;
+
+    // Sohbet
+    window.sendChatMessage = function() {
+      // AUTH GUARD
+      if (!isLoggedIn()) {
+        requireAuth(null, 'Mesaj göndermek için giriş yapmanız gerekiyor.');
+        return;
+      }
+      const input = document.getElementById('chatInput');
+      const msg = input.value.trim();
+      if (!msg) return;
+      const msgs = document.getElementById('chatMessages');
+      const div = document.createElement('div');
+      div.style.cssText = 'background:var(--primary);color:#fff;padding:8px 12px;border-radius:10px;font-size:13px;align-self:flex-end;max-width:80%';
+      div.textContent = msg;
+      msgs.appendChild(div);
+      msgs.scrollTop = msgs.scrollHeight;
+      input.value = '';
+      setTimeout(() => {
+        const reply = document.createElement('div');
+        reply.style.cssText = 'background:rgba(255,255,255,.15);color:#fff;padding:8px 12px;border-radius:10px;font-size:13px;align-self:flex-start;max-width:80%';
+        reply.textContent = 'Merhaba! Mesajınızı aldım, en kısa sürede size döneceğim. ✓';
+        msgs.appendChild(reply);
+        msgs.scrollTop = msgs.scrollHeight;
+        showToast('Mesajınız iletildi!','success');
+      }, 1200);
+    };
+    document.getElementById('chatInput').addEventListener('keydown', e => { if(e.key==='Enter') sendChatMessage(); });
+  </script>
+
+  <!-- ıLETİşıM MODAL -->
+  <div class="modal-overlay" id="contactModal">
+    <div style="background:var(--white);border-radius:20px;max-width:480px;width:92%;position:relative;padding:0;overflow:hidden">
+      <div style="background:linear-gradient(135deg,#1a1a2e,#0f3460);padding:28px 28px 24px;color:#fff;text-align:center">
+        <button onclick="document.getElementById('contactModal').classList.remove('active');document.body.style.overflow=''"
+          style="position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center">?</button>
+        <div style="font-size:40px;margin-bottom:10px">📧</div>
+        <h3 style="font-size:22px;font-weight:900;margin-bottom:6px">İletişim</h3>
+        <p style="font-size:14px;opacity:.8">Her sorunuz için 7/24 hazırız.</p>
+      </div>
+      <div style="padding:28px">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;align-items:center;gap:14px;padding:16px 20px;border-radius:var(--radius-sm);border:1.5px solid var(--border)">
+            <span style="width:40px;height:40px;border-radius:50%;background:var(--primary-light);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">📧</span>
+            <div>
+              <div style="font-size:13px;color:var(--text-muted);font-weight:400">E-posta</div>
+              <div style="font-weight:600;color:var(--text)">destek@isbul.com.tr</div>
+            </div>
+          </div>
+          <a href="nasil-calisir.html"
+            style="display:flex;align-items:center;gap:14px;padding:16px 20px;border-radius:var(--radius-sm);border:1.5px solid var(--border);text-decoration:none;color:var(--text);transition:.2s;font-weight:600"
+            onmouseover="this.style.borderColor='var(--primary)';this.style.color='var(--primary)'"
+            onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text)'">
+            <span style="width:40px;height:40px;border-radius:50%;background:var(--primary-light);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">📧</span>
+            <div>
+              <div style="font-size:13px;color:var(--text-muted);font-weight:400">Rehber</div>
+              <div>nasıl Çalışır? ı</div>
+            </div>
+          </a>
+        </div>
+        <p style="font-size:12px;color:var(--text-muted);text-align:center;margin-top:20px">Ortalama yanıt süresi: <strong>15 dakika</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI Chatbot Widget -->
+  <link rel="stylesheet" href="assets/css/chatbot.css" />
+  <script src="assets/js/chatbot.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,246 @@
+﻿/* ============================================================
+   İşBul – Veri Tabanı (data.js)
+   ============================================================ */
+
+/* ---------- 81 İL VE İLÇELERİ ---------- */
+const ILLER = {
+  "Adana":        ["Aladağ","Ceyhan","Çukurova","Feke","İmamoğlu","Karaisalı","Karataş","Kozan","Pozantı","Saimbeyli","Sarıçam","Seyhan","Tufanbeyli","Yumurtalık","Yüreğir"],
+  "Adıyaman":     ["Adıyaman Merkez","Besni","Çelikhan","Gerger","Gölbaşı","Kahta","Samsat","Sincik","Tut"],
+  "Afyonkarahisar":["Afyon Merkez","Başmakçı","Bayat","Bolvadin","Çay","Çobanlar","Dazı","Dazkırı","Dinar","Emirdağ","Evciler","Hocalar","İhsaniye","İscehisar","Kızılören","Sandıklı","Sinanpaşa","Sultandağı","Şuhut"],
+  "Ağrı":         ["Ağrı Merkez","Diyadin","Doğubayazıt","Eleşkirt","Hamur","Patnos","Taşlıçay","Tutak"],
+  "Amasya":       ["Amasya Merkez","Göynücek","Gümüşhacıköy","Hamamözü","Merzifon","Suluova","Taşova"],
+  "Ankara":       ["Altındağ","Ayaş","Bala","Beypazarı","Çamlıdere","Çankaya","Çubuk","Elmadağ","Etimesgut","Evren","Gölbaşı","Güdül","Haymana","Kahramankazan","Kalecik","Keçiören","Kızılcahamam","Mamak","Nallıhan","Polatlı","Pursaklar","Sincan","Şereflikoçhisar","Yenimahalle"],
+  "Antalya":      ["Akseki","Aksu","Alanya","Demre","Döşemealtı","Elmalı","Finike","Gazipaşa","Gündoğmuş","İbradı","Kaş","Kemer","Kepez","Konyaaltı","Korkuteli","Kumluca","Manavgat","Muratpaşa","Serik"],
+  "Ardahan":      ["Ardahan Merkez","Çıldır","Damal","Göle","Hanak","Posof"],
+  "Artvin":       ["Ardanuç","Arhavi","Artvin Merkez","Borçka","Hopa","Kemalpaşa","Murgul","Şavşat","Yusufeli"],
+  "Aydın":        ["Bozdoğan","Buharkent","Çine","Didim","Efeler","Germencik","İncirliova","Karacasu","Karpuzlu","Koçarlı","Köşk","Kuşadası","Kuyucak","Nazilli","Söke","Sultanhisar","Yenipazar"],
+  "Balıkesir":    ["Altıeylül","Ayvalık","Balya","Bandırma","Bigadiç","Burhaniye","Dursunbey","Edremit","Erdek","Gömeç","Gönen","Havran","İvrindi","Karesi","Kepsut","Manyas","Marmara","Savaştepe","Sındırgı","Susurluk"],
+  "Bartın":       ["Arit","Bartın Merkez","Kurucaşile","Ulus"],
+  "Batman":       ["Batman Merkez","Beşiri","Gercüş","Hasankeyf","Kozluk","Sason"],
+  "Bayburt":      ["Aydıntepe","Bayburt Merkez","Demirözü"],
+  "Bilecik":      ["Bilecik Merkez","Bozüyük","Gölpazarı","İnhisar","Osmaneli","Pazaryeri","Söğüt","Yenipazar"],
+  "Bingöl":       ["Adaklı","Bingöl Merkez","Genç","Karlıova","Kiğı","Solhan","Yayladere","Yedisu"],
+  "Bitlis":       ["Adilcevaz","Ahlat","Bitlis Merkez","Güroymak","Hizan","Mutki","Tatvan"],
+  "Bolu":         ["Bolu Merkez","Dörtdivan","Gerede","Göynük","Kıbrıscık","Mengen","Mudurnu","Seben","Yeniçağa"],
+  "Burdur":       ["Ağlasun","Altınyayla","Bucak","Burdur Merkez","Çavdır","Çeltikçi","Gölhisar","Karamanlı","Kemer","Tefenni","Yeşilova"],
+  "Bursa":        ["Büyükorhan","Gemlik","Gürsu","Harmancık","İnegöl","İznik","Karacabey","Keles","Kestel","Mudanya","Mustafakemalpaşa","Nilüfer","Orhaneli","Orhangazi","Osmangazi","Yıldırım","Yenişehir"],
+  "Çanakkale":    ["Ayvacık","Bayramiç","Biga","Bozcaada","Çan","Çanakkale Merkez","Eceabat","Ezine","Gelibolu","Gökçeada","Lapseki","Yenice"],
+  "Çankırı":      ["Atkaracalar","Bayramören","Çankırı Merkez","Çerkeş","Eldivan","Ilgaz","Kızılırmak","Korgun","Kurşunlu","Orta","Şabanözü","Yapraklı"],
+  "Çorum":        ["Alaca","Bayat","Boğazkale","Dodurga","İskilip","Kargı","Laçin","Mecitözü","Oğuzlar","Ortaköy","Osmancık","Sungurlu","Uğurludağ","Çorum Merkez"],
+  "Denizli":      ["Acıpayam","Babadağ","Baklan","Bekilli","Beyağaç","Bozkurt","Buldan","Çal","Çameli","Çardak","Çivril","Güney","Honaz","Kale","Merkezefendi","Pamukkale","Sarayköy","Serinhisar","Tavas"],
+  "Diyarbakır":   ["Bağlar","Bismil","Çermik","Çınar","Çüngüş","Dicle","Eğil","Ergani","Hani","Hazro","Kayapınar","Kocaköy","Kulp","Lice","Silvan","Sur","Yenişehir"],
+  "Düzce":        ["Akçakoca","Cumayeri","Çilimli","Düzce Merkez","Gölyaka","Gümüşova","Kaynaşlı","Yığılca"],
+  "Edirne":       ["Edirne Merkez","Enez","Havsa","İpsala","Keşan","Lalapaşa","Meriç","Süloğlu","Uzunköprü"],
+  "Elazığ":       ["Ağın","Alacakaya","Arıcak","Baskil","Elazığ Merkez","Karakoçan","Keban","Kovancılar","Maden","Palu","Sivrice"],
+  "Erzincan":     ["Çayırlı","Erzincan Merkez","İliç","Kemah","Kemaliye","Otlukbeli","Refahiye","Tercan","Üzümlü"],
+  "Erzurum":      ["Aşkale","Aziziye","Çat","Hınıs","Horasan","İspir","Karaçoban","Karayazı","Köprüköy","Narman","Oltu","Olur","Palandöken","Pasinler","Pazaryolu","Şenkaya","Tekman","Tortum","Uzundere","Yakutiye"],
+  "Eskişehir":    ["Alpu","Beylikova","Çifteler","Günyüzü","Han","İnönü","Mahmudiye","Mihalgazi","Mihalıççık","Odunpazarı","Sarıcakaya","Seyitgazi","Sivrihisar","Tepebaşı"],
+  "Gaziantep":    ["Araban","İslahiye","Karkamış","Nizip","Nurdağı","Oğuzeli","Şahinbey","Şehitkamil","Yavuzeli"],
+  "Giresun":      ["Alucra","Bulancak","Çamoluk","Çanakçı","Dereli","Doğankent","Espiye","Eynesil","Giresun Merkez","Görele","Güce","Keşap","Piraziz","Şebinkarahisar","Tirebolu","Yağlıdere"],
+  "Gümüşhane":    ["Gümüşhane Merkez","Kelkit","Köse","Kürtün","Şiran","Torul"],
+  "Hakkari":      ["Çukurca","Derecik","Hakkari Merkez","Şemdinli","Yüksekova"],
+  "Hatay":        ["Altınözü","Antakya","Arsuz","Belen","Defne","Dörtyol","Erzin","Hassa","İskenderun","Kırıkhan","Kumlu","Payas","Reyhanlı","Samandağ","Serinyol","Yayladağı"],
+  "Iğdır":        ["Aralık","Iğdır Merkez","Karakoyunlu","Tuzluca"],
+  "Isparta":      ["Aksu","Atabey","Eğirdir","Gelendost","Gönen","Keçiborlu","Şarkikaraağaç","Senirkent","Sütçüler","Uluborlu","Yalvaç","Yenişarbademli","Isparta Merkez"],
+  "İstanbul":     ["Adalar","Arnavutköy","Ataşehir","Avcılar","Bağcılar","Bahçelievler","Bakırköy","Başakşehir","Bayrampaşa","Beşiktaş","Beykoz","Beylikdüzü","Beyoğlu","Büyükçekmece","Çatalca","Çekmeköy","Esenler","Esenyurt","Eyüpsultan","Fatih","Gaziosmanpaşa","Güngören","Kadıköy","Kağıthane","Kartal","Küçükçekmece","Maltepe","Pendik","Sancaktepe","Sarıyer","Şile","Silivri","Şişli","Sultanbeyli","Sultangazi","Tuzla","Ümraniye","Üsküdar","Zeytinburnu"],
+  "İzmir":        ["Aliağa","Balçova","Bayındır","Bayraklı","Bergama","Beydağ","Bornova","Buca","Çeşme","Çiğli","Dikili","Foça","Gaziemir","Güzelbahçe","Karabağlar","Karaburun","Karşıyaka","Kemalpaşa","Kınık","Kiraz","Konak","Menderes","Menemen","Narlıdere","Ödemiş","Seferihisar","Selçuk","Tire","Torbalı","Urla"],
+  "Kahramanmaraş":["Afşin","Andırın","Çağlayancerit","Dulkadiroğlu","Ekinözü","Elbistan","Göksun","Nurhak","Onikişubat","Pazarcık","Türkoğlu"],
+  "Karabük":      ["Eflani","Eskipazar","Karabük Merkez","Ovacık","Safranbolu","Yenice"],
+  "Karaman":      ["Ayrancı","Başyayla","Ermenek","Karaman Merkez","Kazımkarabekir","Sarıveliler"],
+  "Kars":         ["Akyaka","Arpaçay","Digor","Kars Merkez","Kağızman","Sarıkamış","Selim","Susuz"],
+  "Kastamonu":    ["Abana","Ağlı","Araç","Azdavay","Bozkurt","Cide","Çatalzeytin","Daday","Devrekani","Doğanyurt","Hanönü","İhsangazi","İnebolu","Kastamonu Merkez","Küre","Pınarbaşı","Seydiler","Şenpazar","Taşköprü","Tosya"],
+  "Kayseri":      ["Akkışla","Bünyan","Develi","Felahiye","Hacılar","İncesu","Kocasinan","Melikgazi","Özvatan","Pınarbaşı","Sarıoğlan","Sarız","Talas","Tomarza","Yahyalı","Yeşilhisar"],
+  "Kırıkkale":    ["Bahşili","Balışeyh","Çelebi","Delice","Karakeçili","Keskin","Kırıkkale Merkez","Sulakyurt","Yahşihan"],
+  "Kırklareli":   ["Babaeski","Demirköy","Kırklareli Merkez","Kofçaz","Lüleburgaz","Pehlivanköy","Pınarhisar","Vize"],
+  "Kırşehir":     ["Akçakent","Akpınar","Boztepe","Çiçekdağı","Kaman","Kırşehir Merkez","Mucur"],
+  "Kilis":        ["Elbeyli","Kilis Merkez","Musabeyli","Polateli"],
+  "Kocaeli":      ["Başiskele","Çayırova","Darıca","Derince","Dilovası","Gebze","Gölcük","İzmit","Kandıra","Karamürsel","Kartepe","Körfez"],
+  "Konya":        ["Ahırlı","Akören","Akşehir","Altınekin","Beyşehir","Bozkır","Cihanbeyli","Çeltik","Çumra","Derbent","Derebucak","Doğanhisar","Emirgazi","Ereğli","Güneysınır","Hadim","Halkapınar","Hüyük","Ilgın","Kadınhanı","Karapınar","Karatay","Kulu","Meram","Sarayönü","Selçuklu","Seydişehir","Taşkent","Tuzlukçu","Yalıhüyük","Yunak"],
+  "Kütahya":      ["Altıntaş","Aslanapa","Çavdarhisar","Domaniç","Dumlupınar","Emet","Gediz","Hisarcık","Kütahya Merkez","Pazarlar","Şaphane","Simav","Tavşanlı"],
+  "Malatya":      ["Akçadağ","Arapgir","Arguvan","Battalgazi","Darende","Doğanşehir","Doğanyol","Hekimhan","Kale","Kuluncak","Pütürge","Yazıhan","Yeşilyurt"],
+  "Manisa":       ["Ahmetli","Akhisar","Alaşehir","Demirci","Gölmarmara","Gördes","Kırkağaç","Köprübaşı","Kula","Salihli","Sarıgöl","Saruhanlı","Selendi","Soma","Şehzadeler","Turgutlu","Yunusemre"],
+  "Mardin":       ["Artuklu","Dargeçit","Derik","Kızıltepe","Mazıdağı","Midyat","Nusaybin","Ömerli","Savur","Yeşilli"],
+  "Mersin":       ["Akdeniz","Anamur","Aydıncık","Bozyazı","Çamlıyayla","Erdemli","Gülnar","Mezitli","Mut","Silifke","Tarsus","Toroslar","Yenişehir"],
+  "Muğla":        ["Bodrum","Dalaman","Datça","Fethiye","Kavaklıdere","Köyceğiz","Marmaris","Menteşe","Milas","Ortaca","Seydikemer","Ula","Yatağan"],
+  "Muş":          ["Bulanık","Hasköy","Korkut","Malazgirt","Muş Merkez","Varto"],
+  "Nevşehir":     ["Acıgöl","Avanos","Derinkuyu","Gülşehir","Hacıbektaş","Kozaklı","Nevşehir Merkez","Ürgüp"],
+  "Niğde":        ["Alt unhi sar","Bor","Çamardı","Çiftlik","Niğde Merkez","Ulukışla"],
+  "Ordu":         ["Akkuş","Altınordu","Aybastı","Çamaş","Çatalpınar","Çaybaşı","Fatsa","Gölköy","Gülyalı","Gürgentepe","İkizce","Kabadüz","Kabataş","Korgan","Kumru","Mesudiye","Perşembe","Ulubey","Ünye"],
+  "Osmaniye":     ["Bahçe","Düziçi","Hasanbeyli","Kadirli","Osmaniye Merkez","Sumbas","Toprakkale"],
+  "Rize":         ["Ardeşen","Çamlıhemşin","Çayeli","Derepazarı","Fındıklı","Güneysu","Hemşin","İkizdere","İyidere","Kalkandere","Pazar","Rize Merkez"],
+  "Sakarya":      ["Adapazarı","Akyazı","Arifiye","Erenler","Ferizli","Geyve","Hendek","Karapürçek","Karasu","Kaynarca","Kocaali","Mithatpaşa","Pamukova","Sapanca","Serdivan","Söğütlü","Taraklı"],
+  "Samsun":       ["Alaçam","Asarcık","Atakum","Ayvacık","Bafra","Canik","Çarşamba","Havza","İlkadım","Kavak","Ladik","Ondokuzmayıs","Salıpazarı","Tekkeköy","Terme","Vezirköprü","Yakakent"],
+  "Siirt":        ["Baykan","Eruh","Kurtalan","Pervari","Siirt Merkez","Şirvan","Tillo"],
+  "Sinop":        ["Ayancık","Boyabat","Dikmen","Durağan","Erfelek","Gerze","Saraydüzü","Sinop Merkez","Türkeli"],
+  "Sivas":        ["Altınyayla","Divriği","Doğanşar","Gemerek","Gölova","Gürun","Hafik","İmranlı","Kangal","Koyulhisar","Şarkışla","Suşehri","Ulaş","Sivas Merkez","Yıldızeli","Zara"],
+  "Şanlıurfa":    ["Akçakale","Birecik","Bozova","Ceylanpınar","Eyyübiye","Halfeti","Haliliye","Harran","Hilvan","Karaköprü","Siverek","Suruç","Viranşehir"],
+  "Şırnak":       ["Beytüşşebap","Cizre","Güçlükonak","İdil","Silopi","Şırnak Merkez","Uludere"],
+  "Tekirdağ":     ["Çerkezköy","Çorlu","Ergene","Hayrabolu","Kapaklı","Malkara","Marmaraereğlisi","Muratlı","Saray","Süleymanpaşa","Şarköy"],
+  "Tokat":        ["Almus","Artova","Başçiftlik","Erbaa","Niksar","Pazar","Reşadiye","Sulusaray","Tokat Merkez","Turhal","Yeşilyurt","Zile"],
+  "Trabzon":      ["Akçaabat","Araklı","Arsin","Beşikdüzü","Çarşıbaşı","Çaykara","Dernekpazarı","Düzköy","Hayrat","Köprübaşı","Maçka","Of","Ortahisar","Sürmene","Şalpazarı","Tonya","Vakfıkebir","Yomra"],
+  "Tunceli":      ["Çemişgezek","Hozat","Mazgirt","Nazımiye","Ovacık","Pertek","Pülümür","Tunceli Merkez"],
+  "Uşak":         ["Banaz","Eşme","Karahallı","Sivaslı","Ulubey","Uşak Merkez"],
+  "Van":          ["Bahçesaray","Başkale","Çaldıran","Çatak","Edremit","Erciş","Gevaş","Gürpınar","İpekyolu","Muradiye","Özalp","Saray","Tuşba"],
+  "Yalova":       ["Altınova","Armutlu","Çınarcık","Çiftlikköy","Termal","Yalova Merkez"],
+  "Yozgat":       ["Akdağmadeni","Aydıncık","Boğazlıyan","Çandır","Çayıralan","Çekerek","Kadışehri","Saraykent","Sarıkaya","Şefaatli","Sorgun","Yenifakılı","Yozgat Merkez","Yerköy"],
+  "Zonguldak":    ["Alaplı","Çaycuma","Devrek","Ereğli","Gökçebey","Kilimli","Kozlu","Zonguldak Merkez"]
+};
+
+const IL_LISTESI = Object.keys(ILLER).sort();
+
+/* ---------- UZMANLIK KATEGORİLERİ ---------- */
+const UZMANLIK_KATEGORILERI = [
+  'Elektrik',
+  'Tesisat',
+  'Tamir',
+  'Montaj',
+  'Temizlik',
+  'Boya',
+  'Bahçe',
+  'Nakliyat',
+  'Tadilat',
+  'TV Montaj',
+  'Klima',
+  'Beyaz Eşya',
+  'Cam Balkon',
+  'Isı Yalıtım',
+  'Ses Yalıtım',
+  'Asma Tavan',
+  'Alçıpan',
+  'Seramik',
+  'Parke',
+  'Laminat',
+  'Duvar Kağıdı'
+].sort();
+
+/* ---------- GENİŞLETİLMİŞ UZMAN VERİTABANI (her şehirde farklı kişiler) ---------- */
+const TÜM_UZMANLAR = [
+  // İSTANBUL
+  { id:'e1',  name:'Mehmet Arslan',    city:'İstanbul', avatar:'MA', color:'#6C63FF', title:'Mobilya Montaj Uzmanı',      categories:['montaj','tv'],      rating:4.97, reviews:312, price:280, experience:'8 yıl',  elite:true,  bio:'Tüm marka mobilya montajı. Aynı gün hizmet verebiliyorum.',          tags:['Mobilya Montaj','Raf Kurulum','TV Montajı','Gardırop'], reviewList:[{user:'c1',rating:5,text:'Harika iş çıkardı, çok hızlı.',date:'2024-11-12',service:'Mobilya Montaj'},{user:'c6',rating:5,text:'Profesyonel çalışma, teşekkürler.',date:'2024-10-28',service:'Mobilya Montajı'}]},
+  { id:'e2',  name:'Ayşe Kaya',        city:'İstanbul', avatar:'AK', color:'#FF6B6B', title:'Ev Temizlik Uzmanı',          categories:['temizlik'],         rating:4.95, reviews:228, price:250, experience:'5 yıl',  elite:true,  bio:'Hijyen sertifikalı temizlik uzmanı.',                               tags:['Derin Temizlik','Ofis','Cam Silme'], reviewList:[{user:'c2',rating:5,text:'Çok temiz ve dikkatli.',date:'2024-11-05',service:'Derin Temizlik'},{user:'c7',rating:5,text:'Haftalık geliyor, harika.',date:'2024-10-20',service:'Ev Temizliği'}]},
+  { id:'e5',  name:'Ali Şahin',        city:'İstanbul', avatar:'AŞ', color:'#96CEB4', title:'Lisanslı Elektrikçi',         categories:['elektrik'],         rating:4.94, reviews:274, price:300, experience:'10 yıl', elite:true,  bio:'Lisanslı elektrik teknisyeni.',                                     tags:['Priz Montajı','Aydınlatma','Panel'], reviewList:[{user:'c5',rating:5,text:'Aydınlatmayı tamamen yeniledi.',date:'2024-11-01',service:'Aydınlatma'}]},
+  { id:'e9',  name:'Ercan Polat',      city:'İstanbul', avatar:'EP', color:'#06b6d4', title:'Elektrik & Güvenlik',         categories:['elektrik'],         rating:4.86, reviews:112, price:320, experience:'8 yıl',  elite:false, bio:'Kamera, alarm ve akıllı ev sistemleri.',                            tags:['Güvenlik Kamerası','Alarm','Akıllı Ev'], reviewList:[{user:'c1',rating:5,text:'Kamerayı kurdu, çok memnunum.',date:'2024-10-22',service:'Güvenlik'}]},
+  { id:'e13', name:'Selin Yılmaz',     city:'İstanbul', avatar:'SY', color:'#f43f5e', title:'Nakliyat Uzmanı',             categories:['nakliyat'],         rating:4.88, reviews:134, price:500, experience:'6 yıl',  elite:false, bio:'Ev ve ofis taşıma, tam sigortalı nakliyat.',                        tags:['Ev Taşıma','Ofis Taşıma','Asansörlü'], reviewList:[{user:'c3',rating:5,text:'Hiçbir hasar olmadı.',date:'2024-11-10',service:'Ev Taşıma'}]},
+  { id:'e17', name:'Kemal Yıldız',     city:'İstanbul', avatar:'KY', color:'#8b5cf6', title:'Boyacı & Dekorasyon',         categories:['boya'],             rating:4.91, reviews:98,  price:360, experience:'7 yıl',  elite:false, bio:'İç cephe boya, dekoratif efektler, alçı.',                          tags:['İç Boya','Dekoratif','Alçı'], reviewList:[{user:'c4',rating:5,text:'Duvarlar mükemmel görünüyor.',date:'2024-10-25',service:'İç Boya'}]},
+
+  // ANKARA
+  { id:'e3',  name:'Can Hatipoğlu',   city:'Ankara',   avatar:'CH', color:'#4ECDC4', title:'Tesisatçı',                   categories:['tesisat'],          rating:4.92, reviews:189, price:320, experience:'12 yıl', elite:false, bio:'Su tesisatı, doğalgaz, kalorifer tamiri.',                          tags:['Su Tesisatı','Tıkanıklık','Musluk Değişimi'], reviewList:[{user:'c3',rating:5,text:'Aynı gün geldi, sorunu çözdü.',date:'2024-11-08',service:'Banyo Tesisatı'}]},
+  { id:'e4',  name:'Fatma Demir',     city:'Ankara',   avatar:'FD', color:'#FFD93D', title:'Boyacı & Dekorasyon',         categories:['boya'],             rating:4.90, reviews:156, price:350, experience:'7 yıl',  elite:false, bio:'İç cephe, dekoratif boya ve duvar kağıdı.',                         tags:['İç Boya','Duvar Kağıdı','Alçı'], reviewList:[{user:'c4',rating:5,text:'Fatma Hanım çok titiz çalıştı.',date:'2024-10-25',service:'İç Cephe'}]},
+  { id:'e8',  name:'Semra Avcı',      city:'Ankara',   avatar:'SA', color:'#8b5cf6', title:'Temizlik Uzmanı',             categories:['temizlik'],         rating:4.91, reviews:167, price:260, experience:'4 yıl',  elite:false, bio:'Derin temizlik, taşınma sonrası temizlik.',                         tags:['Derin Temizlik','Taşınma Sonrası','Buzdolabı'], reviewList:[{user:'c9',rating:5,text:'Çok titiz.',date:'2024-11-03',service:'Derin Temizlik'}]},
+  { id:'e14', name:'Berk Çelik',      city:'Ankara',   avatar:'BÇ', color:'#10b981', title:'Mobilya Montaj Uzmanı',       categories:['montaj'],           rating:4.89, reviews:145, price:260, experience:'5 yıl',  elite:false, bio:'Tüm marka mobilya montajı, hızlı ve temiz.',                      tags:['Mobilya Montaj','Raf','Dolap'], reviewList:[{user:'c6',rating:5,text:'Çok hızlı ve temiz çalıştı.',date:'2024-11-07',service:'Montaj'}]},
+  { id:'e18', name:'Deniz Arslan',    city:'Ankara',   avatar:'DA', color:'#f59e0b', title:'Bahçe Bakım Uzmanı',          categories:['bahce'],            rating:4.86, reviews:77,  price:210, experience:'4 yıl',  elite:false, bio:'Çim biçme, budama, peyzaj tasarımı.',                               tags:['Çim Biçme','Budama','Peyzaj'], reviewList:[{user:'c7',rating:5,text:'Bahçemiz güzel oldu.',date:'2024-10-30',service:'Bahçe Bakımı'}]},
+
+  // İZMİR
+  { id:'e6',  name:'Zeynep Yıldız',   city:'İzmir',    avatar:'ZY', color:'#56AB2F', title:'Bahçe & Peyzaj Uzmanı',       categories:['bahce'],            rating:4.88, reviews:97,  price:220, experience:'6 yıl',  elite:false, bio:'Peyzaj tasarımı ve bahçe bakımı.',                                  tags:['Çim Biçme','Budama','Peyzaj'], reviewList:[{user:'c7',rating:5,text:'Bahçemizi güzel düzenledi.',date:'2024-10-30',service:'Bahçe'}]},
+  { id:'e7',  name:'Hüseyin Korkmaz', city:'İzmir',    avatar:'HK', color:'#f59e0b', title:'Nakliyat & Taşıma',           categories:['nakliyat'],         rating:4.89, reviews:143, price:450, experience:'9 yıl',  elite:false, bio:'Ev ve ofis taşıma, ambalajlama dahil.',                             tags:['Ev Taşıma','Ofis Taşıma','Ambalajlama'], reviewList:[{user:'c8',rating:5,text:'Hiçbir hasar olmadı.',date:'2024-11-10',service:'Ev Taşıma'}]},
+  { id:'e15', name:'Aslı Kaya',       city:'İzmir',    avatar:'AK', color:'#ec4899', title:'Ev Temizlik Uzmanı',          categories:['temizlik'],         rating:4.93, reviews:201, price:270, experience:'6 yıl',  elite:true,  bio:'Haftalık ve derin temizlik uzmanı.',                                tags:['Ev Temizliği','Derin Temizlik','Cam'], reviewList:[{user:'c5',rating:5,text:'Her zaman kusursuz.',date:'2024-11-01',service:'Haftalık Temizlik'}]},
+  { id:'e19', name:'Serkan Doğan',    city:'İzmir',    avatar:'SD', color:'#6366f1', title:'Elektrikçi',                  categories:['elektrik'],         rating:4.87, reviews:108, price:290, experience:'7 yıl',  elite:false, bio:'Priz, aydınlatma, panel işleri.',                                   tags:['Priz','Aydınlatma','Panel'], reviewList:[{user:'c10',rating:5,text:'Hızlı ve güvenilir.',date:'2024-10-10',service:'Elektrik'}]},
+
+  // BURSA
+  { id:'e10', name:'Mustafa Çetin',   city:'Bursa',    avatar:'MÇ', color:'#ef4444', title:'Genel Tadilat Ustası',        categories:['boya','montaj','diger'], rating:4.85, reviews:89, price:300, experience:'15 yıl', elite:false, bio:'15 yıllık tadilat, boya, montaj.',                               tags:['Tadilat','Seramik','Alçıpan','Boya'], reviewList:[{user:'c6',rating:5,text:'Banyoyu komple yeniledi.',date:'2024-11-07',service:'Banyo Tadilatı'}]},
+  { id:'e16', name:'Elif Şahin',      city:'Bursa',    avatar:'EŞ', color:'#a78bfa', title:'Temizlik Uzmanı',             categories:['temizlik'],         rating:4.89, reviews:115, price:240, experience:'5 yıl',  elite:false, bio:'Düzenli ve derin temizlik hizmetleri.',                             tags:['Ev Temizliği','Ofis','Koltuk Yıkama'], reviewList:[{user:'c8',rating:5,text:'Çok düzenli.',date:'2024-10-15',service:'Ev Temizliği'}]},
+  { id:'e20', name:'Taner Yılmaz',    city:'Bursa',    avatar:'TY', color:'#0ea5e9', title:'Tesisatçı',                   categories:['tesisat'],          rating:4.90, reviews:132, price:310, experience:'8 yıl',  elite:false, bio:'Su ve doğalgaz tesisatı, arıza tamiri.',                            tags:['Su Tesisatı','Doğalgaz','Kalorifer'], reviewList:[{user:'c3',rating:5,text:'Sorunu hızla çözdü.',date:'2024-09-20',service:'Su Tesisatı'}]},
+
+  // ANTALYA
+  { id:'e21', name:'Meral Kaya',      city:'Antalya',  avatar:'MK', color:'#f97316', title:'Ev Temizlik Uzmanı',          categories:['temizlik'],         rating:4.92, reviews:178, price:255, experience:'5 yıl',  elite:false, bio:'Tatil evi ve konut temizliği.',                                     tags:['Ev Temizliği','Tatil Evi','Derin Temizlik'], reviewList:[{user:'c5',rating:5,text:'Harika hizmet.',date:'2024-11-05',service:'Ev Temizliği'}]},
+  { id:'e22', name:'Oğuzhan Yıldız',  city:'Antalya',  avatar:'OY', color:'#22c55e', title:'Bahçe Bakım Uzmanı',          categories:['bahce'],            rating:4.87, reviews:89,  price:200, experience:'4 yıl',  elite:false, bio:'Bahçe bakımı ve peyzaj.',                                           tags:['Çim Biçme','Budama','Bahçe Tasarımı'], reviewList:[{user:'c4',rating:5,text:'Çok güzel çalışma.',date:'2024-10-12',service:'Bahçe'}]},
+  { id:'e23', name:'Gül Arslan',      city:'Antalya',  avatar:'GA', color:'#e11d48', title:'Tesisatçı',                   categories:['tesisat'],          rating:4.88, reviews:95,  price:305, experience:'6 yıl',  elite:false, bio:'Su tesisatı ve banyo düzenleme.',                                   tags:['Musluk','Banyo','Tıkanıklık'], reviewList:[{user:'c9',rating:5,text:'Hızlı çözüm.',date:'2024-09-28',service:'Banyo'}]},
+
+  // GAZİANTEP
+  { id:'e24', name:'Kadir Öztürk',    city:'Gaziantep', avatar:'KÖ', color:'#7c3aed', title:'Mobilya Montaj Uzmanı',      categories:['montaj'],           rating:4.86, reviews:112, price:250, experience:'6 yıl',  elite:false, bio:'Hızlı ve kaliteli mobilya montajı.',                               tags:['Mobilya Montaj','Raf','Dolap'], reviewList:[{user:'c1',rating:5,text:'Çok hızlı.',date:'2024-11-08',service:'Montaj'}]},
+  { id:'e25', name:'Leyla Kara',      city:'Gaziantep', avatar:'LK', color:'#0891b2', title:'Temizlik Uzmanı',            categories:['temizlik'],         rating:4.90, reviews:143, price:245, experience:'4 yıl',  elite:false, bio:'Ev ve ofis temizliği.',                                             tags:['Ev Temizliği','Ofis','Derin Temizlik'], reviewList:[{user:'c7',rating:5,text:'Çok temiz.',date:'2024-10-22',service:'Ev Temizliği'}]},
+
+  // KONYA
+  { id:'e26', name:'İbrahim Şahin',   city:'Konya',    avatar:'İŞ', color:'#059669', title:'Elektrikçi',                  categories:['elektrik'],         rating:4.89, reviews:107, price:285, experience:'8 yıl',  elite:false, bio:'Tüm elektrik işleri.',                                              tags:['Priz','Panel','Aydınlatma'], reviewList:[{user:'c2',rating:5,text:'Güvenilir.',date:'2024-11-01',service:'Elektrik'}]},
+  { id:'e27', name:'Hatice Demir',    city:'Konya',    avatar:'HD', color:'#db2777', title:'Ev Temizlik Uzmanı',          categories:['temizlik'],         rating:4.91, reviews:121, price:240, experience:'5 yıl',  elite:false, bio:'Haftalık ev temizliği.',                                            tags:['Ev Temizliği','Derin Temizlik'], reviewList:[{user:'c6',rating:5,text:'Mükemmel.',date:'2024-10-18',service:'Temizlik'}]},
+
+  // ADANA
+  { id:'e28', name:'Tarık Yılmaz',    city:'Adana',    avatar:'TY', color:'#b45309', title:'Boyacı',                      categories:['boya'],             rating:4.87, reviews:98,  price:340, experience:'9 yıl',  elite:false, bio:'İç cephe boya ve dekorasyon.',                                      tags:['İç Boya','Dekoratif','Badana'], reviewList:[{user:'c3',rating:5,text:'Oda çok güzel.',date:'2024-11-02',service:'Boya'}]},
+  { id:'e29', name:'Canan Yıldız',    city:'Adana',    avatar:'CY', color:'#0d9488', title:'Temizlik Uzmanı',             categories:['temizlik'],         rating:4.88, reviews:134, price:248, experience:'4 yıl',  elite:false, bio:'Konut ve daire temizliği.',                                         tags:['Ev Temizliği','Derin Temizlik'], reviewList:[{user:'c8',rating:5,text:'Çok memnun kaldık.',date:'2024-10-30',service:'Temizlik'}]},
+
+  // MERSİN
+  { id:'e30', name:'Ufuk Arslan',     city:'Mersin',   avatar:'UA', color:'#2563eb', title:'Nakliyat Uzmanı',             categories:['nakliyat'],         rating:4.86, reviews:87,  price:420, experience:'7 yıl',  elite:false, bio:'Ev ve iş yeri taşıma.',                                             tags:['Ev Taşıma','Ambalajlama','Asansörlü'], reviewList:[{user:'c1',rating:5,text:'Sorunsuz taşındık.',date:'2024-11-05',service:'Ev Taşıma'}]},
+];
+
+/* ---------- YARDIMCI FONKSİYONLAR ---------- */
+
+/** localStorage'daki gerçek uzman kullanıcılarını TÜM_UZMANLAR formatına dönüştür */
+function getRealExperts() {
+  try {
+    const db = JSON.parse(localStorage.getItem('isbul_users_db') || '{}');
+    return Object.values(db)
+      .filter(u => u.isExpert && u.expertData)
+      .map(u => ({
+        id:         u.id,
+        name:       u.firstName + ' ' + u.lastName,
+        city:       u.expertData.city || 'İstanbul',
+        avatar:     u.avatar || (u.firstName[0] + u.lastName[0]).toUpperCase(),
+        color:      u.color || '#6C63FF',
+        title:      (u.expertData.tags && u.expertData.tags[0]) ? u.expertData.tags[0] + ' Uzmanı' : 'Uzman',
+        categories: (u.expertData.tags || []).map(t => t.toLowerCase().replace(/\s/g, '')),
+        rating:     u.expertData.rating || 5.0,
+        reviews:    u.expertData.reviews || 0,
+        price:      u.expertData.price || 300,
+        experience: u.expertData.experience || '1 yıl',
+        elite:      false,
+        bio:        u.expertData.bio || '',
+        tags:       u.expertData.tags || [],
+        hours:      u.expertData.hours || '',
+        reviewList: [],
+        isRealUser: true   // gerçek kullanıcı işareti
+      }));
+  } catch(e) { return []; }
+}
+
+/** Statik + gerçek uzmanları birleştir (gerçek kullanıcılar önce gelir) */
+function getTumUzmanlar() {
+  const realExperts = getRealExperts();
+  // Statik listeden gerçek kullanıcılarla çakışanları çıkar (aynı id varsa)
+  const realIds = new Set(realExperts.map(e => e.id));
+  const staticExperts = TÜM_UZMANLAR.filter(e => !realIds.has(e.id));
+  return [...realExperts, ...staticExperts];
+}
+
+/** Şehre göre uzmanları getir */
+function getExpertsByCity(city) {
+  const all = getTumUzmanlar();
+  if (!city) return all;
+  return all.filter(e => e.city === city);
+}
+
+/** Şehir + kategoriye göre uzmanları getir */
+function getExpertsByCityAndCat(city, cat) {
+  const all = getTumUzmanlar();
+  let list = city ? all.filter(e => e.city === city) : all;
+  if (cat && cat !== 'all') list = list.filter(e => e.categories.includes(cat));
+  return list;
+}
+
+/** ID ile uzman bul (gerçek + statik) */
+function getExpertById(id) {
+  const all = getTumUzmanlar();
+  return all.find(e => e.id === id) || TÜM_UZMANLAR[0];
+}
+
+/** Index ile uzman bul */
+function getExpertByIndex(idx) {
+  return TÜM_UZMANLAR[idx] || TÜM_UZMANLAR[0];
+}
+
+// Geriye dönük uyumluluk
+const USERS = {
+  experts: TÜM_UZMANLAR,
+  customers: [
+    { id:'c1',  name:'Zeynep Yılmaz',   city:'İstanbul', avatar:'ZY', color:'#6C63FF' },
+    { id:'c2',  name:'Burak Kılıç',     city:'Ankara',   avatar:'BK', color:'#FF6B6B' },
+    { id:'c3',  name:'Selin Arslan',    city:'İzmir',    avatar:'SA', color:'#4ECDC4' },
+    { id:'c4',  name:'Murat Öztürk',    city:'Bursa',    avatar:'MÖ', color:'#FFD93D' },
+    { id:'c5',  name:'Elif Çelik',      city:'Antalya',  avatar:'EÇ', color:'#96CEB4' },
+    { id:'c6',  name:'Ahmet Demir',     city:'İstanbul', avatar:'AD', color:'#FF8B94' },
+    { id:'c7',  name:'Fatma Güneş',     city:'Konya',    avatar:'FG', color:'#56AB2F' },
+    { id:'c8',  name:'Kemal Aydın',     city:'İzmir',    avatar:'KA', color:'#f59e0b' },
+    { id:'c9',  name:'Neslihan Şahin',  city:'Ankara',   avatar:'NŞ', color:'#8b5cf6' },
+    { id:'c10', name:'Tolga Erdoğan',   city:'İstanbul', avatar:'TE', color:'#06b6d4' },
+  ]
+};
+

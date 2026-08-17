@@ -1,0 +1,803 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <script src="assets/js/analytics.js" defer></script>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>profilim  | İşBul</title>
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/feather-icons"></script>
+  <style>
+    .profil-page { background: var(--bg); min-height: 100vh; padding-top: 80px; }
+
+    .profil-hero {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      padding: 60px 0 0;
+    }
+    .profil-hero__inner {
+      display: flex; align-items: flex-end; gap: 28px;
+      padding-bottom: 0;
+    }
+    .profil-avatar-big {
+      width: 100px; height: 100px; border-radius: 50%;
+      border: 4px solid var(--white);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 32px; font-weight: 900; color: #fff;
+      flex-shrink: 0; margin-bottom: -20px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.2);
+    }
+    .profil-hero__info { padding-bottom: 28px; }
+    .profil-hero__info h1 { font-size: 26px; font-weight: 900; color: #fff; margin-bottom: 4px; }
+    .profil-hero__info p  { font-size: 14px; color: rgba(255,255,255,.65); }
+
+    /* Sekmeler */
+    .profil-tabs {
+      background: var(--white); border-bottom: 2px solid var(--border);
+      display: flex; overflow-x: auto;
+    }
+    .profil-tab {
+      padding: 16px 28px; font-size: 14px; font-weight: 600;
+      color: var(--text-muted); border: none; background: none; cursor: pointer;
+      border-bottom: 3px solid transparaent; margin-bottom: -2px;
+      white-space: nowrap; transition: all var(--transition);
+    }
+    .profil-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+    .profil-tab:hover  { color: var(--text); }
+
+    /* İşerik */
+    .profil-content { padding: 32px 0 80px; }
+    .profil-grid    { display: grid; grid-template-columns: 300px 1fr; gap: 28px; align-items: start; }
+    .profil-panel   { display: none; }
+    .profil-panel.active { display: block; }
+
+    /* Kartlar */
+    .profil-card {
+      background: var(--white); border-radius: var(--radius);
+      border: 1.5px solid var(--border); padding: 24px; margin-bottom: 20px;
+    }
+    .profil-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 16px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .5px; }
+
+    /* Form */
+    .pf-group { margin-bottom: 16px; }
+    .pf-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+    .pf-group input, .pf-group select {
+      width: 100%; padding: 11px 14px; border-radius: var(--radius-sm);
+      border: 1.5px solid var(--border); font-family: var(--font); font-size: 14px;
+      outline: none; transition: border-color var(--transition);
+    }
+    .pf-group input:focus, .pf-group select:focus { border-color: var(--primary); }
+    .pf-group input[disabled] { background: var(--bg); cursor: not-allowed; color: var(--text-muted); }
+    .pf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+    /* Rezervasyon geçmişi */
+    .rez-item {
+      display: flex; align-items: center; gap: 14px;
+      padding: 16px; border-radius: var(--radius-sm);
+      border: 1.5px solid var(--border); margin-bottom: 12px;
+      transition: border-color var(--transition);
+    }
+    .rez-item:hover { border-color: var(--primary); }
+    .rez-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 700; font-size: 13px; flex-shrink: 0;
+    }
+    .rez-status {
+      display: inline-block; padding: 3px 10px; border-radius: 20px;
+      font-size: 11px; font-weight: 600;
+    }
+    .rez-status--done    { background: #d1fae5; color: #065f46; }
+    .rez-status--pending { background: #fef3c7; color: #92400e; }
+    .rez-status--caöncel  { background: #fee2e2; color: #991b1b; }
+
+    /* güvenlik */
+    .security-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 0; border-bottom: 1px solid var(--border);
+    }
+    .security-item:last-child { border-bottom: none; }
+
+    /* Bildirimler */
+    .notif-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 0; border-bottom: 1px solid var(--border);
+    }
+    .notif-item:last-child { border-bottom: none; }
+    .toggle {
+      width: 44px; height: 24px; border-radius: 12px;
+      background: var(--border); position: relative; cursor: pointer;
+      transition: background var(--transition); flex-shrink: 0;
+    }
+    .toggle.on { background: var(--primary); }
+    .toggle::after {
+      content: ''; position: absolute;
+      width: 18px; height: 18px; border-radius: 50%; background: #fff;
+      top: 3px; left: 3px; transition: transform var(--transition);
+      box-shadow: 0 2px 4px rgba(0,0,0,.2);
+    }
+    .toggle.on::after { transform: translateX(20px); }
+
+    @media (max-width: 900px) {
+      .profil-grid { grid-template-columns: 1fr; }
+      .profil-hero__inner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body class="profil-page">
+
+  <!-- NAVBAR -->
+  <header class="navbar scrolled" id="navbar">
+    <div class="container navbar__inner">
+      <a href="index.html" class="navbar__logo">
+        <span class="logo-icon">⚡</span>
+        <span class="logo-text"><strong>İşBul</strong></span>
+      </a>
+      <nav class="navbar__links" id="navLinks">
+        <a href="hizmetler.html">hizmetler</a>
+        <a href="nasil-calisir.html">nasıl Çalışır?</a>
+        <a href="uzman-ol.html">Uzman Ol</a>
+        <a href="mailto:Kurumsal@isbul.com.tr">Kurumsal</a>
+      </nav>
+      <div class="navbar__actions">
+        <button onclick="openAuthModal('login')" class="btn btn--ghost">Giriş Yap</button>
+        <button onclick="openAuthModal('register')" class="btn btn--primary">Ücretsiz Kaydol</button>
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- PROFIL HERO -->
+  <div class="profil-hero" id="profilHero">
+    <div class="container">
+      <!-- Breadcrumb -->
+      <div style="font-size:13px;color:rgba(255,255,255,.5);margin-bottom:20px">
+        <a href="index.html" style="color:rgba(255,255,255,.6)">Ana Sayfa</a> ı
+        <span>profilim</span>
+      </div>
+      <div class="profil-hero__inner">
+        <div class="profil-avatar-big" id="profilAvatarBig" style="background:#6C63FF">?</div>
+        <div class="profil-hero__info">
+          <h1 id="profilAd">Kullanıcı</h1>
+          <p id="profilEmail">Giriş yapmadınız</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEKMELER -->
+  <div class="profil-tabs" id="profilTabs">
+    <button class="profil-tab active" data-panel="bilgiler">👤 Bilgilerim</button>
+    <button class="profil-tab" data-panel="rezervasyonlar">📋 Rezervasyonlarım</button>
+    <button class="profil-tab" data-panel="guvenlik">🔒 Güvenlik</button>
+    <button class="profil-tab" data-panel="bildirimler">🔔 Bildirimler</button>
+  </div>
+
+  <!-- İşERıK -->
+  <div class="profil-content">
+    <div class="container">
+      <div class="profil-grid">
+
+        <!-- SOL PANEL ı ızet -->
+        <aside>
+          <div class="profil-card" style="text-align:center">
+            <div id="sidebarAvatar" style="width:80px;height:80px;border-radius:50%;background:#6C63FF;color:#fff;font-size:24px;font-weight:900;display:flex;align-items:center;justify-content:center;margin:0 auto 12px">?</div>
+            <div id="sidebarAd" style="font-size:17px;font-weight:800;margin-bottom:4px">ı</div>
+            <div id="sidebarEmail" style="font-size:13px;color:var(--text-muted);margin-bottom:16px">ı</div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <a href="hizmetler.html" class="btn btn--primary" style="justify-content:center">Hizmet Ara</a>
+              <a href="uzman-ol.html" class="btn btn--ghost" style="justify-content:center">Uzman Ol</a>
+              <button onclick="logoutUser();window.location='index.html'" class="btn btn--ghost" style="color:#ef4444;border-color:#fca5a5">🚪 Çıkış Yap</button>
+            </div>
+          </div>
+
+          <div class="profil-card">
+            <h3>Hızlı Erişim</h3>
+            <div style="display:flex;flex-direction:column;gap:8px">
+            <a href="uzmanlar.html" style="font-size:14px;color:var(--text);padding:10px;border-radius:var(--radius-sm);background:var(--bg);text-decoration:none;display:flex;align-items:center;gap:8px" onmouseover="this.style.background='var(--primary-light)'" onmouseout="this.style.background='var(--bg)'">🔍 Uzman Ara</a>
+              <a href="nasil-calisir.html" style="font-size:14px;color:var(--text);padding:10px;border-radius:var(--radius-sm);background:var(--bg);text-decoration:none;display:flex;align-items:center;gap:8px" onmouseover="this.style.background='var(--primary-light)'" onmouseout="this.style.background='var(--bg)'">❓ Nasıl Çalışır?</a>
+              <a href="blog.html" style="font-size:14px;color:var(--text);padding:10px;border-radius:var(--radius-sm);background:var(--bg);text-decoration:none;display:flex;align-items:center;gap:8px" onmouseover="this.style.background='var(--primary-light)'" onmouseout="this.style.background='var(--bg)'">📝 Blog</a>
+            </div>
+          </div>
+        </aside>
+
+        <!-- SAı ı Sekmeli içerik -->
+        <main>
+
+          <!-- BıLGıLERıM -->
+          <div class="profil-panel active" id="panel-bilgiler">
+            <div class="profil-card">
+              <h3>Kişisel Bilgiler</h3>
+              <form id="profilForm">
+                <div class="pf-row">
+                  <div class="pf-group">
+                    <label>Ad</label>
+                    <input type="text" id="pf_firstName" placeholder="Adınız" />
+                  </div>
+                  <div class="pf-group">
+                    <label>Soyad</label>
+                    <input type="text" id="pf_lastName" placeholder="Soyadınız" />
+                  </div>
+                </div>
+                <div class="pf-group">
+                  <label>E-posta</label>
+                  <input type="email" id="pf_email" disabled />
+                </div>
+                <div class="pf-group">
+                  <label>Telefon</label>
+                  <input type="tel" id="pf_phone" placeholder="05XX XXX XX XX" />
+                </div>
+                <div class="pf-row">
+                  <div class="pf-group">
+                    <label>Şehir</label>
+                    <input type="text" id="pf_city" placeholder="Şehriniz" />
+                  </div>
+                  <div class="pf-group">
+                    <label>İlçe</label>
+                    <input type="text" id="pf_district" placeholder="İlçeniz" />
+                  </div>
+                </div>
+                <button type="submit" class="btn btn--primary" style="width:100%;justify-content:center;margin-top:8px">Değişiklikleri Kaydet</button>
+              </form>
+            </div>
+          </div>
+
+          <!-- REZERVASYONLARIM -->
+          <div class="profil-panel" id="panel-rezervasyonlar">
+            <div class="profil-card">
+              <h3>Rezervasyon geçmişi</h3>
+              <div id="rezListesi">
+                <!-- JS ile doldurulacak -->
+              </div>
+            </div>
+          </div>
+
+          <!-- güvenLıK -->
+          <div class="profil-panel" id="panel-guvenlik">
+            <div class="profil-card">
+              <h3>güvenlik Ayarları</h3>
+              <div class="security-item">
+                <div>
+                  <div style="font-weight:600;font-size:14px">şifre değiştir</div>
+                  <div style="font-size:13px;color:var(--text-muted)">Son deıişiklik: bilinmiyor</div>
+                </div>
+                <button onclick="document.getElementById('sifrePanel').style.display=document.getElementById('sifrePanel').style.display==='none'?'block':'none'" class="btn btn--ghost" style="padding:8px 16px;font-size:13px">değiştir</button>
+              </div>
+              <div id="sifrePanel" style="display:none;background:var(--bg);border-radius:var(--radius-sm);padding:20px;margin-top:12px">
+                <form id="sifreForm">
+                  <div class="pf-group">
+                    <label>Mevcut şifre</label>
+                    <input type="password" id="sf_current" placeholder="••••••" />
+                  </div>
+                  <div class="pf-group">
+                    <label>Yeni şifre</label>
+                    <input type="password" id="sf_new" placeholder="En az 8 karakter" />
+                  </div>
+                  <div class="pf-group">
+                    <label>Yeni şifre Tekrar</label>
+                    <input type="password" id="sf_confirm" placeholder="••••••" />
+                  </div>
+                  <button type="submit" class="btn btn--primary" style="width:100%;justify-content:center">Şifreyi Güncelle</button>
+                </form>
+              </div>
+              <div class="security-item">
+                <div>
+                  <div style="font-weight:600;font-size:14px">Oturum Yönetimi</div>
+                  <div style="font-size:13px;color:var(--text-muted)">Tüm cihazlardan çıkış yap</div>
+                </div>
+                <button onclick="logoutUser();window.location='index.html'" class="btn btn--ghost" style="padding:8px 16px;font-size:13px;color:#ef4444;border-color:#fca5a5">Çıkış Yap</button>
+              </div>
+              <div class="security-item">
+                <div>
+                  <div style="font-weight:600;font-size:14px">Hesabı Sil</div>
+                  <div style="font-size:13px;color:var(--text-muted)">hesabınızı kalıcı olarak silin</div>
+                </div>
+                <button id="deleteAccountBtn" class="btn btn--ghost" style="padding:8px 16px;font-size:13px;color:#ef4444;border-color:#fca5a5">Sil</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- BıLDıRıMLER -->
+          <div class="profil-panel" id="panel-bildirimler">
+            <div class="profil-card">
+              <h3>Bildirim Tercihleri</h3>
+              <div class="notif-item">
+                <div>
+                  <div style="font-weight:600;font-size:14px">Rezervasyon Onayları</div>
+                  <div style="font-size:13px;color:var(--text-muted)">Rezervasyon onaylandığında bildir</div>
+                </div>
+                <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+              </div>
+              <div class="notif-item">
+                <div>
+                  <div style="font-weight:600;font-size:14px">Uzman Mesajları</div>
+                  <div style="font-size:13px;color:var(--text-muted)">Uzmanından mesaj geldiğinde bildir</div>
+                </div>
+                <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+              </div>
+              <div class="notif-item">
+                <div>
+                  <div style="font-weight:600;font-size:14px">Promosyonlar</div>
+                  <div style="font-size:13px;color:var(--text-muted)">Kampanya ve indirim bildirimleri</div>
+                </div>
+                <div class="toggle" onclick="this.classList.toggle('on')"></div>
+              </div>
+              <div class="notif-item">
+                <div>
+                  <div style="font-weight:600;font-size:14px">İşBul Bülteni</div>
+                  <div style="font-size:13px;color:var(--text-muted)">Haftalık blog ve rehberler</div>
+                </div>
+                <div class="toggle" onclick="this.classList.toggle('on')"></div>
+              </div>
+              <button onclick="showToast('Bildirim tercihleri kaydedildi!','success')" class="btn btn--primary" style="width:100%;justify-content:center;margin-top:16px">Tercihleri Kaydet</button>
+            </div>
+          </div>
+
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <!-- AUTH MODAL -->
+  <div class="modal-overlay" id="authModal">
+    <div class="auth-modal-inner">
+      <div class="auth-modal-header">
+        <span class="navbar__logo"><span class="logo-icon">⚡</span><span class="logo-text"><strong>İşBul</strong></span></span>
+        <button class="auth-modal-close" id="authModalClose">×</button>
+      </div>
+      <div class="auth-tabs">
+        <button class="auth-tab active" data-tab="login">Giriş Yap</button>
+        <button class="auth-tab" data-tab="register">Ücretsiz Kaydol</button>
+      </div>
+      <div class="auth-body">
+        <div class="auth-panel active" id="auth-login">
+          <div class="auth-social"><button class="auth-social-btn" onclick="handleOAuth('google')">✓ Google ile Giriş</button><button class="auth-social-btn" onclick="handleOAuth('apple')">🍎 Apple ile Giriş</button></div>
+          <div class="auth-divider">veya e-posta ile</div>
+          <form id="loginForm" novalidate>
+            <div class="form-group"><label>E-posta</label><input type="email" name="email" placeholder="ornek@mail.com" /></div>
+            <div class="form-group"><label>şifre <a href="#" class="auth-forgot" onclick="showToast('Sıfırlama başlantısı gönderildi!','info');return false">şifremi unuttum</a></label><input type="password" name="password" placeholder="••••••" /></div>
+            <button type="submit" class="auth-submit">Giriş Yap</button>
+          </form>
+          <p class="auth-footer">hesabınız yok mu? <a href="#" onclick="document.querySelector('[data-tab=register]').click();return false">Kayıt olun</a></p>
+        </div>
+        <div class="auth-panel" id="auth-register">
+          <div class="auth-social"><button class="auth-social-btn" onclick="handleOAuth('google')">✓ Google ile Kayıt</button><button class="auth-social-btn" onclick="handleOAuth('facebook')">✓ Facebook ile Kayıt</button></div>
+          <div class="auth-divider">veya e-posta ile</div>
+          <form id="registerForm" novalidate>
+            <div class="form-group" style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div><label>Ad</label><input type="text" name="regFirstName" placeholder="Adınız" /></div><div><label>Soyad</label><input type="text" name="regLastName" placeholder="Soyadınız" /></div></div>
+            <div class="form-group"><label>E-posta</label><input type="email" name="regEmail" placeholder="ornek@mail.com" /></div>
+            <div class="form-group"><label>şifre</label><input type="password" name="regPassword" placeholder="En az 8 karakter" /></div>
+            <div class="form-group"><label>şifre Tekrar</label><input type="password" name="regPasswordConfirm" placeholder="Tekrar girin" /></div>
+            <button type="submit" class="auth-submit">Hesap oluştur</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ıLETİşıM MODAL -->
+  <div class="modal-overlay" id="contactModal">
+    <div style="background:var(--white);border-radius:20px;max-width:480px;width:92%;position:relative;padding:0;overflow:hidden">
+      <div style="background:linear-gradient(135deg,#1a1a2e,#0f3460);padding:28px 28px 24px;color:#fff;text-align:center">
+        <button onclick="document.getElementById('contactModal').classList.remove('active');document.body.style.overflow=''" style="position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center">?</button>
+        <div style="font-size:40px;margin-bottom:10px">📧</div>
+        <h3 style="font-size:22px;font-weight:900;margin-bottom:6px">İletişim</h3>
+      </div>
+      <div style="padding:28px">
+        <div style="display:flex;align-items:center;gap:14px;padding:16px;border-radius:var(--radius-sm);border:1.5px solid var(--border)">
+          <span style="font-size:20px">📧</span>
+          <div><div style="font-size:13px;color:var(--text-muted)">E-posta</div><div style="font-weight:600">destek@isbul.com.tr</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/api-client.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    // Auth kontrolü — giriş yapılmamışsa yönlendir
+    if (!isLoggedIn()) {
+      requireAuth(function() { location.reload(); }, 'Profilinizi görüntülemek için giriş yapmanız gerekiyor.');
+    }
+
+    // URL hash ile sekme aç (#rezervasyonlar gibi)
+    if (window.location.hash) {
+      const hashPanel = window.location.hash.replace('#','');
+      const matchTab  = document.querySelector(`.profil-tab[data-panel="${hashPanel}"]`);
+      if (matchTab) setTimeout(() => matchTab.click(), 200);
+    }
+
+    // Hesap sil butonu
+    document.getElementById('deleteAccountBtn')?.addEventListener('click', async function() {
+      const session = typeof getSession === 'function' ? getSession() : null;
+      if (!session) return;
+
+      const password = prompt('Hesabınızı silmek için şifrenizi girin:\n(Google ile giriş yapıyorsanız boş bırakın)');
+      if (password === null) return; // İptal
+
+      if (!confirm('Hesabınızı kalıcı olarak silmek istediğinize emin misiniz?\nTüm rezervasyonlarınız ve verileriniz silinecek.\nBu işlem GERİ ALINAMAZ.')) return;
+
+      // API dene
+      if (typeof IsbulAPI !== 'undefined') {
+        const res = await IsbulAPI.users.deleteAccount(password);
+        if (res !== null) {
+          if (!res.success) { showToast(res.error || 'Hesap silinemedi.', 'error'); return; }
+          // API başarılı — localStorage'ı da temizle
+          _clearLocalUserData(session);
+          showToast('Hesabınız silindi. Güle güle!', 'info');
+          setTimeout(() => window.location = 'index.html', 1500);
+          return;
+        }
+      }
+
+      // Fallback: localStorage
+      const db = typeof getUsersDB === 'function' ? getUsersDB() : {};
+      const user = db[session.email];
+      if (user && user.passwordHash && password) {
+        const expectedHash = btoa(password + '_isbul_salt');
+        if (user.passwordHash !== expectedHash) { showToast('şifre hatalı.', 'error'); return; }
+      }
+      _clearLocalUserData(session);
+      showToast('Hesabınız silindi. Güle güle!', 'info');
+      setTimeout(() => window.location = 'index.html', 1500);
+    });
+
+    function _clearLocalUserData(session) {
+      const db = typeof getUsersDB === 'function' ? getUsersDB() : {};
+      delete db[session.email];
+      if (typeof saveUsersDB === 'function') saveUsersDB(db);
+      if (typeof clearSession === 'function') clearSession();
+      localStorage.removeItem('isbul_jwt');
+    }
+
+    // profil bilgilerini doldur
+    function loadprofile() {
+      const session = typeof getSession === 'function' ? getSession() : null;
+      if (!session) return;
+
+      const fullName = session.firstName + ' ' + session.lastName;
+      const initials = session.avatar || (session.firstName[0] + session.lastName[0]).toUpperCase();
+      const color    = session.color || '#6C63FF';
+
+      // Hero
+      document.getElementById('profilAvatarBig').textContent = initials;
+      document.getElementById('profilAvatarBig').style.background = color;
+      document.getElementById('profilAd').textContent   = fullName;
+      document.getElementById('profilEmail').textContent = session.email;
+
+      // sidebar
+      document.getElementById('sidebarAvatar').textContent = initials;
+      document.getElementById('sidebarAvatar').style.background = color;
+      document.getElementById('sidebarAd').textContent    = fullName;
+      document.getElementById('sidebarEmail').textContent = session.email;
+
+      // Form alanlarını doldur
+      document.getElementById('pf_firstName').value = session.firstName || '';
+      document.getElementById('pf_lastName').value  = session.lastName  || '';
+      document.getElementById('pf_email').value     = session.email     || '';
+
+      // Kayıtlı ek bilgiler varsa (localStorage'dan)
+      const db   = typeof getUsersDB === 'function' ? getUsersDB() : {};
+      const user = db[session.email] || {};
+      if (user.phone)    document.getElementById('pf_phone').value    = user.phone;
+      if (user.city)     document.getElementById('pf_city').value     = user.city;
+      if (user.district) document.getElementById('pf_district').value = user.district;
+    }
+
+    loadprofile();
+
+    // Sekme geıişi
+    document.querySelectorAll('.profil-tab').forEach(tab => {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.profil-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.profil-panel').forEach(p => p.classList.remove('active'));
+        this.classList.add('active');
+        document.getElementById('panel-' + this.dataset.panel)?.classList.add('active');
+      });
+    });
+
+    // profil formu kaydet ı API ıöncelikli, localStorage fallback
+    document.getElementById('profilForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const session = typeof getSession === 'function' ? getSession() : null;
+      if (!session) return;
+
+      const firstName = document.getElementById('pf_firstName').value.trim();
+      const lastName  = document.getElementById('pf_lastName').value.trim();
+      const phone     = document.getElementById('pf_phone').value.trim();
+      const city      = document.getElementById('pf_city').value.trim();
+      const district  = document.getElementById('pf_district').value.trim();
+
+      const btn = this.querySelector('button[type=submit]');
+      const origText = btn?.textContent;
+      if (btn) { btn.textContent = 'Kaydediliyor...'; btn.disabled = true; }
+
+      // 1) API dene
+      if (typeof IsbulAPI !== 'undefined') {
+        const res = await IsbulAPI.users.updateProfile({ firstName, lastName });
+        if (res !== null) {
+          if (btn) { btn.textContent = origText; btn.disabled = false; }
+          // API baıarülke ı session ve navbar gıöncelle
+          session.firstName = firstName;
+          session.lastName  = lastName;
+          if (typeof saveSession === 'function') saveSession(session);
+          // Telefon/ışehir/ilıe localStorage'a kaydet (API'de alan yok)
+          const db = typeof getUsersDB === 'function' ? getUsersDB() : {};
+          const user = db[session.email] || {};
+          user.phone = phone; user.city = city; user.district = district;
+          db[session.email] = user;
+          if (typeof saveUsersDB === 'function') saveUsersDB(db);
+          if (typeof _updateNavbarLoggedIn === 'function') _updateNavbarLoggedIn();
+          loadprofile();
+          showToast('? Bilgileriniz kaydedildi!', 'success');
+          return;
+        }
+      }
+
+      // 2) Fallback: localStorage
+      const db   = typeof getUsersDB === 'function' ? getUsersDB() : {};
+      const user = db[session.email] || {};
+      user.firstName = firstName; user.lastName  = lastName;
+      user.phone     = phone;     user.city      = city; user.district = district;
+      db[session.email] = user;
+      if (typeof saveUsersDB === 'function') saveUsersDB(db);
+      session.firstName = firstName; session.lastName = lastName;
+      if (typeof saveSession === 'function') saveSession(session);
+      if (typeof _updateNavbarLoggedIn === 'function') _updateNavbarLoggedIn();
+      if (btn) { btn.textContent = origText; btn.disabled = false; }
+      loadprofile();
+      showToast('? Bilgileriniz kaydedildi!', 'success');
+    });
+
+    // şifre değiştir ı API ıöncelikli, localStorage fallback
+    document.getElementById('sifreForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const session = typeof getSession === 'function' ? getSession() : null;
+      if (!session) return;
+
+      const current = document.getElementById('sf_current').value;
+      const newPw   = document.getElementById('sf_new').value;
+      const confirm = document.getElementById('sf_confirm').value;
+
+      if (!current) { showToast('Mevcut şifreyi girin.', 'error'); return; }
+      if (newPw.length < 8) { showToast('Yeni şifre en az 8 karakter olmalı.', 'error'); return; }
+      if (newPw !== confirm) { showToast('Yeni şifreler eıleımiyor!', 'error'); return; }
+
+      const btn = this.querySelector('button[type=submit]');
+      const origText = btn.textContent;
+      btn.textContent = 'Gıöncelleniyor...'; btn.disabled = true;
+
+      // API dene
+      if (typeof IsbulAPI !== 'undefined') {
+        const res = await IsbulAPI.users.changePassword(current, newPw);
+        if (res !== null) {
+          btn.textContent = origText; btn.disabled = false;
+          if (!res.success) { showToast(res.error || 'şifre gıöncellenemedi.', 'error'); return; }
+          this.reset();
+          document.getElementById('sifrePanel').style.display = 'none';
+          showToast('? şifreniz baıarıyla gıöncellendi!', 'success');
+          return;
+        }
+      }
+
+      // Fallback: localStorage
+      const db   = typeof getUsersDB === 'function' ? getUsersDB() : {};
+      const user = db[session.email];
+      if (!user) { showToast('Kullanıc | İşBulunamadı.', 'error'); btn.textContent = origText; btn.disabled = false; return; }
+      const expectedHash = btoa(current + '_isbul_salt');
+      if (user.passwordHash !== expectedHash) { showToast('Mevcut şifre hatalı.', 'error'); btn.textContent = origText; btn.disabled = false; return; }
+      user.passwordHash = btoa(newPw + '_isbul_salt');
+      db[session.email] = user;
+      if (typeof saveUsersDB === 'function') saveUsersDB(db);
+      this.reset();
+      document.getElementById('sifrePanel').style.display = 'none';
+      showToast('✅ Şifreniz başarıyla güncellendi!', 'success');
+    });
+
+    // Rezervasyon geçmişi — API öncelikli, localStorage fallback
+    (async function loadRezervasyonlar() {
+      const session = typeof getSession === 'function' ? getSession() : null;
+      const listEl  = document.getElementById('rezListesi');
+      if (!listEl) return;
+
+      async function render() {
+        let rezervasyonlar = null;
+
+        // API'den rezervasyonları çek
+        if (typeof IsbulAPI !== 'undefined') {
+          rezervasyonlar = await IsbulAPI.bookings.getMyBookings();
+        }
+
+        // API başarısız — localStorage'dan yükle
+        if (!rezervasyonlar && session) {
+          const REZ_KEY = 'isbul_rezervasyonlar_' + session.id;
+          try { rezervasyonlar = JSON.parse(localStorage.getItem(REZ_KEY) || '[]'); } catch(e) { rezervasyonlar = []; }
+          // Merkezi booking DB'den de al
+          const BOOKING_DB_KEY = 'isbul_booking_db';
+          try {
+            const db = JSON.parse(localStorage.getItem(BOOKING_DB_KEY) || '{}');
+            const dbList = Object.values(db).filter(r => r.customerId === session.id);
+            if (dbList.length > rezervasyonlar.length) rezervasyonlar = dbList;
+          } catch(e) {}
+        }
+
+        if (!rezervasyonlar) rezervasyonlar = [];
+
+        if (!rezervasyonlar.length) {
+          listEl.innerHTML = `
+            <div style="text-align:center;padding:40px 0;color:var(--text-muted)">
+              <div style="font-size:48px;margin-bottom:12px">📋</div>
+              <p style="font-size:15px;font-weight:600;margin-bottom:8px">Henüz rezervasyonunuz yok</p>
+              <p style="font-size:13px">Uzmanlar sayfasından hizmet almaya başlayın.</p>
+              <a href="hizmetler.html" class="btn btn--primary" style="margin-top:16px;display:inline-flex">Uzman Ara →</a>
+            </div>`;
+          return;
+        }
+
+        const statusLabel = {
+          pending:   '⏳ Onay Bekleniyor',
+          confirmed: '✅ Onaylandı',
+          completed: '🏁 Tamamlandı',
+          rejected:  '❌ Reddedildi',
+          cancelled: '🚫 İptal Edildi'
+        };
+        const statusStyle = {
+          pending:   'background:#fef3c7;color:#92400e;',
+          confirmed: 'background:#d1fae5;color:#065f46;',
+          completed: 'background:#e0e7ff;color:#3730a3;',
+          rejected:  'background:#fee2e2;color:#991b1b;',
+          cancelled: 'background:#f3f4f6;color:#6b7280;'
+        };
+
+        listEl.innerHTML = rezervasyonlar.map(r => `
+          <div class="rez-item" id="rez-${r.id}" style="border-radius:12px;padding:16px;border:1.5px solid #e5e7eb;margin-bottom:12px;display:flex;gap:14px;align-items:flex-start;background:#fff;">
+            <div class="rez-avatar" style="background:${r.expertColor||'#6C63FF'};width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px;flex-shrink:0;">${r.expertInitials||'U'}</div>
+            <div style="flex:1;min-width:0;">
+              <div style="font-size:15px;font-weight:700;color:#1a202c;">${r.expertName||'Uzman'}</div>
+              <div style="font-size:13px;color:#64748b;margin-top:2px;">${r.service||''}${r.durationLabel ? ' · ⏱️ ' + r.durationLabel : ''}</div>
+              <div style="font-size:13px;color:#64748b;margin-top:2px;">📅 ${r.dateStr||r.date}${r.endDate && r.endDate !== r.date ? ' → ' + new Date(r.endDate).toLocaleDateString('tr-TR',{day:'numeric',month:'short'}) : ''} &nbsp;🕐 ${r.time||''}</div>
+              <div style="font-size:13px;color:#64748b;">📍 ${r.city||''}</div>
+              ${r.notes ? `<div style="font-size:12px;color:#64748b;background:#f8f9fa;padding:5px 8px;border-radius:6px;margin-top:6px;">📝 ${r.notes}</div>` : ''}
+              ${r.updatedAt && r.status !== 'pending' ? `<div style="font-size:11px;color:#9ca3af;margin-top:4px;">Son güncelleme: ${new Date(r.updatedAt).toLocaleDateString('tr-TR',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}</div>` : ''}
+            </div>
+            <div style="text-align:right;flex-shrink:0;">
+              <span style="display:inline-block;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:700;${statusStyle[r.status]||statusStyle.pending}">
+                ${statusLabel[r.status]||'⏳ Bekliyor'}
+              </span>
+              <div style="font-size:14px;font-weight:800;color:#6C63FF;margin-top:6px;">₺${(r.totalPrice||r.price||0).toLocaleString('tr-TR')}${r.totalPrice ? '' : '/saat'}</div>
+              ${(r.status === 'pending' || r.status === 'confirmed') ? `
+                <button onclick="cancelReservation('${r.id}')"
+                  style="margin-top:8px;padding:6px 12px;border-radius:8px;background:#fee2e2;color:#ef4444;border:none;font-size:12px;font-weight:600;cursor:pointer;width:100%;">
+                  🚫 İptal Et
+                </button>
+              ` : ''}
+            </div>
+          </div>`).join('');
+      }
+
+      // İptal fonksiyonu — API öncelikli, localStorage fallback
+      window.cancelReservation = async function(rezId) {
+        if (!confirm('Bu rezervasyonu iptal etmek istediğinize emin misiniz?')) return;
+
+        // API dene
+        if (typeof IsbulAPI !== 'undefined') {
+          const res = await IsbulAPI.bookings.updateStatus(rezId, 'cancelled');
+          if (res !== null) {
+            if (!res.success) { showToast(res.error || 'İptal başarısız.', 'error'); return; }
+            showToast('Rezervasyonunuz iptal edildi.', 'info');
+            render();
+            return;
+          }
+        }
+
+        // Fallback: localStorage güncelle
+        const BOOKING_DB_KEY = 'isbul_booking_db';
+        try {
+          const db = JSON.parse(localStorage.getItem(BOOKING_DB_KEY) || '{}');
+          const rez = db[rezId];
+          if (rez) {
+            rez.status = 'cancelled';
+            rez.updatedAt = new Date().toISOString();
+            db[rezId] = rez;
+            localStorage.setItem(BOOKING_DB_KEY, JSON.stringify(db));
+
+            // Takvimden slotları serbest bırak
+            const slots = rez.slots || [(rez.date + '_' + rez.time)];
+            if (typeof clearSlotsFromCalendar === 'function') {
+              clearSlotsFromCalendar(rez.expertId, slots);
+            } else {
+              const TAKVIM_KEY = 'isbul_takvim_' + rez.expertId;
+              let takvim = {};
+              try { takvim = JSON.parse(localStorage.getItem(TAKVIM_KEY) || '{}'); } catch(e) {}
+              slots.forEach(s => delete takvim[s]);
+              localStorage.setItem(TAKVIM_KEY, JSON.stringify(takvim));
+            }
+
+            // Eski list key güncelle
+            if (session) {
+              const REZ_KEY = 'isbul_rezervasyonlar_' + session.id;
+              let rezList = [];
+              try { rezList = JSON.parse(localStorage.getItem(REZ_KEY) || '[]'); } catch(e) {}
+              const idx = rezList.findIndex(r => r.id === rezId);
+              if (idx !== -1) { rezList[idx].status = 'cancelled'; rezList[idx].updatedAt = rez.updatedAt; }
+              localStorage.setItem(REZ_KEY, JSON.stringify(rezList));
+            }
+          }
+        } catch(e) {}
+
+        showToast('Rezervasyonunuz iptal edildi.', 'info');
+        render();
+      };
+
+      // Sayfa her göründüğünde yenile (sekme değişimi için)
+      await render();
+      document.addEventListener('visibilitychange', () => {
+        if (!document.hidden) render();
+      });
+    })();
+
+    // Bildirim tercihlerini localStorage'a kaydet
+    document.querySelector('.profil-panel#panel-bildirimler button.btn--primary')?.addEventListener('click', function() {
+      const session = typeof getSession === 'function' ? getSession() : null;
+      if (!session) return;
+      const prefs = {};
+      document.querySelectorAll('#panel-bildirimler .toggle').forEach((t, i) => {
+        const labels = ['rezervasyon', 'mesaj', 'promosyon', 'bülten'];
+        prefs[labels[i]] = t.classList.contains('on');
+      });
+      localStorage.setItem('isbul_notif_' + session.id, JSON.stringify(prefs));
+      showToast('Bildirim tercihleri kaydedildi!', 'success');
+    });
+
+    // Sayfa açıldığında bildirim tercihlerini yükle
+    (function loadNotifPrefs() {
+      const session = typeof getSession === 'function' ? getSession() : null;
+      if (!session) return;
+      const saved = localStorage.getItem('isbul_notif_' + session.id);
+      if (!saved) return;
+      try {
+        const prefs = JSON.parse(saved);
+        const toggles = document.querySelectorAll('#panel-bildirimler .toggle');
+        const labels  = ['rezervasyon', 'mesaj', 'promosyon', 'bülten'];
+        toggles.forEach((t, i) => {
+          if (prefs[labels[i]] === true)  t.classList.add('on');
+          if (prefs[labels[i]] === false) t.classList.remove('on');
+        });
+      } catch(e) {}
+    })();
+
+  </script>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <a href="index.html" class="navbar__logo"><span class="logo-icon">⚡</span><span class="logo-text"><strong>İşBul</strong></span></a>
+          <p>Türkiye'nin güvenilir ev ve ofis hizmetleri platformu.</p>
+          <div class="footer__social">
+            <a href="https://www.linkedin.com/in/%C3%BCmit-yakup-dedeo%C4%9Flu-4321212a7/" target="_blank" rel="noopener" aria-label="LinkedIn">🔗</a>
+          </div>
+        </div>
+        <div class="footer__links">
+          <div class="footer__col"><h4>Hizmetler</h4><a href="uzmanlar.html?kategori=montaj">Mobilya Montajı</a><a href="uzmanlar.html?kategori=temizlik">Ev Temizliği</a><a href="hizmetler.html">Tüm Hizmetler</a></div>
+          <div class="footer__col"><h4>Şirket</h4><a href="hakkimizda.html">Hakkımızda</a><a href="blog.html">Blog</a></div>
+          <div class="footer__col"><h4>Uzmanlar</h4><a href="uzman-ol.html">Uzman Ol</a><a href="nasil-calisir.html?rol=tasker">Kazanç Hesapla</a></div>
+          <div class="footer__col"><h4>Destek</h4><a href="#" onclick="document.getElementById('contactModal').classList.add('active');document.body.style.overflow='hidden';return false">İletişim</a><a href="kvkk.html">KVKK</a></div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>© 2026 İşBul Teknoloji A.Ş. Tüm hakları saklıdır.</p>
+        <div class="footer__badges"><span class="footer-badge">🔒 SSL Güvenli</span><span class="footer-badge">✅ KVKK Uyumlu</span></div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- AI Chatbot Widget -->
+  <link rel="stylesheet" href="assets/css/chatbot.css" />
+  <script src="assets/js/chatbot.js"></script>
+</body>
+</html>

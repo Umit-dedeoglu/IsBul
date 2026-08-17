@@ -1,0 +1,783 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <script src="assets/js/analytics.js" defer></script>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hizmetler | İşBul</title>
+  <meta name="description" content="İşBul'da ev ve ofis için 30'dan fazla hizmet kategorisi. Montaj, temizlik, taşıma, elektrik, tesisatçı, boyacı ve daha fazlası." />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/feather-icons"></script>
+  <style>
+    /* hizmetler sayfasına ıözel ek stiller */
+    .services-page { background: var(--bg); min-height: 100vh; }
+
+    /* Arama ıubuıu (sayfa işi) */
+    .services-search-bar {
+      display: flex; gap: 0; align-items: stretch;
+      max-width: 540px; margin: 28px auto 0;
+      background: rgba(255,255,255,.12);
+      border: 1.5px solid rgba(255,255,255,.3);
+      border-radius: 50px; overflow: hidden;
+      backdrop-filter: blur(8px);
+    }
+    .services-search-bar input {
+      flex: 1; padding: 14px 18px 14px 44px; border: none;
+      font-family: var(--font); font-size: 15px; outline: none;
+      background: transparent; color: var(--white); min-width: 0;
+    }
+    .services-search-bar input::placeholder { color: rgba(255,255,255,.6); }
+    .services-search-wrap { position: relative; flex: 1; display: flex; align-items: center; }
+    .services-search-wrap svg {
+      position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+      color: rgba(255,255,255,.7); width: 16px; height: 16px; pointer-events: none;
+    }
+    .services-search-bar .search-submit-btn {
+      padding: 12px 24px; background: var(--primary); color: #fff;
+      font-weight: 700; font-size: 14px; border: none; cursor: pointer;
+      border-radius: 0 50px 50px 0; white-space: nowrap; flex-shrink: 0;
+      transition: background var(--transition);
+    }
+    .services-search-bar .search-submit-btn:hover { background: var(--primary-dark); }
+
+    /* filtre sidebar + grid layout */
+    .services-layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 32px;
+      align-items: start;
+      padding: 48px 0 80px;
+      min-height: calc(100vh - 200px);
+    }
+
+    /* sidebar */
+    .sidebar {
+      position: sticky;
+      top: 88px;
+      max-height: calc(100vh - 100px);
+      overflow-y: auto;
+      scrollbar-width: thin;
+    }
+    .sidebar-card {
+      background: var(--white); border-radius: var(--radius);
+      border: 1.5px solid var(--border); overflow: hidden; margin-bottom: 20px;
+    }
+    .sidebar-card__title {
+      padding: 16px 20px; font-size: 13px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .5px;
+      border-bottom: 1px solid var(--border); color: var(--text-muted);
+      background: var(--bg);
+    }
+    .sidebar-list { list-style: none; }
+    .sidebar-list li a {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 20px; font-size: 14px; color: var(--text);
+      transition: all var(--transition); border-bottom: 1px solid var(--border);
+    }
+    .sidebar-list li:last-child a { border-bottom: none; }
+    .sidebar-list li a:hover,
+    .sidebar-list li a.active { color: var(--primary); background: var(--primary-light); }
+    .sidebar-list li a span { font-size: 12px; color: var(--text-muted); }
+    .sidebar-list li a:hover span,
+    .sidebar-list li a.active span { color: var(--primary); }
+
+    .price-range { padding: 16px 20px; }
+    .price-range label { font-size: 13px; font-weight: 600; margin-bottom: 10px; display: block; }
+    .price-range input[type=range] { width: 100%; accent-color: var(--primary); }
+    .price-range__values { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); margin-top: 6px; }
+
+    /* ıst bar: sıralama + sonuı sayısı */
+    .services-topbar {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 24px; flex-wrap: wrap; gap: 12px;
+    }
+    .services-topbar__count { font-size: 14px; color: var(--text-muted); }
+    .services-topbar__count strong { color: var(--text); }
+    .sort-select {
+      padding: 9px 14px; border-radius: var(--radius-sm);
+      border: 1.5px solid var(--border); font-family: var(--font);
+      font-size: 13px; outline: none; background: var(--white);
+      cursor: pointer;
+    }
+    .sort-select:focus { border-color: var(--primary); }
+
+    /* hizmet kartları grid */
+    .services-main { }
+    .services-grid-main {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .service-card-v2 {
+      background: var(--white); border-radius: var(--radius);
+      border: 1.5px solid var(--border); overflow: hidden;
+      transition: all var(--transition); display: flex; flex-direction: column;
+    }
+    .service-card-v2:hover {
+      border-color: var(--primary); transform: translateY(-5px);
+      box-shadow: 0 16px 40px rgba(108,99,255,.12);
+    }
+    .service-card-v2__thumb {
+      height: 140px; display: flex; align-items: center; justify-content: center;
+      font-size: 54px; position: relative; overflow: hidden;
+    }
+    .service-card-v2__badge {
+      position: absolute; top: 12px; right: 12px;
+      padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600;
+      background: var(--primary); color: var(--white);
+    }
+    .service-card-v2__badge--hot { background: var(--secondary); }
+    .service-card-v2__badge--new { background: var(--success); }
+    .service-card-v2__body { padding: 18px; flex: 1; display: flex; flex-direction: column; }
+    .service-card-v2__body h3 { font-size: 15px; font-weight: 700; margin-bottom: 5px; }
+    .service-card-v2__body p { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; flex: 1; line-height: 1.6; }
+    .service-card-v2__meta { display: flex; align-items: center; justify-content: space-between; }
+    .service-meta-left .price-tag { font-size: 14px; font-weight: 700; color: var(--primary); }
+    .service-meta-left .rating-tag { font-size: 11px; color: var(--text-muted); }
+    .service-meta-left .rating-tag span { color: #f59e0b; }
+    .book-now-btn {
+      padding: 8px 18px; border-radius: 50px; font-size: 13px; font-weight: 600;
+      background: var(--primary-light); color: var(--primary);
+      transition: all var(--transition); border: none;
+    }
+    .book-now-btn:hover { background: var(--primary); color: var(--white); }
+
+    /* Uzman Öne Çıkan banner */
+    .featured-banner {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-radius: var(--radius); padding: 24px; color: var(--white);
+      margin-bottom: 20px; display: flex; align-items: center; gap: 16px;
+    }
+    .featured-banner__icon { font-size: 36px; flex-shrink: 0; }
+    .featured-banner h4 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+    .featured-banner p { font-size: 13px; opacity: .85; }
+
+    /* Mobil filtre toggle */
+    .mobile-filter-btn {
+      display: none; padding: 10px 20px; border-radius: 50px;
+      border: 1.5px solid var(--border); background: var(--white);
+      font-size: 14px; font-weight: 600; align-items: center; gap: 8px;
+    }
+
+    @media (max-width: 900px) {
+      .services-layout { grid-template-columns: 1fr; }
+      .sidebar { position: static; display: none; }
+      .sidebar.open { display: block; }
+      .mobile-filter-btn { display: flex; }
+    }
+    @media (max-width: 560px) {
+      .services-grid-main { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 400px) {
+      .services-grid-main { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body class="services-page">
+
+  <!-- NAVBAR -->
+  <header class="navbar scrolled" id="navbar">
+    <div class="container navbar__inner">
+      <a href="index.html" class="navbar__logo">
+        <span class="logo-icon">⚡</span>
+        <span class="logo-text"><strong>İşBul</strong></span>
+      </a>
+      <nav class="navbar__links" id="navLinks">
+        <a href="hizmetler.html" style="color:var(--primary);font-weight:700">hizmetler</a>
+        <a href="nasil-calisir.html">nasıl Çalışır?</a>
+        <a href="uzman-ol.html">Uzman Ol</a>
+        <a href="mailto:Kurumsal@isbul.com.tr">Kurumsal</a>
+      </nav>
+      <div class="navbar__actions">
+        <button onclick="openAuthModal('login')" class="btn btn--ghost">Giriş Yap</button>
+        <button onclick="openAuthModal('register')" class="btn btn--primary">Ücretsiz Kaydol</button>
+        <button class="hamburger" id="hamburger" aria-label="Menüyü aç">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="container">
+      <span class="section-tag section-tag--light" style="margin-bottom:16px">30+ Kategori</span>
+      <h1>Tüm Hizmetler</h1>
+      <p>İhtiyacınız olan her hizmet için kimlik doğrulamalı, puanlanmış uzmanlar hazır.</p>
+      <div class="services-search-bar" style="margin-top:28px">
+        <div class="services-search-wrap">
+          <i data-feather="search"></i>
+          <input type="text" id="serviceSearch" placeholder="hizmet veya uzman adı arayın..." />
+        </div>
+        <button class="search-submit-btn" onclick="document.getElementById('serviceSearch').dispatchEvent(new Event('input'))">Ara</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FILTER TABS (yatay) -->
+  <div class="services-filter">
+    <div class="container">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+        <div class="filter-tabs" id="filterTabs">
+          <button class="filter-tab active" data-cat="all">Tümü</button>
+          <button class="filter-tab" data-cat="montaj">Montaj</button>
+          <button class="filter-tab" data-cat="temizlik">Temizlik</button>
+          <button class="filter-tab" data-cat="nakliyat">Nakliyat</button>
+          <button class="filter-tab" data-cat="elektrik">Elektrik</button>
+          <button class="filter-tab" data-cat="tesisat">Tesisat</button>
+          <button class="filter-tab" data-cat="boya">Boya & Tadilat</button>
+          <button class="filter-tab" data-cat="bahce">Bahçe</button>
+          <button class="filter-tab" data-cat="diger">Diğer</button>
+        </div>
+        <button class="mobile-filter-btn" id="mobilefilterBtn">
+          <i data-feather="sliders" style="width:15px;height:15px"></i> filtrele
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ANA İşERıK -->
+  <div class="container">
+    <div class="services-layout">
+
+      <!-- SIDEBAR -->
+      <aside class="sidebar" id="sidebar">
+
+        <div class="featured-banner">
+          <div class="featured-banner__icon">🏆</div>
+          <div>
+            <h4>İşBul Elite</h4>
+            <p>En yüksek puanlı uzmanlarla çalışma</p>
+          </div>
+        </div>
+
+        <div class="sidebar-card">
+          <div class="sidebar-card__title">Kategoriler</div>
+          <ul class="sidebar-list">
+            <li><a href="uzmanlar.html?kategori=montaj" class="sidebar-link" data-cat="montaj">🔧 Mobilya Montajı <span>24 uzman</span></a></li>
+            <li><a href="uzmanlar.html?kategori=temizlik" class="sidebar-link" data-cat="temizlik">🧹 Ev Temizliği <span>38 uzman</span></a></li>
+            <li><a href="uzmanlar.html?kategori=nakliyat" class="sidebar-link" data-cat="nakliyat">🚚 Nakliyat <span>15 uzman</span></a></li>
+            <li><a href="uzmanlar.html?kategori=elektrik" class="sidebar-link" data-cat="elektrik">⚡ Elektrikçi <span>19 uzman</span></a></li>
+            <li><a href="uzmanlar.html?kategori=tesisat" class="sidebar-link" data-cat="tesisat">🔧 Tesisatçı <span>22 uzman</span></a></li>
+            <li><a href="uzmanlar.html?kategori=boya" class="sidebar-link" data-cat="boya">🎨 Boyacı <span>17 uzman</span></a></li>
+            <li><a href="uzmanlar.html?kategori=bahce" class="sidebar-link" data-cat="bahce">🌱 Bahçe <span>11 uzman</span></a></li>
+            <li><a href="uzmanlar.html?kategori=diger" class="sidebar-link" data-cat="diger">🛠️ Diğer <span>46 uzman</span></a></li>
+          </ul>
+        </div>
+
+        <div class="sidebar-card">
+          <div class="sidebar-card__title">Fiyat Aralığı</div>
+          <div class="price-range">
+            <label>Saatlik Ücret: <strong id="priceLabel">₺100 – ₺800</strong></label>
+            <input type="range" min="100" max="800" value="800" id="priceRange" />
+            <div class="price-range__values"><span>₺100</span><span>₺800+</span></div>
+          </div>
+        </div>
+
+        <div class="sidebar-card">
+          <div class="sidebar-card__title">Minimum Puan</div>
+          <ul class="sidebar-list">
+            <li><a href="#" class="rating-filter active" data-min="0">Tüm Uzmanlar</a></li>
+            <li><a href="#" class="rating-filter" data-min="4.5">⭐ 4.5 ve üzeri</a></li>
+            <li><a href="#" class="rating-filter" data-min="4.7">⭐ 4.7 ve üzeri</a></li>
+            <li><a href="#" class="rating-filter" data-min="4.9">⭐ 4.9 ve üzeri (Elite)</a></li>
+          </ul>
+        </div>
+
+        <div class="sidebar-card">
+          <div class="sidebar-card__title">Müsaitlik</div>
+          <ul class="sidebar-list">
+            <li><a href="#" class="avail-filter">Bugün müsait</a></li>
+            <li><a href="#" class="avail-filter">Bu hafta</a></li>
+            <li><a href="#" class="avail-filter">Hafta sonu</a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- KARTLAR -->
+      <main class="services-main">
+        <div class="services-topbar">
+          <p class="services-topbar__count"><strong id="resultCount">32</strong> hizmet bulundu</p>
+          <select class="sort-select" id="sortSelect">
+            <option value="popular">En Popüler</option>
+            <option value="rating">En Yüksek Puan</option>
+            <option value="price-asc">Fiyat: Düşükten Yükseğe</option>
+            <option value="price-desc">Fiyat: Yüksekten Düşüğe</option>
+          </select>
+        </div>
+
+        <div class="services-grid-main" id="servicesgrid">
+
+          <!-- MONTAJ -->
+          <div class="service-card-v2" style="cursor:pointer" onclick="window.location='uzmanlar.html?kategori='+this.dataset.cat" data-cat="montaj" data-price="200" data-rating="4.97">
+            <div class="service-card-v2__thumb" style="background:#ede9ff">🔧
+              <span class="service-card-v2__badge service-card-v2__badge--hot">Popüler</span>
+            </div>
+            <div class="service-card-v2__body">
+              <h3>Mobilya Montajı</h3>
+              <p>Bellona, İstikbal ve tüm markaların montajı. Kutusunu açar, kurar, temizleriz.</p>
+              <div class="service-card-v2__meta"><div class="service-meta-left">
+                  <div class="price-tag">₺200'den başlar</div>
+                  <div class="rating-tag"><span>⭐</span> 4.97 (312 yorum)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="service-card-v2" style="cursor:pointer" onclick="window.location='uzmanlar.html?kategori='+this.dataset.cat" data-cat="montaj" data-price="220" data-rating="4.95">
+            <div class="service-card-v2__thumb" style="background:#e0f2fe">📺</div>
+            <div class="service-card-v2__body">
+              <h3>TV Montajı</h3>
+              <p>Her boyda TV'yi duvara güvenle asın, kablolarınızı düzenleyelim.</p>
+              <div class="service-card-v2__meta"><div class="service-meta-left">
+                  <div class="price-tag">₺220'den başlar</div>
+                  <div class="rating-tag"><span>⭐</span> 4.95 (198 yorum)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="service-card-v2" style="cursor:pointer" onclick="window.location='uzmanlar.html?kategori='+this.dataset.cat" data-cat="montaj" data-price="250" data-rating="4.91">
+            <div class="service-card-v2__thumb" style="background:#fef9c3">🖼️</div>
+            <div class="service-card-v2__body">
+              <h3>Tablo & Raf Montajı</h3>
+              <p>Tablolar, raflar, aynalar ve dekoratif objelerin duvara emniyetli montajı.</p>
+              <div class="service-card-v2__meta"><div class="service-meta-left">
+                  <div class="price-tag">₺180'den başlar</div>
+                  <div class="rating-tag"><span>⭐</span> 4.93 (144 yorum)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="service-card-v2" style="cursor:pointer" onclick="window.location='uzmanlar.html?kategori='+this.dataset.cat" data-cat="montaj" data-price="250" data-rating="4.91">
+            <div class="service-card-v2__thumb" style="background:#f0fdf4">❄️
+              <span class="service-card-v2__badge">Yaz Kampanyası</span>
+            </div>
+            <div class="service-card-v2__body">
+              <h3>Klima Montajı</h3>
+              <p>Split, multi split ve inverter klimaların profesyonel kurulumu ve devreye alınması.</p>
+              <div class="service-card-v2__meta"><div class="service-meta-left">
+                  <div class="price-tag">₺450'den başlar</div>
+                  <div class="rating-tag"><span>⭐</span> 4.91 (87 yorum)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TEMİZLİK -->
+          <div class="service-card-v2" style="cursor:pointer" onclick="window.location='uzmanlar.html?kategori='+this.dataset.cat" data-cat="temizlik" data-price="280" data-rating="4.93">
+            <div class="service-card-v2__thumb" style="background:#fce7f3">🧹
+              <span class="service-card-v2__badge service-card-v2__badge--hot">Çok Talep Görüyor</span>
+            </div>
+            <div class="service-card-v2__body">
+              <h3>Ev Temizliği</h3>
+              <p>Haftalık ve aylık rutin ev temizliği. Tüm odalar, mutfak ve banyo dahil.</p>
+              <div class="service-card-v2__meta"><div class="service-meta-left">
+                  <div class="price-tag">₺250'den başlar</div>
+                  <div class="rating-tag"><span>⭐</span> 4.96 (520 yorum)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="service-card-v2" style="cursor:pointer" onclick="window.location='uzmanlar.html?kategori='+this.dataset.cat" data-cat="temizlik" data-price="280" data-rating="4.93">
+            <div class="service-card-v2__thumb" style="background:#fff7ed">🏠</div>
+            <div class="service-card-v2__body">
+              <h3>Derin Temizlik</h3>
+              <p>Taşınma öncesi/sonrası veya mevsimlik derin temizlik. Ulaşılması zor alanlar dahil.</p>
+              <div class="service-card-v2__meta"><div class="service-meta-left">
+                  <div class="price-tag">₺480'den başlar</div>
+                  <div class="rating-tag"><span>⭐</span> 4.94 (231 yorum)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="service-card-v2" style="cursor:pointer" onclick="window.location='uzmanlar.html?kategori='+this.dataset.cat" data-cat="temizlik" data-price="280" data-rating="4.93">
+            <div class="service-card-v2__thumb" style="background:#ecfdf5">🛋️</div>
+            <div class="service-card-v2__body">
+              <h3>Koltuk & Halı Yıkama</h3>
+              <p>Makineli yıkama ve buharlı temizleme ile koltuk, halı ve kilimler yenileniyor.</p>
+              <div class="service-card-v2__meta"><div class="service-meta-left">
+                  <div class="price-tag">₺300'den başlar</div>
+                  <div class="rating-tag"><span>⭐</span> 4.90 (167 yorum)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="service-card-v2" style="cursor:pointer" onclick="window.location='uzmanlar.html?kategori='+this.dataset.cat" data-cat="temizlik" data-price="280" data-rating="4.93">
+            <div class="service-card-v2__thumb" style="background:#f0f9ff">🏢</div>
+            <div class="service-card-v2__body">
+              <h3>Ofis Temizliği</h3>
+              <p>Açık ofis, toplantı odası, mutfak ve tuvaletlerin düzenli olarak temizlenmesi.</p>
+              <div class="service-card-v2__meta"><div class="service-meta-left">
+                  <div class="price-tag">₺350'den başlar</div>
+                  <div class="rating-tag"><span>⭐</span> 4.88 (93 yorum)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- NAKLİYAT -->
+          <div class="service-card-v2" style="cursor:pointer" onclick="window.location='uzmanlar.html?kategori='+this.dataset.cat" data-cat="nakliyat" data-price="600" data-rating="4.88">
+            <div class="service-card-v2__thumb" style="background:#fef3c7">🚚
+              <span class="service-card-v2__badge service-card-v2__badge--new">Yeni</span>
+            </div>
+            <div class="service-card-v2__body">
+              <h3>Ev Taşıma</h3>
+              <p>Büyük-küçük ev taşımaları. Ambalajlama, yükleme, taşıma ve yerleştirme dahil.</p>
+              <div class="service-card-v2__meta"><div class="service-meta-left">
+                  <div class="price-tag">₺800'den başlar</div>
+                  <div class="rating-tag"><span>⭐</span> 4.89 (143 yorum)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="service-card-v2" style="cursor:pointer" onclick="window.location='uzmanlar.html?kategori='+this.dataset.cat" data-cat="nakliyat" data-price="600" data-rating="4.88">
+            <div class="service-card-v2__thumb" style="background:#ede9ff">💪</div>
+            <div class="service-card-v2__body">
+              <h3>Eşya Taşıma (Yardımcı)</h3>
+              <p>Ağır mobilya, beyaz eşya ve kutular için güçlü yardımcı. Asansörsüz katlarda da.</p>
+              <div class="service-card-v2__meta"><div class="service-meta-left">
+                  <div class="price-tag">₺350'den başlar</div>
+                  <div class="rating-tag"><span>⭐</span> 4.86 (78 yorum)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ELEKTRİK -->
+          <div class="service-card-v2" style="cursor:pointer" onclick="window.location='uzmanlar.html?kategori='+this.dataset.cat" data-cat="elektrik" data-price="280" data-rating="4.92">
+            <div class="service-card-v2__thumb" style="background:#fef9c3">⚡</div>
+            <div class="service-card-v2__body">
+              <h3>Genel Elektrik İşleri</h3>
+              <p>Priz, anahtar, kablo, arıza tespiti ve panel işleri. Lisanslı elektrikçiler.</p>
+              <div class="service-card-v2__meta"><div class="service-meta-left">
+                  <div class="price-tag">₺280'den başlar</div>
+                  <div class="rating-tag"><span>⭐</span> 4.93 (204 yorum)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="service-card-v2" style="cursor:pointer" onclick="window.location='uzmanlar.html?kategori='+this.dataset.cat" data-cat="elektrik" data-price="280" data-rating="4.92">
+            <div class="service-card-v2__thumb" style="background:#ecfdf5">💡</div>
+            <div class="service-card-v2__body">
+              <h3>Aydınlatma Kurulumu</h3>
+              <p>Avize, spot, LED şerit, dış mekan ve bahçe aydınlatma sistemleri kurulumu.</p>
+              <div class="service-card-v2__meta"><div class="service-meta-left">
+                  <div class="price-tag">₺240'dan başlar</div>
+                  <div class="rating-tag"><span>⭐</span> 4.91 (119 yorum)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TESİSAT -->
+          <div class="service-card-v2" style="cursor:pointer" onclick="window.location='uzmanlar.html?kategori='+this.dataset.cat" data-cat="tesisat" data-price="310" data-rating="4.90">
+            <div class="service-card-v2__thumb" style="background:#e0f2fe">🔧</div>
+            <div class="service-card-v2__body">
+              <h3>Su Tesisatı</h3>
+              <p>Musluk, sifon, duş başlığı değişimi, tıkanıklık açma ve su kaçağı tamiri.</p>
+              <div class="service-card-v2__meta"><div class="service-meta-left">
+                  <div class="price-tag">₺300'den başlar</div>
+                  <div class="rating-tag"><span>⭐</span> 4.92 (176 yorum)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="service-card-v2" style="cursor:pointer" onclick="window.location='uzmanlar.html?kategori='+this.dataset.cat" data-cat="tesisat" data-price="310" data-rating="4.90">
+            <div class="service-card-v2__thumb" style="background:#fff7ed">🛁</div>
+            <div class="service-card-v2__body">
+              <h3>Banyo Tesisatı</h3>
+              <p>Küvet, lavabo, duşakabin montajı ve tamir işleri. Fayans derz yenileme dahil.</p>
+              <div class="service-card-v2__meta"><div class="service-meta-left">
+                  <div class="price-tag">₺350'den başlar</div>
+                  <div class="rating-tag"><span>⭐</span> 4.88 (98 yorum)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- BOYA -->
+          <div class="service-card-v2" style="cursor:pointer" onclick="window.location='uzmanlar.html?kategori='+this.dataset.cat" data-cat="boya" data-price="360" data-rating="4.89">
+            <div class="service-card-v2__thumb" style="background:#fce7f3">🎨</div>
+            <div class="service-card-v2__body">
+              <h3>İç Cephe Boyası</h3>
+              <p>Oda, salon ve tüm iç mekan boya işleri. Alçı düzeltme ve badana dahil.</p>
+              <div class="service-card-v2__meta"><div class="service-meta-left">
+                  <div class="price-tag">₺350'den başlar</div>
+                  <div class="rating-tag"><span>⭐</span> 4.90 (132 yorum)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="service-card-v2" style="cursor:pointer" onclick="window.location='uzmanlar.html?kategori='+this.dataset.cat" data-cat="boya" data-price="360" data-rating="4.89">
+            <div class="service-card-v2__thumb" style="background:#f0fdf4">🪨</div>
+            <div class="service-card-v2__body">
+              <h3>Seramik & Parke</h3>
+              <p>Mutfak, banyo ve zemin için seramik döşeme ve parke kaplama hizmetleri.</p>
+              <div class="service-card-v2__meta"><div class="service-meta-left">
+                  <div class="price-tag">₺400'den başlar</div>
+                  <div class="rating-tag"><span>⭐</span> 4.87 (74 yorum)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- BAHÇE -->
+          <div class="service-card-v2" style="cursor:pointer" onclick="window.location='uzmanlar.html?kategori='+this.dataset.cat" data-cat="bahce" data-price="200" data-rating="4.91">
+            <div class="service-card-v2__thumb" style="background:#dcfce7">🌱</div>
+            <div class="service-card-v2__body">
+              <h3>Bahçe Bakımı</h3>
+              <p>Çim biçme, ağaç/çalı budama, sulama sistemi ve genel bahçe düzenlemesi.</p>
+              <div class="service-card-v2__meta"><div class="service-meta-left">
+                  <div class="price-tag">₺200'den başlar</div>
+                  <div class="rating-tag"><span>⭐</span> 4.91 (88 yorum)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- DİĞER -->
+          <div class="service-card-v2" style="cursor:pointer" onclick="window.location='uzmanlar.html?kategori='+this.dataset.cat" data-cat="diger" data-price="260" data-rating="4.87">
+            <div class="service-card-v2__thumb" style="background:#f5f3ff">🔑</div>
+            <div class="service-card-v2__body">
+              <h3>Kilit & Çilingir</h3>
+              <p>Kapı kilidi değişimi, çilingir hizmetleri, akıllı kilit montajı.</p>
+              <div class="service-card-v2__meta"><div class="service-meta-left">
+                  <div class="price-tag">₺250'den başlar</div>
+                  <div class="rating-tag"><span>⭐</span> 4.89 (61 yorum)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="service-card-v2" style="cursor:pointer" onclick="window.location='uzmanlar.html?kategori='+this.dataset.cat" data-cat="diger" data-price="260" data-rating="4.87">
+            <div class="service-card-v2__thumb" style="background:#fef3c7">💻</div>
+            <div class="service-card-v2__body">
+              <h3>Bilgisayar & Teknik Destek</h3>
+              <p>Yazılım kurulumu, virüs temizleme, ağ kurulumu ve teknik arıza giderme.</p>
+              <div class="service-card-v2__meta"><div class="service-meta-left">
+                  <div class="price-tag">₺270'den başlar</div>
+                  <div class="rating-tag"><span>⭐</span> 4.85 (52 yorum)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /services-grid-main -->
+      </main>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <a href="index.html" class="navbar__logo"><span class="logo-icon">⚡</span><span class="logo-text"><strong>İşBul</strong></span></a>
+          <p>Türkiye'nin güvenilir ev ve ofis hizmetleri platformu.</p>
+          <div class="footer__social"><a href="https://www.linkedin.com/in/%C3%BCmit-yakup-dedeo%C4%9Flu-4321212a7/" target="_blank" rel="noopener" aria-label="LinkedIn" title="Ümit Yakup Dedeoğlu - LinkedIn">🔗</a></div>
+        </div>
+        <div class="footer__links">
+          <div class="footer__col">
+            <h4>hizmetler</h4>
+            <a href="hizmetler.html?kategori=montaj">Mobilya Montajı</a><a href="hizmetler.html?kategori=temizlik">Ev Temizlişi</a>
+            <a href="hizmetler.html?kategori=nakliyat">Nakliyat</a><a href="hizmetler.html?kategori=elektrik">Elektrikıi</a>
+          </div>
+          <div class="footer__col">
+            <h4>ıirket</h4>
+            <a href="hakkimizda.html">Hakkımızda</a>
+            
+            
+            <a href="blog.html">Blog</a>
+          </div>
+          
+          <div class="footer__col">
+            <h4>Uzmanlar</h4>
+            <a href="uzman-ol.html">Uzman Ol</a>
+          </div>
+          <div class="footer__col">
+            <h4>Destek</h4>
+            <a href="#" onclick="document.getElementById('contactModal').classList.add('active');document.body.style.overflow='hidden';return false">ıletişim</a>
+            <a href="kvkk.html">KVKK</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>ı 2026 İşBul Teknoloji A.ı. Tım hakları saklıdır.</p>
+        <div class="footer__badges">
+          <span class="footer-badge">🔒 SSL Güvenli</span>
+          <span class="footer-badge">✓ KVKK Uyumlu</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/api-client.js"></script>
+  <script src="assets/js/app.js"></script>
+
+  <!-- AUTH MODAL -->
+  <div class="modal-overlay" id="authModal">
+    <div class="auth-modal-inner">
+      <div class="auth-modal-header">
+        <span class="navbar__logo"><span class="logo-icon">⚡</span><span class="logo-text"><strong>İşBul</strong></span></span>
+        <button class="auth-modal-close" id="authModalClose">×</button>
+      </div>
+      <div class="auth-tabs">
+        <button class="auth-tab active" data-tab="login">Giriş Yap</button>
+        <button class="auth-tab" data-tab="register">Ücretsiz Kaydol</button>
+      </div>
+      <div class="auth-body">
+        <div class="auth-panel active" id="auth-login">
+          <div class="auth-social">
+            <button class="auth-social-btn" onclick="handleOAuth('google')">✓ Google</button>
+            <button class="auth-social-btn" onclick="handleOAuth('apple')">? Apple</button>
+          </div>
+          <div class="auth-divider">veya e-posta ile</div>
+          <form id="loginForm" novalidate>
+            <div class="form-group"><label>E-posta</label><input type="email" name="email" placeholder="ornek@mail.com" required /></div>
+            <div class="form-group"><label>şifre <a href="#" class="auth-forgot" onclick="showToast('şifre sıfırlama e-postası gönderildi!','info');return false">şifremi unuttum</a></label><input type="password" name="password" placeholder="••••••" required /></div>
+            <button type="submit" class="auth-submit">Giriş Yap</button>
+          </form>
+          <p class="auth-footer">hesabınız yok mu? <a href="#" onclick="document.querySelector('[data-tab=register]').click();return false">Kayıt olun</a></p>
+        </div>
+        <div class="auth-panel" id="auth-register">
+          <div class="auth-social">
+            <button class="auth-social-btn" onclick="handleOAuth('google')">✓ Google</button>
+            <button class="auth-social-btn" onclick="handleOAuth('apple')">? Apple</button>
+          </div>
+          <div class="auth-divider">veya e-posta ile</div>
+          <form id="registerForm" novalidate>
+            <div class="form-group" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+              <div><label>Ad</label><input type="text" name="regFirstName" placeholder="Adınız" required /></div>
+              <div><label>Soyad</label><input type="text" name="regLastName" placeholder="Soyadınız" required /></div>
+            </div>
+            <div class="form-group"><label>E-posta</label><input type="email" name="regEmail" placeholder="ornek@mail.com" required /></div>
+            <div class="form-group"><label>şifre</label><input type="password" name="regPassword" placeholder="En az 8 karakter" required /></div>
+            <div class="form-group"><label>şifre Tekrar</label><input type="password" name="regPasswordConfirm" placeholder="şifreyi tekrar girin" required /></div>
+            <button type="submit" class="auth-submit">Hesap oluştur</button>
+          </form>
+          <p class="auth-footer">hesabınız var mı? <a href="#" onclick="document.querySelector('[data-tab=login]').click();return false">Giriş yapın</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REZERVASYON MODAL -->
+  <div class="modal-overlay" id="bookingModal">
+    <div class="booking-modal-inner">
+      <div class="booking-modal-header">
+        <h3>Rezervasyon</h3>
+        <button onclick="closebookingModal()" style="width:32px;height:32px;border-radius:50%;background:var(--bg);border:none;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center">?</button>
+      </div>
+      <div class="booking-modal-body" id="bookingModalBody"></div>
+    </div>
+  </div>
+
+  <script>
+    // Auth durumu gıöncelle
+    // Auth state sayfa deıişiminde korunur ı DOMContentLoaded'da app.js ıaİşrıyor
+
+    // Mobil filtre toggle
+    document.getElementById('mobilefilterBtn')?.addEventListener('click', () => {
+      document.getElementById('sidebar').classList.toggle('open');
+    });
+
+    // sticky sidebar için scroll tetikleyici ı ilk yıklemede Çalışır
+    window.addEventListener('load', () => {
+      // Layout yıksekliçini doıru hesapla
+      const grid = document.getElementById('servicesgrid');
+      const sidebar = document.querySelector('.sidebar');
+      if (grid && sidebar) {
+        const gridH = grid.offsetheight;
+        const sidebarH = sidebar.offsetheight;
+        // grid sidebar'dan kısaysa, grid'e min-height ver
+        if (gridH < sidebarH + 100) {
+          grid.style.minheight = (sidebarH + 200) + 'px';
+        }
+      }
+      // Scroll pozisyonunu sıfırla
+      window.scrollTo(0, 0);
+    });
+  </script>
+
+  <!-- ıLETİşıM MODAL -->
+  <div class="modal-overlay" id="contactModal">
+    <div style="background:var(--white);border-radius:20px;max-width:480px;width:92%;position:relative;padding:0;overflow:hidden">
+      <div style="background:linear-gradient(135deg,#1a1a2e,#0f3460);padding:28px 28px 24px;color:#fff;text-align:center">
+        <button onclick="document.getElementById('contactModal').classList.remove('active');document.body.style.overflow=''"
+          style="position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center">?</button>
+        <div style="font-size:40px;margin-bottom:10px">📧</div>
+        <h3 style="font-size:22px;font-weight:900;margin-bottom:6px">ıletişim</h3>
+        <p style="font-size:14px;opacity:.8">Her sorunuz için 7/24 hazırız.</p>
+      </div>
+      <div style="padding:28px">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;align-items:center;gap:14px;padding:16px 20px;border-radius:var(--radius-sm);border:1.5px solid var(--border)">
+            <span style="width:40px;height:40px;border-radius:50%;background:var(--primary-light);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">📧</span>
+            <div>
+              <div style="font-size:13px;color:var(--text-muted);font-weight:400">E-posta</div>
+              <div style="font-weight:600;color:var(--text)">destek@isbul.com.tr</div>
+            </div>
+          </div>
+          <a href="nasil-calisir.html"
+            style="display:flex;align-items:center;gap:14px;padding:16px 20px;border-radius:var(--radius-sm);border:1.5px solid var(--border);text-decoration:none;color:var(--text);transition:.2s;font-weight:600"
+            onmouseover="this.style.borderColor='var(--primary)';this.style.color='var(--primary)'"
+            onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text)'">
+            <span style="width:40px;height:40px;border-radius:50%;background:var(--primary-light);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">📧</span>
+            <div>
+              <div style="font-size:13px;color:var(--text-muted);font-weight:400">Rehber</div>
+              <div>nasıl Çalışır? ı</div>
+            </div>
+          </a>
+        </div>
+        <p style="font-size:12px;color:var(--text-muted);text-align:center;margin-top:20px">Ortalama yanıt süresi: <strong>15 dakika</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI Chatbot Widget -->
+  <link rel="stylesheet" href="assets/css/chatbot.css" />
+  <script src="assets/js/chatbot.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <script src="assets/js/analytics.js" defer></script>
+  <title>Kullanıcıyı Uzman Yap</title>
+</head>
+<body>
+  <h1>Kullanıcıyı Uzman Yap</h1>
+  <input type="email" id="emailInput" placeholder="E-posta" value="umityakupdedeoglu0@gmail.com" style="padding:10px;font-size:14px;width:300px" />
+  <button onclick="makeExpert()" style="padding:10px 20px;font-size:14px;cursor:pointer">Uzman Yap</button>
+  <div id="result" style="margin-top:20px;font-size:14px"></div>
+
+  <script src="assets/js/api-client.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    function makeExpert() {
+      const email = document.getElementById('emailInput').value.trim().toLowerCase();
+      if (!email) {
+        document.getElementById('result').innerHTML = '<span style="color:red">E-posta girin</span>';
+        return;
+      }
+
+      const db = getUsersDB();
+      if (!db[email]) {
+        document.getElementById('result').innerHTML = '<span style="color:red">Kullanıc | İşBulunamadı. ıönce kayıt olmalısınız.</span>';
+        return;
+      }
+
+      // Uzman yap
+      db[email].isExpert = true;
+      db[email].expertData = {
+        price: 300,
+        bio: 'Profesyonel uzman. Kaliteli hizmet garantisi.',
+        city: 'IstanİşBul',
+        tags: ['Elektrik', 'Tesisat', 'Tamir', 'Montaj'],
+        hours: 'Pzt-Cuma: 09:00-19:00, Cmt: 10:00-16:00'
+      };
+      saveUsersDB(db);
+
+      // Eıer ıu an giriş yapmİşsa session'ı da gıöncelle
+      const session = getSession();
+      if (session && session.email === email) {
+        session.isExpert = true;
+        session.expertData = db[email].expertData;
+        saveSession(session);
+      }
+
+      document.getElementById('result').innerHTML = `<span style="color:green">? ${db[email].firstName} ${db[email].lastName} uzman yapıldı! 
+      <br><br><strong>ıimdi yapılacaklar:</strong>
+      <br>1. Sayfayı yenileyin (F5)
+      <br>2. Navbar saı ıst kİşedeki adınıza tıklayın
+      <br>3. "? Uzman Panelim" linkine tıklayın
+      <br>4. Dashboard'unuzu gırın!</span>`;
+      
+      // Otomatik yınlendirme
+      settimeout(() => {
+        window.location.href = 'index.html';
+      }, 3000);
+    }
+    
+    // Sayfa yıklendiçinde otomatik Çalıştır
+    window.addEventListener('DOMContentLoaded', function() {
+      settimeout(makeExpert, 500);
+    });
+  </script>
+
+  <!-- AI Chatbot Widget -->
+  <link rel="stylesheet" href="assets/css/chatbot.css" />
+  <script src="assets/js/chatbot.js"></script>
+</body>
+</html>

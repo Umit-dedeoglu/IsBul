@@ -1,0 +1,188 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <script src="assets/js/analytics.js" defer></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google OAuth Kurulum ı işİşBul</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #4285f4 0%, #34a853 100%);
+      min-height: 100vh; display:flex; align-items:center; justify-content:center; padding:20px;
+    }
+    .card {
+      background:#fff; border-radius:20px; padding:40px; max-width:560px; width:100%;
+      box-shadow: 0 20px 60px rgba(0,0,0,.2);
+    }
+    .logo { display:flex; align-items:center; gap:10px; margin-bottom:28px; }
+    .logo img { width:32px; }
+    h1 { font-size:22px; font-weight:800; color:#1a1a2e; }
+    .subtitle { font-size:14px; color:#64748b; margin-top:4px; }
+    .step {
+      background:#f8f9fa; border-radius:10px; padding:16px 20px;
+      margin-bottom:12px; border-left:4px solid #4285f4;
+    }
+    .step h3 { font-size:14px; font-weight:700; color:#1a1a2e; margin-bottom:6px; }
+    .step p, .step li { font-size:13px; color:#64748b; line-height:1.7; }
+    .step code { background:#e8f0fe; color:#1967d2; padding:2px 6px; border-radius:4px; font-size:12px; }
+    .form-group { margin-bottom:16px; }
+    label { display:block; font-size:13px; font-weight:600; color:#374151; margin-bottom:6px; }
+    input {
+      width:100%; padding:12px 14px; border:1.5px solid #e5e7eb;
+      border-radius:8px; font-size:14px; color:#1a1a2e; outline:none;
+      transition: border-color .2s;
+    }
+    input:focus { border-color:#4285f4; }
+    .btn {
+      width:100%; padding:14px; border:none; border-radius:10px;
+      font-size:15px; font-weight:700; cursor:pointer; transition: all .2s;
+    }
+    .btn-google { background:#4285f4; color:#fff; }
+    .btn-google:hover { background:#1967d2; }
+    .result {
+      margin-top:16px; padding:14px; border-radius:10px;
+      font-size:13px; font-weight:600; display:none;
+    }
+    .result.success { background:#d1fae5; color:#065f46; }
+    .result.error   { background:#fee2e2; color:#991b1b; }
+    .divider { border:none; border-top:1px solid #e5e7eb; margin:24px 0; }
+    .test-section { display:none; }
+    .test-btn {
+      width:100%; padding:14px; background:#1a1a2e; color:#fff;
+      border:none; border-radius:10px; font-size:15px; font-weight:700;
+      cursor:pointer; margin-top:12px;
+    }
+    .test-btn:hover { background:#374151; }
+  </style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">
+    <span style="font-size:28px">⚡</span>
+    <div>
+      <h1>Google OAuth Kurulum</h1>
+      <div class="subtitle">işİşBul — Google ile giriş aktivasyonu</div>
+    </div>
+  </div>
+
+  <!-- Adımlar -->
+  <div class="step">
+    <h3>1️⃣ Google Cloud Console'a gidin</h3>
+    <p>
+      <a href="https://console.cloud.google.com" target="_blank" style="color:#4285f4">console.cloud.google.com</a> →
+      Proje oluşturun (işİşBul) → <strong>APIs & Services</strong> → <strong>OAuth consent screen</strong>
+    </p>
+  </div>
+
+  <div class="step">
+    <h3>2️⃣ Credentials oluşturun</h3>
+    <p><strong>Create Credentials</strong> → <strong>OAuth client ID</strong> → Web application</p>
+    <p style="margin-top:8px">Authorized redirect URIs:</p>
+    <p><code>http://localhost:3001/api/auth/google/callback</code></p>
+  </div>
+
+  <div class="step" style="border-color:#34a853">
+    <h3>3️⃣ Bilgileri buraya girin</h3>
+    <p>Client ID ve Client Secret'ı kopyalayıp aşağıya yapıştırın.</p>
+  </div>
+
+  <hr class="divider">
+
+  <div class="form-group">
+    <label>Google Client ID</label>
+    <input type="text" id="clientId" placeholder="123456789-xxxx.apps.googleusercontent.com" />
+  </div>
+
+  <div class="form-group">
+    <label>Google Client Secret</label>
+    <input type="password" id="clientSecret" placeholder="GOCSPX-..." />
+  </div>
+
+  <button class="btn btn-google" onclick="saveConfig()">
+    🔑 Kaydet ve Test Et
+  </button>
+
+  <div class="result" id="result"></div>
+
+  <div class="test-section" id="testSection">
+    <hr class="divider">
+    <p style="font-size:13px;color:#64748b;text-align:center;margin-bottom:12px">
+      Sunucuyu yeniden başlaTümüanız gerekiyor (backend değişti).<br>
+      Sonra Google ile giriş test edebilirsiniz.
+    </p>
+    <button class="test-btn" onclick="testGoogle()">
+      🔵 Google ile Giriş Test Et
+    </button>
+  </div>
+</div>
+
+<script>
+  // Mevcut config'i API'den kontrol et
+  async function checkCurrentConfig() {
+    try {
+      const res = await fetch('http://localhost:3001/api/health');
+      if (res.ok) {
+        // Sunucu çalışıyor
+      }
+    } catch {}
+  }
+  checkCurrentConfig();
+
+  async function saveConfig() {
+    const clientId     = document.getElementById('clientId').value.trim();
+    const clientSecret = document.getElementById('clientSecret').value.trim();
+    const result       = document.getElementById('result');
+
+    if (!clientId || !clientSecret) {
+      result.style.display = 'block';
+      result.className = 'result error';
+      result.textContent = '❌ Client ID ve Client Secret zorunludur.';
+      return;
+    }
+    if (!clientId.includes('.apps.googleusercontent.com')) {
+      result.style.display = 'block';
+      result.className = 'result error';
+      result.textContent = '❌ Client ID formatı hatalı. ".apps.googleusercontent.com" ile biTümüeli.';
+      return;
+    }
+
+    // Config'i localStorage'a kaydet (sunucu .env dosyasını okuyacak)
+    localStorage.setItem('isbul_google_client_id',     clientId);
+    localStorage.setItem('isbul_google_client_secret', '****'); // güvenlik için maskelenir
+
+    // .env içeriğini göster
+    const envContent = `GOOGLE_CLIENT_ID=${clientId}\nGOOGLE_CLIENT_SECRET=${clientSecret}`;
+    
+    result.style.display = 'block';
+    result.className = 'result success';
+    result.innerHTML = `
+      ✅ Bilgiler kaydedildi!<br><br>
+      <strong>Şimdi şunu yapın:</strong><br>
+      1. Kiro IDE'de terminali açın<br>
+      2. <code style="background:#d1fae5;color:#065f46;padding:2px 6px;border-radius:4px">server/.env</code> dosyasını açın<br>
+      3. <code style="background:#d1fae5;color:#065f46;padding:2px 6px;border-radius:4px">GOOGLE_CLIENT_ID</code> ve <code style="background:#d1fae5;color:#065f46;padding:2px 6px;border-radius:4px">GOOGLE_CLIENT_SECRET</code> değerlerini güöncelleyin<br>
+      4. Backend'i yeniden başlatın: <code style="background:#d1fae5;color:#065f46;padding:2px 6px;border-radius:4px">node src/app.js</code>
+    `;
+
+    // .env güöncellemesi için değerleri kopyala
+    navigator.clipboard?.writeText(`GOOGLE_CLIENT_ID=${clientId}\nGOOGLE_CLIENT_SECRET=${clientSecret}`)
+      .then(() => {
+        result.innerHTML += '<br><br>📋 .env satırları panoya kopyalandı!';
+      }).catch(() => {});
+
+    document.getElementById('testSection').style.display = 'block';
+  }
+
+  function testGoogle() {
+    sessionStorage.setItem('oauth_return_url', 'index.html');
+    window.location.href = 'http://localhost:3001/api/auth/google';
+  }
+</script>
+
+  <!-- AI Chatbot Widget -->
+  <link rel="stylesheet" href="assets/css/chatbot.css" />
+  <script src="assets/js/chatbot.js"></script>
+</body>
+</html>

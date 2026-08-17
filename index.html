@@ -1,0 +1,772 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <script src="assets/js/analytics.js" defer></script>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>İşBul - Güvenilir Ev ve Ofis Hizmetleri</title>
+  <meta name="description" content="İşBul ile eviniz için güvenilir, arka plan kontrolünden geçmiş uzmanlara anında ulaşın. Montaj, taşıma, temizlik, tadihat ve daha fazlası." />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <!-- Feather Icons -->
+  <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body>
+
+  <!-- ========== NAVBAR ========== -->
+  <header class="navbar" id="navbar">
+    <div class="container navbar__inner">
+      <a href="index.html" class="navbar__logo">
+        <span class="logo-icon">⚡</span>
+        <span class="logo-text"><strong>İşBul</strong></span>
+      </a>
+
+      <nav class="navbar__links" id="navLinks">
+        <a href="hizmetler.html">Hizmetler</a>
+        <a href="nasil-calisir.html">Nasıl Çalışır?</a>
+        <a href="uzman-ol.html">Uzman Ol</a>
+        <a href="mailto:Kurumsal@isBul.com.tr">Kurumsal</a>
+      </nav>
+
+      <div class="navbar__actions">
+        <button onclick="openAuthModal('login')" class="btn btn--ghost">Giriş Yap</button>
+        <button onclick="openAuthModal('register')" class="btn btn--primary">Ücretsiz Kaydol</button>
+        <button class="hamburger" id="hamburger" aria-label="Menüyü aç">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero">
+    <div class="hero__bg-shapes">
+      <div class="shape shape--1"></div>
+      <div class="shape shape--2"></div>
+      <div class="shape shape--3"></div>
+    </div>
+    <div class="container hero__inner">
+      <div class="hero__content">
+        <div class="hero__badge">
+          <span class="badge-dot"></span>
+          Türkiye'nin En Güvenilir Hizmet Platformu
+        </div>
+        <h1 class="hero__title">
+          Eviniz için <span class="highlight">Güvenilir</span><br />
+          Uzmanı anında İşBulun
+        </h1>
+        <p class="hero__subtitle">
+          Arka plan kontrolünden geçmiş, puanlanmış ve güvenilir uzmanlara dakikalar içinde ulaşın. Montaj, temizlik, taşıma, tadihat ve çok daha fazlası.
+        </p>
+
+        <!-- Arama Kutusu -->
+        <div class="search-box">
+          <div class="search-box__category">
+            <i data-feather="grid"></i>
+            <input type="text" placeholder="Kategori" id="categoryInput" autocomplete="off" />
+            <div class="category-dropdown" id="categoryDropdown">
+              <div class="category-option" data-category="">Tüm Kategoriler</div>
+              <div class="category-option" data-category="montaj">Mobilya Montajı</div>
+              <div class="category-option" data-category="temizlik">Ev Temizliği</div>
+              <div class="category-option" data-category="nakliyat">Nakliyat & Taşıma</div>
+              <div class="category-option" data-category="elektrik">Elektrikçi</div>
+              <div class="category-option" data-category="tesisat">Tesisatçı</div>
+              <div class="category-option" data-category="boya">Boyacı</div>
+              <div class="category-option" data-category="tv-montaj">TV Montajı</div>
+              <div class="category-option" data-category="bahce">Bahçe Bakımı</div>
+              <div class="category-option" data-category="tadilat">Tadilat & Tamirat</div>
+              <div class="category-option" data-category="koltuk">Koltuk Yıkama</div>
+              <div class="category-option" data-category="klima">Klima Servisi</div>
+            </div>
+          </div>
+          <div class="search-box__location">
+            <i data-feather="map-pin"></i>
+            <input type="text" placeholder="Şehir" id="cityInput" autocomplete="off" />
+            <div class="city-dropdown" id="cityDropdown">
+              <div class="city-option" data-city="İstanbul">İstanbul</div>
+              <div class="city-option" data-city="Ankara">Ankara</div>
+              <div class="city-option" data-city="İzmir">İzmir</div>
+              <div class="city-option" data-city="Bursa">Bursa</div>
+              <div class="city-option" data-city="Antalya">Antalya</div>
+              <div class="city-option" data-city="Adana">Adana</div>
+              <div class="city-option" data-city="Konya">Konya</div>
+              <div class="city-option" data-city="Gaziantep">Gaziantep</div>
+              <div class="city-option" data-city="Mersin">Mersin</div>
+              <div class="city-option" data-city="Kayseri">Kayseri</div>
+              <div class="city-option" data-city="Eskişehir">Eskişehir</div>
+              <div class="city-option" data-city="Diyarbakır">Diyarbakır</div>
+              <div class="city-option" data-city="Samsun">Samsun</div>
+              <div class="city-option" data-city="Denizli">Denizli</div>
+              <div class="city-option" data-city="Şanlıurfa">Şanlıurfa</div>
+              <div class="city-option" data-city="Adapazarı">Adapazarı (Sakarya)</div>
+              <div class="city-option" data-city="Malatya">Malatya</div>
+              <div class="city-option" data-city="Kahramanmaraş">Kahramanmaraş</div>
+              <div class="city-option" data-city="Erzurum">Erzurum</div>
+              <div class="city-option" data-city="Van">Van</div>
+              <div class="city-option" data-city="Trabzon">Trabzon</div>
+              <div class="city-option" data-city="Balıkesir">Balıkesir</div>
+              <div class="city-option" data-city="Manisa">Manisa</div>
+              <div class="city-option" data-city="Tekirdağ">Tekirdağ</div>
+              <div class="city-option" data-city="Kocaeli">Kocaeli</div>
+              <div class="city-option" data-city="Muğla">Muğla</div>
+              <div class="city-option" data-city="Hatay">Hatay</div>
+              <div class="city-option" data-city="Mardin">Mardin</div>
+              <div class="city-option" data-city="Aydın">Aydın</div>
+              <div class="city-option" data-city="Edirne">Edirne</div>
+              <div class="city-option" style="padding:6px 18px;font-size:11px;color:var(--text-muted);cursor:default">« Diğer İller »</div>
+              <div class="city-option" data-city="Afyonkarahisar">Afyonkarahisar</div>
+              <div class="city-option" data-city="Ağrı">Ağrı</div>
+              <div class="city-option" data-city="Aksaray">Aksaray</div>
+              <div class="city-option" data-city="Amasya">Amasya</div>
+              <div class="city-option" data-city="Ardahan">Ardahan</div>
+              <div class="city-option" data-city="Artvin">Artvin</div>
+              <div class="city-option" data-city="Bartın">Bartın</div>
+              <div class="city-option" data-city="Batman">Batman</div>
+              <div class="city-option" data-city="Bayburt">Bayburt</div>
+              <div class="city-option" data-city="Bilecik">Bilecik</div>
+              <div class="city-option" data-city="Bingöl">Bingöl</div>
+              <div class="city-option" data-city="Bitlis">Bitlis</div>
+              <div class="city-option" data-city="Bolu">Bolu</div>
+              <div class="city-option" data-city="Burdur">Burdur</div>
+              <div class="city-option" data-city="Çanakkale">Çanakkale</div>
+              <div class="city-option" data-city="Çankırı">Çankırı</div>
+              <div class="city-option" data-city="Çorum">Çorum</div>
+              <div class="city-option" data-city="Düzce">Düzce</div>
+              <div class="city-option" data-city="Elazığ">Elazığ</div>
+              <div class="city-option" data-city="Erzincan">Erzincan</div>
+              <div class="city-option" data-city="Giresun">Giresun</div>
+              <div class="city-option" data-city="Gümüşhane">Gümüşhane</div>
+              <div class="city-option" data-city="Hakkari">Hakkari</div>
+              <div class="city-option" data-city="Iğdır">Iğdır</div>
+              <div class="city-option" data-city="Isparta">Isparta</div>
+              <div class="city-option" data-city="Karabük">Karabük</div>
+              <div class="city-option" data-city="Karaman">Karaman</div>
+              <div class="city-option" data-city="Kars">Kars</div>
+              <div class="city-option" data-city="Kastamonu">Kastamonu</div>
+              <div class="city-option" data-city="Kilis">Kilis</div>
+              <div class="city-option" data-city="Kırıkkale">Kırıkkale</div>
+              <div class="city-option" data-city="Kırklareli">Kırklareli</div>
+              <div class="city-option" data-city="Kırşehir">Kırşehir</div>
+              <div class="city-option" data-city="Kütahya">Kütahya</div>
+              <div class="city-option" data-city="Muş">Muş</div>
+              <div class="city-option" data-city="Nevşehir">Nevşehir</div>
+              <div class="city-option" data-city="Niğde">Niğde</div>
+              <div class="city-option" data-city="Ordu">Ordu</div>
+              <div class="city-option" data-city="Osmaniye">Osmaniye</div>
+              <div class="city-option" data-city="Rize">Rize</div>
+              <div class="city-option" data-city="Siirt">Siirt</div>
+              <div class="city-option" data-city="Sinop">Sinop</div>
+              <div class="city-option" data-city="Sivas">Sivas</div>
+              <div class="city-option" data-city="Şırnak">Şırnak</div>
+              <div class="city-option" data-city="Tokat">Tokat</div>
+              <div class="city-option" data-city="Tunceli">Tunceli</div>
+              <div class="city-option" data-city="Uşak">Uşak</div>
+              <div class="city-option" data-city="Yalova">Yalova</div>
+              <div class="city-option" data-city="Yozgat">Yozgat</div>
+              <div class="city-option" data-city="Zonguldak">Zonguldak</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero__tags">
+          <span class="tag-label">Popüler:</span>
+          <button class="quick-tag" data-query="Mobilya Montajı">Mobilya Montajı</button>
+          <button class="quick-tag" data-query="Ev Temizlikçi">Ev Temizlikçi</button>
+          <button class="quick-tag" data-query="TV Montajı">TV Montajı</button>
+          <button class="quick-tag" data-query="nakliyat">nakliyat</button>
+          <button class="quick-tag" data-query="Boyacı">Boyacı</button>
+          <button class="quick-tag" data-query="Bugün Müsait" style="background:rgba(16,185,129,.25);border-color:rgba(16,185,129,.5)">🕐 Bugün Müsait</button>
+        </div>
+      </div>
+
+      <div class="hero__visual">
+        <div class="hero__card-stack">
+          <!-- Uzman Kartı 1 -->
+          <div class="expert-card expert-card--main">
+            <div class="expert-card__header">
+              <div class="expert-avatar" style="background: linear-gradient(135deg,#667eea,#764ba2)">MA</div>
+              <div>
+                <div class="expert-name">Mehmet Arslan</div>
+                <div class="expert-title">Mobilya & Montaj Uzmanı</div>
+              </div>
+              <div class="expert-badge">⭐ 4.97</div>
+            </div>
+            <div class="expert-card__tags">
+              <span>Mobilya Montaj</span>
+              <span>Raf Kurulum</span>
+              <span>+3</span>
+            </div>
+            <div class="expert-card__footer">
+              <span class="price">₺280/saat</span>
+              <div style="display:flex;gap:6px">
+                <a href="uzman-profil.html?id=e1" class="btn btn--sm btn--ghost" style="padding:6px 12px;font-size:12px">Profil</a>
+                <a href="uzmanlar.html?kategori=montaj" class="btn btn--sm btn--primary">Uzmanları GÖR</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Uzman Kartı 2 (arka) -->
+          <div class="expert-card expert-card--back">
+            <div class="expert-card__header">
+              <div class="expert-avatar" style="background: linear-gradient(135deg,#f093fb,#f5576c)">AK</div>
+              <div>
+                <div class="expert-name">Ayşe Kaya</div>
+                <div class="expert-title">Ev Temizlik Uzmanı</div>
+              </div>
+              <div class="expert-badge">⭐ 4.95</div>
+            </div>
+          </div>
+
+          <!-- Bildirim Balonu -->
+          <div class="notif-bubble notif-bubble--1">
+            <span>✓</span> Görev Tamamlandı!
+          </div>
+          <div class="notif-bubble notif-bubble--2">
+            <span>📅</span> Yeni rezervasyon
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- istatistikler çeridi -->
+    <div class="hero__stats">
+      <div class="container">
+        <div class="stats-row">
+          <div class="stat-item">
+            <span class="stat-number" data-target="50000">0</span>
+            <span class="stat-suffix">+</span>
+            <span class="stat-label">Tamamlanan Görev</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-number" data-target="8500">0</span>
+            <span class="stat-suffix">+</span>
+            <span class="stat-label">Aktif Uzman</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-number" data-target="81">0</span>
+            <span class="stat-suffix"></span>
+            <span class="stat-label">İl'de Hizmet</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-number" data-target="98">0</span>
+            <span class="stat-suffix">%</span>
+            <span class="stat-label">Müşteri Memnuniyeti</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== POPÜLER KATEGORİLER ========== -->
+  <section class="section categories" id="categories">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Hizmetler</span>
+        <h2 class="section-title">Popüler Hizmet Kategorileri</h2>
+        <p class="section-subtitle">İhtiyacınız olan hizmet kategorisini seçin, size en yakın uzmanları göstereceğiz.</p>
+      </div>
+
+      <div class="categories__grid">
+        <a href="uzmanlar.html?kategori=montaj" class="category-card">
+          <div class="category-card__icon" style="--clr: #6C63FF">🔧</div>
+          <h3>Mobilya Montajı</h3>
+          <p>Tüm marka mobilya montajı</p>
+          <div class="category-card__meta">
+            <span class="price-from">₺200'den başlar</span>
+            <span class="arrow-icon">›</span>
+          </div>
+        </a>
+
+        <a href="uzmanlar.html?kategori=temizlik" class="category-card">
+          <div class="category-card__icon" style="--clr: #FF6B6B">🧹</div>
+          <h3>Ev Temizliği</h3>
+          <p>Standart & derin temizlik</p>
+          <div class="category-card__meta">
+            <span class="price-from">₺250'den başlar</span>
+            <span class="arrow-icon">›</span>
+          </div>
+        </a>
+
+        <a href="uzmanlar.html?kategori=nakliyat" class="category-card">
+          <div class="category-card__icon" style="--clr: #4ECDC4">🚚</div>
+          <h3>Nakliyat & Taşıma</h3>
+          <p>Ev ve ofis taşıma hizmetleri</p>
+          <div class="category-card__meta">
+            <span class="price-from">₺500'den başlar</span>
+            <span class="arrow-icon">›</span>
+          </div>
+        </a>
+
+        <a href="uzmanlar.html?kategori=elektrik" class="category-card">
+          <div class="category-card__icon" style="--clr: #FFD93D">⚡</div>
+          <h3>Elektrikçi</h3>
+          <p>Priz, aydınlatma, panel</p>
+          <div class="category-card__meta">
+            <span class="price-from">₺280'den başlar</span>
+            <span class="arrow-icon">›</span>
+          </div>
+        </a>
+
+        <a href="uzmanlar.html?kategori=tesisat" class="category-card">
+          <div class="category-card__icon" style="--clr: #45B7D1">🔧</div>
+          <h3>Tesisatçı</h3>
+          <p>Su, doğalgaz, kalorifer</p>
+          <div class="category-card__meta">
+            <span class="price-from">₺300'den başlar</span>
+            <span class="arrow-icon">›</span>
+          </div>
+        </a>
+
+        <a href="uzmanlar.html?kategori=boya" class="category-card">
+          <div class="category-card__icon" style="--clr: #96CEB4">🎨</div>
+          <h3>Boyacı</h3>
+          <p>İç cephe ve dekoratif boya</p>
+          <div class="category-card__meta">
+            <span class="price-from">₺350'den başlar</span>
+            <span class="arrow-icon">›</span>
+          </div>
+        </a>
+
+        <a href="uzmanlar.html?kategori=montaj" class="category-card">
+          <div class="category-card__icon" style="--clr: #FF8B94">📺</div>
+          <h3>TV Montajı</h3>
+          <p>Duvara askı ve bağlantı</p>
+          <div class="category-card__meta">
+            <span class="price-from">₺220'den başlar</span>
+            <span class="arrow-icon">›</span>
+          </div>
+        </a>
+
+        <a href="uzmanlar.html?kategori=bahce" class="category-card">
+          <div class="category-card__icon" style="--clr: #56AB2F">🌱</div>
+          <h3>Bahçe Bakımı</h3>
+          <p>Çim biçme, budama, düzenleme</p>
+          <div class="category-card__meta">
+            <span class="price-from">₺200'den başlar</span>
+            <span class="arrow-icon">›</span>
+          </div>
+        </a>
+
+        <a href="hizmetler.html" class="category-card category-card--more">
+          <div class="category-card__icon" style="--clr: #a0a0a0">📋</div>
+          <h3>Tüm Hizmetler</h3>
+          <p>30+ farklı kategori</p>
+          <div class="category-card__meta">
+            <span class="price-from">Keşfet</span>
+            <span class="arrow-icon">›</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== NASIL ÇALIŞIR ========== -->
+  <section class="section how-it-works" id="how-it-works">
+    <div class="container">
+      <div class="section-header section-header--light">
+        <span class="section-tag section-tag--light">Süreç</span>
+        <h2 class="section-title">Nasıl Çalışır?</h2>
+        <p class="section-subtitle">3 basit adımda uzmanınıza kavuşun</p>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step__number">01</div>
+          <div class="step__icon">🔍</div>
+          <h3 class="step__title">Hizmet Seçin</h3>
+          <p class="step__desc">İhtiyacınız olan hizmeti arayın veya kategorilere göz atın. Detayları girin, tarih ve saat seçin.</p>
+        </div>
+        <div class="step__arrow">›</div>
+        <div class="step">
+          <div class="step__number">02</div>
+          <div class="step__icon">👤</div>
+          <h3 class="step__title">Uzman Seçin</h3>
+          <p class="step__desc">Puanlamalara ve yorumlara bakarak size en uygun uzmanı seçin. Fiyatları karşılaştırın.</p>
+        </div>
+        <div class="step__arrow">›</div>
+        <div class="step">
+          <div class="step__number">03</div>
+          <div class="step__icon">✅</div>
+          <h3 class="step__title">İş Tamamlandı!</h3>
+          <p class="step__desc">Uzman gelsin, işi yapsın. İş tamamlanınca güvenli ödeme sistemiyle ödeme yapın.</p>
+        </div>
+      </div>
+
+      <div class="how-it-works__cta">
+        <a href="nasil-calisir.html" class="btn btn--outline-white">Daha Fazla Bilgi</a>
+        <button onclick="isLoggedIn() ? window.location='uzmanlar.html' : openAuthModal('register')" class="btn btn--white">Hemen Başla</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ÖZELLİKLER / GÜVEN ========== -->
+  <section class="section trust">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Neden İşBul?</span>
+        <h2 class="section-title">Güvenle Hizmet Alın</h2>
+      </div>
+
+      <div class="trust__grid">
+        <div class="trust-card">
+          <div class="trust-card__icon">🔒</div>
+          <h3>Kimlik Doğrulaması</h3>
+          <p>Tüm uzmanlarımız kimlik ve arka plan kontrolünden geçirilmiştir. Evinize güvenle davet edin.</p>
+        </div>
+        <div class="trust-card">
+          <div class="trust-card__icon">💳</div>
+          <h3>Güvenli Ödeme</h3>
+          <p>Ödemeniz iş tamamlanana kadar güvende tutulur. 3D Secure ve tüm kartlar desteklenir.</p>
+        </div>
+        <div class="trust-card">
+          <div class="trust-card__icon">⭐</div>
+          <h3>Gerçek Yorumlar</h3>
+          <p>Tüm değerlendirmeler gerçek müşterilere aittir. Şeffaf puanlama sistemi ile en iyisini seçin.</p>
+        </div>
+        <div class="trust-card">
+          <div class="trust-card__icon">🎧</div>
+          <h3>7/24 Destek</h3>
+          <p>Hizmet öncesi, sırası ve sonrasında her an yanınızdayız. Sorun yaşarsanız hemen çözüyoruz.</p>
+        </div>
+        <div class="trust-card">
+          <div class="trust-card__icon">🔄</div>
+          <h3>Ücretsiz İptal</h3>
+          <p>Planlarınız değiştiyse 24 saat öncesine kadar ücretsiz iptal hakkınız mevcuttur.</p>
+        </div>
+        <div class="trust-card">
+          <div class="trust-card__icon">🛡️</div>
+          <h3>İşBul Garantisi</h3>
+          <p>Memnun kalmazsanız ücret iadesi veya yeniden hizmet garantisi veriyoruz.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== MÜŞTERİ YORUMLARI ========== -->
+  <section class="section reviews" id="reviews">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Yorumlar</span>
+        <h2 class="section-title">Müşterilerimiz Ne Diyor?</h2>
+        <p class="section-subtitle">Binlerce mutlu müşteri deneyimimizden sadece birkaçı</p>
+      </div>
+
+      <div class="reviews__slider" id="reviewsSlider">
+        <div class="review-card">
+          <div class="review-card__stars">⭐⭐⭐⭐⭐</div>
+          <p class="review-card__text">"Ahmet Bey, gardırop montajını müthiş bir hızla ve titizlikle yaptı. Sabah 10'da geldi, öğle 1'de her şey yerli yerindeydi. Kesinlikle tavsiye ederim!"</p>
+          <div class="review-card__author">
+            <div class="review-avatar" style="background:#6C63FF">ZY</div>
+            <div>
+              <strong>Zeynep Yılmaz</strong>
+              <span>İstanbul - Mobilya Montajı</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-card__stars">⭐⭐⭐⭐⭐</div>
+          <p class="review-card__text">"Evimi taşırken çok stresliyidim ama İşBul üzerinden bulduğum ekip her şeyi o kadar profesyonelce yönetti ki stresim tamamen geçti. Hiçbir eşya hasar görmedi."</p>
+          <div class="review-card__author">
+            <div class="review-avatar" style="background:#FF6B6B">BK</div>
+            <div>
+              <strong>Burak Kılıç</strong>
+              <span>Ankara - Nakliyat</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-card__stars">⭐⭐⭐⭐⭐</div>
+          <p class="review-card__text">"Banyo tesisatı tamiri için aradım, aynı gün geldi. Fiyat da beklediğimden çok daha uygundu. Platform üzerinden Ödeme yapabilmek de büyük kolaylık."</p>
+          <div class="review-card__author">
+            <div class="review-avatar" style="background:#4ECDC4">SA</div>
+            <div>
+              <strong>Selin Arslan</strong>
+              <span>İzmir - Tesisatçı</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-card__stars">⭐⭐⭐⭐⭐</div>
+          <p class="review-card__text">"Boyacı bulmak her zaman sıkıntılıydı ama İşBul çok pratik. Önceki işlerinin fotoğraflarına baktım, yorumları okudum ve seçtim. Sonuç harika oldu."</p>
+          <div class="review-card__author">
+            <div class="review-avatar" style="background:#FFD93D">MO</div>
+            <div>
+              <strong>Murat Öztürk</strong>
+              <span>Bursa - Boyacı</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-card__stars">⭐⭐⭐⭐⭐</div>
+          <p class="review-card__text">"TV montajı için gelen uzman çok nazik ve titizdi. Kabloları da güzelce düzenleyip gitti. Hem fiyat hem kalite açısından çok memnunum."</p>
+          <div class="review-card__author">
+            <div class="review-avatar" style="background:#96CEB4">EC</div>
+            <div>
+              <strong>Elif Çelik</strong>
+              <span>Antalya - TV Montajı</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reviews__controls">
+        <button class="review-btn" id="reviewPrev" aria-label="önceki yorum">‹</button>
+        <div class="review-dots" id="reviewDots"></div>
+        <button class="review-btn" id="reviewNext" aria-label="Sonraki yorum">›</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== Uzman Ol BANNER ========== -->
+  <section class="section tasker-cta">
+    <div class="container">
+      <div class="tasker-cta__inner">
+        <div class="tasker-cta__content">
+          <h2>Uzman mısınız? Para kazanmaya başlayın!</h2>
+          <p>Kendi programınızı kendiniz belirleyin. Türkiye genelinde binlerce müşteriye ulaşın. Ortalama uzmanlarımız ayda <strong>₺8.000+</strong> kazanıyor.</p>
+          <ul class="tasker-cta__list">
+            <li>✓ Başlama ücreti yok</li>
+            <li>✓ Esnek çalışma saatleri</li>
+            <li>✓ Hızlı ödeme, aynı gün transfer</li>
+            <li>✓ Ücretsiz profil oluşturun</li>
+          </ul>
+          <a href="uzman-ol.html" class="btn btn--primary btn--lg">Uzman Olarak Kaydol »</a>
+        </div>
+        <div class="tasker-cta__visual">
+          <div class="earnings-card">
+            <div class="earnings-card__header">Bu Hafta Kazandıklarım</div>
+            <div class="earnings-card__amount">₺2.840</div>
+            <div class="earnings-card__chart">
+              <div class="bar" style="height:40%"></div>
+              <div class="bar" style="height:65%"></div>
+              <div class="bar" style="height:45%"></div>
+              <div class="bar" style="height:80%"></div>
+              <div class="bar" style="height:55%"></div>
+              <div class="bar bar--active" style="height:90%"></div>
+              <div class="bar" style="height:70%"></div>
+            </div>
+            <div class="earnings-card__days">Pzt&nbsp;&nbsp;Sal&nbsp;&nbsp;Çar&nbsp;&nbsp;Per&nbsp;&nbsp;Cum&nbsp;&nbsp;Cmt&nbsp;&nbsp;Paz</div>
+            <div class="earnings-card__tasks">12 Görev tamamlandı</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== paraTNER LOGOLARI ========== -->
+
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <a href="index.html" class="navbar__logo">
+            <span class="logo-icon">⚡</span>
+            <span class="logo-text"><strong>İşBul</strong></span>
+          </a>
+          <p>Türkiye'nin Güvenilir ev ve Ofis hizmetleri platformu. 81 ilede, 8.500+ uzman ile hizmetinizdeyiz.</p>
+          <div class="footer__social"><a href="https://www.linkedin.com/in/%C3%BCmit-yakup-dedeo%C4%9Flu-4321212a7/" target="_blank" rel="noopener" aria-label="LinkedIn" title="Ümit Yakup Dedeoğlu - LinkedIn">🔗</a></div>
+        </div>
+
+        <div class="footer__links">
+          <div class="footer__col">
+            <h4>Hizmetler</h4>
+            <a href="uzmanlar.html?kategori=montaj">Mobilya Montajı</a>
+            <a href="uzmanlar.html?kategori=temizlik">Ev Temizliği</a>
+            <a href="uzmanlar.html?kategori=nakliyat">Nakliyat</a>
+            <a href="uzmanlar.html?kategori=elektrik">Elektrikçi</a>
+            <a href="uzmanlar.html?kategori=tesisat">Tesisatçı</a>
+            <a href="hizmetler.html">Tüm Hizmetler</a>
+          </div>
+          <div class="footer__col">
+            <h4>Şirket</h4>
+            <a href="hakkimizda.html">Hakkımızda</a>
+            <a href="blog.html">Blog</a>
+          </div>
+
+          <div class="footer__col">
+            <h4>Uzmanlar İçin</h4>
+            <a href="uzman-ol.html">Uzman Ol</a>
+            <a href="nasil-calisir.html?rol=tasker">Kazanç Hesapla</a>
+            <a href="sartlar.html#sigorta">Sigorta</a>
+          </div>
+          <div class="footer__col">
+            <h4>Destek</h4>
+            <a href="gizlilik.html">Güvenlik</a>
+            <a href="gizlilik.html">Gizlilik Politikası</a>
+            <a href="sartlar.html">Kullanım Şartları</a>
+            <a href="kvkk.html">KVKK</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <p>© 2026 İşBul Teknoloji A.Ş. Tüm hakları saklıdır.</p>
+        <div class="footer__badges">
+          <span class="footer-badge">🔒 SSL Güvenli</span>
+          <span class="footer-badge">✅ KVKK Uyumlu</span>
+          <span class="footer-badge">💳 Güvenli Ödeme</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== ARAMA MODAL ========== -->
+  <div class="modal-overlay" id="searchModal">
+    <div class="modal">
+      <button class="modal__close" id="modalClose">✕</button>
+      <h3 id="modalTitle">Uzman Aranıyor...</h3>
+      <div class="modal__content" id="modalContent">
+        <div class="loading-spinner"></div>
+        <p>Bölgenizdeki uzmanlar yükleniyor...</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/api-client.js"></script>
+  <script src="assets/js/app.js"></script>
+
+  <!-- ========== AUTH MODAL ========== -->
+  <div class="modal-overlay" id="authModal">
+    <div class="auth-modal-inner">
+      <div class="auth-modal-header">
+        <span class="navbar__logo"><span class="logo-icon">⚡</span><span class="logo-text"><strong>İşBul</strong></span></span>
+        <button class="auth-modal-close" id="authModalClose">×</button>
+      </div>
+      <div class="auth-tabs">
+        <button class="auth-tab active" data-tab="login">Giriş Yap</button>
+        <button class="auth-tab" data-tab="register">Ücretsiz Kaydol</button>
+      </div>
+      <div class="auth-body">
+        <!-- GİRİŞ PANELİ -->
+        <div class="auth-panel active" id="auth-login">
+          <div class="auth-social">
+            <button class="auth-social-btn" onclick="handleOAuth('google')">✓ Google ile Giriş</button>
+            <button class="auth-social-btn" onclick="handleOAuth('apple')">🍎 Apple ile Giriş</button>
+          </div>
+          <div class="auth-divider">veya e-posta ile</div>
+          <form id="loginForm" novalidate>
+            <div class="form-group">
+              <label>E-posta</label>
+              <input type="email" name="email" placeholder="ornek@mail.com" required />
+            </div>
+            <div class="form-group">
+              <label>şifre <a href="#" class="auth-forgot" onclick="showToast('şifre sıfırlama e-postası gönderildi!','info');return false">şifremi unuttum</a></label>
+              <input type="password" name="password" placeholder="••••••" required />
+            </div>
+            <button type="submit" class="auth-submit">Giriş Yap</button>
+          </form>
+          <p class="auth-footer">Hesabınız yok mu? <a href="#" onclick="document.querySelector('[data-tab=register]').click();return false">Kayıt olun</a></p>
+        </div>
+        <!-- KAYIT PANELİ -->
+        <div class="auth-panel" id="auth-register">
+          <div class="auth-social">
+            <button class="auth-social-btn" onclick="handleOAuth('google')">✓ Google ile Kayıt</button>
+            <button class="auth-social-btn" onclick="handleOAuth('apple')">🍎 Apple ile Kayıt</button>
+          </div>
+          <div class="auth-divider">veya e-posta ile</div>
+          <form id="registerForm" novalidate>
+            <div class="form-group" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+              <div><label>Ad</label><input type="text" name="regFirstName" placeholder="Adınız" required /></div>
+              <div><label>Soyad</label><input type="text" name="regLastName" placeholder="Soyadınız" required /></div>
+            </div>
+            <div class="form-group">
+              <label>E-posta</label>
+              <input type="email" name="regEmail" placeholder="ornek@mail.com" required />
+            </div>
+            <div class="form-group">
+              <label>Şifre</label>
+              <input type="password" name="regPassword" placeholder="En az 8 karakter" required />
+            </div>
+            <div class="form-group">
+              <label>Şifre Tekrar</label>
+              <input type="password" name="regPasswordConfirm" placeholder="Şifreyi tekrar girin" required />
+            </div>
+            <button type="submit" class="auth-submit">Hesap Oluştur</button>
+          </form>
+          <p class="auth-footer">Hesabınız var mı? <a href="#" onclick="document.querySelector('[data-tab=login]').click();return false">Giriş yapın</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== REZERVASYON MODAL ========== -->
+  <div class="modal-overlay" id="bookingModal">
+    <div class="booking-modal-inner">
+      <div class="booking-modal-header">
+        <h3>Rezervasyon</h3>
+        <button onclick="closeBookingModal()" style="width:32px;height:32px;border-radius:50%;background:var(--bg);border:none;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center">✕</button>
+      </div>
+      <div class="booking-modal-body" id="bookingModalBody"></div>
+    </div>
+  </div>
+
+
+  <!-- İLETİİM MODAL -->
+  <div class="modal-overlay" id="contactModal">
+    <div style="background:var(--white);border-radius:20px;max-width:480px;width:92%;position:relative;padding:0;overflow:hidden">
+      <div style="background:linear-gradient(135deg,#1a1a2e,#0f3460);padding:28px 28px 24px;color:#fff;text-align:center">
+        <button onclick="document.getElementById('contactModal').classList.remove('active');document.body.style.overflow=''"
+          style="position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center">✕</button>
+        <div style="font-size:40px;margin-bottom:10px">📧</div>
+        <h3 style="font-size:22px;font-weight:900;margin-bottom:6px">İletişim</h3>
+        <p style="font-size:14px;opacity:.8">Her sorunuz için 7/24 hazırız.</p>
+      </div>
+      <div style="padding:28px">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;align-items:center;gap:14px;padding:16px 20px;border-radius:var(--radius-sm);border:1.5px solid var(--border)">
+            <span style="width:40px;height:40px;border-radius:50%;background:var(--primary-light);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">📧</span>
+            <div>
+              <div style="font-size:13px;color:var(--text-muted);font-weight:400">E-posta</div>
+              <div style="font-weight:600;color:var(--text)">destek@isBul.com.tr</div>
+            </div>
+          </div>
+          <a href="nasil-calisir.html"
+            style="display:flex;align-items:center;gap:14px;padding:16px 20px;border-radius:var(--radius-sm);border:1.5px solid var(--border);text-decoration:none;color:var(--text);transition:.2s;font-weight:600"
+            onmouseover="this.style.borderColor='var(--primary)';this.style.color='var(--primary)'"
+            onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text)'">
+            <span style="width:40px;height:40px;border-radius:50%;background:var(--primary-light);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">📧</span>
+            <div>
+              <div style="font-size:13px;color:var(--text-muted);font-weight:400">Rehber</div>
+              <div>Nasıl Çalışır? »</div>
+            </div>
+          </a>
+        </div>
+        <p style="font-size:12px;color:var(--text-muted);text-align:center;margin-top:20px">Ortalama yanıt süresi: <strong>15 dakika</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI Chatbot Widget -->
+  <link rel="stylesheet" href="assets/css/chatbot.css" />
+  <script src="assets/js/chatbot.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

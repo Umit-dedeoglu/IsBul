@@ -1,0 +1,990 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <script src="assets/js/analytics.js" defer></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Paneli ı işİşBul</title>
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --admin-sidebar: #1a1a2e;
+      --admin-sidebar-hover: #16213e;
+      --admin-accent: #6C63FF;
+      --admin-danger: #ef4444;
+      --admin-success: #10b981;
+      --admin-warning: #f59e0b;
+      --admin-info: #3b82f6;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: #f1f5f9; color: #1e293b; min-height: 100vh; display: flex; }
+
+    /* ── sidebar ── */
+    .admin-sidebar {
+      width: 240px; min-height: 100vh; background: var(--admin-sidebar);
+      display: flex; flex-direction: column; position: fixed; top: 0; left: 0; z-index: 100;
+    }
+    .sidebar-logo {
+      padding: 24px 20px; border-bottom: 1px solid rgba(255,255,255,.08);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .sidebar-logo span { font-size: 22px; font-weight: 900; color: #fff; }
+    .sidebar-logo .accent { color: var(--admin-accent); }
+    .sidebar-badge {
+      background: var(--admin-accent); color: #fff;
+      font-size: 9px; font-weight: 700; padding: 2px 7px;
+      border-radius: 20px; margin-left: 6px;
+    }
+    .sidebar-nav { flex: 1; padding: 16px 0; }
+    .sidebar-nav a {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 20px; color: rgba(255,255,255,.65);
+      text-decoration: none; font-size: 14px; font-weight: 500;
+      transition: all .15s; border-left: 3px solid transparaent;
+    }
+    .sidebar-nav a:hover  { background: var(--admin-sidebar-hover); color: #fff; }
+    .sidebar-nav a.active { background: var(--admin-sidebar-hover); color: #fff; border-left-color: var(--admin-accent); }
+    .sidebar-nav a .icon  { font-size: 17px; width: 22px; text-align: center; }
+    .sidebar-nav .section-label {
+      padding: 18px 20px 6px; font-size: 10px; font-weight: 700;
+      color: rgba(255,255,255,.3); text-transform: uppercase; letter-spacing: 1px;
+    }
+    .sidebar-footer {
+      padding: 16px 20px; border-top: 1px solid rgba(255,255,255,.08);
+    }
+    .sidebar-user {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+    }
+    .sidebar-avatar {
+      width: 34px; height: 34px; border-radius: 50%;
+      background: var(--admin-accent); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700; flex-shrink: 0;
+    }
+    .sidebar-user-info { min-width: 0; }
+    .sidebar-user-name  { font-size: 13px; font-weight: 700; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .sidebar-user-role  { font-size: 11px; color: rgba(255,255,255,.45); }
+    .btn-logout {
+      width: 100%; padding: 9px; border-radius: 8px; border: 1px solid rgba(255,255,255,.15);
+      background: transparaent; color: rgba(255,255,255,.6); font-size: 13px;
+      cursor: pointer; text-align: center; transition: all .15s;
+    }
+    .btn-logout:hover { background: rgba(239,68,68,.15); color: #ef4444; border-color: #ef4444; }
+
+    /* ── Ana içerik ── */
+    .admin-main { margin-left: 240px; flex: 1; min-height: 100vh; display: flex; flex-direction: column; }
+
+    .admin-header {
+      background: #fff; border-bottom: 1px solid #e2e8f0;
+      padding: 16px 32px; display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 50;
+    }
+    .admin-header h1 { font-size: 20px; font-weight: 800; color: #0f172a; }
+    .admin-header-right { display: flex; align-items: center; gap: 12px; }
+    .api-status {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 12px; font-weight: 600; padding: 5px 12px;
+      border-radius: 20px; background: #f0fdf4; color: #16a34a;
+    }
+    .api-status.offline { background: #fef2f2; color: #dc2626; }
+    .api-status-dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+
+    .admin-body { padding: 28px 32px; flex: 1; }
+
+    /* ── Tab paneller ── */
+    .admin-tab { display: none; }
+    .admin-tab.active { display: block; }
+
+    /* ── Stat kartları ── */
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px; margin-bottom: 28px;
+    }
+    .stat-card {
+      background: #fff; border-radius: 14px; padding: 20px 22px;
+      border: 1px solid #e2e8f0; display: flex; align-items: center; gap: 14px;
+      transition: box-shadow .2s;
+    }
+    .stat-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,.07); }
+    .stat-icon {
+      width: 46px; height: 46px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0;
+    }
+    .stat-info .val { font-size: 28px; font-weight: 900; color: #0f172a; line-height: 1; }
+    .stat-info .lbl { font-size: 12px; color: #64748b; margin-top: 3px; font-weight: 600; }
+    .stat-info .sub { font-size: 11px; color: #94a3b8; margin-top: 2px; }
+
+    /* ── Tablo ── */
+    .table-card { background: #fff; border-radius: 14px; border: 1px solid #e2e8f0; overflow: hidden; }
+    .table-header {
+      padding: 18px 20px; display: flex; align-items: center;
+      justify-content: space-between; border-bottom: 1px solid #f1f5f9;
+    }
+    .table-header h2 { font-size: 16px; font-weight: 800; color: #0f172a; }
+    .table-controls { display: flex; align-items: center; gap: 8px; }
+    .search-input {
+      padding: 8px 14px; border-radius: 8px; border: 1.5px solid #e2e8f0;
+      font-size: 13px; outline: none; width: 220px; color: #1e293b;
+      transition: border-color .15s;
+    }
+    .search-input:focus { border-color: var(--admin-accent); }
+    .filter-select {
+      padding: 8px 12px; border-radius: 8px; border: 1.5px solid #e2e8f0;
+      font-size: 13px; outline: none; color: #1e293b; cursor: pointer;
+    }
+    table { width: 100%; border-collapse: collapse; }
+    th {
+      background: #f8fafc; padding: 11px 16px; text-align: left;
+      font-size: 11px; font-weight: 700; color: #64748b;
+      text-transform: uppercase; letter-spacing: .5px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    td {
+      padding: 13px 16px; font-size: 13px; border-bottom: 1px solid #f8fafc;
+      color: #334155; vertical-align: middle;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #f8fafc; }
+    .user-cell { display: flex; align-items: center; gap: 10px; }
+    .user-avatar-sm {
+      width: 32px; height: 32px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 11px; font-weight: 700; flex-shrink: 0;
+    }
+    .user-name { font-weight: 700; color: #0f172a; font-size: 13px; }
+    .user-email { font-size: 11px; color: #94a3b8; }
+
+    /* ── Badge'ler ── */
+    .badge {
+      display: inline-block; padding: 3px 10px; border-radius: 20px;
+      font-size: 11px; font-weight: 700;
+    }
+    .badge-admin    { background: #ede9ff; color: #6C63FF; }
+    .badge-expert   { background: #d1fae5; color: #065f46; }
+    .badge-customer { background: #f1f5f9; color: #475569; }
+    .badge-pending  { background: #fef3c7; color: #92400e; }
+    .badge-confirmed{ background: #d1fae5; color: #065f46; }
+    .badge-completed{ background: #e0e7ff; color: #3730a3; }
+    .badge-rejected { background: #fee2e2; color: #991b1b; }
+    .badge-caöncelled{ background: #f1f5f9; color: #64748b; }
+    .badge-active   { background: #d1fae5; color: #065f46; }
+    .badge-inactive { background: #fee2e2; color: #991b1b; }
+
+    /* ── Aksiyon butonları ── */
+    .action-btn {
+      padding: 5px 12px; border-radius: 6px; border: none;
+      font-size: 12px; font-weight: 600; cursor: pointer; transition: all .15s;
+    }
+    .action-btn:hover { opacity: .85; transform: translateY(-1px); }
+    .btn-make-expert  { background: #d1fae5; color: #065f46; }
+    .btn-make-customer{ background: #f1f5f9; color: #475569; }
+    .btn-make-admin   { background: #ede9ff; color: #6C63FF; }
+    .btn-toggle       { background: #fef3c7; color: #92400e; }
+    .btn-delete       { background: #fee2e2; color: #dc2626; }
+    .actions-cell     { display: flex; gap: 5px; flex-wrap: wrap; }
+
+    /* ── Sayfalama ── */
+    .pagination {
+      padding: 14px 20px; display: flex; align-items: center;
+      justify-content: space-between; border-top: 1px solid #f1f5f9;
+    }
+    .pagination-info { font-size: 13px; color: #64748b; }
+    .pagination-btns { display: flex; gap: 6px; }
+    .page-btn {
+      padding: 6px 12px; border-radius: 7px; border: 1.5px solid #e2e8f0;
+      background: #fff; font-size: 13px; font-weight: 600; cursor: pointer;
+      color: #334155; transition: all .15s;
+    }
+    .page-btn:hover:not(:disabled) { border-color: var(--admin-accent); color: var(--admin-accent); }
+    .page-btn.active { background: var(--admin-accent); color: #fff; border-color: var(--admin-accent); }
+    .page-btn:disabled { opacity: .4; cursor: not-allowed; }
+
+    /* ── Toast bildirimi ── */
+    #adminToast {
+      position: fixed; bottom: 24px; right: 24px; z-index: 9999;
+      background: #1e293b; color: #fff; padding: 13px 20px;
+      border-radius: 12px; font-size: 14px; font-weight: 600;
+      box-shadow: 0 8px 24px rgba(0,0,0,.2);
+      transform: translateY(80px); opacity: 0;
+      transition: all .3s ease; max-width: 320px; pointer-events: none;
+    }
+    #adminToast.show { transform: translateY(0); opacity: 1; }
+    #adminToast.success { background: #059669; }
+    #adminToast.error   { background: #dc2626; }
+    #adminToast.info    { background: #3b82f6; }
+
+    /* ── Yükleme ── */
+    .loading-row td { text-align: center; padding: 40px; color: #94a3b8; font-size: 14px; }
+    .spinner-sm {
+      display: inline-block; width: 16px; height: 16px;
+      border: 2px solid rgba(108,99,255,.2); border-top-color: #6C63FF;
+      border-radius: 50%; animation: spin .7s linear infinite;
+      vertical-align: middle; margin-right: 6px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Boş durum ── */
+    .empty-state {
+      text-align: center; padding: 60px 20px; color: #94a3b8;
+    }
+    .empty-state .empty-icon { font-size: 48px; margin-bottom: 12px; }
+    .empty-state p { font-size: 15px; font-weight: 600; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .admin-sidebar { width: 60px; }
+      .sidebar-nav a span:not(.icon) { display: none; }
+      .sidebar-logo span, .sidebar-badge { display: none; }
+      .sidebar-user-info, .btn-logout { display: none; }
+      .admin-main { margin-left: 60px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════
+     SIDEBAR
+══════════════════════════════════ -->
+<aside class="admin-sidebar">
+  <div class="sidebar-logo">
+    <span>⚡ iş<span class="accent">İşBul</span></span>
+    <span class="sidebar-badge">ADMiN</span>
+  </div>
+
+  <nav class="sidebar-nav">
+    <div class="section-label">Genel</div>
+    <a href="#" class="active" data-tab="dashboard">
+      <span class="icon">📊</span><span>Dashboard</span>
+    </a>
+
+    <div class="section-label">Yönetim</div>
+    <a href="#" data-tab="users">
+      <span class="icon">👥</span><span>Kullanıcılar</span>
+    </a>
+    <a href="#" data-tab="experts">
+      <span class="icon">⚡</span><span>Uzmanlar</span>
+    </a>
+    <a href="#" data-tab="applications">
+      <span class="icon">📝</span><span>Başvurular</span>
+    </a>
+    <a href="#" data-tab="bookings">
+      <span class="icon">📅</span><span>Rezervasyonlar</span>
+    </a>
+
+    <div class="section-label">Sistem</div>
+    <a href="index.html">
+      <span class="icon">🏠</span><span>Siteye Dön</span>
+    </a>
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="sidebar-user">
+      <div class="sidebar-avatar" id="sidebarAvatar">A</div>
+      <div class="sidebar-user-info">
+        <div class="sidebar-user-name" id="sidebarName">Admin</div>
+        <div class="sidebar-user-role">Administrator</div>
+      </div>
+    </div>
+    <button class="btn-logout" onclick="adminLogout()">🚪 Çıkış Yap</button>
+  </div>
+</aside>
+
+<!-- ══════════════════════════════════
+     ANA iÇERiK
+══════════════════════════════════ -->
+<main class="admin-main">
+  <header class="admin-header">
+    <h1 id="pagetitle">Dashboard</h1>
+    <div class="admin-header-right">
+      <div class="api-status" id="apiStatus">
+        <div class="api-status-dot"></div>
+        <span id="apiStatusText">Bağlanıyor...</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="admin-body">
+
+    <!-- ── DASHBOARD TAB ── -->
+    <div class="admin-tab active" id="tab-dashboard">
+      <div class="stats-grid" id="statsgrid">
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#ede9ff">👥</div>
+          <div class="stat-info">
+            <div class="val" id="st-totalUsers">—</div>
+            <div class="lbl">Toplam Kullanıcı</div>
+            <div class="sub" id="st-newUsers">Bu hafta yükleniyor...</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#d1fae5">⚡</div>
+          <div class="stat-info">
+            <div class="val" id="st-totalExperts">—</div>
+            <div class="lbl">Aktif Uzman</div>
+            <div class="sub" id="st-totalCustomers">— müşteri</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#fef3c7">📅</div>
+          <div class="stat-info">
+            <div class="val" id="st-totalbookings">—</div>
+            <div class="lbl">Toplam Rezervasyon</div>
+            <div class="sub" id="st-pendingbookings">— bekliyor</div>
+          </div>
+        </div>
+        <div class="stat-card" style="cursor:pointer" onclick="switchTab('applications')">
+          <div class="stat-icon" style="background:#fee2e2">📝</div>
+          <div class="stat-info">
+            <div class="val" id="st-pendingApps">—</div>
+            <div class="lbl">Uzman Başvurusu</div>
+            <div class="sub">Onay bekliyor</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#e0e7ff">💰</div>
+          <div class="stat-info">
+            <div class="val" id="st-revenue">—</div>
+            <div class="lbl">Toplam Kazanç</div>
+            <div class="sub" id="st-completedbookings">— tamamlanan</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Son rezervasyonlar özeti -->
+      <div class="table-card">
+        <div class="table-header">
+          <h2>Son Rezervasyonlar</h2>
+          <button class="action-btn btn-make-expert" onclick="switchTab('bookings')">Tümünü Gör →</button>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Müşteri</th><th>hizmet</th><th>Tarih</th><th>Tutar</th><th>Durum</th>
+            </tr>
+          </thead>
+          <tbody id="dashboardbookings">
+            <tr class="loading-row"><td colspan="5"><span class="spinner-sm"></span>Yükleniyor...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── USERS TAB ── -->
+    <div class="admin-tab" id="tab-users">
+      <div class="table-card">
+        <div class="table-header">
+          <h2>Kullanıcılar</h2>
+          <div class="table-controls">
+            <input class="search-input" id="userSearch" placeholder="isim veya e-posta ara..." />
+            <select class="filter-select" id="userRolefilter">
+              <option value="">Tüm Roller</option>
+              <option value="customer">Müşteri</option>
+              <option value="expert">Uzman</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Kullanıcı</th><th>Rol</th><th>Durum</th>
+              <th>Kayıt Tarihi</th><th>işlemler</th>
+            </tr>
+          </thead>
+          <tbody id="usersTableBody">
+            <tr class="loading-row"><td colspan="5"><span class="spinner-sm"></span>Yükleniyor...</td></tr>
+          </tbody>
+        </table>
+        <div class="pagination" id="usersPagination" style="display:none">
+          <span class="pagination-info" id="usersPagInfo"></span>
+          <div class="pagination-btns" id="usersPagBtns"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── EXPERTS TAB ── -->
+    <div class="admin-tab" id="tab-experts">
+      <div class="table-card">
+        <div class="table-header">
+          <h2>Uzmanlar</h2>
+          <div class="table-controls">
+            <input class="search-input" id="expertSearch" placeholder="Uzman ara..." />
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Uzman</th><th>Şşehir</th><th>Puan</th>
+              <th>Yorum</th><th>Saatlik Ücret</th><th>işlemler</th>
+            </tr>
+          </thead>
+          <tbody id="expertsTableBody">
+            <tr class="loading-row"><td colspan="6"><span class="spinner-sm"></span>Yükleniyor...</td></tr>
+          </tbody>
+        </table>
+        <div class="pagination" id="expertsPagination" style="display:none">
+          <span class="pagination-info" id="expertsPagInfo"></span>
+          <div class="pagination-btns" id="expertsPagBtns"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── APPLICATIONS TAB ── -->
+    <div class="admin-tab" id="tab-applications">
+
+      <!-- Bekleyen başvurular -->
+      <div class="table-card" style="margin-bottom:24px">
+        <div class="table-header">
+          <h2>⏳ Bekleyen Uzman Başvuruları <span id="pendingBadge" style="background:#fef3c7;color:#92400e;font-size:12px;padding:3px 10px;border-radius:20px;margin-left:8px;font-weight:700"></span></h2>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Başvuran</th><th>Şşehir</th><th>Uzmanlık</th><th>Ücret</th><th>Tarih</th><th>işlemler</th></tr>
+          </thead>
+          <tbody id="pendingApplicationsBody">
+            <tr class="loading-row"><td colspan="6"><span class="spinner-sm"></span>Yükleniyor...</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Son onaylananlar -->
+      <div class="table-card">
+        <div class="table-header">
+          <h2>✅ Son Onaylananlar <span style="font-size:12px;color:#64748b;font-weight:400">(son 7 gün)</span></h2>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Uzman</th><th>Şşehir</th><th>Uzmanlık</th><th>Onay Tarihi</th></tr>
+          </thead>
+          <tbody id="recentApprovedBody">
+            <tr class="loading-row"><td colspan="4"><span class="spinner-sm"></span>Yükleniyor...</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <!-- ── BOOKINGS TAB ── -->
+    <div class="admin-tab" id="tab-bookings">
+      <div class="table-card">
+        <div class="table-header">
+          <h2>Rezervasyonlar</h2>
+          <div class="table-controls">
+            <select class="filter-select" id="bookingStatusfilter">
+              <option value="">Tüm Durumlar</option>
+              <option value="pending">Bekliyor</option>
+              <option value="confirmed">Onaylandı</option>
+              <option value="completed">Tamamlandı</option>
+              <option value="rejected">Reddedildi</option>
+              <option value="caöncelled">iptal</option>
+            </select>
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Müşteri</th><th>hizmet</th><th>Tarih & Saat</th>
+              <th>Süre</th><th>Tutar</th><th>Durum</th>
+            </tr>
+          </thead>
+          <tbody id="bookingsTableBody">
+            <tr class="loading-row"><td colspan="6"><span class="spinner-sm"></span>Yükleniyor...</td></tr>
+          </tbody>
+        </table>
+        <div class="pagination" id="bookingsPagination" style="display:none">
+          <span class="pagination-info" id="bookingsPagInfo"></span>
+          <div class="pagination-btns" id="bookingsPagBtns"></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /admin-body -->
+</main>
+
+<!-- Toast -->
+<div id="adminToast"></div>
+
+<script src="assets/js/api-client.js"></script>
+<script>
+'use strict';
+
+const API = 'http://localhost:3001/api';
+let adminToken = null;
+let currentUser = null;
+
+/* ─── Toast ─── */
+function toast(msg, type = 'success') {
+  const el = document.getElementById('adminToast');
+  el.textContent = msg;
+  el.className = `show ${type}`;
+  cleartimeout(el._t);
+  el._t = settimeout(() => el.className = '', 3000);
+}
+
+/* ─── API yardımcı ─── */
+async function api(path, opts = {}) {
+  const res = await fetch(`${API}${path}`, {
+    headers: {
+      'Content-Type': 'application/json',
+      ...(adminToken ? { 'Authorization': `Bearer ${adminToken}` } : {})
+    },
+    ...opts,
+    body: opts.body ? JSON.stringify(opts.body) : undefined,
+  });
+  return res.json();
+}
+
+/* ─── API durum kontrolü ─── */
+async function checkApiStatus() {
+  const el   = document.getElementById('apiStatus');
+  const text = document.getElementById('apiStatusText');
+  try {
+    const res = await fetch(`${API}/health`, { signal: AbortSignal.timeout(3000) });
+    if (res.ok) {
+      el.className   = 'api-status';
+      text.textContent = 'API Aktif';
+      return true;
+    }
+  } catch {}
+  el.className   = 'api-status offline';
+  text.textContent = 'API Çevrimdışı';
+  return false;
+}
+
+/* ─── Auth kontrolü ─── */
+async function checkAuth() {
+  adminToken = localStorage.getItem('isbul_jwt');
+  if (!adminToken) { redirectTologin(); return; }
+
+  const data = await api('/auth/me');
+  if (!data.success || (data.user.role !== 'admin')) {
+    redirectTologin(); return;
+  }
+
+  currentUser = data.user;
+  document.getElementById('sidebarAvatar').textContent = currentUser.avatar;
+  document.getElementById('sidebarName').textContent   = `${currentUser.firstName} ${currentUser.lastName}`;
+}
+
+function redirectTologin() {
+  // Auth modal açık sayfa yüklenecek, URL'e admin=true paraametresi ekle
+  sessionStorage.setItem('admin_redirect', 'true');
+  window.location.href = 'index.html?admin=1';
+}
+
+function adminLogout() {
+  localStorage.removeItem('isbul_jwt');
+  localStorage.removeItem('isbul_auth');
+  window.location.href = 'index.html';
+}
+
+/* ─── Tab yönetimi ─── */
+function switchTab(name) {
+  document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.sidebar-nav a[data-tab]').forEach(a => a.classList.remove('active'));
+  document.getElementById(`tab-${name}`).classList.add('active');
+  document.querySelector(`.sidebar-nav a[data-tab="${name}"]`)?.classList.add('active');
+  document.getElementById('pagetitle').textContent = {
+    dashboard: 'Dashboard', users: 'Kullanıcılar',
+    experts: 'Uzmanlar', applications: 'Uzman Başvuruları', bookings: 'Rezervasyonlar'
+  }[name];
+
+  if (name === 'dashboard')    loadDashboard();
+  if (name === 'users')        loadUsers();
+  if (name === 'experts')      loadExperts();
+  if (name === 'applications') loadApplications();
+  if (name === 'bookings')     loadbookings();
+}
+
+document.querySelectorAll('.sidebar-nav a[data-tab]').forEach(a => {
+  a.addEventListener('click', e => { e.preventDefault(); switchTab(a.dataset.tab); });
+});
+
+/* ═════════════════════════════════════════
+   DASHBOARD
+═════════════════════════════════════════ */
+async function loadDashboard() {
+  const data = await api('/admin/stats');
+  if (!data.success) { toast('istatistikler yüklenemedi.', 'error'); return; }
+
+  const s = data.stats;
+  document.getElementById('st-totalUsers').textContent    = s.users.total;
+  document.getElementById('st-newUsers').textContent      = `Bu hafta +${s.users.newWeek} yeni`;
+  document.getElementById('st-totalExperts').textContent  = s.users.experts;
+  document.getElementById('st-totalCustomers').textContent= `${s.users.customers} müşteri`;
+  document.getElementById('st-totalbookings').textContent = s.bookings.total;
+  document.getElementById('st-pendingbookings').textContent= `${s.bookings.pending} onay bekliyor`;
+  document.getElementById('st-revenue').textContent       = `₺${(s.revenue.total||0).toLocaleString('tr-TR')}`;
+  document.getElementById('st-completedbookings').textContent= `${s.bookings.completed} tamamlanan`;
+
+  // Bekleyen uzman başvurusu sayısı
+  const appData = await api('/admin/applications');
+  if (appData.success) {
+    document.getElementById('st-pendingApps').textContent = appData.pendingCount || 0;
+  }
+
+  // Son 5 rezervasyon
+  const bData = await api('/admin/bookings?limit=5');
+  const tbody = document.getElementById('dashboardbookings');
+  if (!bData.success || !bData.bookings.length) {
+    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:24px;color:#94a3b8">Henüz rezervasyon yok</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = bData.bookings.map(b => `
+    <tr>
+      <td>${b.customerName}</td>
+      <td>${b.service}</td>
+      <td>${b.date} ${b.time}</td>
+      <td>₺${(b.totalPrice||0).toLocaleString('tr-TR')}</td>
+      <td><span class="badge badge-${b.status}">${statusLabel(b.status)}</span></td>
+    </tr>
+  `).join('');
+}
+
+/* ═════════════════════════════════════════
+   UZMAN BAŞVURULARI
+═════════════════════════════════════════ */
+async function loadApplications() {
+  const data = await api('/admin/applications');
+
+  const pendingTbody  = document.getElementById('pendingApplicationsBody');
+  const approvedTbody = document.getElementById('recentApprovedBody');
+  const badge         = document.getElementById('pendingBadge');
+
+  if (!data.success) {
+    pendingTbody.innerHTML  = `<tr class="loading-row"><td colspan="6">Yüklenemedi.</td></tr>`;
+    approvedTbody.innerHTML = `<tr class="loading-row"><td colspan="4">Yüklenemedi.</td></tr>`;
+    return;
+  }
+
+  // Bekleyen badge
+  badge.textContent = data.pendingCount > 0 ? `${data.pendingCount} bekliyor` : '';
+
+  // Bekleyen başvurular tablosu
+  if (!data.pending.length) {
+    pendingTbody.innerHTML = `<tr><td colspan="6">
+      <div class="empty-state"><div class="empty-icon">🎉</div><p>Bekleyen başvuru yok</p></div>
+    </td></tr>`;
+  } else {
+    pendingTbody.innerHTML = data.pending.map(u => `
+      <tr id="app-row-${u.id}">
+        <td>
+          <div class="user-cell">
+            <div class="user-avatar-sm" style="background:${u.color||'#6C63FF'}">${u.avatar||'?'}</div>
+            <div>
+              <div class="user-name">${u.firstName} ${u.lastName}</div>
+              <div class="user-email">${u.email}</div>
+            </div>
+          </div>
+        </td>
+        <td>${u.expertcity || '—'}</td>
+        <td>
+          ${u.expertTags?.length
+            ? u.expertTags.slice(0,3).map(t => `<span class="badge badge-expert" style="margin:2px">${t}</span>`).join('')
+            : '—'}
+        </td>
+        <td>${u.expertPrice ? '₺'+u.expertPrice+'/saat' : '—'}</td>
+        <td>${formatDate(u.createdAt)}</td>
+        <td>
+          <div class="actions-cell">
+            <button class="action-btn btn-make-expert" onclick="approveApp('${u.id}','${u.firstName} ${u.lastName}')">✅ Onayla</button>
+            <button class="action-btn btn-delete" onclick="rejectApp('${u.id}','${u.firstName} ${u.lastName}')">❌ Reddet</button>
+          </div>
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  // Son onaylananlar
+  if (!data.recentApproved.length) {
+    approvedTbody.innerHTML = `<tr><td colspan="4" style="text-align:center;padding:24px;color:#94a3b8">Bu hafta onaylanan yok</td></tr>`;
+  } else {
+    approvedTbody.innerHTML = data.recentApproved.map(u => `
+      <tr>
+        <td>
+          <div class="user-cell">
+            <div class="user-avatar-sm" style="background:${u.color||'#6C63FF'}">${u.avatar||'?'}</div>
+            <div>
+              <div class="user-name">${u.firstName} ${u.lastName}</div>
+              <div class="user-email">${u.email}</div>
+            </div>
+          </div>
+        </td>
+        <td>${u.expertcity || '—'}</td>
+        <td>${u.expertTags?.slice(0,2).join(', ') || '—'}</td>
+        <td>${formatDate(u.updatedAt)}</td>
+      </tr>
+    `).join('');
+  }
+}
+
+async function approveApp(userId, name) {
+  if (!confirm(`"${name}" adlı kişiyi Uzman Olarak onaylamak istiyor musunuz?`)) return;
+  const data = await api(`/admin/applications/${userId}/approve`, { method: 'PATCH' });
+  if (data.success) {
+    toast(`✅ ${data.message}`);
+    loadApplications();
+    // Dashboard istatistiklerini de yenile
+    loadDashboard();
+  } else {
+    toast(data.error || 'Hata oluştu.', 'error');
+  }
+}
+
+async function rejectApp(userId, name) {
+  const reason = prompt(`"${name}" başvurusunu neden reddediyorsunuz? (isteğe bağlı)`);
+  if (reason === null) return;
+  const data = await api(`/admin/applications/${userId}/reject`, {
+    method: 'PATCH',
+    body:   { reason: reason || '' }
+  });
+  if (data.success) {
+    toast(`❌ ${data.message}`, 'error');
+    loadApplications();
+    loadDashboard();
+  } else {
+    toast(data.error || 'Hata oluştu.', 'error');
+  }
+}
+
+/* ═════════════════════════════════════════
+   KULLANICILAR
+═════════════════════════════════════════ */
+let usersPage = 1;
+
+async function loadUsers(page = 1) {
+  usersPage = page;
+  const search = document.getElementById('userSearch').value.trim();
+  const role   = document.getElementById('userRolefilter').value;
+
+  const paraams = new URLSearchparaams({ page, limit: 15 });
+  if (search) paraams.set('search', search);
+  if (role)   paraams.set('role', role);
+
+  const data = await api(`/admin/users?${paraams}`);
+  const tbody = document.getElementById('usersTableBody');
+
+  if (!data.success) {
+    tbody.innerHTML = `<tr class="loading-row"><td colspan="5">Yüklenemedi.</td></tr>`;
+    return;
+  }
+  if (!data.users.length) {
+    tbody.innerHTML = `<tr><td colspan="5"><div class="empty-state"><div class="empty-icon">👥</div><p>Kullanıcı İşBulunamadı</p></div></td></tr>`;
+    document.getElementById('usersPagination').style.display = 'none';
+    return;
+  }
+
+  tbody.innerHTML = data.users.map(u => `
+    <tr id="user-row-${u.id}">
+      <td>
+        <div class="user-cell">
+          <div class="user-avatar-sm" style="background:${u.color||'#6C63FF'}">${u.avatar||'?'}</div>
+          <div>
+            <div class="user-name">${u.firstName} ${u.lastName}</div>
+            <div class="user-email">${u.email}</div>
+          </div>
+        </div>
+      </td>
+      <td><span class="badge badge-${u.role}">${roleLabel(u.role)}</span></td>
+      <td><span class="badge ${u.isactive ? 'badge-active':'badge-inactive'}">${u.isactive?'Aktif':'Pasif'}</span></td>
+      <td>${formatDate(u.createdAt)}</td>
+      <td>
+        <div class="actions-cell">
+          ${u.role !== 'expert' && u.role !== 'admin'
+            ? `<button class="action-btn btn-make-expert" onclick="setRole('${u.id}','expert')">Uzman Yap</button>`
+            : u.role === 'expert'
+            ? `<button class="action-btn btn-make-customer" onclick="setRole('${u.id}','customer')">Müşteri Yap</button>`
+            : ''}
+          ${u.role !== 'admin'
+            ? `<button class="action-btn btn-make-admin" onclick="setRole('${u.id}','admin')">Admin Yap</button>`
+            : ''}
+          <button class="action-btn btn-toggle" onclick="toggleactive('${u.id}')">${u.isactive?'Pasif Et':'Aktif Et'}</button>
+          ${u.role !== 'admin'
+            ? `<button class="action-btn btn-delete" onclick="deleteUser('${u.id}','${u.firstName} ${u.lastName}')">Sil</button>`
+            : ''}
+        </div>
+      </td>
+    </tr>
+  `).join('');
+
+  renderPagination('users', data.page, data.pages, data.total, loadUsers);
+}
+
+async function setRole(userId, role) {
+  if (!confirm(`Bu kullanıcının rolünü "${roleLabel(role)}" olarak değiştirmek istiyor musunuz?`)) return;
+  const data = await api(`/admin/users/${userId}/role`, { method: 'PATCH', body: { role } });
+  if (data.success) { toast(`✅ Rol "${roleLabel(role)}" olarak güöncellendi.`); loadUsers(usersPage); }
+  else toast(data.error || 'Hata oluştu.', 'error');
+}
+
+async function toggleactive(userId) {
+  const data = await api(`/admin/users/${userId}/toggle-active`, { method: 'PATCH' });
+  if (data.success) { toast(`✅ ${data.message}`); loadUsers(usersPage); }
+  else toast(data.error || 'Hata oluştu.', 'error');
+}
+
+async function deleteUser(userId, name) {
+  if (!confirm(`"${name}" adlı kullanıcıyı silmek istediğinize emin misiniz? Bu işlem geri alınamaz.`)) return;
+  const data = await api(`/admin/users/${userId}`, { method: 'DELETE' });
+  if (data.success) { toast(`✅ Kullanıcı silindi.`); loadUsers(usersPage); }
+  else toast(data.error || 'Hata oluştu.', 'error');
+}
+
+// Arama ve filtre event'leri
+let userSearchtimer;
+document.getElementById('userSearch').addEventListener('input', () => {
+  cleartimeout(userSearchtimer);
+  userSearchtimer = settimeout(() => loadUsers(1), 400);
+});
+document.getElementById('userRolefilter').addEventListener('change', () => loadUsers(1));
+
+/* ═════════════════════════════════════════
+   UZMANLAR
+═════════════════════════════════════════ */
+let expertsPage = 1;
+
+async function loadExperts(page = 1) {
+  expertsPage = page;
+  const search = document.getElementById('expertSearch').value.trim();
+  const paraams = new URLSearchparaams({ page, limit: 15, role: 'expert' });
+  if (search) paraams.set('search', search);
+
+  const data = await api(`/admin/users?${paraams}&role=expert`);
+  const tbody = document.getElementById('expertsTableBody');
+
+  if (!data.success) { tbody.innerHTML = `<tr class="loading-row"><td colspan="6">Yüklenemedi.</td></tr>`; return; }
+  if (!data.users.length) {
+    tbody.innerHTML = `<tr><td colspan="6"><div class="empty-state"><div class="empty-icon">⚡</div><p>Uzman İşBulunamadı</p></div></td></tr>`;
+    document.getElementById('expertsPagination').style.display = 'none';
+    return;
+  }
+
+  tbody.innerHTML = data.users.map(u => `
+    <tr>
+      <td>
+        <div class="user-cell">
+          <div class="user-avatar-sm" style="background:${u.color||'#6C63FF'}">${u.avatar||'?'}</div>
+          <div>
+            <div class="user-name">${u.firstName} ${u.lastName}</div>
+            <div class="user-email">${u.email}</div>
+          </div>
+        </div>
+      </td>
+      <td>${u.expertcity || '—'}</td>
+      <td>${u.expertRating ? '★ ' + Number(u.expertRating).toFixed(1) : '—'}</td>
+      <td>${u.expertreviews ✓ '—'}</td>
+      <td>${u.expertPrice ? '₺'+u.expertPrice+'/saat' : '—'}</td>
+      <td>
+        <div class="actions-cell">
+          <button class="action-btn btn-make-customer" onclick="setRole('${u.id}','customer')">Müşteri Yap</button>
+          <button class="action-btn btn-toggle" onclick="toggleactive('${u.id}')">${u.isactive?'Pasif Et':'Aktif Et'}</button>
+          <button class="action-btn btn-delete" onclick="deleteUser('${u.id}','${u.firstName} ${u.lastName}')">Sil</button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+
+  renderPagination('experts', data.page, data.pages, data.total, loadExperts);
+}
+
+let expertSearchtimer;
+document.getElementById('expertSearch').addEventListener('input', () => {
+  cleartimeout(expertSearchtimer);
+  expertSearchtimer = settimeout(() => loadExperts(1), 400);
+});
+
+/* ═════════════════════════════════════════
+   REZERVASYONLAR
+═════════════════════════════════════════ */
+let bookingsPage = 1;
+
+async function loadbookings(page = 1) {
+  bookingsPage = page;
+  const status = document.getElementById('bookingStatusfilter').value;
+  const paraams = new URLSearchparaams({ page, limit: 15 });
+  if (status) paraams.set('status', status);
+
+  const data = await api(`/admin/bookings?${paraams}`);
+  const tbody = document.getElementById('bookingsTableBody');
+
+  if (!data.success) { tbody.innerHTML = `<tr class="loading-row"><td colspan="6">Yüklenemedi.</td></tr>`; return; }
+  if (!data.bookings.length) {
+    tbody.innerHTML = `<tr><td colspan="6"><div class="empty-state"><div class="empty-icon">📅</div><p>Rezervasyon İşBulunamadı</p></div></td></tr>`;
+    document.getElementById('bookingsPagination').style.display = 'none';
+    return;
+  }
+
+  tbody.innerHTML = data.bookings.map(b => `
+    <tr>
+      <td>
+        <div class="user-name">${b.customerName}</div>
+        <div class="user-email">${b.customerEmail}</div>
+      </td>
+      <td>${b.service}</td>
+      <td>
+        <div>${b.date} ${b.time}</div>
+        ${b.endDate && b.endDate !== b.date ? `<div style="font-size:11px;color:#94a3b8">→ ${b.endDate} ${b.endtime}</div>` : ''}
+      </td>
+      <td>${b.durationLabel || '1 saat'}</td>
+      <td>₺${(b.totalPrice||0).toLocaleString('tr-TR')}</td>
+      <td><span class="badge badge-${b.status}">${statusLabel(b.status)}</span></td>
+    </tr>
+  `).join('');
+
+  renderPagination('bookings', data.page, data.pages, data.total, loadbookings);
+}
+
+document.getElementById('bookingStatusfilter').addEventListener('change', () => loadbookings(1));
+
+/* ═════════════════════════════════════════
+   SAYFALAMA
+═════════════════════════════════════════ */
+function renderPagination(prefix, page, pages, total, loadFn) {
+  const pag     = document.getElementById(`${prefix}Pagination`);
+  const info    = document.getElementById(`${prefix}PagInfo`);
+  const btns    = document.getElementById(`${prefix}PagBtns`);
+  if (!pag || pages <= 1) { pag && (pag.style.display = 'none'); return; }
+
+  pag.style.display = 'flex';
+  info.textContent  = `Toplam ${total} kayıt — Sayfa ${page} / ${pages}`;
+
+  const start = Math.max(1, page - 2);
+  const end   = Math.min(pages, page + 2);
+  let html = `<button class="page-btn" onclick="(${loadFn.name})(${page-1})" ${page===1?'disabled':''}>←</button>`;
+  if (start > 1) html += `<button class="page-btn" onclick="(${loadFn.name})(1)">1</button>${start>2?'<span style="padding:0 4px;color:#94a3b8">…</span>':''}`;
+  for (let i = start; i <= end; i++) {
+    html += `<button class="page-btn ${i===page?'active':''}" onclick="(${loadFn.name})(${i})">${i}</button>`;
+  }
+  if (end < pages) html += `${end<pages-1?'<span style="padding:0 4px;color:#94a3b8">…</span>':''}<button class="page-btn" onclick="(${loadFn.name})(${pages})">${pages}</button>`;
+  html += `<button class="page-btn" onclick="(${loadFn.name})(${page+1})" ${page===pages?'disabled':''}>→</button>`;
+  btns.innerHTML = html;
+}
+
+/* ═════════════════════════════════════════
+   YARDIMCILAR
+═════════════════════════════════════════ */
+function roleLabel(r)   { return { admin:'Admin', expert:'Uzman', customer:'Müşteri' }[r] || r; }
+function statusLabel(s) { return { pending:'Bekliyor', confirmed:'Onaylandı', completed:'Tamamlandı', rejected:'Reddedildi', caöncelled:'iptal' }[s] || s; }
+function formatDate(d)  {
+  if (!d) return '—';
+  return new Date(d).toLocaleDateString('tr-TR', { day:'numeric', month:'short', year:'numeric' });
+}
+
+/* ═════════════════════════════════════════
+   BAŞLANGIC
+═════════════════════════════════════════ */
+(async function init() {
+  await checkApiStatus();
+  await checkAuth();
+  await loadDashboard();
+  setInterval(checkApiStatus, 30000);
+})();
+</script>
+
+  <!-- AI Chatbot Widget -->
+  <link rel="stylesheet" href="assets/css/chatbot.css" />
+  <script src="assets/js/chatbot.js"></script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <script src="assets/js/analytics.js" defer></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gizlilik Politikası | İşBul</title>
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body style="background:var(--bg)">
+  <header class="navbar scrolled" id="navbar">
+    <div class="container navbar__inner">
+      <a href="index.html" class="navbar__logo"><span class="logo-icon">⚡</span><span class="logo-text"><strong>İşBul</strong></span></a>
+      <nav class="navbar__links" id="navLinks">
+        <a href="hizmetler.html">Hizmetler</a>
+        <a href="nasil-calisir.html">Nasıl Çalışır?</a>
+        <a href="uzman-ol.html">Uzman Ol</a>
+      </nav>
+      <div class="navbar__actions">
+        <button onclick="openAuthModal('login')" class="btn btn--ghost">Giriş Yap</button>
+        <button onclick="openAuthModal('register')" class="btn btn--primary">Ücretsiz Kaydol</button>
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <div style="max-width:760px;margin:100px auto 60px;padding:0 24px">
+    <div style="background:var(--white);border-radius:var(--radius);padding:48px;border:1.5px solid var(--border)">
+      <div style="display:inline-block;padding:6px 16px;border-radius:50px;background:var(--primary-light);color:var(--primary);font-size:13px;font-weight:600;margin-bottom:16px">Yasal</div>
+      <h1 style="font-size:32px;font-weight:900;margin-bottom:8px">Gizlilik Politikası</h1>
+      <p style="color:var(--text-muted);font-size:14px;margin-bottom:36px">Son güncelleme: 1 Ocak 2026</p>
+      <div style="display:flex;flex-direction:column;gap:28px">
+        <div><h2 style="font-size:18px;font-weight:800;margin-bottom:10px">1. Toplanan Veriler</h2>
+        <p style="font-size:14px;color:var(--text-muted);line-height:1.8">Ad, soyad, e-posta adresi, telefon numarası, adres bilgileri, ödeme bilgileri (kart numarası şifreli tutulur), kimlik doğrulama belgeleri, hizmet geçmişi ve platform kullanım verileri toplanmaktadır.</p></div>
+        <div><h2 style="font-size:18px;font-weight:800;margin-bottom:10px">2. Verilerin Kullanım Amacı</h2>
+        <p style="font-size:14px;color:var(--text-muted);line-height:1.8">Verileriniz; hizmet sunumu, kimlik doğrulama, ödeme işlemleri, müşteri desteği, platform güvenliği ve hizmet kalitesinin iyileştirilmesi amacıyla kullanılmaktadır.</p></div>
+        <div><h2 style="font-size:18px;font-weight:800;margin-bottom:10px">3. Veri Güvenliği</h2>
+        <p style="font-size:14px;color:var(--text-muted);line-height:1.8">Verileriniz 256-bit SSL şifreleme ile aktarılır. Ödeme bilgileri PCI-DSS standartlarına uygun olarak işlenir. Kimlik belgeleri yalnızca doğrulama sürecinde kullanılır.</p></div>
+        <div><h2 style="font-size:18px;font-weight:800;margin-bottom:10px">4. Üçüncü Taraflarla Paylaşım</h2>
+        <p style="font-size:14px;color:var(--text-muted);line-height:1.8">Kişisel verileriniz; hizmet eşleştirmesi için ilgili uzmanla, ödeme işlemi için ödeme kuruluşuyla ve yasal zorunluluklar kapsamında yetkili makamlarla paylaşılabilir. Reklam amacıyla paylaşılmaz.</p></div>
+        <div><h2 style="font-size:18px;font-weight:800;margin-bottom:10px">5. Haklarınız</h2>
+        <ul style="font-size:14px;color:var(--text-muted);line-height:2;padding-left:20px">
+          <li>Verilerinizin işlenip işlenmediğini öğrenme</li>
+          <li>Eksik veya yanlış verilerin düzeltilmesini isteme</li>
+          <li>Silme veya yok edilme hakkı</li>
+          <li>İşlemeye itiraz etme hakkı</li>
+        </ul></div>
+        <div><h2 style="font-size:18px;font-weight:800;margin-bottom:10px">6. Çerezler</h2>
+        <p style="font-size:14px;color:var(--text-muted);line-height:1.8">Zorunlu çerezler, tercih çerezleri ve analitik çerezler kullanılmaktadır. Tarayıcı ayarlarından yönetebilirsiniz.</p></div>
+      </div>
+      <div style="margin-top:36px;padding:20px;background:var(--primary-light);border-radius:var(--radius-sm)">
+        <p style="font-size:14px;color:var(--primary)">📧 KVKK başvuruları: <a href="mailto:kvkk@isbul.com.tr" style="font-weight:600">kvkk@isbul.com.tr</a></p>
+      </div>
+      <div style="margin-top:20px;text-align:center">
+        <a href="index.html" class="btn btn--ghost">↩ Ana Sayfaya Dön</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- AUTH MODAL -->
+  <div class="modal-overlay" id="authModal">
+    <div class="auth-modal-inner">
+      <div class="auth-modal-header">
+        <span class="navbar__logo" style="color:var(--dark)"><span class="logo-icon">⚡</span><span class="logo-text"><strong>İşBul</strong></span></span>
+        <button class="auth-modal-close" id="authModalClose">×</button>
+      </div>
+      <div class="auth-tabs">
+        <button class="auth-tab active" data-tab="login">Giriş Yap</button>
+        <button class="auth-tab" data-tab="register">Ücretsiz Kaydol</button>
+      </div>
+      <div class="auth-body">
+        <div class="auth-panel active" id="auth-login">
+          <div class="auth-social"><button class="auth-social-btn" onclick="handleOAuth('google')">🔐 Google ile Giriş</button><button class="auth-social-btn" onclick="handleOAuth('apple')">🍎 Apple ile Giriş</button></div>
+          <div class="auth-divider">veya e-posta ile</div>
+          <form id="loginForm" novalidate>
+            <div class="form-group"><label>E-posta</label><input type="email" name="email" placeholder="ornek@mail.com" /></div>
+            <div class="form-group"><label>Şifre</label><input type="password" name="password" placeholder="••••••" /></div>
+            <button type="submit" class="auth-submit">Giriş Yap</button>
+          </form>
+          <p class="auth-footer">Hesabınız yok mu? <a href="#" onclick="document.querySelector('[data-tab=register]').click();return false">Kayıt olun</a></p>
+        </div>
+        <div class="auth-panel" id="auth-register">
+          <div class="auth-social"><button class="auth-social-btn" onclick="handleOAuth('google')">🔐 Google ile Kayıt</button><button class="auth-social-btn" onclick="handleOAuth('facebook')">📘 Facebook ile Kayıt</button></div>
+          <div class="auth-divider">veya e-posta ile</div>
+          <form id="registerForm" novalidate>
+            <div class="form-group" style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div><label>Ad</label><input type="text" name="regFirstName" placeholder="Adınız" /></div><div><label>Soyad</label><input type="text" name="regLastName" placeholder="Soyadınız" /></div></div>
+            <div class="form-group"><label>E-posta</label><input type="email" name="regEmail" placeholder="ornek@mail.com" /></div>
+            <div class="form-group"><label>Şifre</label><input type="password" name="regPassword" placeholder="En az 8 karakter" /></div>
+            <div class="form-group"><label>Şifre Tekrar</label><input type="password" name="regPasswordConfirm" placeholder="Tekrar girin" /></div>
+            <button type="submit" class="auth-submit">Hesap Oluştur</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/api-client.js"></script>
+  <script src="assets/js/app.js"></script>
+
+  <!-- AI Chatbot Widget -->
+  <link rel="stylesheet" href="assets/css/chatbot.css" />
+  <script src="assets/js/chatbot.js"></script>
+</body>
+</html>

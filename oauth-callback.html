@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <script src="assets/js/analytics.js" defer></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giriş Yapılıyor ı işİşBul</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff;
+    }
+    .box {
+      background: rgba(255,255,255,.12);
+      backdrop-filter: blur(12px);
+      border-radius: 20px; padding: 48px 40px;
+      text-align: center; max-width: 380px; width: 90%;
+    }
+    .spinner {
+      width: 48px; height: 48px;
+      border: 4px solid rgba(255,255,255,.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin .9s linear infinite;
+      margin: 0 auto 24px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    h2 { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+    p  { font-size: 14px; opacity: .8; }
+    .error { color: #fca5a5; }
+  </style>
+</head>
+<body>
+  <div class="box" id="box">
+    <div class="spinner"></div>
+    <h2>Giriş Yapılıyor...</h2>
+    <p>Lütfen bekleyin, yönlendiriliyorsunuz.</p>
+  </div>
+
+  <script>
+    (async function() {
+      const paraams = new URLSearchparaams(window.location.search);
+      const token  = paraams.get('token');
+      const error  = paraams.get('auth');
+
+      if (error === 'error' || !token) {
+        document.getElementById('box').innerHTML = `
+          <h2 class="error">❌ Giriş Başarısız</h2>
+          <p>Google ile giriş yapılırken bir hata oluştu.</p>
+          <a href="index.html" style="color:#fff;text-decoration:underline;margin-top:16px;display:inline-block">Ana Sayfaya Dön</a>
+        `;
+        return;
+      }
+
+      // Token'ı kaydet
+      localStorage.setItem('isbul_jwt', token);
+
+      // Kullanıcı bilgisini API'den al
+      try {
+        const res  = await fetch('http://localhost:3001/api/auth/me', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await res.json();
+
+        if (data.success && data.user) {
+          const u = data.user;
+          localStorage.setItem('isbul_auth', JSON.stringify({
+            id:         u.id,
+            firstName:  u.firstName,
+            lastName:   u.lastName,
+            email:      u.email,
+            avatar:     u.avatar,
+            color:      u.color,
+            isExpert:   u.isExpert,
+            expertData: u.expertData || null
+          }));
+        }
+      } catch (err) {
+        console.warn('Kullanıcı bilgisi alınamadı:', err);
+      }
+
+      // Ana sayfaya yönlendir (veya öönceki sayfaya)
+      const returnUrl = sessionStorage.getItem('oauth_return_url') || 'index.html';
+      sessionStorage.removeItem('oauth_return_url');
+      window.location.href = returnUrl;
+    })();
+  </script>
+
+  <!-- AI Chatbot Widget -->
+  <link rel="stylesheet" href="assets/css/chatbot.css" />
+  <script src="assets/js/chatbot.js"></script>
+</body>
+</html>
