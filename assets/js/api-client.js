@@ -11,9 +11,8 @@ const BACKEND_URL = (() => {
   if (h === 'localhost' || h === '127.0.0.1') {
     return 'http://localhost:3001';
   }
-  // Canlı ortam — backend subdomain'i veya ayrı sunucu adresi buraya gelecek.
-  // Örnek: 'https://api.isbul.com' veya 'https://isbul-backend.railway.app'
-  return `https://api.${h}`;
+  // Canlı ortam — Nginx reverse proxy üzerinden /api path'i kullan
+  return window.location.origin; // https://isbul.online
 })();
 
 const API_BASE = `${BACKEND_URL}/api/v1`;
