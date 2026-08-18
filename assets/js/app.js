@@ -263,8 +263,8 @@ function _updateNavbarLoggedIn(email, name) {
           <div style="font-size:13px;font-weight:700">${displayName}</div>
           <div style="font-size:11px;color:var(--text-muted)">${session?.email||email||''}</div>
         </div>
-        ${session?.role === 'admin'
-          ? '<a href="admin-panel.html" style="display:flex;align-items:center;gap:10px;padding:12px 16px;font-size:14px;color:#ef4444;text-decoration:none;transition:.15s;font-weight:700;border-bottom:1px solid var(--border)" onmouseover="this.style.background=\'#fef2f2\'" onmouseout="this.style.background=\'\'">🛡️ Admin Paneli</a>'
+        ${session?.role === 'admin' || session?.email === 'umityakupdedeoglu0@gmail.com'
+          ? '<a href="admin-panel.html" style="display:flex;align-items:center;gap:10px;padding:12px 16px;font-size:14px;color:#6C63FF;text-decoration:none;transition:.15s;font-weight:700;border-bottom:1px solid var(--border);background:#f5f3ff" onmouseover="this.style.background=\'#ede9ff\'" onmouseout="this.style.background=\'#f5f3ff\'">🛡️ Admin Girişi</a>'
           : ''}
         <a href="profil.html" style="display:flex;align-items:center;gap:10px;padding:12px 16px;font-size:14px;color:var(--text);text-decoration:none;transition:.15s" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background=''">👤 Profilim</a>
         <button onclick="logoutUser()" style="display:flex;align-items:center;gap:10px;padding:12px 16px;font-size:14px;color:#ef4444;background:none;border:none;cursor:pointer;width:100%;text-align:left;border-top:1px solid var(--border)" onmouseover="this.style.background='#fef2f2'" onmouseout="this.style.background=''">🚪 Çıkış Yap</button>

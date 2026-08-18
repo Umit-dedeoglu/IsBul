@@ -256,3 +256,51 @@ const USERS = {
   ]
 };
 
+
+/* ---------- DEMO KULLANICILAR (localStorage'a otomatik yüklenecek) ---------- */
+function seedDemoUsers() {
+  // Sadece ilk çalıştırmada yükle
+  if (localStorage.getItem('isbul_demo_seeded')) return;
+  
+  const db = {};
+  const demoUsers = [
+    { firstName: 'Ümit', lastName: 'Dedeoğlu', email: 'umityakupdedeoglu0@gmail.com', password: 'Umit311234', role: 'admin', isExpert: true, expertData: { tags: ['Mobilya Montajı', 'TV Montajı', 'Elektrik'], categories: ['montaj', 'tv', 'elektrik'], city: 'İstanbul', price: 350, rating: 5.0, reviews: 0, experience: '5+ yıl', bio: 'Profesyonel mobilya montajı, TV montajı ve elektrik işleri uzmanı. İstanbul genelinde hizmet veriyorum.', verified: true, elite: true, hours: 'Pzt-Cum: 09:00-18:00' }},
+    { firstName: 'Ayşe', lastName: 'Yılmaz', email: 'ayse.yilmaz@example.com', password: 'demo123', role: 'customer' },
+    { firstName: 'Mehmet', lastName: 'Kaya', email: 'mehmet.kaya@example.com', password: 'demo123', role: 'customer' },
+    { firstName: 'Fatma', lastName: 'Demir', email: 'fatma.demir@example.com', password: 'demo123', role: 'expert', isExpert: true, expertData: { tags: ['İç Boya', 'Duvar Kağıdı', 'Alçı'], categories: ['boya'], city: 'Ankara', price: 350, rating: 4.90, reviews: 156, experience: '7 yıl', bio: 'İç cephe, dekoratif boya ve duvar kağıdı.', verified: true, elite: false }},
+    { firstName: 'Ahmet', lastName: 'Öztürk', email: 'ahmet.ozturk@example.com', password: 'demo123', role: 'customer' },
+    { firstName: 'Zeynep', lastName: 'Şahin', email: 'zeynep.sahin@example.com', password: 'demo123', role: 'expert', isExpert: true, expertData: { tags: ['Ev Temizliği', 'Derin Temizlik', 'Cam'], categories: ['temizlik'], city: 'İzmir', price: 270, rating: 4.93, reviews: 201, experience: '6 yıl', bio: 'Haftalık ve derin temizlik uzmanı.', verified: true, elite: true }},
+    { firstName: 'Can', lastName: 'Arslan', email: 'can.arslan@example.com', password: 'demo123', role: 'customer' },
+    { firstName: 'Elif', lastName: 'Polat', email: 'elif.polat@example.com', password: 'demo123', role: 'expert', isExpert: true, expertData: { tags: ['Su Tesisatı', 'Tıkanıklık', 'Musluk Değişimi'], categories: ['tesisat'], city: 'Bursa', price: 320, rating: 4.92, reviews: 189, experience: '12 yıl', bio: 'Su tesisatı, doğalgaz, kalorifer tamiri.', verified: true, elite: false }},
+    { firstName: 'Burak', lastName: 'Çelik', email: 'burak.celik@example.com', password: 'demo123', role: 'customer' },
+    { firstName: 'Selin', lastName: 'Yıldız', email: 'selin.yildiz@example.com', password: 'demo123', role: 'customer' }
+  ];
+  
+  demoUsers.forEach(u => {
+    const email = u.email.toLowerCase();
+    db[email] = {
+      id: 'u_demo_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
+      firstName: u.firstName,
+      lastName: u.lastName,
+      email: email,
+      passwordHash: btoa((u.password || 'demo123') + '_isbul_salt'),
+      createdAt: new Date().toISOString(),
+      avatar: (u.firstName[0] + u.lastName[0]).toUpperCase(),
+      color: ['#6C63FF','#FF6B6B','#4ECDC4','#FFD93D','#96CEB4','#56AB2F'][Math.floor(Math.random()*6)],
+      role: u.role || 'customer',
+      isExpert: u.isExpert || false,
+      expertData: u.expertData || null
+    };
+  });
+  
+  localStorage.setItem('isbul_users_db', JSON.stringify(db));
+  localStorage.setItem('isbul_demo_seeded', 'true');
+  console.log('✅ Demo kullanıcılar yüklendi');
+}
+
+// Sayfa yüklendiğinde demo kullanıcıları yükle
+if (typeof window !== 'undefined') {
+  window.addEventListener('DOMContentLoaded', () => {
+    seedDemoUsers();
+  });
+}
