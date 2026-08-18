@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Background -->
+  <rect width="512" height="512" rx="112" fill="#6C63FF"/>
+  
+  <!-- Lightning bolt - İşBul logosu -->
+  <path d="M290 80 L180 280 H256 L222 432 L370 200 H290 L330 80 Z" 
+        fill="white" 
+        stroke="white" 
+        stroke-width="2"
+        stroke-linejoin="round"/>
+</svg>

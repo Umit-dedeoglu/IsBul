@@ -19,8 +19,11 @@ passport.use(new GoogleStrategy(
     try {
       const googleId  = profile.id;
       const email     = profile.emails?.[0]?.value?.toLowerCase();
-      const firstName = profile.name?.givenName   || profile.displayName.split(' ')[0];
-      const lastName  = profile.name?.familyName  || profile.displayName.split(' ')[1] || '';
+      
+      // Güvenli ad/soyad çıkarımı
+      const displayParts = (profile.displayName || '').trim().split(/\s+/);
+      const firstName = profile.name?.givenName || displayParts[0] || email?.split('@')[0] || 'Kullanici';
+      const lastName  = profile.name?.familyName || displayParts.slice(1).join(' ') || '';
 
       // Mevcut kullanıcıyı bul
       let user = await dbGet('SELECT * FROM users WHERE google_id = $1', [googleId]);

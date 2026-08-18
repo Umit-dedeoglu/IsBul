@@ -350,7 +350,7 @@ class ChatbotWidget {
     const h = window.location.hostname;
     const backendBase = (h === 'localhost' || h === '127.0.0.1')
       ? 'http://localhost:3001'
-      : `https://api.${h}`;
+      : window.location.origin;  // Production'da domain kullan
     this.apiUrl = `${backendBase}/api/v1/chatbot`;
 
     this.init();

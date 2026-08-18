@@ -1385,9 +1385,9 @@ function _switchAuthTab(name) {
 window.handleOAuth = function(provider) {
   if (provider === 'google') {
     // API üzerinden Google OAuth flow başlat
-    const apiBase = (typeof IsbulAPI !== 'undefined')
-      ? 'http://localhost:3001/api'
-      : null;
+    const apiBase = (typeof IsbulAPI !== 'undefined' && IsbulAPI.baseUrl)
+      ? IsbulAPI.baseUrl.replace('/v1', '')  // /api/v1 → /api
+      : window.location.origin + '/api';
 
     if (apiBase) {
       // Mevcut sayfayı kaydet — login sonrası geri dönsün
