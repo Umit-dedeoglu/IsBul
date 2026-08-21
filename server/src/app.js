@@ -1,12 +1,12 @@
 /**
- * ÝþBul API — Ana Uygulama
+ * ï¿½ï¿½Bul API ï¿½ Ana Uygulama
  *
- * Mimari: Modüler Monolith
+ * Mimari: Modï¿½ler Monolith
  * Versiyon: /api/v1
  * Platform: Web + Mobil (React Native / Flutter uyumlu)
  *
- * Tüm endpointler standart format döndürür:
- *   Baþarý: { success: true, data: {...}, meta: {...}, timestamp }
+ * Tï¿½m endpointler standart format dï¿½ndï¿½rï¿½r:
+ *   Baï¿½arï¿½: { success: true, data: {...}, meta: {...}, timestamp }
  *   Hata:   { success: false, error: { code, message }, timestamp }
  */
 require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') });
@@ -18,7 +18,7 @@ const passport = require('./config/passport');
 const { initDb, startAutoSave } = require('./db');
 const responseMiddleware = require('./middleware/response');
 const { generalLimiter, authLimiter, actionLimiter } = require('./middleware/rateLimiter');
-// Test ortamýnda rate limiting devre dýþý
+// Test ortamï¿½nda rate limiting devre dï¿½ï¿½ï¿½
 const noopMiddleware = (req, res, next) => next();
 const isTest = process.env.NODE_ENV === 'test';
 const _generalLimiter  = isTest ? noopMiddleware : generalLimiter;
@@ -26,11 +26,11 @@ const _authLimiter     = isTest ? noopMiddleware : authLimiter;
 const _actionLimiter   = isTest ? noopMiddleware : actionLimiter;
 const { swaggerUi, swaggerDocument, swaggerOptions } = require('./config/swagger');
 const app = express();
-// ¦¦ Güvenlik ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
+// ï¿½ï¿½ Gï¿½venlik ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 app.use(helmet({
-  contentSecurityPolicy: false, // Swagger UI için kapalý
+  contentSecurityPolicy: false, // Swagger UI iï¿½in kapalï¿½
 }));
-// ¦¦ CORS — Web ve Mobil Ýçin Geniþletilmiþ ¦¦¦¦¦¦¦¦¦¦¦¦¦¦
+// ï¿½ï¿½ CORS ï¿½ Web ve Mobil ï¿½ï¿½in Geniï¿½letilmiï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 const allowedOrigins = [
   process.env.FRONTEND_URL || 'http://localhost:4000',
   'http://localhost:3000',     // React dev server
@@ -38,7 +38,7 @@ const allowedOrigins = [
   'http://localhost:19006',    // Expo web
   'capacitor://localhost',     // Ionic/Capacitor mobil
   'ionic://localhost',         // Ionic eski format
-  // Üretimde buraya alan adlarý eklenecek:
+  // ï¿½retimde buraya alan adlarï¿½ eklenecek:
   // 'https://isbul.com',
   // 'https://app.isbul.com',
 ];
@@ -47,35 +47,35 @@ app.use(cors({
     // origin yoksa (Postman, mobil native, curl) izin ver
     if (!origin) return callback(null, true);
     if (allowedOrigins.includes(origin)) return callback(null, true);
-    // Geliþtirmede tüm localhost portlarýna izin ver
+    // Geliï¿½tirmede tï¿½m localhost portlarï¿½na izin ver
     if (process.env.NODE_ENV !== 'production' && /^http:\/\/localhost:\d+$/.test(origin)) {
       return callback(null, true);
     }
-    callback(new Error(`CORS: ${origin} kaynaðýna izin verilmiyor.`));
+    callback(new Error(`CORS: ${origin} kaynaï¿½ï¿½na izin verilmiyor.`));
   },
   credentials:     true,
   methods:         ['GET','POST','PUT','PATCH','DELETE','OPTIONS'],
   allowedHeaders:  ['Content-Type','Authorization','X-Platform','X-App-Version'],
   exposedHeaders:  ['X-Total-Count','X-Page','X-Pages'],
 }));
-// ¦¦ Logging ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
+// ï¿½ï¿½ Logging ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 if (process.env.NODE_ENV !== 'test') {
   app.use(morgan('dev'));
 }
-// ¦¦ Body Parser ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
+// ï¿½ï¿½ Body Parser ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
-// ¦¦ Passport ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
+// ï¿½ï¿½ Passport ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 app.use(passport.initialize());
-// ¦¦ Standart Response Middleware ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
+// ï¿½ï¿½ Standart Response Middleware ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 app.use(responseMiddleware);
-// ¦¦ Global Rate Limiter ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
+// ï¿½ï¿½ Global Rate Limiter ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 app.use('/api/', _generalLimiter);
-// ¦¦ Swagger Dokümantasyonu ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
+// ï¿½ï¿½ Swagger Dokï¿½mantasyonu ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, swaggerOptions));
-// ¦¦ API v1 Routes ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
-//   /api/v1/...  — Versiyonlu yeni endpointler (web + mobil)
-//   /api/...     — Geriye dönük uyumluluk (web)
+// ï¿½ï¿½ API v1 Routes ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//   /api/v1/...  ï¿½ Versiyonlu yeni endpointler (web + mobil)
+//   /api/...     ï¿½ Geriye dï¿½nï¿½k uyumluluk (web)
 const v1 = express.Router();
 v1.use('/auth',          _authLimiter,   require('./modules/auth/auth.routes'));
 v1.use('/users',                         require('./modules/users/users.routes'));
@@ -86,10 +86,10 @@ v1.use('/reviews',       _actionLimiter, require('./modules/reviews/reviews.rout
 v1.use('/notifications',                 require('./modules/notifications/notifications.routes'));
 v1.use('/admin',                         require('./modules/admin/admin.routes'));
 v1.use('/chatbot',       _actionLimiter, require('./modules/chatbot/chatbot.routes'));
-// v1 router'ý iki prefix'e baðla — geriye dönük uyumluluk
+// v1 router'ï¿½ iki prefix'e baï¿½la ï¿½ geriye dï¿½nï¿½k uyumluluk
 app.use('/api/v1', v1);
-app.use('/api',    v1);   // eski /api/... URL'leri çalýþmaya devam eder
-// ¦¦ Health & Info ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
+app.use('/api',    v1);   // eski /api/... URL'leri ï¿½alï¿½ï¿½maya devam eder
+// ï¿½ï¿½ Health & Info ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 app.get('/api/health', (req, res) => {
   res.json({
     success:   true,
@@ -97,7 +97,7 @@ app.get('/api/health', (req, res) => {
       status:    'ok',
       version:   '1.0.0',
       apiVersion:'v1',
-      message:   'ÝþBul API çalýþýyor',
+      message:   'Ä°ÅŸBul API Ã§alÄ±ÅŸÄ±yor',
       endpoints: {
         docs:       '/api/docs',
         health:     '/api/health',
@@ -111,7 +111,7 @@ app.get('/api/health', (req, res) => {
         admin:      '/api/v1/admin',
         chatbot:    '/api/v1/chatbot',
       },
-      // Mobil geliþtirici bilgisi
+      // Mobil geliï¿½tirici bilgisi
       mobile: {
         platforms:     ['iOS', 'Android', 'Web'],
         authentication:'JWT Bearer Token',
@@ -124,45 +124,45 @@ app.get('/api/health', (req, res) => {
     timestamp: new Date().toISOString(),
   });
 });
-// ¦¦ 404 Handler ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
+// ï¿½ï¿½ 404 Handler ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 app.use((req, res) => {
   res.status(404).json({
     success: false,
     error: {
       code:    'NOT_FOUND',
-      message: `Endpoint bulunamadý: ${req.method} ${req.path}`,
+      message: `Endpoint bulunamadï¿½: ${req.method} ${req.path}`,
     },
     timestamp: new Date().toISOString(),
   });
 });
-// ¦¦ Global Error Handler ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
+// ï¿½ï¿½ Global Error Handler ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 app.use((err, req, res, next) => {
-  // CORS hatasý
+  // CORS hatasï¿½
   if (err.message?.startsWith('CORS:')) {
     return res.status(403).json({
       success: false,
       error: { code: 'CORS_ERROR', message: err.message },
     });
   }
-  console.error('[API Hatasý]', err.message || err);
+  console.error('[API Hatasï¿½]', err.message || err);
   res.status(500).json({
     success: false,
     error: {
       code:    'INTERNAL_ERROR',
       message: process.env.NODE_ENV === 'production'
-        ? 'Beklenmeyen bir hata oluþtu.'
-        : err.message || 'Sunucu hatasý.',
+        ? 'Beklenmeyen bir hata oluï¿½tu.'
+        : err.message || 'Sunucu hatasï¿½.',
     },
     timestamp: new Date().toISOString(),
   });
 });
-// ¦¦ Baþlat ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
+// ï¿½ï¿½ Baï¿½lat ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 async function start() {
   await initDb();
   startAutoSave();
   const PORT = process.env.PORT || 3001;
   app.listen(PORT, () => {
-    console.log(`\n? ÝþBul API v1`);
+    console.log(`\n? ï¿½ï¿½Bul API v1`);
     console.log(`   URL:    http://localhost:${PORT}`);
     console.log(`   Health: http://localhost:${PORT}/api/health`);
     console.log(`   Docs:   http://localhost:${PORT}/api/docs`);
@@ -171,6 +171,21 @@ async function start() {
   });
 }
 if (require.main === module) {
-  start().catch(err => { console.error('Baþlatma hatasý:', err); process.exit(1); });
+  start().catch(err => { console.error('Baï¿½latma hatasï¿½:', err); process.exit(1); });
 }
 module.exports = { app, initDb };
+
+
+// v1 health endpoint (frontend /api/v1/health Ã§aÄŸrÄ±yor)
+app.get('/api/v1/health', (req, res) => {
+  res.json({
+    success: true,
+    data: {
+      status: 'ok',
+      version: '1.0.0',
+      apiVersion: 'v1',
+      message: 'Ä°ÅŸBul API Ã§alÄ±ÅŸÄ±yor',
+    },
+    timestamp: new Date().toISOString(),
+  });
+});
