@@ -124,6 +124,21 @@ app.get('/api/health', (req, res) => {
     timestamp: new Date().toISOString(),
   });
 });
+
+// v1 health endpoint (frontend /api/v1/health çağrıyor)
+app.get('/api/v1/health', (req, res) => {
+  res.json({
+    success: true,
+    data: {
+      status: 'ok',
+      version: '1.0.0',
+      apiVersion: 'v1',
+      message: 'İşBul API çalışıyor',
+    },
+    timestamp: new Date().toISOString(),
+  });
+});
+
 // �� 404 Handler ������������������������������������������
 app.use((req, res) => {
   res.status(404).json({
@@ -174,18 +189,3 @@ if (require.main === module) {
   start().catch(err => { console.error('Ba�latma hatas�:', err); process.exit(1); });
 }
 module.exports = { app, initDb };
-
-
-// v1 health endpoint (frontend /api/v1/health çağrıyor)
-app.get('/api/v1/health', (req, res) => {
-  res.json({
-    success: true,
-    data: {
-      status: 'ok',
-      version: '1.0.0',
-      apiVersion: 'v1',
-      message: 'İşBul API çalışıyor',
-    },
-    timestamp: new Date().toISOString(),
-  });
-});
