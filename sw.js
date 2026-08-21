@@ -131,8 +131,8 @@ self.addEventListener('push', (event) => {
   const title = data.title || 'İşBul';
   const options = {
     body: data.body || 'Yeni bir bildiriminiz var.',
-    icon: '/assets/img/icon-192.png',
-    badge: '/assets/img/icon-72.png',
+    icon: '/assets/img/icon.svg',
+    badge: '/assets/img/icon.svg',
     tag: data.tag || 'isbul-notification',
     data: { url: data.url || '/' },
     actions: data.actions || [],
