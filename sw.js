@@ -3,9 +3,9 @@
  * PWA offline support & caching
  */
 
-const CACHE_NAME = 'isbul-v1.0.0';
-const STATIC_CACHE = 'isbul-static-v1';
-const API_CACHE = 'isbul-api-v1';
+const CACHE_NAME = 'isbul-v1.0.1';
+const STATIC_CACHE = 'isbul-static-v2';
+const API_CACHE = 'isbul-api-v2';
 
 // Offline'da da çalışacak sayfalar
 const STATIC_ASSETS = [
@@ -162,4 +162,4 @@ self.addEventListener('sync', (event) => {
   }
 });
 
-console.log('[SW] Service Worker loaded - İşBul PWA v1.0.0');
+console.log('[SW] Service Worker loaded - İşBul PWA v1.0.1');
