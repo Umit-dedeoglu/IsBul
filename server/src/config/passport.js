@@ -13,7 +13,7 @@ passport.use(new GoogleStrategy(
   {
     clientID:     process.env.GOOGLE_CLIENT_ID     || 'placeholder',
     clientSecret: process.env.GOOGLE_CLIENT_SECRET || 'placeholder',
-    callbackURL:  process.env.GOOGLE_CALLBACK_URL  || 'http://localhost:3001/api/v1/auth/google/callback',
+    callbackURL:  process.env.GOOGLE_CALLBACK_URL  || 'https://isbul-backend.onrender.com/api/v1/auth/google/callback',
   },
   async (accessToken, refreshToken, profile, done) => {
     try {
