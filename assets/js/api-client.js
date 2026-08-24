@@ -19,7 +19,6 @@ const BACKEND_URL = (() => {
   if (h === 'isbul.online' || h === 'www.isbul.online') {
     return 'https://isbul-backend.onrender.com';
   }
-  }
   // Canlı ortam — api subdomain kullan
   return `https://api.${h}`; // https://api.isbul.online
 })();
