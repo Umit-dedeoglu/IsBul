@@ -22,7 +22,7 @@ async function register(req, res) {
     if (password.length < 8)
       return res.status(400).json({ success: false, error: 'Şifre en az 8 karakter olmalıdır.' });
 
-    const existing = dbGet('SELECT id FROM users WHERE email = ?', email.toLowerCase());
+    const existing = await dbGet('SELECT id FROM users WHERE email = ?', email.toLowerCase());
     if (existing) return res.status(409).json({ success: false, error: 'Bu e-posta adresi zaten kayıtlı.' });
 
     const passwordHash = await bcrypt.hash(password, 12);
@@ -32,7 +32,7 @@ async function register(req, res) {
     // role parametresi ile pending_expert olarak kaydedilebilir
     const userRole = (req.body.role === 'pending_expert') ? 'pending_expert' : 'customer';
 
-    dbRun(
+    await dbRun(
       `INSERT INTO users (id, first_name, last_name, email, password_hash, avatar, color, role)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
       id, firstName, lastName, email.toLowerCase(), passwordHash, avatar, color, userRole
@@ -58,7 +58,7 @@ async function login(req, res) {
     if (!email || !password)
       return res.status(400).json({ success: false, error: 'E-posta ve şifre gereklidir.' });
 
-    const user = dbGet('SELECT * FROM users WHERE email = ?', email.toLowerCase());
+    const user = await dbGet('SELECT * FROM users WHERE email = ?', email.toLowerCase());
     if (!user) return res.status(401).json({ success: false, error: 'Bu e-posta ile kayıtlı hesap bulunamadı.' });
     if (!user.password_hash) return res.status(401).json({ success: false, error: 'Bu hesap Google ile oluşturulmuştur.' });
 
@@ -66,7 +66,7 @@ async function login(req, res) {
     if (!valid) return res.status(401).json({ success: false, error: 'Şifre hatalı.' });
     if (!user.is_active) return res.status(403).json({ success: false, error: 'Hesabınız devre dışı.' });
 
-    const expert = dbGet('SELECT * FROM expert_profiles WHERE user_id = ?', user.id);
+    const expert = await dbGet('SELECT * FROM expert_profiles WHERE user_id = ?', user.id);
     const token  = signToken({ id: user.id, email: user.email, role: user.role });
 
     return res.json({
@@ -80,11 +80,11 @@ async function login(req, res) {
 }
 
 /** GET /api/auth/me */
-function me(req, res) {
+async function me(req, res) {
   try {
-    const user = dbGet('SELECT * FROM users WHERE id = ?', req.user.id);
+    const user = await dbGet('SELECT * FROM users WHERE id = ?', req.user.id);
     if (!user) return res.status(404).json({ success: false, error: 'Kullanıcı bulunamadı.' });
-    const expert = dbGet('SELECT * FROM expert_profiles WHERE user_id = ?', user.id);
+    const expert = await dbGet('SELECT * FROM expert_profiles WHERE user_id = ?', user.id);
     return res.json({ success: true, user: formatUser(user, expert) });
   } catch (err) {
     console.error('[auth/me]', err);
