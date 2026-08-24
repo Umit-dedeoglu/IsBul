@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: isbul-api
+    runtime: node
+    region: frankfurt
+    plan: free
+    buildCommand: cd server && npm install
+    startCommand: cd server && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3001
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: FRONTEND_URL
+        value: https://isbul.online
+    healthCheckPath: /api/health
