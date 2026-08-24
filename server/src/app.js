@@ -38,9 +38,9 @@ const allowedOrigins = [
   'http://localhost:19006',    // Expo web
   'capacitor://localhost',     // Ionic/Capacitor mobil
   'ionic://localhost',         // Ionic eski format
-  // �retimde buraya alan adlar� eklenecek:
-  // 'https://isbul.com',
-  // 'https://app.isbul.com',
+  // Production domains
+  'https://isbul.online',
+  'https://www.isbul.online',
 ];
 app.use(cors({
   origin: (origin, callback) => {
