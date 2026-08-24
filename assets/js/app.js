@@ -1387,7 +1387,7 @@ window.handleOAuth = function(provider) {
     // API üzerinden Google OAuth flow başlat
     const apiBase = (typeof IsbulAPI !== 'undefined' && IsbulAPI.baseUrl)
       ? IsbulAPI.baseUrl.replace('/v1', '')  // /api/v1 → /api
-      : window.location.origin + '/api';
+      : 'https://isbul-backend.onrender.com/api';  // Fallback: backend URL
 
     if (apiBase) {
       // Mevcut sayfayı kaydet — login sonrası geri dönsün
