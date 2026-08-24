@@ -2,6 +2,12 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
+  <!-- Google Analytics Configuration -->
+  <script>
+    // Google Analytics 4 Measurement ID
+    // Production'da gerçek ID'yi buraya ekle: window.GA_MEASUREMENT_ID = 'G-XXXXXXXXXX';
+    window.GA_MEASUREMENT_ID = null; // Şimdilik null (fallback mode)
+  </script>
   <script src="assets/js/analytics.js" defer></script>
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
@@ -9,6 +15,50 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>İşBul - Güvenilir Ev ve Ofis Hizmetleri</title>
   <meta name="description" content="İşBul ile eviniz için güvenilir, arka plan kontrolünden geçmiş uzmanlara anında ulaşın. Montaj, taşıma, temizlik, tadihat ve daha fazlası." />
+  <meta name="keywords" content="ev hizmetleri, ofis hizmetleri, montaj, taşıma, temizlik, tadihat, uzman, güvenilir hizmet, isbul" />
+  <meta name="author" content="İşBul" />
+  <link rel="canonical" href="https://isbul.online/" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://isbul.online/" />
+  <meta property="og:title" content="İşBul - Güvenilir Ev ve Ofis Hizmetleri" />
+  <meta property="og:description" content="İşBul ile eviniz için güvenilir, arka plan kontrolünden geçmiş uzmanlara anında ulaşın. Montaj, taşıma, temizlik, tadihat ve daha fazlası." />
+  <meta property="og:image" content="https://isbul.online/assets/img/og-image.jpg" />
+  <meta property="og:site_name" content="İşBul" />
+  <meta property="og:locale" content="tr_TR" />
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://isbul.online/" />
+  <meta name="twitter:title" content="İşBul - Güvenilir Ev ve Ofis Hizmetleri" />
+  <meta name="twitter:description" content="İşBul ile eviniz için güvenilir, arka plan kontrolünden geçmiş uzmanlara anında ulaşın." />
+  <meta name="twitter:image" content="https://isbul.online/assets/img/og-image.jpg" />
+  
+  <!-- Structured Data - LocalBusiness -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "İşBul",
+    "image": "https://isbul.online/assets/img/icon.svg",
+    "url": "https://isbul.online",
+    "telephone": "+90-555-123-4567",
+    "priceRange": "₺₺",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "İstanbul",
+      "addressCountry": "TR"
+    },
+    "description": "Güvenilir ev ve ofis hizmetleri platformu. Montaj, taşıma, temizlik, tadihat hizmetleri.",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "reviewCount": "1250"
+    }
+  }
+  </script>
+  
   <link rel="stylesheet" href="assets/css/styles.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
