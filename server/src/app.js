@@ -41,6 +41,7 @@ const allowedOrigins = [
   // Production domains
   'https://isbul.online',
   'https://www.isbul.online',
+  'https://isbul-backend.onrender.com',  // Backend kendi origin'i
 ];
 app.use(cors({
   origin: (origin, callback) => {

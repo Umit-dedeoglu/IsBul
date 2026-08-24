@@ -325,20 +325,20 @@
             <thead>
               <tr>
                 <th>Özellik</th>
-                <th class="col-isbul">? İşBul</th>
-                <th>Elden iş bulmak</th>
+                <th class="col-isbul">✓ İşBul</th>
+                <th>Elden İş Bulmak</th>
                 <th>Klasik İlan Siteleri</th>
               </tr>
             </thead>
             <tbody>
-              <tr><td>Kimlik & Arka Plan kontrolü</td><td class="check col-isbul">? Zorunlu</td><td class="cross">? Yok</td><td class="cross">? Yok</td></tr>
-              <tr><td>Gerçek müşteri Yorumları</td><td class="check col-isbul">? Doğrulanmış</td><td class="cross">? Bilinmiyor</td><td>? Bilinmez</td></tr>
-              <tr><td>güvenli Ödeme Sistemi</td><td class="check col-isbul">? 3D Secure</td><td class="cross">? Nakit riski</td><td class="cross">? Yok</td></tr>
-              <tr><td>Sigorta Güvencesi</td><td class="check col-isbul">? Dahil</td><td class="cross">? Yok</td><td class="cross">? Yok</td></tr>
-              <tr><td>aynı gün hizmet</td><td class="check col-isbul">? Mevcut</td><td class="cross">? Zor</td><td>? Bazen</td></tr>
-              <tr><td>7/24 müşteri Desteği</td><td class="check col-isbul">? Her zaman</td><td class="cross">? Yok</td><td class="cross">? Yok</td></tr>
-              <tr><td>Ücretsiz İptal (24 saat)</td><td class="check col-isbul">? Ücretsiz</td><td class="cross">? Risk var</td><td class="cross">? Risk var</td></tr>
-              <tr><td>Fiyat Şeffaflığı</td><td class="check col-isbul">? Net fiyat</td><td class="cross">? Belirsiz</td><td>? Değişken</td></tr>
+              <tr><td>Kimlik & Arka Plan Kontrolü</td><td class="check col-isbul">✓ Zorunlu</td><td class="cross">✗ Yok</td><td class="cross">✗ Yok</td></tr>
+              <tr><td>Gerçek Müşteri Yorumları</td><td class="check col-isbul">✓ Doğrulanmış</td><td class="cross">✗ Bilinmiyor</td><td>? Bilinmez</td></tr>
+              <tr><td>Güvenli Ödeme Sistemi</td><td class="check col-isbul">✓ 3D Secure</td><td class="cross">✗ Nakit Riski</td><td class="cross">✗ Yok</td></tr>
+              <tr><td>Sigorta Güvencesi</td><td class="check col-isbul">✓ Dahil</td><td class="cross">✗ Yok</td><td class="cross">✗ Yok</td></tr>
+              <tr><td>Aynı Gün Hizmet</td><td class="check col-isbul">✓ Mevcut</td><td class="cross">✗ Zor</td><td>? Bazen</td></tr>
+              <tr><td>7/24 Müşteri Desteği</td><td class="check col-isbul">✓ Her Zaman</td><td class="cross">✗ Yok</td><td class="cross">✗ Yok</td></tr>
+              <tr><td>Ücretsiz İptal (24 saat)</td><td class="check col-isbul">✓ Ücretsiz</td><td class="cross">✗ Risk Var</td><td class="cross">✗ Risk Var</td></tr>
+              <tr><td>Fiyat Şeffaflığı</td><td class="check col-isbul">✓ Net Fiyat</td><td class="cross">✗ Belirsiz</td><td>? Değişken</td></tr>
             </tbody>
           </table>
         </div>
@@ -352,21 +352,21 @@
         <!-- Destek accordion butonu -->
         <div id="destekToggle" onclick="
           const body = document.getElementById('destekBody');
-          const icon = document.getElementById('desteğicon');
+          const icon = document.getElementById('destekIcon');
           const isOpen = body.style.display !== 'none';
           body.style.display = isOpen ? 'none' : 'block';
-          icon.textContent = isOpen ? 'ı' : '^';
+          icon.textContent = isOpen ? '▼' : '▲';
           this.style.borderBottomLeftRadius = isOpen ? 'var(--radius)' : '0';
           this.style.borderBottomRightRadius = isOpen ? 'var(--radius)' : '0';
         " style="display:flex;align-items:center;justify-content:space-between;padding:22px 28px;background:var(--primary);color:#fff;border-radius:var(--radius);cursor:pointer;user-select:none;transition:border-radius .2s">
           <div style="display:flex;align-items:center;gap:12px">
-            <span style="font-size:22px">✓</span>
+            <span style="font-size:22px">📧</span>
             <div>
               <div style="font-size:18px;font-weight:800">Destek</div>
               <div style="font-size:13px;opacity:.8">Sık sorulan sorular ve yardım</div>
             </div>
           </div>
-          <span id="desteğicon" style="font-size:16px;transition:transform .2s">ı</span>
+          <span id="destekIcon" style="font-size:16px;transition:transform .2s">▼</span>
         </div>
 
         <!-- içerik (başlangıçta gizli) -->
@@ -376,28 +376,28 @@
           </div>
           <div class="faq-list" id="faqList" style="max-width:100%;padding:0 28px 24px;background:var(--bg)">
             <div class="faq-item">
-              <div class="faq-question">hizmet bedelini nasıl ödüyorum?<span class="faq-icon">+</span></div>
-              <div class="faq-answer">İşBul platformu üzerinden kredi kartı, banka kartı veya dijital cüzdan ile güvenli Ödeme yapabilirsiniz. Ödemeniz iş tamamlanana kadar rezervde tutulur; siz onayladıktan sonra uzmana aktarılır.</div>
+              <div class="faq-question">Hizmet bedelini nasıl ödüyorum?<span class="faq-icon">+</span></div>
+              <div class="faq-answer">İşBul platformu üzerinden kredi kartı, banka kartı veya dijital cüzdan ile güvenli ödeme yapabilirsiniz. Ödemeniz iş tamamlanana kadar rezervde tutulur; siz onayladıktan sonra uzmana aktarılır.</div>
             </div>
             <div class="faq-item">
-              <div class="faq-question">Uzmanlar güvenilir mi? nasıl kontrol ediliyor?<span class="faq-icon">+</span></div>
+              <div class="faq-question">Uzmanlar güvenilir mi? Nasıl kontrol ediliyor?<span class="faq-icon">+</span></div>
               <div class="faq-answer">Tüm uzmanlar kayıt sırasında TC kimlik doğrulamasından ve arka plan kontrolünden geçirilir. Ayrıca her hizmet sonrası müşteri değerlendirmesi yapılır, düşük puanlı uzmanlar platformdan çıkarılır.</div>
             </div>
             <div class="faq-item">
               <div class="faq-question">Rezervasyonumu iptal edebilir miyim?<span class="faq-icon">+</span></div>
-              <div class="faq-answer">Evet, hizmet tarihinden en az 24 saat önce Ücretsiz iptal hakkınız bulunmaktadır. 24 saatten kısa süre kaldığında küçük bir iptal ücreti uygulanabilir.</div>
+              <div class="faq-answer">Evet, hizmet tarihinden en az 24 saat önce ücretsiz iptal hakkınız bulunmaktadır. 24 saatten kısa süre kaldığında küçük bir iptal ücreti uygulanabilir.</div>
             </div>
             <div class="faq-item">
-              <div class="faq-question">hizmetten memnun kalmazsam ne olur?<span class="faq-icon">+</span></div>
-              <div class="faq-answer">İşBul Garantisi kapsamında memnun kalmazsanız 48 saat içinde bize bildirin. Aynı uzmanı tekrar göndeririz ya da tam iade yaparız. müşteri memnuniyeti bizim önceliğimiz.</div>
+              <div class="faq-question">Hizmetten memnun kalmazsam ne olur?<span class="faq-icon">+</span></div>
+              <div class="faq-answer">İşBul Garantisi kapsamında memnun kalmazsanız 48 saat içinde bize bildirin. Aynı uzmanı tekrar göndeririz ya da tam iade yaparız. Müşteri memnuniyeti bizim önceliğimiz.</div>
             </div>
             <div class="faq-item">
-              <div class="faq-question">aynı gün hizmet alabilir miyim?<span class="faq-icon">+</span></div>
+              <div class="faq-question">Aynı gün hizmet alabilir miyim?<span class="faq-icon">+</span></div>
               <div class="faq-answer">Evet! Büyük şehirlerde pek çok kategoride aynı gün hizmet mümkündür. "Bugün müsait" filtresiyle anında müsait uzmanları görebilirsiniz.</div>
             </div>
             <div class="faq-item">
-              <div class="faq-question">hizmet sırasında bir şey zarar görürse ne olur?<span class="faq-icon">+</span></div>
-              <div class="faq-answer">İşBul sigorta Güvencesi ile hizmet sırasında oluşabilecek maddi hasarlarda koruma sağlanır. Uzman, sözleşmeli sigorta kapsamındadır; hasar durumunda destek hattımızı arayabilirsiniz.</div>
+              <div class="faq-question">Hizmet sırasında bir şey zarar görürse ne olur?<span class="faq-icon">+</span></div>
+              <div class="faq-answer">İşBul Sigorta Güvencesi ile hizmet sırasında oluşabilecek maddi hasarlarda koruma sağlanır. Uzman, sözleşmeli sigorta kapsamındadır; hasar durumunda destek hattımızı arayabilirsiniz.</div>
             </div>
           </div>
         </div>
@@ -423,45 +423,45 @@
         <div class="hiw-steps-grid" style="grid-template-columns:repeat(2,1fr)">
           <div class="hiw-step-card fade-up">
             <div class="hiw-step-card__num">1</div>
-            <div class="hiw-step-card__icon">✓</div>
+            <div class="hiw-step-card__icon">📝</div>
             <h3>Kaydolun</h3>
-            <p>Ücretsiz profil oluşturun. Uzman Olduğunuz kategorileri, hizmet bölgenizi ve saatlik ücretinizi belirleyin. Kimlik doğrulaması yapın.</p>
+            <p>Ücretsiz profil oluşturun. Uzman olduğunuz kategorileri, hizmet bölgenizi ve saatlik ücretinizi belirleyin. Kimlik doğrulaması yapın.</p>
           </div>
 
           <div class="hiw-step-card fade-up">
             <div class="hiw-step-card__num">2</div>
-            <div class="hiw-step-card__icon">✓?</div>
+            <div class="hiw-step-card__icon">✅</div>
             <h3>Doğrulama</h3>
             <p>TC kimlik ve arka plan kontrolü genellikle 24-48 saat içinde tamamlanır. Onaylandıktan sonra profiliniz yayına girer.</p>
           </div>
 
           <div class="hiw-step-card fade-up">
             <div class="hiw-step-card__num">3</div>
-            <div class="hiw-step-card__icon">✓</div>
+            <div class="hiw-step-card__icon">📋</div>
             <h3>Görev Alın</h3>
             <p>Size uygun görev taleplerini görün, teklif verin. Müşteri sizi seçince anında bildirim alırsınız. Takvimi kendiniz yönetin.</p>
           </div>
 
           <div class="hiw-step-card fade-up">
             <div class="hiw-step-card__num">4</div>
-            <div class="hiw-step-card__icon">✓</div>
+            <div class="hiw-step-card__icon">💰</div>
             <h3>Kazanç</h3>
-            <p>İşi tamamlayın, Müşteri onayı gelince Ödeme hesabınıza aktarılır. Aynı Gün veya ertesi iş günü transferiniz hazır.</p>
+            <p>İşi tamamlayın, müşteri onayı gelince ödeme hesabınıza aktarılır. Aynı gün veya ertesi iş günü transferiniz hazır.</p>
           </div>
         </div>
 
         <!-- Kazanç detay zaman çizelgesi -->
         <div class="section-header" style="margin-bottom:40px">
           <span class="section-tag">Kazanç Modeli</span>
-          <h2 class="section-title">nasıl Kazanırsınız?</h2>
+          <h2 class="section-title">Nasıl Kazanırsınız?</h2>
         </div>
 
         <div class="timeline">
           <div class="timeline-item">
             <div class="timeline-dot">1</div>
             <span class="timeline-time">Ücretsiz</span>
-            <h4>profil oluşturun</h4>
-            <p>Kayıt ve profil oluşturma tamamen Ücretsizdir. Herhangi bir başlangıç ücreti yoktur.</p>
+            <h4>Profil Oluşturun</h4>
+            <p>Kayıt ve profil oluşturma tamamen ücretsizdir. Herhangi bir başlangıç ücreti yoktur.</p>
           </div>
           <div class="timeline-item">
             <div class="timeline-dot">2</div>
@@ -507,17 +507,17 @@
             <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-muted);margin-top:4px"><span>5 saat</span><strong id="calcHoursVal" style="color:var(--primary)">20 saat</strong><span>60 saat</span></div>
           </div>
           <div class="form-group" style="margin-top:20px">
-            <label for="calcRate">Saatlik ücretiniz (?)</label>
+            <label for="calcRate">Saatlik ücretiniz (₺)</label>
             <input type="number" id="calcRate" value="300" min="100" max="1500" style="width:100%;padding:12px 16px;border-radius:var(--radius-sm);border:1.5px solid var(--border);font-family:var(--font);font-size:15px;outline:none" />
           </div>
 
           <div style="background:linear-gradient(135deg,#1a1a2e,#0f3460);border-radius:var(--radius-sm);padding:24px;margin-top:24px;text-align:center">
             <div style="font-size:12px;color:rgba(255,255,255,.6);margin-bottom:8px">Tahmini Aylık Net Kazancınız</div>
-            <div style="font-size:48px;font-weight:900;color:#fff" id="calcResult">?4.080</div>
+            <div style="font-size:48px;font-weight:900;color:#fff" id="calcResult">₺4.080</div>
             <div style="font-size:12px;color:rgba(255,255,255,.5);margin-top:4px">%15 platform kesintisi düşüldükten sonra</div>
           </div>
 
-          <a href="uzman-ol.html" class="btn btn--primary" style="width:100%;justify-content:center;margin-top:20px;border-radius:var(--radius-sm)">Hemen Uzman Olarak Kaydol ı</a>
+          <a href="uzman-ol.html" class="btn btn--primary" style="width:100%;justify-content:center;margin-top:20px;border-radius:var(--radius-sm)">Hemen Uzman Olarak Kaydol →</a>
         </div>
       </div>
     </section>
@@ -528,21 +528,21 @@
 
         <div id="destekToggleTasker" onclick="
           const body = document.getElementById('destekBodyTasker');
-          const icon = document.getElementById('desteğiconTasker');
+          const icon = document.getElementById('destekIconTasker');
           const isOpen = body.style.display !== 'none';
           body.style.display = isOpen ? 'none' : 'block';
-          icon.textContent = isOpen ? 'ı' : '^';
+          icon.textContent = isOpen ? '▼' : '▲';
           this.style.borderBottomLeftRadius = isOpen ? 'var(--radius)' : '0';
           this.style.borderBottomRightRadius = isOpen ? 'var(--radius)' : '0';
         " style="display:flex;align-items:center;justify-content:space-between;padding:22px 28px;background:var(--primary);color:#fff;border-radius:var(--radius);cursor:pointer;user-select:none;transition:border-radius .2s">
           <div style="display:flex;align-items:center;gap:12px">
-            <span style="font-size:22px">✓</span>
+            <span style="font-size:22px">📋</span>
             <div>
               <div style="font-size:18px;font-weight:800">Uzman Desteği</div>
               <div style="font-size:13px;opacity:.8">Uzmanlar için sık sorulan sorular</div>
             </div>
           </div>
-          <span id="desteğiconTasker" style="font-size:16px">ı</span>
+          <span id="destekIconTasker" style="font-size:16px">▼</span>
         </div>
 
         <div id="destekBodyTasker" style="display:none;border:1.5px solid var(--primary);border-top:none;border-radius:0 0 var(--radius) var(--radius);overflow:hidden">
@@ -559,16 +559,16 @@
               <div class="faq-answer">TC kimlik kartı veya pasaport, ikametgah belgesi ve ilgili kategoriler için varsa mesleki belgeleriniz (elektrikçi, tesisatçı vb. için ruhsat). Belgeler sistem üzerinden yüklenir.</div>
             </div>
             <div class="faq-item">
-              <div class="faq-question">Ne zaman Ödeme alırım?<span class="faq-icon">+</span></div>
-              <div class="faq-answer">müşteri işi onayladıktan sonra kazancınız anında hesabınıza işlenir. Türk Lirası olarak IBAN'ınıza genellikle aynı gün veya ertesi iş günü aktarılır.</div>
+              <div class="faq-question">Ne zaman ödeme alırım?<span class="faq-icon">+</span></div>
+              <div class="faq-answer">Müşteri işi onayladıktan sonra kazancınız anında hesabınıza işlenir. Türk Lirası olarak IBAN'ınıza genellikle aynı gün veya ertesi iş günü aktarılır.</div>
             </div>
             <div class="faq-item">
               <div class="faq-question">Kaç kategoride hizmet verebilirim?<span class="faq-icon">+</span></div>
-              <div class="faq-answer">Birden fazla kategoride hizmet verebilirsiniz. profilinizde her kategori için ayrı ücret ve aİşklama belirleyebilirsiniz. Doğrulama her kategori için ayrı yapılabilir.</div>
+              <div class="faq-answer">Birden fazla kategoride hizmet verebilirsiniz. Profilinizde her kategori için ayrı ücret ve açıklama belirleyebilirsiniz. Doğrulama her kategori için ayrı yapılabilir.</div>
             </div>
             <div class="faq-item">
-              <div class="faq-question">müşteriyle sorun yaıarsam ne yapmalıyım?<span class="faq-icon">+</span></div>
-              <div class="faq-answer">Platform ızerindeki destek hattımız 7/24 hizmetinizdedir. Uygulama içinden veya web sitesinden hemen destek talebi aıabilirsiniz. Uzman koruması kapsamında haklarınız gıveöncede.</div>
+              <div class="faq-question">Müşteriyle sorun yaşarsam ne yapmalıyım?<span class="faq-icon">+</span></div>
+              <div class="faq-answer">Platform üzerindeki destek hattımız 7/24 hizmetinizdedir. Uygulama içinden veya web sitesinden hemen destek talebi açabilirsiniz. Uzman koruması kapsamında haklarınız güvencede.</div>
             </div>
           </div>
         </div>
@@ -581,10 +581,10 @@
   <section class="section" style="background:var(--white);padding:64px 0">
     <div class="container" style="text-align:center">
       <h2 style="font-size:clamp(26px,4vw,40px);font-weight:900;margin-bottom:14px">Hazır mısınız?</h2>
-      <p style="color:var(--text-muted);font-size:17px;margin-bottom:32px;max-width:480px;margin-left:auto;margin-right:auto">İster hizmet alın, ister Uzman Olun — İşBul her iki taraf için de çalışır.</p>
+      <p style="color:var(--text-muted);font-size:17px;margin-bottom:32px;max-width:480px;margin-left:auto;margin-right:auto">İster hizmet alın, ister uzman olun — İşBul her iki taraf için de çalışır.</p>
       <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
         <a href="hizmetler.html" class="btn btn--primary btn--lg">Hizmet Ara →</a>
-        <a href="uzman-ol.html" class="btn btn--ghost btn--lg">Uzman Ol ı</a>
+        <a href="uzman-ol.html" class="btn btn--ghost btn--lg">Uzman Ol →</a>
       </div>
     </div>
   </section>
@@ -643,10 +643,10 @@
           <div class="auth-divider">veya e-posta ile</div>
           <form id="loginForm" novalidate>
             <div class="form-group"><label>E-posta</label><input type="email" name="email" placeholder="ornek@mail.com" required /></div>
-            <div class="form-group"><label>şifre <a href="#" class="auth-forgot" onclick="showToast('şifre sıfırlama başlantısı gönderildi!','info');return false">şifremi unuttum</a></label><input type="password" name="password" placeholder="••••••" required /></div>
+            <div class="form-group"><label>Şifre <a href="#" class="auth-forgot" onclick="showToast('Şifre sıfırlama bağlantısı gönderildi!','info');return false">Şifremi unuttum</a></label><input type="password" name="password" placeholder="••••••" required /></div>
             <button type="submit" class="auth-submit">Giriş Yap</button>
           </form>
-          <p class="auth-footer">hesabınız yok mu? <a href="#" onclick="document.querySelector('[data-tab=register]').click();return false">Kayıt olun</a></p>
+          <p class="auth-footer">Hesabınız yok mu? <a href="#" onclick="document.querySelector('[data-tab=register]').click();return false">Kayıt olun</a></p>
         </div>
         <div class="auth-panel" id="auth-register">
           <div class="auth-social">
@@ -660,11 +660,11 @@
               <div><label>Soyad</label><input type="text" name="regLastName" placeholder="Soyadınız" required /></div>
             </div>
             <div class="form-group"><label>E-posta</label><input type="email" name="regEmail" placeholder="ornek@mail.com" required /></div>
-            <div class="form-group"><label>şifre</label><input type="password" name="regPassword" placeholder="En az 8 karakter" required /></div>
-            <div class="form-group"><label>şifre Tekrar</label><input type="password" name="regPasswordConfirm" placeholder="şifreyi tekrar girin" required /></div>
-            <button type="submit" class="auth-submit">Hesap oluştur</button>
+            <div class="form-group"><label>Şifre</label><input type="password" name="regPassword" placeholder="En az 8 karakter" required /></div>
+            <div class="form-group"><label>Şifre Tekrar</label><input type="password" name="regPasswordConfirm" placeholder="Şifreyi tekrar girin" required /></div>
+            <button type="submit" class="auth-submit">Hesap Oluştur</button>
           </form>
-          <p class="auth-footer">hesabınız var mı? <a href="#" onclick="document.querySelector('[data-tab=login]').click();return false">Giriş yapın</a></p>
+          <p class="auth-footer">Hesabınız var mı? <a href="#" onclick="document.querySelector('[data-tab=login]').click();return false">Giriş yapın</a></p>
         </div>
       </div>
     </div>
@@ -682,7 +682,7 @@
   </div>
 
   <script>
-    // Rol sekme geıişi
+    // Rol sekme geçişi
     const roleTabs  = document.querySelectorAll('.role-tab');
     const rolePanels = document.querySelectorAll('.role-panel');
 
@@ -703,32 +703,32 @@
     function updateCalc() {
       const h = +calcHours.value, r = +calcRate.value || 0;
       calcHoursVal.textContent = h + ' saat';
-      calcResult.textContent = '?' + Math.round(h * 4 * r * 0.85).toLocaleString('tr-TR');
+      calcResult.textContent = '₺' + Math.round(h * 4 * r * 0.85).toLocaleString('tr-TR');
     }
     calcHours?.addEventListener('input', updateCalc);
     calcRate?.addEventListener('input', updateCalc);
     updateCalc();
     if (typeof _initAuthState === 'function') _initAuthState();
 
-    // URL'de #faq varsa Destek butonunu otomatik aı
+    // URL'de #faq varsa Destek butonunu otomatik aç
     if (window.location.hash === '#faq') {
-      settimeout(() => {
+      setTimeout(() => {
         const body = document.getElementById('destekBody');
-        const icon = document.getElementById('desteğicon');
+        const icon = document.getElementById('destekIcon');
         const toggle = document.getElementById('destekToggle');
         if (body && body.style.display === 'none') {
           body.style.display = 'block';
-          if (icon) icon.textContent = '^';
+          if (icon) icon.textContent = '▲';
           if (toggle) { toggle.style.borderBottomLeftRadius = '0'; toggle.style.borderBottomRightRadius = '0'; }
           document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth' });
         }
       }, 400);
     }
-    const _p = new URLSearchparaams(window.location.search);
+    const _p = new URLSearchParams(window.location.search);
     if (_p.get('rol') === 'tasker') document.querySelector('[data-role="tasker"]')?.click();
   </script>
 
-  <!-- ıLETİşıM MODAL -->
+  <!-- İLETİŞİM MODAL -->
   <div class="modal-overlay" id="contactModal">
     <div style="background:var(--white);border-radius:20px;max-width:480px;width:92%;position:relative;padding:0;overflow:hidden">
       <div style="background:linear-gradient(135deg,#1a1a2e,#0f3460);padding:28px 28px 24px;color:#fff;text-align:center">
@@ -751,10 +751,10 @@
             style="display:flex;align-items:center;gap:14px;padding:16px 20px;border-radius:var(--radius-sm);border:1.5px solid var(--border);text-decoration:none;color:var(--text);transition:.2s;font-weight:600"
             onmouseover="this.style.borderColor='var(--primary)';this.style.color='var(--primary)'"
             onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text)'">
-            <span style="width:40px;height:40px;border-radius:50%;background:var(--primary-light);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">📧</span>
+            <span style="width:40px;height:40px;border-radius:50%;background:var(--primary-light);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">📖</span>
             <div>
               <div style="font-size:13px;color:var(--text-muted);font-weight:400">Rehber</div>
-              <div>nasıl Çalışır? ı</div>
+              <div>Nasıl Çalışır? →</div>
             </div>
           </a>
         </div>

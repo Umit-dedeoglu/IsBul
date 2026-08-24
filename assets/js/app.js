@@ -571,8 +571,11 @@ function calcTotalPrice(price, durationType, durationValue) {
 }
 
 function openBookingModal(expertIndexOrId, serviceName) {
+  console.log('openBookingModal çağrıldı:', expertIndexOrId, serviceName);
+  
   // AUTH GUARD — giriş gerekli
   requireAuth(function() {
+    console.log('Kullanıcı giriş yapmış, rezervasyon açılıyor...');
     const city = document.getElementById('cityInput')?.value || '';
     let expert;
 
