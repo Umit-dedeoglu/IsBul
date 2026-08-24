@@ -17,39 +17,5 @@
       "type": "image/svg+xml",
       "purpose": "any maskable"
     }
-  ],
-  "screenshots": [
-    {
-      "src": "/assets/img/screenshot-mobile.png",
-      "sizes": "390x844",
-      "type": "image/png",
-      "form_factor": "narrow",
-      "label": "İşBul Ana Sayfa"
-    }
-  ],
-  "shortcuts": [
-    {
-      "name": "Uzman Bul",
-      "short_name": "Uzman Bul",
-      "description": "Hizmet uzmanı ara",
-      "url": "/uzmanlar.html",
-      "icons": [{ "src": "/assets/img/icon.svg", "sizes": "any" }]
-    },
-    {
-      "name": "Uzman Ol",
-      "short_name": "Uzman Ol",
-      "description": "Uzman olarak kaydol",
-      "url": "/uzman-ol.html",
-      "icons": [{ "src": "/assets/img/icon.svg", "sizes": "any" }]
-    },
-    {
-      "name": "Profilim",
-      "short_name": "Profil",
-      "description": "Profilimi görüntüle",
-      "url": "/profil.html",
-      "icons": [{ "src": "/assets/img/icon.svg", "sizes": "any" }]
-    }
-  ],
-  "prefer_related_applications": false,
-  "related_applications": []
+  ]
 }
