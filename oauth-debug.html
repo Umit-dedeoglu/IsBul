@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <!-- Config - Backend URL ve sabitler -->
+  <script src="assets/js/config.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OAuth Debug - İşBul</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Courier New', monospace;
+      background: #1a1a2e;
+      color: #eee;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #16213e;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+    h1 {
+      color: #6C63FF;
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+    .section {
+      background: #0f3460;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .section h2 {
+      color: #4ECDC4;
+      font-size: 16px;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .param {
+      display: flex;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .param:last-child { border-bottom: none; }
+    .key {
+      color: #FFD93D;
+      font-weight: bold;
+      min-width: 150px;
+    }
+    .value {
+      color: #96CEB4;
+      word-break: break-all;
+    }
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #6C63FF;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      margin-top: 20px;
+      font-weight: bold;
+      transition: 0.2s;
+    }
+    .btn:hover {
+      background: #5a52d5;
+      transform: translateY(-2px);
+    }
+    .error {
+      background: #ef4444;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    .success {
+      background: #10b981;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    pre {
+      background: #0a0e27;
+      padding: 15px;
+      border-radius: 6px;
+      overflow-x: auto;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔍 OAuth Callback Debug</h1>
+    
+    <div id="status"></div>
+    
+    <div class="section">
+      <h2>📍 Current URL</h2>
+      <pre id="urlDisplay"></pre>
+    </div>
+    
+    <div class="section">
+      <h2>📦 URL Parameters</h2>
+      <div id="paramsDisplay"></div>
+    </div>
+    
+    <div class="section">
+      <h2>💾 localStorage</h2>
+      <div id="localStorageDisplay"></div>
+    </div>
+    
+    <div class="section">
+      <h2>🔐 sessionStorage</h2>
+      <div id="sessionStorageDisplay"></div>
+    </div>
+    
+    <div class="section">
+      <h2>🍪 Cookies</h2>
+      <pre id="cookiesDisplay"></pre>
+    </div>
+    
+    <a href="index.html" class="btn">← Ana Sayfaya Dön</a>
+    <a href="oauth-callback.html" class="btn" style="background:#4ECDC4">Normal Callback'e Git →</a>
+  </div>
+
+  <script>
+    // URL
+    document.getElementById('urlDisplay').textContent = window.location.href;
+    
+    // URL Params
+    const params = new URLSearchParams(window.location.search);
+    const paramsDiv = document.getElementById('paramsDisplay');
+    
+    if (params.toString()) {
+      let html = '';
+      for (const [key, value] of params.entries()) {
+        html += `<div class="param"><span class="key">${key}</span><span class="value">${value}</span></div>`;
+      }
+      paramsDiv.innerHTML = html;
+      
+      // Token kontrolü
+      if (params.get('token')) {
+        document.getElementById('status').innerHTML = '<div class="success">✅ Token bulundu!</div>';
+      } else if (params.get('error') || params.get('auth') === 'error') {
+        document.getElementById('status').innerHTML = '<div class="error">❌ Hata: ' + (params.get('error') || 'Bilinmeyen hata') + '</div>';
+      } else {
+        document.getElementById('status').innerHTML = '<div class="error">⚠️ Token bulunamadı</div>';
+      }
+    } else {
+      paramsDiv.innerHTML = '<div style="opacity:0.6">Parametre yok</div>';
+      document.getElementById('status').innerHTML = '<div class="error">⚠️ URL parametresi bulunamadı</div>';
+    }
+    
+    // localStorage
+    const lsDiv = document.getElementById('localStorageDisplay');
+    const lsItems = ['isbul_jwt', 'isbul_auth', 'oauth_return_url'];
+    let lsHtml = '';
+    lsItems.forEach(key => {
+      const value = localStorage.getItem(key);
+      if (value) {
+        const displayValue = value.length > 100 ? value.substring(0, 100) + '...' : value;
+        lsHtml += `<div class="param"><span class="key">${key}</span><span class="value">${displayValue}</span></div>`;
+      }
+    });
+    lsDiv.innerHTML = lsHtml || '<div style="opacity:0.6">localStorage boş</div>';
+    
+    // sessionStorage
+    const ssDiv = document.getElementById('sessionStorageDisplay');
+    const ssItems = ['oauth_return_url'];
+    let ssHtml = '';
+    ssItems.forEach(key => {
+      const value = sessionStorage.getItem(key);
+      if (value) {
+        ssHtml += `<div class="param"><span class="key">${key}</span><span class="value">${value}</span></div>`;
+      }
+    });
+    ssDiv.innerHTML = ssHtml || '<div style="opacity:0.6">sessionStorage boş</div>';
+    
+    // Cookies
+    document.getElementById('cookiesDisplay').textContent = document.cookie || '(boş)';
+    
+    // Console log
+    console.log('=== OAUTH DEBUG ===');
+    console.log('Full URL:', window.location.href);
+    console.log('Search:', window.location.search);
+    console.log('Hash:', window.location.hash);
+    console.log('Params:', Object.fromEntries(params.entries()));
+    console.log('localStorage:', { 
+      jwt: localStorage.getItem('isbul_jwt'),
+      auth: localStorage.getItem('isbul_auth'),
+      returnUrl: localStorage.getItem('oauth_return_url')
+    });
+  </script>
+</body>
+</html>

@@ -87,16 +87,23 @@ function saveUsersDB(db) {
   localStorage.setItem(USERS_DB_KEY, JSON.stringify(db));
 }
 
-/* Demo uzman hesabını oluştur / güncelle */
+/* Demo uzman hesabını oluştur / güncelle - SADECE DEVELOPMENT MODUNDA */
 function seedDemoExpert() {
+  // 🔒 GÜVENLİK: Production'da demo hesap oluşturma
+  const hostname = window.location.hostname;
+  if (hostname !== 'localhost' && hostname !== '127.0.0.1') {
+    console.log('🔒 Demo hesap sadece development modunda oluşturulur');
+    return; // Production'da çalıştırma
+  }
+  
   const db = getUsersDB();
-  const email = 'umityakupdedeoglu0@gmail.com';
-  const password = 'Umit311234';
+  const email = 'demo@isbul.local'; // Demo email
+  const password = 'demo123456'; // Demo şifre
 
   // Her zaman güncel veriyle kaydet (varsa üstüne yaz, kategoriler dahil)
   db[email] = {
     id: 'u_demo_expert_001',
-    firstName: 'Ümit',
+    firstName: 'Demo',
     lastName: 'Dedeoğlu',
     email: email,
     passwordHash: btoa(password + '_isbul_salt'),
@@ -1384,18 +1391,85 @@ function _switchAuthTab(name) {
 /* OAuth */
 window.handleOAuth = function(provider) {
   if (provider === 'google') {
-    // API üzerinden Google OAuth flow başlat
-    const apiBase = (typeof IsbulAPI !== 'undefined' && IsbulAPI.baseUrl)
-      ? IsbulAPI.baseUrl.replace('/v1', '')  // /api/v1 → /api
-      : 'https://isbul-backend.onrender.com/api';  // Fallback: backend URL
-
-    if (apiBase) {
-      // Mevcut sayfayı kaydet — login sonrası geri dönsün
-      sessionStorage.setItem('oauth_return_url', window.location.href);
-      window.location.href = `${apiBase}/auth/google`;
-    } else {
-      showToast('Google ile giriş için sunucunun çalışması gerekiyor.', 'error');
+    // Modal'ı kapat
+    const modal = document.getElementById('authModal');
+    if (modal) {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
     }
+    
+    // API base URL'i api-client.js'den al (tutarlılık için)
+    const apiBase = window.IsbulAPI?.baseUrl 
+      ? window.IsbulAPI.baseUrl.replace('/v1', '')  // /api/v1 → /api
+      : 'https://isbul-backend.onrender.com/api';    // Fallback
+    
+    console.log('🔐 Google OAuth başlatılıyor...');
+    console.log('📍 Backend URL:', apiBase);
+    console.log('📍 Current URL:', window.location.href);
+
+    // Mevcut sayfayı kaydet — hem session hem localStorage'a (domain değişimi için)
+    const currentUrl = window.location.href;
+    sessionStorage.setItem('oauth_return_url', currentUrl);
+    localStorage.setItem('oauth_return_url', currentUrl);
+    console.log('💾 Return URL kaydedildi:', currentUrl);
+    
+    // Backend'i uyandır ve kontrol et (Render free tier uyuyabilir)
+    showToast('Backend bağlantısı kontrol ediliyor...', 'info');
+    
+    const startTime = Date.now();
+    
+    // Backend health check (30 saniye timeout)
+    const checkBackend = () => {
+      return fetch(`${apiBase}/health`, { 
+        signal: AbortSignal.timeout(30000) 
+      })
+        .then(res => {
+          if (res.ok) {
+            const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
+            console.log(`✅ Backend erişilebilir (${elapsed}s)`);
+            showToast('Backend hazır, Google\'a yönlendiriliyorsunuz...', 'success');
+            
+            // 500ms sonra yönlendir
+            setTimeout(() => {
+              window.location.href = `${apiBase}/auth/google`;
+            }, 500);
+          } else {
+            throw new Error(`Backend HTTP ${res.status}`);
+          }
+        });
+    };
+    
+    // İlk deneme
+    checkBackend().catch(err => {
+      console.warn('⚠️ İlk deneme başarısız, backend uyanıyor olabilir...', err.message);
+      showToast('Backend uyandırılıyor, lütfen bekleyin... (30 saniye)', 'info');
+      
+      // 5 saniye bekle ve tekrar dene
+      setTimeout(() => {
+        checkBackend().catch(err => {
+          console.error('❌ Backend hala erişilemiyor:', err);
+          showToast('Backend sunucusuna erişilemiyor. Lütfen sistem yöneticisiyle iletişime geçin.', 'error');
+          
+          // Modal'ı tekrar aç
+          if (modal) {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+          }
+          
+          // Hata detayı göster
+          const errorDetail = document.createElement('div');
+          errorDetail.style.cssText = 'position:fixed;bottom:80px;right:24px;background:#1f2937;color:#fff;padding:12px 16px;border-radius:8px;font-size:12px;max-width:320px;z-index:9999';
+          errorDetail.innerHTML = `
+            <div style="font-weight:700;margin-bottom:4px">Backend Hata Detayı:</div>
+            <div style="opacity:0.8">${err.message}</div>
+            <div style="margin-top:8px;opacity:0.6">Backend URL: ${apiBase}</div>
+          `;
+          document.body.appendChild(errorDetail);
+          setTimeout(() => errorDetail.remove(), 10000);
+        });
+      }, 5000);
+    });
+    
     return;
   }
 

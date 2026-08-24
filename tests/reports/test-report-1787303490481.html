@@ -1,0 +1,2115 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İsBul Test Raporu - 21.08.2026</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        .container { max-width: 1400px; margin: 0 auto; }
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 { font-size: 32px; margin-bottom: 10px; }
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .summary-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .summary-card h3 { color: #666; font-size: 14px; margin-bottom: 10px; }
+        .summary-card .number { font-size: 48px; font-weight: bold; }
+        .summary-card.success .number { color: #10b981; }
+        .summary-card.error .number { color: #ef4444; }
+        .summary-card.warning .number { color: #f59e0b; }
+        .page-result {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        .page-title { font-size: 24px; font-weight: bold; }
+        .badge {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .badge.success { background: #d1fae5; color: #065f46; }
+        .badge.error { background: #fee2e2; color: #991b1b; }
+        .badge.warning { background: #fef3c7; color: #92400e; }
+        .section {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f9fafb;
+            border-radius: 8px;
+        }
+        .section h3 {
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: #374151;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .screenshots {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+        .screenshot-item img {
+            width: 100%;
+            border-radius: 8px;
+            border: 2px solid #e5e7eb;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .screenshot-item p {
+            margin-top: 8px;
+            text-align: center;
+            font-size: 14px;
+            color: #6b7280;
+        }
+        .issue-list { list-style: none; }
+        .issue-item {
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 6px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        .issue-item.error { background: #fee2e2; color: #991b1b; }
+        .issue-item.warning { background: #fef3c7; color: #92400e; }
+        .issue-item.success { background: #d1fae5; color: #065f46; }
+        .icon { font-size: 18px; }
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+        .metric {
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+        .metric-label { font-size: 12px; color: #6b7280; margin-bottom: 5px; }
+        .metric-value { font-size: 20px; font-weight: bold; color: #111827; }
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #6b7280;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🤖 İsBul Hibrit Test Raporu</h1>
+            <p>Playwright + Groq AI Vision Analizi</p>
+            <p style="opacity: 0.9; margin-top: 10px;">📅 21.08.2026 12:08:36</p>
+        </header>
+
+        <div class="summary">
+            <div class="summary-card">
+                <h3>Toplam Test</h3>
+                <div class="number">17</div>
+            </div>
+            <div class="summary-card success">
+                <h3>Başarılı</h3>
+                <div class="number">0</div>
+            </div>
+            <div class="summary-card error">
+                <h3>Hatalı</h3>
+                <div class="number">0</div>
+            </div>
+            <div class="summary-card warning">
+                <h3>Uyarı</h3>
+                <div class="number">17</div>
+            </div>
+        </div>
+
+        
+            <div class="page-result">
+                <div class="page-header">
+                    <div>
+                        <div class="page-title">Ana Sayfa</div>
+                        <a href="https://isbul.online/index.html" target="_blank" style="color: #667eea; font-size: 14px;">https://isbul.online/index.html</a>
+                    </div>
+                    <span class="badge warning">WARNING</span>
+                </div>
+
+                <div class="section">
+                    <h3>📊 Teknik Metrikler</h3>
+                    <div class="metrics">
+                        <div class="metric">
+                            <div class="metric-label">Yükleme Süresi</div>
+                            <div class="metric-value">4987ms</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">HTTP Status</div>
+                            <div class="metric-value">200</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Console Hatası</div>
+                            <div class="metric-value" style="color: #ef4444">6</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Network Hatası</div>
+                            <div class="metric-value" style="color: #ef4444">6</div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="section">
+                    <h3>❌ Console Hataları</h3>
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span>Failed to load resource: the server responded with a status of 503 ()</span>
+                            </li>
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span>Failed to load resource: the server responded with a status of 503 ()</span>
+                            </li>
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span>Failed to load resource: the server responded with a status of 503 ()</span>
+                            </li>
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span>Failed to load resource: the server responded with a status of 401 (Unauthorized)</span>
+                            </li>
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span>Failed to load resource: the server responded with a status of 429 (Too Many Requests)</span>
+                            </li>
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span>Failed to load resource: the server responded with a status of 429 (Too Many Requests)</span>
+                            </li>
+                        
+                    </ul>
+                </div>
+                
+
+                
+                <div class="section">
+                    <h3>🌐 Network Hataları</h3>
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span><strong>503</strong>: https://api.isbul.online/api/health</span>
+                            </li>
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span><strong>503</strong>: https://api.isbul.online/api/admin/stats</span>
+                            </li>
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span><strong>503</strong>: https://api.isbul.online/api/admin/applications</span>
+                            </li>
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span><strong>401</strong>: https://isbul.online/api/v1/bookings/my</span>
+                            </li>
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span><strong>429</strong>: https://isbul.online/api/v1/chatbot/suggestions</span>
+                            </li>
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span><strong>429</strong>: https://isbul.online/api/v1/chatbot/suggestions</span>
+                            </li>
+                        
+                    </ul>
+                </div>
+                
+
+                
+                <div class="section">
+                    <h3>♿ Accessibility Sorunları</h3>
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item warning">
+                                <span class="icon">⚠️</span>
+                                <span>10 input'ta label eksik</span>
+                            </li>
+                        
+                    </ul>
+                </div>
+                
+
+                
+                <div class="section">
+                    <h3>🧠 Groq AI Analizi</h3>
+                    <p style="margin-bottom: 15px; color: #4b5563;">AI analizi başarısız</p>
+                    
+                    
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span>AI analizi yapılamadı: 400 {"error":{"message":"The model `llama-3.2-90b-vision-preview` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.","type":"invalid_request_error","code":"model_decommissioned"}}</span>
+                            </li>
+                        
+                    </ul>
+                    
+
+                    
+                </div>
+                
+
+                <div class="section">
+                    <h3>📸 Ekran Görüntüleri</h3>
+                    <div class="screenshots">
+                        
+                        <div class="screenshot-item">
+                            <a href="..\screenshots\index-desktop.png" target="_blank">
+                                <img src="..\screenshots\index-desktop.png" alt="Ana Sayfa Desktop">
+                            </a>
+                            <p>🖥️ Desktop</p>
+                        </div>
+                        
+                        
+                        <div class="screenshot-item">
+                            <a href="..\screenshots\index-mobile.png" target="_blank">
+                                <img src="..\screenshots\index-mobile.png" alt="Ana Sayfa Mobile">
+                            </a>
+                            <p>📱 Mobile</p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        
+            <div class="page-result">
+                <div class="page-header">
+                    <div>
+                        <div class="page-title">Admin Panel</div>
+                        <a href="https://isbul.online/admin-panel.html" target="_blank" style="color: #667eea; font-size: 14px;">https://isbul.online/admin-panel.html</a>
+                    </div>
+                    <span class="badge warning">WARNING</span>
+                </div>
+
+                <div class="section">
+                    <h3>📊 Teknik Metrikler</h3>
+                    <div class="metrics">
+                        <div class="metric">
+                            <div class="metric-label">Yükleme Süresi</div>
+                            <div class="metric-value">1767ms</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">HTTP Status</div>
+                            <div class="metric-value">200</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Console Hatası</div>
+                            <div class="metric-value" style="color: #ef4444">6</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Network Hatası</div>
+                            <div class="metric-value" style="color: #ef4444">6</div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="section">
+                    <h3>❌ Console Hataları</h3>
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span>Failed to load resource: the server responded with a status of 503 ()</span>
+                            </li>
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span>Failed to load resource: the server responded with a status of 503 ()</span>
+                            </li>
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span>Failed to load resource: the server responded with a status of 503 ()</span>
+                            </li>
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span>Failed to load resource: the server responded with a status of 401 (Unauthorized)</span>
+                            </li>
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span>Failed to load resource: the server responded with a status of 429 (Too Many Requests)</span>
+                            </li>
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span>Failed to load resource: the server responded with a status of 429 (Too Many Requests)</span>
+                            </li>
+                        
+                    </ul>
+                </div>
+                
+
+                
+                <div class="section">
+                    <h3>🌐 Network Hataları</h3>
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span><strong>503</strong>: https://api.isbul.online/api/health</span>
+                            </li>
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span><strong>503</strong>: https://api.isbul.online/api/admin/stats</span>
+                            </li>
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span><strong>503</strong>: https://api.isbul.online/api/admin/applications</span>
+                            </li>
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span><strong>401</strong>: https://isbul.online/api/v1/bookings/my</span>
+                            </li>
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span><strong>429</strong>: https://isbul.online/api/v1/chatbot/suggestions</span>
+                            </li>
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span><strong>429</strong>: https://isbul.online/api/v1/chatbot/suggestions</span>
+                            </li>
+                        
+                    </ul>
+                </div>
+                
+
+                
+                <div class="section">
+                    <h3>♿ Accessibility Sorunları</h3>
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item warning">
+                                <span class="icon">⚠️</span>
+                                <span>10 input'ta label eksik</span>
+                            </li>
+                        
+                    </ul>
+                </div>
+                
+
+                
+                <div class="section">
+                    <h3>🧠 Groq AI Analizi</h3>
+                    <p style="margin-bottom: 15px; color: #4b5563;">AI analizi başarısız</p>
+                    
+                    
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span>AI analizi yapılamadı: 400 {"error":{"message":"The model `llama-3.2-90b-vision-preview` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.","type":"invalid_request_error","code":"model_decommissioned"}}</span>
+                            </li>
+                        
+                    </ul>
+                    
+
+                    
+                </div>
+                
+
+                <div class="section">
+                    <h3>📸 Ekran Görüntüleri</h3>
+                    <div class="screenshots">
+                        
+                        <div class="screenshot-item">
+                            <a href="..\screenshots\admin-panel-desktop.png" target="_blank">
+                                <img src="..\screenshots\admin-panel-desktop.png" alt="Admin Panel Desktop">
+                            </a>
+                            <p>🖥️ Desktop</p>
+                        </div>
+                        
+                        
+                        <div class="screenshot-item">
+                            <a href="..\screenshots\admin-panel-mobile.png" target="_blank">
+                                <img src="..\screenshots\admin-panel-mobile.png" alt="Admin Panel Mobile">
+                            </a>
+                            <p>📱 Mobile</p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        
+            <div class="page-result">
+                <div class="page-header">
+                    <div>
+                        <div class="page-title">Uzman Ol</div>
+                        <a href="https://isbul.online/uzman-ol.html" target="_blank" style="color: #667eea; font-size: 14px;">https://isbul.online/uzman-ol.html</a>
+                    </div>
+                    <span class="badge warning">WARNING</span>
+                </div>
+
+                <div class="section">
+                    <h3>📊 Teknik Metrikler</h3>
+                    <div class="metrics">
+                        <div class="metric">
+                            <div class="metric-label">Yükleme Süresi</div>
+                            <div class="metric-value">743ms</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">HTTP Status</div>
+                            <div class="metric-value">200</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Console Hatası</div>
+                            <div class="metric-value" style="color: #ef4444">3</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Network Hatası</div>
+                            <div class="metric-value" style="color: #ef4444">3</div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="section">
+                    <h3>❌ Console Hataları</h3>
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span>Failed to load resource: the server responded with a status of 401 (Unauthorized)</span>
+                            </li>
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span>Failed to load resource: the server responded with a status of 429 (Too Many Requests)</span>
+                            </li>
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span>Failed to load resource: the server responded with a status of 429 (Too Many Requests)</span>
+                            </li>
+                        
+                    </ul>
+                </div>
+                
+
+                
+                <div class="section">
+                    <h3>🌐 Network Hataları</h3>
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span><strong>401</strong>: https://isbul.online/api/v1/bookings/my</span>
+                            </li>
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span><strong>429</strong>: https://isbul.online/api/v1/chatbot/suggestions</span>
+                            </li>
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span><strong>429</strong>: https://isbul.online/api/v1/chatbot/suggestions</span>
+                            </li>
+                        
+                    </ul>
+                </div>
+                
+
+                
+                <div class="section">
+                    <h3>♿ Accessibility Sorunları</h3>
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item warning">
+                                <span class="icon">⚠️</span>
+                                <span>32 input'ta label eksik</span>
+                            </li>
+                        
+                    </ul>
+                </div>
+                
+
+                
+                <div class="section">
+                    <h3>🧠 Groq AI Analizi</h3>
+                    <p style="margin-bottom: 15px; color: #4b5563;">AI analizi başarısız</p>
+                    
+                    
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span>AI analizi yapılamadı: 400 {"error":{"message":"The model `llama-3.2-90b-vision-preview` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.","type":"invalid_request_error","code":"model_decommissioned"}}</span>
+                            </li>
+                        
+                    </ul>
+                    
+
+                    
+                </div>
+                
+
+                <div class="section">
+                    <h3>📸 Ekran Görüntüleri</h3>
+                    <div class="screenshots">
+                        
+                        <div class="screenshot-item">
+                            <a href="..\screenshots\uzman-ol-desktop.png" target="_blank">
+                                <img src="..\screenshots\uzman-ol-desktop.png" alt="Uzman Ol Desktop">
+                            </a>
+                            <p>🖥️ Desktop</p>
+                        </div>
+                        
+                        
+                        <div class="screenshot-item">
+                            <a href="..\screenshots\uzman-ol-mobile.png" target="_blank">
+                                <img src="..\screenshots\uzman-ol-mobile.png" alt="Uzman Ol Mobile">
+                            </a>
+                            <p>📱 Mobile</p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        
+            <div class="page-result">
+                <div class="page-header">
+                    <div>
+                        <div class="page-title">Uzmanlar</div>
+                        <a href="https://isbul.online/uzmanlar.html" target="_blank" style="color: #667eea; font-size: 14px;">https://isbul.online/uzmanlar.html</a>
+                    </div>
+                    <span class="badge warning">WARNING</span>
+                </div>
+
+                <div class="section">
+                    <h3>📊 Teknik Metrikler</h3>
+                    <div class="metrics">
+                        <div class="metric">
+                            <div class="metric-label">Yükleme Süresi</div>
+                            <div class="metric-value">863ms</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">HTTP Status</div>
+                            <div class="metric-value">200</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Console Hatası</div>
+                            <div class="metric-value" style="color: #ef4444">3</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Network Hatası</div>
+                            <div class="metric-value" style="color: #ef4444">3</div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="section">
+                    <h3>❌ Console Hataları</h3>
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span>Failed to load resource: the server responded with a status of 401 (Unauthorized)</span>
+                            </li>
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span>Failed to load resource: the server responded with a status of 429 (Too Many Requests)</span>
+                            </li>
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span>Failed to load resource: the server responded with a status of 429 (Too Many Requests)</span>
+                            </li>
+                        
+                    </ul>
+                </div>
+                
+
+                
+                <div class="section">
+                    <h3>🌐 Network Hataları</h3>
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span><strong>401</strong>: https://isbul.online/api/v1/bookings/my</span>
+                            </li>
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span><strong>429</strong>: https://isbul.online/api/v1/chatbot/suggestions</span>
+                            </li>
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span><strong>429</strong>: https://isbul.online/api/v1/chatbot/suggestions</span>
+                            </li>
+                        
+                    </ul>
+                </div>
+                
+
+                
+                <div class="section">
+                    <h3>♿ Accessibility Sorunları</h3>
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item warning">
+                                <span class="icon">⚠️</span>
+                                <span>9 input'ta label eksik</span>
+                            </li>
+                        
+                    </ul>
+                </div>
+                
+
+                
+                <div class="section">
+                    <h3>🧠 Groq AI Analizi</h3>
+                    <p style="margin-bottom: 15px; color: #4b5563;">AI analizi başarısız</p>
+                    
+                    
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span>AI analizi yapılamadı: 400 {"error":{"message":"The model `llama-3.2-90b-vision-preview` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.","type":"invalid_request_error","code":"model_decommissioned"}}</span>
+                            </li>
+                        
+                    </ul>
+                    
+
+                    
+                </div>
+                
+
+                <div class="section">
+                    <h3>📸 Ekran Görüntüleri</h3>
+                    <div class="screenshots">
+                        
+                        <div class="screenshot-item">
+                            <a href="..\screenshots\uzmanlar-desktop.png" target="_blank">
+                                <img src="..\screenshots\uzmanlar-desktop.png" alt="Uzmanlar Desktop">
+                            </a>
+                            <p>🖥️ Desktop</p>
+                        </div>
+                        
+                        
+                        <div class="screenshot-item">
+                            <a href="..\screenshots\uzmanlar-mobile.png" target="_blank">
+                                <img src="..\screenshots\uzmanlar-mobile.png" alt="Uzmanlar Mobile">
+                            </a>
+                            <p>📱 Mobile</p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        
+            <div class="page-result">
+                <div class="page-header">
+                    <div>
+                        <div class="page-title">Uzman Panel</div>
+                        <a href="https://isbul.online/uzman-panel.html" target="_blank" style="color: #667eea; font-size: 14px;">https://isbul.online/uzman-panel.html</a>
+                    </div>
+                    <span class="badge warning">WARNING</span>
+                </div>
+
+                <div class="section">
+                    <h3>📊 Teknik Metrikler</h3>
+                    <div class="metrics">
+                        <div class="metric">
+                            <div class="metric-label">Yükleme Süresi</div>
+                            <div class="metric-value">1112ms</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">HTTP Status</div>
+                            <div class="metric-value">200</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Console Hatası</div>
+                            <div class="metric-value" style="color: #ef4444">3</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Network Hatası</div>
+                            <div class="metric-value" style="color: #ef4444">3</div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="section">
+                    <h3>❌ Console Hataları</h3>
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span>Failed to load resource: the server responded with a status of 401 (Unauthorized)</span>
+                            </li>
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span>Failed to load resource: the server responded with a status of 429 (Too Many Requests)</span>
+                            </li>
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span>Failed to load resource: the server responded with a status of 429 (Too Many Requests)</span>
+                            </li>
+                        
+                    </ul>
+                </div>
+                
+
+                
+                <div class="section">
+                    <h3>🌐 Network Hataları</h3>
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span><strong>401</strong>: https://isbul.online/api/v1/bookings/my</span>
+                            </li>
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span><strong>429</strong>: https://isbul.online/api/v1/chatbot/suggestions</span>
+                            </li>
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span><strong>429</strong>: https://isbul.online/api/v1/chatbot/suggestions</span>
+                            </li>
+                        
+                    </ul>
+                </div>
+                
+
+                
+                <div class="section">
+                    <h3>♿ Accessibility Sorunları</h3>
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item warning">
+                                <span class="icon">⚠️</span>
+                                <span>10 input'ta label eksik</span>
+                            </li>
+                        
+                    </ul>
+                </div>
+                
+
+                
+                <div class="section">
+                    <h3>🧠 Groq AI Analizi</h3>
+                    <p style="margin-bottom: 15px; color: #4b5563;">AI analizi başarısız</p>
+                    
+                    
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span>AI analizi yapılamadı: 400 {"error":{"message":"The model `llama-3.2-90b-vision-preview` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.","type":"invalid_request_error","code":"model_decommissioned"}}</span>
+                            </li>
+                        
+                    </ul>
+                    
+
+                    
+                </div>
+                
+
+                <div class="section">
+                    <h3>📸 Ekran Görüntüleri</h3>
+                    <div class="screenshots">
+                        
+                        <div class="screenshot-item">
+                            <a href="..\screenshots\uzman-panel-desktop.png" target="_blank">
+                                <img src="..\screenshots\uzman-panel-desktop.png" alt="Uzman Panel Desktop">
+                            </a>
+                            <p>🖥️ Desktop</p>
+                        </div>
+                        
+                        
+                        <div class="screenshot-item">
+                            <a href="..\screenshots\uzman-panel-mobile.png" target="_blank">
+                                <img src="..\screenshots\uzman-panel-mobile.png" alt="Uzman Panel Mobile">
+                            </a>
+                            <p>📱 Mobile</p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        
+            <div class="page-result">
+                <div class="page-header">
+                    <div>
+                        <div class="page-title">Profil</div>
+                        <a href="https://isbul.online/profil.html" target="_blank" style="color: #667eea; font-size: 14px;">https://isbul.online/profil.html</a>
+                    </div>
+                    <span class="badge warning">WARNING</span>
+                </div>
+
+                <div class="section">
+                    <h3>📊 Teknik Metrikler</h3>
+                    <div class="metrics">
+                        <div class="metric">
+                            <div class="metric-label">Yükleme Süresi</div>
+                            <div class="metric-value">762ms</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">HTTP Status</div>
+                            <div class="metric-value">200</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Console Hatası</div>
+                            <div class="metric-value" style="color: #ef4444">3</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Network Hatası</div>
+                            <div class="metric-value" style="color: #ef4444">3</div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="section">
+                    <h3>❌ Console Hataları</h3>
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span>Failed to load resource: the server responded with a status of 401 (Unauthorized)</span>
+                            </li>
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span>Failed to load resource: the server responded with a status of 429 (Too Many Requests)</span>
+                            </li>
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span>Failed to load resource: the server responded with a status of 429 (Too Many Requests)</span>
+                            </li>
+                        
+                    </ul>
+                </div>
+                
+
+                
+                <div class="section">
+                    <h3>🌐 Network Hataları</h3>
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span><strong>401</strong>: https://isbul.online/api/v1/bookings/my</span>
+                            </li>
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span><strong>429</strong>: https://isbul.online/api/v1/chatbot/suggestions</span>
+                            </li>
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span><strong>429</strong>: https://isbul.online/api/v1/chatbot/suggestions</span>
+                            </li>
+                        
+                    </ul>
+                </div>
+                
+
+                
+                <div class="section">
+                    <h3>♿ Accessibility Sorunları</h3>
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item warning">
+                                <span class="icon">⚠️</span>
+                                <span>17 input'ta label eksik</span>
+                            </li>
+                        
+                    </ul>
+                </div>
+                
+
+                
+                <div class="section">
+                    <h3>🧠 Groq AI Analizi</h3>
+                    <p style="margin-bottom: 15px; color: #4b5563;">AI analizi başarısız</p>
+                    
+                    
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span>AI analizi yapılamadı: 400 {"error":{"message":"The model `llama-3.2-90b-vision-preview` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.","type":"invalid_request_error","code":"model_decommissioned"}}</span>
+                            </li>
+                        
+                    </ul>
+                    
+
+                    
+                </div>
+                
+
+                <div class="section">
+                    <h3>📸 Ekran Görüntüleri</h3>
+                    <div class="screenshots">
+                        
+                        <div class="screenshot-item">
+                            <a href="..\screenshots\profil-desktop.png" target="_blank">
+                                <img src="..\screenshots\profil-desktop.png" alt="Profil Desktop">
+                            </a>
+                            <p>🖥️ Desktop</p>
+                        </div>
+                        
+                        
+                        <div class="screenshot-item">
+                            <a href="..\screenshots\profil-mobile.png" target="_blank">
+                                <img src="..\screenshots\profil-mobile.png" alt="Profil Mobile">
+                            </a>
+                            <p>📱 Mobile</p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        
+            <div class="page-result">
+                <div class="page-header">
+                    <div>
+                        <div class="page-title">Uzman Profil</div>
+                        <a href="https://isbul.online/uzman-profil.html" target="_blank" style="color: #667eea; font-size: 14px;">https://isbul.online/uzman-profil.html</a>
+                    </div>
+                    <span class="badge warning">WARNING</span>
+                </div>
+
+                <div class="section">
+                    <h3>📊 Teknik Metrikler</h3>
+                    <div class="metrics">
+                        <div class="metric">
+                            <div class="metric-label">Yükleme Süresi</div>
+                            <div class="metric-value">931ms</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">HTTP Status</div>
+                            <div class="metric-value">200</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Console Hatası</div>
+                            <div class="metric-value" style="color: #ef4444">2</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Network Hatası</div>
+                            <div class="metric-value" style="color: #ef4444">2</div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="section">
+                    <h3>❌ Console Hataları</h3>
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span>Failed to load resource: the server responded with a status of 429 (Too Many Requests)</span>
+                            </li>
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span>Failed to load resource: the server responded with a status of 429 (Too Many Requests)</span>
+                            </li>
+                        
+                    </ul>
+                </div>
+                
+
+                
+                <div class="section">
+                    <h3>🌐 Network Hataları</h3>
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span><strong>429</strong>: https://isbul.online/api/v1/chatbot/suggestions</span>
+                            </li>
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span><strong>429</strong>: https://isbul.online/api/v1/chatbot/suggestions</span>
+                            </li>
+                        
+                    </ul>
+                </div>
+                
+
+                
+                <div class="section">
+                    <h3>♿ Accessibility Sorunları</h3>
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item warning">
+                                <span class="icon">⚠️</span>
+                                <span>9 input'ta label eksik</span>
+                            </li>
+                        
+                    </ul>
+                </div>
+                
+
+                
+                <div class="section">
+                    <h3>🧠 Groq AI Analizi</h3>
+                    <p style="margin-bottom: 15px; color: #4b5563;">AI analizi başarısız</p>
+                    
+                    
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span>AI analizi yapılamadı: 400 {"error":{"message":"The model `llama-3.2-90b-vision-preview` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.","type":"invalid_request_error","code":"model_decommissioned"}}</span>
+                            </li>
+                        
+                    </ul>
+                    
+
+                    
+                </div>
+                
+
+                <div class="section">
+                    <h3>📸 Ekran Görüntüleri</h3>
+                    <div class="screenshots">
+                        
+                        <div class="screenshot-item">
+                            <a href="..\screenshots\uzman-profil-desktop.png" target="_blank">
+                                <img src="..\screenshots\uzman-profil-desktop.png" alt="Uzman Profil Desktop">
+                            </a>
+                            <p>🖥️ Desktop</p>
+                        </div>
+                        
+                        
+                        <div class="screenshot-item">
+                            <a href="..\screenshots\uzman-profil-mobile.png" target="_blank">
+                                <img src="..\screenshots\uzman-profil-mobile.png" alt="Uzman Profil Mobile">
+                            </a>
+                            <p>📱 Mobile</p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        
+            <div class="page-result">
+                <div class="page-header">
+                    <div>
+                        <div class="page-title">Hizmetler</div>
+                        <a href="https://isbul.online/hizmetler.html" target="_blank" style="color: #667eea; font-size: 14px;">https://isbul.online/hizmetler.html</a>
+                    </div>
+                    <span class="badge warning">WARNING</span>
+                </div>
+
+                <div class="section">
+                    <h3>📊 Teknik Metrikler</h3>
+                    <div class="metrics">
+                        <div class="metric">
+                            <div class="metric-label">Yükleme Süresi</div>
+                            <div class="metric-value">762ms</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">HTTP Status</div>
+                            <div class="metric-value">200</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Console Hatası</div>
+                            <div class="metric-value" style="color: #ef4444">1</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Network Hatası</div>
+                            <div class="metric-value" style="color: #ef4444">1</div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="section">
+                    <h3>❌ Console Hataları</h3>
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span>Failed to load resource: the server responded with a status of 429 (Too Many Requests)</span>
+                            </li>
+                        
+                    </ul>
+                </div>
+                
+
+                
+                <div class="section">
+                    <h3>🌐 Network Hataları</h3>
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span><strong>429</strong>: https://isbul.online/api/v1/chatbot/suggestions</span>
+                            </li>
+                        
+                    </ul>
+                </div>
+                
+
+                
+                <div class="section">
+                    <h3>♿ Accessibility Sorunları</h3>
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item warning">
+                                <span class="icon">⚠️</span>
+                                <span>10 input'ta label eksik</span>
+                            </li>
+                        
+                    </ul>
+                </div>
+                
+
+                
+                <div class="section">
+                    <h3>🧠 Groq AI Analizi</h3>
+                    <p style="margin-bottom: 15px; color: #4b5563;">AI analizi başarısız</p>
+                    
+                    
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span>AI analizi yapılamadı: 400 {"error":{"message":"The model `llama-3.2-90b-vision-preview` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.","type":"invalid_request_error","code":"model_decommissioned"}}</span>
+                            </li>
+                        
+                    </ul>
+                    
+
+                    
+                </div>
+                
+
+                <div class="section">
+                    <h3>📸 Ekran Görüntüleri</h3>
+                    <div class="screenshots">
+                        
+                        <div class="screenshot-item">
+                            <a href="..\screenshots\hizmetler-desktop.png" target="_blank">
+                                <img src="..\screenshots\hizmetler-desktop.png" alt="Hizmetler Desktop">
+                            </a>
+                            <p>🖥️ Desktop</p>
+                        </div>
+                        
+                        
+                        <div class="screenshot-item">
+                            <a href="..\screenshots\hizmetler-mobile.png" target="_blank">
+                                <img src="..\screenshots\hizmetler-mobile.png" alt="Hizmetler Mobile">
+                            </a>
+                            <p>📱 Mobile</p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        
+            <div class="page-result">
+                <div class="page-header">
+                    <div>
+                        <div class="page-title">Hakkımızda</div>
+                        <a href="https://isbul.online/hakkimizda.html" target="_blank" style="color: #667eea; font-size: 14px;">https://isbul.online/hakkimizda.html</a>
+                    </div>
+                    <span class="badge warning">WARNING</span>
+                </div>
+
+                <div class="section">
+                    <h3>📊 Teknik Metrikler</h3>
+                    <div class="metrics">
+                        <div class="metric">
+                            <div class="metric-label">Yükleme Süresi</div>
+                            <div class="metric-value">1236ms</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">HTTP Status</div>
+                            <div class="metric-value">200</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Console Hatası</div>
+                            <div class="metric-value" style="color: #10b981">0</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Network Hatası</div>
+                            <div class="metric-value" style="color: #10b981">0</div>
+                        </div>
+                    </div>
+                </div>
+
+                
+
+                
+
+                
+                <div class="section">
+                    <h3>♿ Accessibility Sorunları</h3>
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item warning">
+                                <span class="icon">⚠️</span>
+                                <span>8 input'ta label eksik</span>
+                            </li>
+                        
+                    </ul>
+                </div>
+                
+
+                
+                <div class="section">
+                    <h3>🧠 Groq AI Analizi</h3>
+                    <p style="margin-bottom: 15px; color: #4b5563;">AI analizi başarısız</p>
+                    
+                    
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span>AI analizi yapılamadı: 400 {"error":{"message":"The model `llama-3.2-90b-vision-preview` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.","type":"invalid_request_error","code":"model_decommissioned"}}</span>
+                            </li>
+                        
+                    </ul>
+                    
+
+                    
+                </div>
+                
+
+                <div class="section">
+                    <h3>📸 Ekran Görüntüleri</h3>
+                    <div class="screenshots">
+                        
+                        <div class="screenshot-item">
+                            <a href="..\screenshots\hakkimizda-desktop.png" target="_blank">
+                                <img src="..\screenshots\hakkimizda-desktop.png" alt="Hakkımızda Desktop">
+                            </a>
+                            <p>🖥️ Desktop</p>
+                        </div>
+                        
+                        
+                        <div class="screenshot-item">
+                            <a href="..\screenshots\hakkimizda-mobile.png" target="_blank">
+                                <img src="..\screenshots\hakkimizda-mobile.png" alt="Hakkımızda Mobile">
+                            </a>
+                            <p>📱 Mobile</p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        
+            <div class="page-result">
+                <div class="page-header">
+                    <div>
+                        <div class="page-title">Nasıl Çalışır</div>
+                        <a href="https://isbul.online/nasil-calisir.html" target="_blank" style="color: #667eea; font-size: 14px;">https://isbul.online/nasil-calisir.html</a>
+                    </div>
+                    <span class="badge warning">WARNING</span>
+                </div>
+
+                <div class="section">
+                    <h3>📊 Teknik Metrikler</h3>
+                    <div class="metrics">
+                        <div class="metric">
+                            <div class="metric-label">Yükleme Süresi</div>
+                            <div class="metric-value">754ms</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">HTTP Status</div>
+                            <div class="metric-value">200</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Console Hatası</div>
+                            <div class="metric-value" style="color: #10b981">0</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Network Hatası</div>
+                            <div class="metric-value" style="color: #10b981">0</div>
+                        </div>
+                    </div>
+                </div>
+
+                
+
+                
+
+                
+                <div class="section">
+                    <h3>♿ Accessibility Sorunları</h3>
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item warning">
+                                <span class="icon">⚠️</span>
+                                <span>10 input'ta label eksik</span>
+                            </li>
+                        
+                    </ul>
+                </div>
+                
+
+                
+                <div class="section">
+                    <h3>🧠 Groq AI Analizi</h3>
+                    <p style="margin-bottom: 15px; color: #4b5563;">AI analizi başarısız</p>
+                    
+                    
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span>AI analizi yapılamadı: 400 {"error":{"message":"The model `llama-3.2-90b-vision-preview` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.","type":"invalid_request_error","code":"model_decommissioned"}}</span>
+                            </li>
+                        
+                    </ul>
+                    
+
+                    
+                </div>
+                
+
+                <div class="section">
+                    <h3>📸 Ekran Görüntüleri</h3>
+                    <div class="screenshots">
+                        
+                        <div class="screenshot-item">
+                            <a href="..\screenshots\nasil-calisir-desktop.png" target="_blank">
+                                <img src="..\screenshots\nasil-calisir-desktop.png" alt="Nasıl Çalışır Desktop">
+                            </a>
+                            <p>🖥️ Desktop</p>
+                        </div>
+                        
+                        
+                        <div class="screenshot-item">
+                            <a href="..\screenshots\nasil-calisir-mobile.png" target="_blank">
+                                <img src="..\screenshots\nasil-calisir-mobile.png" alt="Nasıl Çalışır Mobile">
+                            </a>
+                            <p>📱 Mobile</p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        
+            <div class="page-result">
+                <div class="page-header">
+                    <div>
+                        <div class="page-title">Blog</div>
+                        <a href="https://isbul.online/blog.html" target="_blank" style="color: #667eea; font-size: 14px;">https://isbul.online/blog.html</a>
+                    </div>
+                    <span class="badge warning">WARNING</span>
+                </div>
+
+                <div class="section">
+                    <h3>📊 Teknik Metrikler</h3>
+                    <div class="metrics">
+                        <div class="metric">
+                            <div class="metric-label">Yükleme Süresi</div>
+                            <div class="metric-value">769ms</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">HTTP Status</div>
+                            <div class="metric-value">200</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Console Hatası</div>
+                            <div class="metric-value" style="color: #10b981">0</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Network Hatası</div>
+                            <div class="metric-value" style="color: #10b981">0</div>
+                        </div>
+                    </div>
+                </div>
+
+                
+
+                
+
+                
+                <div class="section">
+                    <h3>♿ Accessibility Sorunları</h3>
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item warning">
+                                <span class="icon">⚠️</span>
+                                <span>10 input'ta label eksik</span>
+                            </li>
+                        
+                    </ul>
+                </div>
+                
+
+                
+                <div class="section">
+                    <h3>🧠 Groq AI Analizi</h3>
+                    <p style="margin-bottom: 15px; color: #4b5563;">AI analizi başarısız</p>
+                    
+                    
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span>AI analizi yapılamadı: 400 {"error":{"message":"The model `llama-3.2-90b-vision-preview` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.","type":"invalid_request_error","code":"model_decommissioned"}}</span>
+                            </li>
+                        
+                    </ul>
+                    
+
+                    
+                </div>
+                
+
+                <div class="section">
+                    <h3>📸 Ekran Görüntüleri</h3>
+                    <div class="screenshots">
+                        
+                        <div class="screenshot-item">
+                            <a href="..\screenshots\blog-desktop.png" target="_blank">
+                                <img src="..\screenshots\blog-desktop.png" alt="Blog Desktop">
+                            </a>
+                            <p>🖥️ Desktop</p>
+                        </div>
+                        
+                        
+                        <div class="screenshot-item">
+                            <a href="..\screenshots\blog-mobile.png" target="_blank">
+                                <img src="..\screenshots\blog-mobile.png" alt="Blog Mobile">
+                            </a>
+                            <p>📱 Mobile</p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        
+            <div class="page-result">
+                <div class="page-header">
+                    <div>
+                        <div class="page-title">Hesap Oluştur</div>
+                        <a href="https://isbul.online/create-account.html" target="_blank" style="color: #667eea; font-size: 14px;">https://isbul.online/create-account.html</a>
+                    </div>
+                    <span class="badge warning">WARNING</span>
+                </div>
+
+                <div class="section">
+                    <h3>📊 Teknik Metrikler</h3>
+                    <div class="metrics">
+                        <div class="metric">
+                            <div class="metric-label">Yükleme Süresi</div>
+                            <div class="metric-value">749ms</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">HTTP Status</div>
+                            <div class="metric-value">200</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Console Hatası</div>
+                            <div class="metric-value" style="color: #10b981">0</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Network Hatası</div>
+                            <div class="metric-value" style="color: #10b981">0</div>
+                        </div>
+                    </div>
+                </div>
+
+                
+
+                
+
+                
+                <div class="section">
+                    <h3>♿ Accessibility Sorunları</h3>
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item warning">
+                                <span class="icon">⚠️</span>
+                                <span>10 input'ta label eksik</span>
+                            </li>
+                        
+                    </ul>
+                </div>
+                
+
+                
+                <div class="section">
+                    <h3>🧠 Groq AI Analizi</h3>
+                    <p style="margin-bottom: 15px; color: #4b5563;">AI analizi başarısız</p>
+                    
+                    
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span>AI analizi yapılamadı: 400 {"error":{"message":"The model `llama-3.2-90b-vision-preview` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.","type":"invalid_request_error","code":"model_decommissioned"}}</span>
+                            </li>
+                        
+                    </ul>
+                    
+
+                    
+                </div>
+                
+
+                <div class="section">
+                    <h3>📸 Ekran Görüntüleri</h3>
+                    <div class="screenshots">
+                        
+                        <div class="screenshot-item">
+                            <a href="..\screenshots\create-account-desktop.png" target="_blank">
+                                <img src="..\screenshots\create-account-desktop.png" alt="Hesap Oluştur Desktop">
+                            </a>
+                            <p>🖥️ Desktop</p>
+                        </div>
+                        
+                        
+                        <div class="screenshot-item">
+                            <a href="..\screenshots\create-account-mobile.png" target="_blank">
+                                <img src="..\screenshots\create-account-mobile.png" alt="Hesap Oluştur Mobile">
+                            </a>
+                            <p>📱 Mobile</p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        
+            <div class="page-result">
+                <div class="page-header">
+                    <div>
+                        <div class="page-title">Şifremi Unuttum</div>
+                        <a href="https://isbul.online/forgot-password.html" target="_blank" style="color: #667eea; font-size: 14px;">https://isbul.online/forgot-password.html</a>
+                    </div>
+                    <span class="badge warning">WARNING</span>
+                </div>
+
+                <div class="section">
+                    <h3>📊 Teknik Metrikler</h3>
+                    <div class="metrics">
+                        <div class="metric">
+                            <div class="metric-label">Yükleme Süresi</div>
+                            <div class="metric-value">740ms</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">HTTP Status</div>
+                            <div class="metric-value">200</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Console Hatası</div>
+                            <div class="metric-value" style="color: #10b981">0</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Network Hatası</div>
+                            <div class="metric-value" style="color: #10b981">0</div>
+                        </div>
+                    </div>
+                </div>
+
+                
+
+                
+
+                
+                <div class="section">
+                    <h3>♿ Accessibility Sorunları</h3>
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item warning">
+                                <span class="icon">⚠️</span>
+                                <span>1 input'ta label eksik</span>
+                            </li>
+                        
+                    </ul>
+                </div>
+                
+
+                
+                <div class="section">
+                    <h3>🧠 Groq AI Analizi</h3>
+                    <p style="margin-bottom: 15px; color: #4b5563;">AI analizi başarısız</p>
+                    
+                    
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span>AI analizi yapılamadı: 400 {"error":{"message":"The model `llama-3.2-90b-vision-preview` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.","type":"invalid_request_error","code":"model_decommissioned"}}</span>
+                            </li>
+                        
+                    </ul>
+                    
+
+                    
+                </div>
+                
+
+                <div class="section">
+                    <h3>📸 Ekran Görüntüleri</h3>
+                    <div class="screenshots">
+                        
+                        <div class="screenshot-item">
+                            <a href="..\screenshots\forgot-password-desktop.png" target="_blank">
+                                <img src="..\screenshots\forgot-password-desktop.png" alt="Şifremi Unuttum Desktop">
+                            </a>
+                            <p>🖥️ Desktop</p>
+                        </div>
+                        
+                        
+                        <div class="screenshot-item">
+                            <a href="..\screenshots\forgot-password-mobile.png" target="_blank">
+                                <img src="..\screenshots\forgot-password-mobile.png" alt="Şifremi Unuttum Mobile">
+                            </a>
+                            <p>📱 Mobile</p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        
+            <div class="page-result">
+                <div class="page-header">
+                    <div>
+                        <div class="page-title">Şifre Sıfırla</div>
+                        <a href="https://isbul.online/reset-password.html" target="_blank" style="color: #667eea; font-size: 14px;">https://isbul.online/reset-password.html</a>
+                    </div>
+                    <span class="badge warning">WARNING</span>
+                </div>
+
+                <div class="section">
+                    <h3>📊 Teknik Metrikler</h3>
+                    <div class="metrics">
+                        <div class="metric">
+                            <div class="metric-label">Yükleme Süresi</div>
+                            <div class="metric-value">1058ms</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">HTTP Status</div>
+                            <div class="metric-value">200</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Console Hatası</div>
+                            <div class="metric-value" style="color: #10b981">0</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Network Hatası</div>
+                            <div class="metric-value" style="color: #10b981">0</div>
+                        </div>
+                    </div>
+                </div>
+
+                
+
+                
+
+                
+                <div class="section">
+                    <h3>♿ Accessibility Sorunları</h3>
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item warning">
+                                <span class="icon">⚠️</span>
+                                <span>1 input'ta label eksik</span>
+                            </li>
+                        
+                    </ul>
+                </div>
+                
+
+                
+                <div class="section">
+                    <h3>🧠 Groq AI Analizi</h3>
+                    <p style="margin-bottom: 15px; color: #4b5563;">AI analizi başarısız</p>
+                    
+                    
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span>AI analizi yapılamadı: 400 {"error":{"message":"The model `llama-3.2-90b-vision-preview` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.","type":"invalid_request_error","code":"model_decommissioned"}}</span>
+                            </li>
+                        
+                    </ul>
+                    
+
+                    
+                </div>
+                
+
+                <div class="section">
+                    <h3>📸 Ekran Görüntüleri</h3>
+                    <div class="screenshots">
+                        
+                        <div class="screenshot-item">
+                            <a href="..\screenshots\reset-password-desktop.png" target="_blank">
+                                <img src="..\screenshots\reset-password-desktop.png" alt="Şifre Sıfırla Desktop">
+                            </a>
+                            <p>🖥️ Desktop</p>
+                        </div>
+                        
+                        
+                        <div class="screenshot-item">
+                            <a href="..\screenshots\reset-password-mobile.png" target="_blank">
+                                <img src="..\screenshots\reset-password-mobile.png" alt="Şifre Sıfırla Mobile">
+                            </a>
+                            <p>📱 Mobile</p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        
+            <div class="page-result">
+                <div class="page-header">
+                    <div>
+                        <div class="page-title">KVKK</div>
+                        <a href="https://isbul.online/kvkk.html" target="_blank" style="color: #667eea; font-size: 14px;">https://isbul.online/kvkk.html</a>
+                    </div>
+                    <span class="badge warning">WARNING</span>
+                </div>
+
+                <div class="section">
+                    <h3>📊 Teknik Metrikler</h3>
+                    <div class="metrics">
+                        <div class="metric">
+                            <div class="metric-label">Yükleme Süresi</div>
+                            <div class="metric-value">1022ms</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">HTTP Status</div>
+                            <div class="metric-value">200</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Console Hatası</div>
+                            <div class="metric-value" style="color: #10b981">0</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Network Hatası</div>
+                            <div class="metric-value" style="color: #10b981">0</div>
+                        </div>
+                    </div>
+                </div>
+
+                
+
+                
+
+                
+                <div class="section">
+                    <h3>♿ Accessibility Sorunları</h3>
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item warning">
+                                <span class="icon">⚠️</span>
+                                <span>8 input'ta label eksik</span>
+                            </li>
+                        
+                    </ul>
+                </div>
+                
+
+                
+                <div class="section">
+                    <h3>🧠 Groq AI Analizi</h3>
+                    <p style="margin-bottom: 15px; color: #4b5563;">AI analizi başarısız</p>
+                    
+                    
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span>AI analizi yapılamadı: 400 {"error":{"message":"The model `llama-3.2-90b-vision-preview` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.","type":"invalid_request_error","code":"model_decommissioned"}}</span>
+                            </li>
+                        
+                    </ul>
+                    
+
+                    
+                </div>
+                
+
+                <div class="section">
+                    <h3>📸 Ekran Görüntüleri</h3>
+                    <div class="screenshots">
+                        
+                        <div class="screenshot-item">
+                            <a href="..\screenshots\kvkk-desktop.png" target="_blank">
+                                <img src="..\screenshots\kvkk-desktop.png" alt="KVKK Desktop">
+                            </a>
+                            <p>🖥️ Desktop</p>
+                        </div>
+                        
+                        
+                        <div class="screenshot-item">
+                            <a href="..\screenshots\kvkk-mobile.png" target="_blank">
+                                <img src="..\screenshots\kvkk-mobile.png" alt="KVKK Mobile">
+                            </a>
+                            <p>📱 Mobile</p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        
+            <div class="page-result">
+                <div class="page-header">
+                    <div>
+                        <div class="page-title">Gizlilik</div>
+                        <a href="https://isbul.online/gizlilik.html" target="_blank" style="color: #667eea; font-size: 14px;">https://isbul.online/gizlilik.html</a>
+                    </div>
+                    <span class="badge warning">WARNING</span>
+                </div>
+
+                <div class="section">
+                    <h3>📊 Teknik Metrikler</h3>
+                    <div class="metrics">
+                        <div class="metric">
+                            <div class="metric-label">Yükleme Süresi</div>
+                            <div class="metric-value">754ms</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">HTTP Status</div>
+                            <div class="metric-value">200</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Console Hatası</div>
+                            <div class="metric-value" style="color: #10b981">0</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Network Hatası</div>
+                            <div class="metric-value" style="color: #10b981">0</div>
+                        </div>
+                    </div>
+                </div>
+
+                
+
+                
+
+                
+                <div class="section">
+                    <h3>♿ Accessibility Sorunları</h3>
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item warning">
+                                <span class="icon">⚠️</span>
+                                <span>8 input'ta label eksik</span>
+                            </li>
+                        
+                    </ul>
+                </div>
+                
+
+                
+                <div class="section">
+                    <h3>🧠 Groq AI Analizi</h3>
+                    <p style="margin-bottom: 15px; color: #4b5563;">AI analizi başarısız</p>
+                    
+                    
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span>AI analizi yapılamadı: 400 {"error":{"message":"The model `llama-3.2-90b-vision-preview` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.","type":"invalid_request_error","code":"model_decommissioned"}}</span>
+                            </li>
+                        
+                    </ul>
+                    
+
+                    
+                </div>
+                
+
+                <div class="section">
+                    <h3>📸 Ekran Görüntüleri</h3>
+                    <div class="screenshots">
+                        
+                        <div class="screenshot-item">
+                            <a href="..\screenshots\gizlilik-desktop.png" target="_blank">
+                                <img src="..\screenshots\gizlilik-desktop.png" alt="Gizlilik Desktop">
+                            </a>
+                            <p>🖥️ Desktop</p>
+                        </div>
+                        
+                        
+                        <div class="screenshot-item">
+                            <a href="..\screenshots\gizlilik-mobile.png" target="_blank">
+                                <img src="..\screenshots\gizlilik-mobile.png" alt="Gizlilik Mobile">
+                            </a>
+                            <p>📱 Mobile</p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        
+            <div class="page-result">
+                <div class="page-header">
+                    <div>
+                        <div class="page-title">Şartlar</div>
+                        <a href="https://isbul.online/sartlar.html" target="_blank" style="color: #667eea; font-size: 14px;">https://isbul.online/sartlar.html</a>
+                    </div>
+                    <span class="badge warning">WARNING</span>
+                </div>
+
+                <div class="section">
+                    <h3>📊 Teknik Metrikler</h3>
+                    <div class="metrics">
+                        <div class="metric">
+                            <div class="metric-label">Yükleme Süresi</div>
+                            <div class="metric-value">752ms</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">HTTP Status</div>
+                            <div class="metric-value">200</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Console Hatası</div>
+                            <div class="metric-value" style="color: #10b981">0</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Network Hatası</div>
+                            <div class="metric-value" style="color: #10b981">0</div>
+                        </div>
+                    </div>
+                </div>
+
+                
+
+                
+
+                
+                <div class="section">
+                    <h3>♿ Accessibility Sorunları</h3>
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item warning">
+                                <span class="icon">⚠️</span>
+                                <span>8 input'ta label eksik</span>
+                            </li>
+                        
+                    </ul>
+                </div>
+                
+
+                
+                <div class="section">
+                    <h3>🧠 Groq AI Analizi</h3>
+                    <p style="margin-bottom: 15px; color: #4b5563;">AI analizi başarısız</p>
+                    
+                    
+                    <ul class="issue-list">
+                        
+                            <li class="issue-item error">
+                                <span class="icon">🔴</span>
+                                <span>AI analizi yapılamadı: 400 {"error":{"message":"The model `llama-3.2-90b-vision-preview` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.","type":"invalid_request_error","code":"model_decommissioned"}}</span>
+                            </li>
+                        
+                    </ul>
+                    
+
+                    
+                </div>
+                
+
+                <div class="section">
+                    <h3>📸 Ekran Görüntüleri</h3>
+                    <div class="screenshots">
+                        
+                        <div class="screenshot-item">
+                            <a href="..\screenshots\sartlar-desktop.png" target="_blank">
+                                <img src="..\screenshots\sartlar-desktop.png" alt="Şartlar Desktop">
+                            </a>
+                            <p>🖥️ Desktop</p>
+                        </div>
+                        
+                        
+                        <div class="screenshot-item">
+                            <a href="..\screenshots\sartlar-mobile.png" target="_blank">
+                                <img src="..\screenshots\sartlar-mobile.png" alt="Şartlar Mobile">
+                            </a>
+                            <p>📱 Mobile</p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="footer">
+            <p>🤖 İsBul Hibrit Test Sistemi - Playwright + Groq AI Vision</p>
+            <p style="margin-top: 5px;">Test Tarihi: 21.08.2026 12:11:30</p>
+        </div>
+    </div>
+</body>
+</html>
