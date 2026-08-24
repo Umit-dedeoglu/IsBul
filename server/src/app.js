@@ -52,6 +52,11 @@ app.use(cors({
     if (process.env.NODE_ENV !== 'production' && /^http:\/\/localhost:\d+$/.test(origin)) {
       return callback(null, true);
     }
+    // onrender.com alt domainlerine izin ver
+    if (origin.endsWith('.onrender.com')) {
+      return callback(null, true);
+    }
+    console.log('CORS blocked origin:', origin);
     callback(new Error(`CORS: ${origin} kayna��na izin verilmiyor.`));
   },
   credentials:     true,
