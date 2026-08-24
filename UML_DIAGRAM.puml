@@ -1,0 +1,269 @@
+@startuml IsBul_UML
+
+skinparam backgroundColor #FAFAFA
+skinparam classBackgroundColor #FFFFFF
+skinparam classBorderColor #6C63FF
+skinparam classHeaderBackgroundColor #6C63FF
+skinparam classHeaderFontColor #FFFFFF
+skinparam classHeaderFontSize 13
+skinparam classFontSize 11
+skinparam ArrowColor #6C63FF
+skinparam ArrowThickness 1.5
+skinparam Shadowing false
+skinparam RoundCorner 8
+skinparam Linetype ortho
+
+title İşBul Platform — UML Class Diagram
+
+' ─── ENUMS ────────────────────────────────────────────────
+enum RoleEnum {
+  CUSTOMER
+  EXPERT
+  ADMIN
+  PENDING_EXPERT
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  REJECTED
+  CANCELLED
+  COMPLETED
+}
+
+' ─── BACKEND ENTITIES ──────────────────────────────────────
+class User {
+  + id : TEXT <<PK>>
+  + firstName : TEXT
+  + lastName : TEXT
+  + email : TEXT <<UNIQUE>>
+  - passwordHash : TEXT
+  + avatar : TEXT
+  + color : TEXT
+  + role : RoleEnum
+  + isActive : BOOLEAN
+  + googleId : TEXT
+  + emailVerified : BOOLEAN
+  + createdAt : TIMESTAMP
+  + updatedAt : TIMESTAMP
+  --
+  + register() : JWT
+  + login() : JWT
+  + changePassword() : void
+  + deleteAccount() : void
+}
+
+class ExpertProfile {
+  + userId : TEXT <<PK, FK>>
+  + price : INTEGER
+  + bio : TEXT
+  + city : TEXT
+  + tags : TEXT[]
+  + hours : TEXT
+  + experience : TEXT
+  + rating : REAL
+  + reviewCount : INTEGER
+  + createdAt : TIMESTAMP
+  --
+  + updateProfile() : void
+  + getStats() : Object
+}
+
+class Booking {
+  + id : TEXT <<PK>>
+  + customerId : TEXT <<FK>>
+  + expertId : TEXT <<FK>>
+  + service : TEXT
+  + date : TEXT
+  + time : TEXT
+  + durationType : TEXT
+  + durationValue : INTEGER
+  + slots : TEXT[]
+  + totalPrice : INTEGER
+  + city : TEXT
+  + notes : TEXT
+  + status : BookingStatus
+  + createdAt : TIMESTAMP
+  + updatedAt : TIMESTAMP
+  --
+  + create() : Booking
+  + updateStatus() : void
+  + cancel() : void
+}
+
+class CalendarSlot {
+  + id : TEXT <<PK>>
+  + expertId : TEXT <<FK>>
+  + slot : TEXT
+  + bookingId : TEXT
+  + createdAt : TIMESTAMP
+  --
+  + checkAvailability() : BOOLEAN
+  + blockSlot() : void
+  + releaseSlot() : void
+}
+
+class Review {
+  + id : TEXT <<PK>>
+  + expertId : TEXT <<FK>>
+  + customerId : TEXT <<FK>>
+  + rating : INTEGER
+  + text : TEXT
+  + service : TEXT
+  + createdAt : TIMESTAMP
+  --
+  + add() : Review
+  + updateExpertRating() : void
+}
+
+class PasswordResetToken {
+  + id : TEXT <<PK>>
+  + userId : TEXT <<FK>>
+  + token : TEXT <<UNIQUE>>
+  + expiresAt : TIMESTAMP
+  + used : BOOLEAN
+  + createdAt : TIMESTAMP
+  --
+  + generate() : String
+  + validate() : BOOLEAN
+  + markUsed() : void
+}
+
+' ─── BACKEND MODULES (Controllers) ────────────────────────
+class AuthModule {
+  <<module>>
+  + POST /auth/register
+  + POST /auth/login
+  + GET  /auth/me
+  + GET  /auth/google
+  + POST /auth/forgot-password
+  + POST /auth/reset-password
+}
+
+class ExpertModule {
+  <<module>>
+  + GET  /experts
+  + GET  /experts/:id
+  + PATCH /experts/profile
+}
+
+class BookingModule {
+  <<module>>
+  + POST  /bookings
+  + GET   /bookings/my
+  + GET   /bookings/expert
+  + PATCH /bookings/:id/status
+}
+
+class CalendarModule {
+  <<module>>
+  + GET  /calendar/:id/slots
+  + POST /calendar/:id/check
+}
+
+class ReviewModule {
+  <<module>>
+  + GET  /reviews/:expertId
+  + POST /reviews/:expertId
+}
+
+class AdminModule {
+  <<module>>
+  + GET   /admin/stats
+  + GET   /admin/users
+  + PATCH /admin/users/:id/role
+  + GET   /admin/applications
+  + PATCH /admin/applications/:id/approve
+  + PATCH /admin/applications/:id/reject
+  + DELETE /admin/users/:id
+}
+
+class ChatbotModule {
+  <<module>>
+  + POST /chatbot/chat
+  + GET  /chatbot/suggestions
+  - model: Groq Llama-3.1-70B
+}
+
+class NotificationModule {
+  <<module>>
+  + GET /notifications
+  + GET /notifications/stats
+}
+
+' ─── FLUTTER MOBILE ─────────────────────────────────────────
+class AuthService {
+  <<Flutter Provider>>
+  - user : UserModel
+  - token : String
+  + login() : Future<bool>
+  + register() : Future<bool>
+  + logout() : void
+  + loadUser() : Future<bool>
+}
+
+class UserModel {
+  <<Flutter Model>>
+  + id : String
+  + firstName : String
+  + lastName : String
+  + email : String
+  + avatar : String
+  + role : String
+  + isExpert : bool
+  + expertData : ExpertData
+}
+
+class ExpertModel {
+  <<Flutter Model>>
+  + id : String
+  + firstName : String
+  + lastName : String
+  + category : String
+  + city : String
+  + rating : double
+  + reviewCount : int
+  + hourlyRate : int
+  + bio : String
+}
+
+class ExpertService {
+  <<Flutter Service>>
+  + getExperts() : Future<List>
+  + getExpert(id) : Future<ExpertModel>
+  + getReviews(id) : Future<List>
+}
+
+' ─── RELATIONSHIPS ──────────────────────────────────────────
+
+' Entity relationships
+User "1" -- "0..1" ExpertProfile : owns >
+User "1 (customer)" -- "0..*" Booking : creates >
+User "1 (expert)" -- "0..*" Booking : receives >
+User "1 (expert)" -- "0..*" Review : has >
+User "1 (customer)" -- "0..*" Review : writes >
+User "1" -- "0..*" PasswordResetToken : has >
+User "1" -- "0..*" CalendarSlot : blocks >
+Booking "1" -- "0..*" CalendarSlot : occupies >
+
+' Enum relationships
+User --> RoleEnum
+Booking --> BookingStatus
+
+' Module relationships
+AuthModule ..> User : manages
+ExpertModule ..> ExpertProfile : manages
+BookingModule ..> Booking : manages
+BookingModule ..> CalendarSlot : manages
+CalendarModule ..> CalendarSlot : manages
+ReviewModule ..> Review : manages
+AdminModule ..> User : manages
+NotificationModule ..> Booking : reads
+
+' Flutter relationships
+AuthService --> UserModel : holds
+ExpertService --> ExpertModel : returns
+AuthService ..> AuthModule : calls /auth/*
+ExpertService ..> ExpertModule : calls /experts/*
+
+@enduml

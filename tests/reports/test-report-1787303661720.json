@@ -1,0 +1,2495 @@
+{
+  "timestamp": "2026-08-21T09:11:42.479Z",
+  "summary": {
+    "total": 17,
+    "passed": 0,
+    "failed": 0,
+    "warnings": 17
+  },
+  "pages": [
+    {
+      "name": "Ana Sayfa",
+      "path": "index.html",
+      "url": "https://isbul.online/index.html",
+      "critical": true,
+      "timestamp": "2026-08-21T09:11:42.628Z",
+      "technical": {
+        "loadTime": 2338,
+        "status": 200,
+        "consoleErrors": [
+          "Failed to load resource: the server responded with a status of 503 ()",
+          "Failed to load resource: the server responded with a status of 503 ()",
+          "Failed to load resource: the server responded with a status of 503 ()",
+          "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+        ],
+        "networkErrors": [
+          {
+            "url": "https://api.isbul.online/api/health",
+            "status": 503
+          },
+          {
+            "url": "https://api.isbul.online/api/admin/stats",
+            "status": 503
+          },
+          {
+            "url": "https://api.isbul.online/api/admin/applications",
+            "status": 503
+          },
+          {
+            "url": "https://isbul.online/api/v1/bookings/my",
+            "status": 401
+          }
+        ],
+        "accessibility": [
+          "10 input'ta label eksik"
+        ],
+        "buttons": [
+          {
+            "text": "Giriş Yap",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Ücretsiz Kaydol",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Boş",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Mobilya Montajı",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Ev Temizlikçi",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "TV Montajı",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "nakliyat",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Boyacı",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "🕐 Bugün Müsait",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Profil",
+            "visible": true,
+            "enabled": true
+          }
+        ],
+        "links": [
+          {
+            "href": "index.html",
+            "text": "⚡\n        İşBul"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Hizmetler"
+          },
+          {
+            "href": "nasil-calisir.html",
+            "text": "Nasıl Çalışır?"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Ol"
+          },
+          {
+            "href": "mailto:Kurumsal@isBul.com.tr",
+            "text": "Kurumsal"
+          },
+          {
+            "href": "uzman-profil.html?id=e1",
+            "text": "Profil"
+          },
+          {
+            "href": "uzmanlar.html?kategori=montaj",
+            "text": "Uzmanları GÖR"
+          },
+          {
+            "href": "uzmanlar.html?kategori=montaj",
+            "text": "🔧\n          Mobilya Montajı\n          Tüm marka mobilya montajı\n          \n            ₺200'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=temizlik",
+            "text": "🧹\n          Ev Temizliği\n          Standart & derin temizlik\n          \n            ₺250'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=nakliyat",
+            "text": "🚚\n          Nakliyat & Taşıma\n          Ev ve ofis taşıma hizmetleri\n          \n            ₺500'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=elektrik",
+            "text": "⚡\n          Elektrikçi\n          Priz, aydınlatma, panel\n          \n            ₺280'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=tesisat",
+            "text": "🔧\n          Tesisatçı\n          Su, doğalgaz, kalorifer\n          \n            ₺300'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=boya",
+            "text": "🎨\n          Boyacı\n          İç cephe ve dekoratif boya\n          \n            ₺350'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=montaj",
+            "text": "📺\n          TV Montajı\n          Duvara askı ve bağlantı\n          \n            ₺220'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=bahce",
+            "text": "🌱\n          Bahçe Bakımı\n          Çim biçme, budama, düzenleme\n          \n            ₺200'den başlar\n            ›"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "📋\n          Tüm Hizmetler\n          30+ farklı kategori\n          \n            Keşfet\n            ›"
+          },
+          {
+            "href": "nasil-calisir.html",
+            "text": "Daha Fazla Bilgi"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Olarak Kaydol »"
+          },
+          {
+            "href": "index.html",
+            "text": "⚡\n            İşBul"
+          },
+          {
+            "href": "https://www.linkedin.com/in/%C3%BCmit-yakup-dedeo%C4%9Flu-4321212a7/",
+            "text": "🔗"
+          }
+        ]
+      },
+      "ai": {
+        "status": "error",
+        "issues": [
+          {
+            "type": "error",
+            "message": "AI analizi yapılamadı: 400 {\"error\":{\"message\":\"The model `llama-3.2-11b-vision-preview` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.\",\"type\":\"invalid_request_error\",\"code\":\"model_decommissioned\"}}"
+          }
+        ],
+        "positive": [],
+        "overall": "AI analizi başarısız"
+      },
+      "screenshots": {
+        "desktop": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\index-desktop.png",
+        "mobile": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\index-mobile.png"
+      },
+      "overall": "warning"
+    },
+    {
+      "name": "Admin Panel",
+      "path": "admin-panel.html",
+      "url": "https://isbul.online/admin-panel.html",
+      "critical": true,
+      "timestamp": "2026-08-21T09:11:51.641Z",
+      "technical": {
+        "loadTime": 1479,
+        "status": 200,
+        "consoleErrors": [
+          "Failed to load resource: the server responded with a status of 503 ()",
+          "Failed to load resource: the server responded with a status of 503 ()",
+          "Failed to load resource: the server responded with a status of 503 ()",
+          "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+        ],
+        "networkErrors": [
+          {
+            "url": "https://api.isbul.online/api/health",
+            "status": 503
+          },
+          {
+            "url": "https://api.isbul.online/api/admin/stats",
+            "status": 503
+          },
+          {
+            "url": "https://api.isbul.online/api/admin/applications",
+            "status": 503
+          },
+          {
+            "url": "https://isbul.online/api/v1/bookings/my",
+            "status": 401
+          }
+        ],
+        "accessibility": [
+          "10 input'ta label eksik"
+        ],
+        "buttons": [
+          {
+            "text": "Giriş Yap",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Ücretsiz Kaydol",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Boş",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Mobilya Montajı",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Ev Temizlikçi",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "TV Montajı",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "nakliyat",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Boyacı",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "🕐 Bugün Müsait",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Profil",
+            "visible": true,
+            "enabled": true
+          }
+        ],
+        "links": [
+          {
+            "href": "index.html",
+            "text": "⚡\n        İşBul"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Hizmetler"
+          },
+          {
+            "href": "nasil-calisir.html",
+            "text": "Nasıl Çalışır?"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Ol"
+          },
+          {
+            "href": "mailto:Kurumsal@isBul.com.tr",
+            "text": "Kurumsal"
+          },
+          {
+            "href": "uzman-profil.html?id=e1",
+            "text": "Profil"
+          },
+          {
+            "href": "uzmanlar.html?kategori=montaj",
+            "text": "Uzmanları GÖR"
+          },
+          {
+            "href": "uzmanlar.html?kategori=montaj",
+            "text": "🔧\n          Mobilya Montajı\n          Tüm marka mobilya montajı\n          \n            ₺200'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=temizlik",
+            "text": "🧹\n          Ev Temizliği\n          Standart & derin temizlik\n          \n            ₺250'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=nakliyat",
+            "text": "🚚\n          Nakliyat & Taşıma\n          Ev ve ofis taşıma hizmetleri\n          \n            ₺500'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=elektrik",
+            "text": "⚡\n          Elektrikçi\n          Priz, aydınlatma, panel\n          \n            ₺280'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=tesisat",
+            "text": "🔧\n          Tesisatçı\n          Su, doğalgaz, kalorifer\n          \n            ₺300'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=boya",
+            "text": "🎨\n          Boyacı\n          İç cephe ve dekoratif boya\n          \n            ₺350'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=montaj",
+            "text": "📺\n          TV Montajı\n          Duvara askı ve bağlantı\n          \n            ₺220'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=bahce",
+            "text": "🌱\n          Bahçe Bakımı\n          Çim biçme, budama, düzenleme\n          \n            ₺200'den başlar\n            ›"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "📋\n          Tüm Hizmetler\n          30+ farklı kategori\n          \n            Keşfet\n            ›"
+          },
+          {
+            "href": "nasil-calisir.html",
+            "text": "Daha Fazla Bilgi"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Olarak Kaydol »"
+          },
+          {
+            "href": "index.html",
+            "text": "⚡\n            İşBul"
+          },
+          {
+            "href": "https://www.linkedin.com/in/%C3%BCmit-yakup-dedeo%C4%9Flu-4321212a7/",
+            "text": "🔗"
+          }
+        ]
+      },
+      "ai": {
+        "status": "error",
+        "issues": [
+          {
+            "type": "error",
+            "message": "AI analizi yapılamadı: 400 {\"error\":{\"message\":\"The model `llama-3.2-11b-vision-preview` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.\",\"type\":\"invalid_request_error\",\"code\":\"model_decommissioned\"}}"
+          }
+        ],
+        "positive": [],
+        "overall": "AI analizi başarısız"
+      },
+      "screenshots": {
+        "desktop": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\admin-panel-desktop.png",
+        "mobile": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\admin-panel-mobile.png"
+      },
+      "overall": "warning"
+    },
+    {
+      "name": "Uzman Ol",
+      "path": "uzman-ol.html",
+      "url": "https://isbul.online/uzman-ol.html",
+      "critical": true,
+      "timestamp": "2026-08-21T09:11:59.740Z",
+      "technical": {
+        "loadTime": 815,
+        "status": 200,
+        "consoleErrors": [
+          "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+        ],
+        "networkErrors": [
+          {
+            "url": "https://isbul.online/api/v1/bookings/my",
+            "status": 401
+          }
+        ],
+        "accessibility": [
+          "32 input'ta label eksik"
+        ],
+        "buttons": [
+          {
+            "text": "Giriş Yap",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Ücretsiz Kaydol",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Boş",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Hemen Ücretsiz Kaydol →",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Devam Et → Uzmanlık Alanı",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "← Geri",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Devam Et → Belgeler",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "← Geri",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Devam Et → Ödeme Bilgisi",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "← Geri",
+            "visible": false,
+            "enabled": true
+          }
+        ],
+        "links": [
+          {
+            "href": "index.html",
+            "text": "⚡\n        İşBul"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Hizmetler"
+          },
+          {
+            "href": "nasil-calisir.html",
+            "text": "Nasıl Çalışır?"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Ol"
+          },
+          {
+            "href": "mailto:Kurumsal@isbul.com.tr",
+            "text": "Kurumsal"
+          },
+          {
+            "href": "sartlar.html",
+            "text": "Kullanım Koşulları"
+          },
+          {
+            "href": "gizlilik.html",
+            "text": "Gizlilik Politikası"
+          },
+          {
+            "href": "kvkk.html",
+            "text": "KVKK Aydınlatma Metni"
+          },
+          {
+            "href": "nasil-calisir.html?rol=tasker",
+            "text": "📧\n            \n              Rehber\n              Uzman süreci Hakkında ı"
+          },
+          {
+            "href": "index.html",
+            "text": "⚡İşBul"
+          },
+          {
+            "href": "https://www.linkedin.com/in/%C3%BCmit-yakup-dedeo%C4%9Flu-4321212a7/",
+            "text": "🔗"
+          },
+          {
+            "href": "hizmetler.html?kategori=montaj",
+            "text": "Mobilya Montajı"
+          },
+          {
+            "href": "hizmetler.html?kategori=temizlik",
+            "text": "Ev Temizlişi"
+          },
+          {
+            "href": "hizmetler.html?kategori=nakliyat",
+            "text": "Nakliyat"
+          },
+          {
+            "href": "hakkimizda.html",
+            "text": "Hakkımızda"
+          },
+          {
+            "href": "blog.html",
+            "text": "Blog"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Ol"
+          },
+          {
+            "href": "sartlar.html#sigorta",
+            "text": "Sigorta"
+          }
+        ]
+      },
+      "ai": {
+        "status": "error",
+        "issues": [
+          {
+            "type": "error",
+            "message": "AI analizi yapılamadı: 400 {\"error\":{\"message\":\"The model `llama-3.2-11b-vision-preview` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.\",\"type\":\"invalid_request_error\",\"code\":\"model_decommissioned\"}}"
+          }
+        ],
+        "positive": [],
+        "overall": "AI analizi başarısız"
+      },
+      "screenshots": {
+        "desktop": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\uzman-ol-desktop.png",
+        "mobile": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\uzman-ol-mobile.png"
+      },
+      "overall": "warning"
+    },
+    {
+      "name": "Uzmanlar",
+      "path": "uzmanlar.html",
+      "url": "https://isbul.online/uzmanlar.html",
+      "critical": false,
+      "timestamp": "2026-08-21T09:12:06.186Z",
+      "technical": {
+        "loadTime": 891,
+        "status": 200,
+        "consoleErrors": [
+          "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+        ],
+        "networkErrors": [
+          {
+            "url": "https://isbul.online/api/v1/bookings/my",
+            "status": 401
+          }
+        ],
+        "accessibility": [
+          "9 input'ta label eksik"
+        ],
+        "buttons": [
+          {
+            "text": "Giriş Yap",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Ücretsiz Kaydol",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Boş",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Rezervasyon",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Rezervasyon",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Rezervasyon",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Rezervasyon",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Rezervasyon",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Rezervasyon",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Rezervasyon",
+            "visible": true,
+            "enabled": true
+          }
+        ],
+        "links": [
+          {
+            "href": "index.html",
+            "text": "⚡\n        İşBul"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Hizmetler"
+          },
+          {
+            "href": "nasil-calisir.html",
+            "text": "Nasıl Çalışır?"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Ol"
+          },
+          {
+            "href": "mailto:Kurumsal@isbul.com.tr",
+            "text": "Kurumsal"
+          },
+          {
+            "href": "uzman-profil.html?id=u_demo_expert_001",
+            "text": "Profil"
+          },
+          {
+            "href": "uzman-profil.html?id=u_admin_1786796589448",
+            "text": "Profil"
+          },
+          {
+            "href": "uzman-profil.html?id=u_1786796590041_dg74g",
+            "text": "Profil"
+          },
+          {
+            "href": "uzman-profil.html?id=e1",
+            "text": "Profil"
+          },
+          {
+            "href": "uzman-profil.html?id=e2",
+            "text": "Profil"
+          },
+          {
+            "href": "uzman-profil.html?id=e5",
+            "text": "Profil"
+          },
+          {
+            "href": "uzman-profil.html?id=u_demo_1787303504043_2qnirgide",
+            "text": "Profil"
+          },
+          {
+            "href": "uzman-profil.html?id=e15",
+            "text": "Profil"
+          },
+          {
+            "href": "uzman-profil.html?id=u_demo_1787303504043_bblfrlae9",
+            "text": "Profil"
+          },
+          {
+            "href": "uzman-profil.html?id=e3",
+            "text": "Profil"
+          },
+          {
+            "href": "uzman-profil.html?id=e21",
+            "text": "Profil"
+          },
+          {
+            "href": "uzman-profil.html?id=e17",
+            "text": "Profil"
+          },
+          {
+            "href": "uzman-profil.html?id=e8",
+            "text": "Profil"
+          },
+          {
+            "href": "uzman-profil.html?id=e27",
+            "text": "Profil"
+          },
+          {
+            "href": "uzman-profil.html?id=u_demo_1787303504043_tro0s895e",
+            "text": "Profil"
+          }
+        ]
+      },
+      "ai": {
+        "status": "error",
+        "issues": [
+          {
+            "type": "error",
+            "message": "AI analizi yapılamadı: 400 {\"error\":{\"message\":\"The model `llama-3.2-11b-vision-preview` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.\",\"type\":\"invalid_request_error\",\"code\":\"model_decommissioned\"}}"
+          }
+        ],
+        "positive": [],
+        "overall": "AI analizi başarısız"
+      },
+      "screenshots": {
+        "desktop": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\uzmanlar-desktop.png",
+        "mobile": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\uzmanlar-mobile.png"
+      },
+      "overall": "warning"
+    },
+    {
+      "name": "Uzman Panel",
+      "path": "uzman-panel.html",
+      "url": "https://isbul.online/uzman-panel.html",
+      "critical": true,
+      "timestamp": "2026-08-21T09:12:12.815Z",
+      "technical": {
+        "loadTime": 1117,
+        "status": 200,
+        "consoleErrors": [
+          "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+        ],
+        "networkErrors": [
+          {
+            "url": "https://isbul.online/api/v1/bookings/my",
+            "status": 401
+          }
+        ],
+        "accessibility": [
+          "10 input'ta label eksik"
+        ],
+        "buttons": [
+          {
+            "text": "Giriş Yap",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Ücretsiz Kaydol",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Boş",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Mobilya Montajı",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Ev Temizlikçi",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "TV Montajı",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "nakliyat",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Boyacı",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "🕐 Bugün Müsait",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Profil",
+            "visible": true,
+            "enabled": true
+          }
+        ],
+        "links": [
+          {
+            "href": "index.html",
+            "text": "⚡\n        İşBul"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Hizmetler"
+          },
+          {
+            "href": "nasil-calisir.html",
+            "text": "Nasıl Çalışır?"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Ol"
+          },
+          {
+            "href": "mailto:Kurumsal@isBul.com.tr",
+            "text": "Kurumsal"
+          },
+          {
+            "href": "uzman-profil.html?id=e1",
+            "text": "Profil"
+          },
+          {
+            "href": "uzmanlar.html?kategori=montaj",
+            "text": "Uzmanları GÖR"
+          },
+          {
+            "href": "uzmanlar.html?kategori=montaj",
+            "text": "🔧\n          Mobilya Montajı\n          Tüm marka mobilya montajı\n          \n            ₺200'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=temizlik",
+            "text": "🧹\n          Ev Temizliği\n          Standart & derin temizlik\n          \n            ₺250'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=nakliyat",
+            "text": "🚚\n          Nakliyat & Taşıma\n          Ev ve ofis taşıma hizmetleri\n          \n            ₺500'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=elektrik",
+            "text": "⚡\n          Elektrikçi\n          Priz, aydınlatma, panel\n          \n            ₺280'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=tesisat",
+            "text": "🔧\n          Tesisatçı\n          Su, doğalgaz, kalorifer\n          \n            ₺300'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=boya",
+            "text": "🎨\n          Boyacı\n          İç cephe ve dekoratif boya\n          \n            ₺350'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=montaj",
+            "text": "📺\n          TV Montajı\n          Duvara askı ve bağlantı\n          \n            ₺220'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=bahce",
+            "text": "🌱\n          Bahçe Bakımı\n          Çim biçme, budama, düzenleme\n          \n            ₺200'den başlar\n            ›"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "📋\n          Tüm Hizmetler\n          30+ farklı kategori\n          \n            Keşfet\n            ›"
+          },
+          {
+            "href": "nasil-calisir.html",
+            "text": "Daha Fazla Bilgi"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Olarak Kaydol »"
+          },
+          {
+            "href": "index.html",
+            "text": "⚡\n            İşBul"
+          },
+          {
+            "href": "https://www.linkedin.com/in/%C3%BCmit-yakup-dedeo%C4%9Flu-4321212a7/",
+            "text": "🔗"
+          }
+        ]
+      },
+      "ai": {
+        "status": "error",
+        "issues": [
+          {
+            "type": "error",
+            "message": "AI analizi yapılamadı: 400 {\"error\":{\"message\":\"The model `llama-3.2-11b-vision-preview` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.\",\"type\":\"invalid_request_error\",\"code\":\"model_decommissioned\"}}"
+          }
+        ],
+        "positive": [],
+        "overall": "AI analizi başarısız"
+      },
+      "screenshots": {
+        "desktop": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\uzman-panel-desktop.png",
+        "mobile": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\uzman-panel-mobile.png"
+      },
+      "overall": "warning"
+    },
+    {
+      "name": "Profil",
+      "path": "profil.html",
+      "url": "https://isbul.online/profil.html",
+      "critical": false,
+      "timestamp": "2026-08-21T09:12:20.797Z",
+      "technical": {
+        "loadTime": 771,
+        "status": 200,
+        "consoleErrors": [
+          "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+        ],
+        "networkErrors": [
+          {
+            "url": "https://isbul.online/api/v1/bookings/my",
+            "status": 401
+          }
+        ],
+        "accessibility": [
+          "17 input'ta label eksik"
+        ],
+        "buttons": [
+          {
+            "text": "Giriş Yap",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Ücretsiz Kaydol",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Boş",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "👤 Bilgilerim",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "📋 Rezervasyonlarım",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "🔒 Güvenlik",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "🔔 Bildirimler",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Hizmet Ara",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Uzman Ol",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "🚪 Çıkış Yap",
+            "visible": true,
+            "enabled": true
+          }
+        ],
+        "links": [
+          {
+            "href": "index.html",
+            "text": "⚡\n        İşBul"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Hizmetler"
+          },
+          {
+            "href": "nasil-calisir.html",
+            "text": "Nasıl Çalışır?"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Ol"
+          },
+          {
+            "href": "mailto:Kurumsal@isbul.com.tr",
+            "text": "Kurumsal"
+          },
+          {
+            "href": "index.html",
+            "text": "Ana Sayfa"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Hizmet Ara"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Ol"
+          },
+          {
+            "href": "uzmanlar.html",
+            "text": "🔍 Uzman Ara"
+          },
+          {
+            "href": "nasil-calisir.html",
+            "text": "❓ Nasıl Çalışır?"
+          },
+          {
+            "href": "blog.html",
+            "text": "📝 Blog"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Uzman Ara →"
+          },
+          {
+            "href": "index.html",
+            "text": "⚡İşBul"
+          },
+          {
+            "href": "https://www.linkedin.com/in/%C3%BCmit-yakup-dedeo%C4%9Flu-4321212a7/",
+            "text": "🔗"
+          },
+          {
+            "href": "uzmanlar.html?kategori=montaj",
+            "text": "Mobilya Montajı"
+          },
+          {
+            "href": "uzmanlar.html?kategori=temizlik",
+            "text": "Ev Temizliği"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Tüm Hizmetler"
+          },
+          {
+            "href": "hakkimizda.html",
+            "text": "Hakkımızda"
+          }
+        ]
+      },
+      "ai": {
+        "status": "error",
+        "issues": [
+          {
+            "type": "error",
+            "message": "AI analizi yapılamadı: 400 {\"error\":{\"message\":\"The model `llama-3.2-11b-vision-preview` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.\",\"type\":\"invalid_request_error\",\"code\":\"model_decommissioned\"}}"
+          }
+        ],
+        "positive": [],
+        "overall": "AI analizi başarısız"
+      },
+      "screenshots": {
+        "desktop": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\profil-desktop.png",
+        "mobile": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\profil-mobile.png"
+      },
+      "overall": "warning"
+    },
+    {
+      "name": "Uzman Profil",
+      "path": "uzman-profil.html",
+      "url": "https://isbul.online/uzman-profil.html",
+      "critical": false,
+      "timestamp": "2026-08-21T09:12:26.632Z",
+      "technical": {
+        "loadTime": 948,
+        "status": 200,
+        "consoleErrors": [],
+        "networkErrors": [],
+        "accessibility": [
+          "9 input'ta label eksik"
+        ],
+        "buttons": [
+          {
+            "text": "Giriş Yap",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Ücretsiz Kaydol",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Boş",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "✅ Rezervasyon Yap",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "💬 Mesaj Gönder",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Genel Bakış",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Yorumlar (2)",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Hizmetler",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Fotoğraflar",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Tüm yorumları gör →",
+            "visible": true,
+            "enabled": true
+          }
+        ],
+        "links": [
+          {
+            "href": "index.html",
+            "text": "⚡\n        İşBul"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Hizmetler"
+          },
+          {
+            "href": "nasil-calisir.html",
+            "text": "Nasıl Çalışır?"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Ol"
+          },
+          {
+            "href": "mailto:Kurumsal@isbul.com.tr",
+            "text": "Kurumsal"
+          },
+          {
+            "href": "index.html",
+            "text": "Ana Sayfa"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Hizmetler"
+          },
+          {
+            "href": "uzman-profil.html?id=e14",
+            "text": "BÇ\n        Berk Çelik⭐ 4.89 · ₺260/saat"
+          },
+          {
+            "href": "uzman-profil.html?id=e10",
+            "text": "MÇ\n        Mustafa Çetin⭐ 4.85 · ₺300/saat"
+          },
+          {
+            "href": "uzman-profil.html?id=e24",
+            "text": "KÖ\n        Kadir Öztürk⭐ 4.86 · ₺250/saat"
+          },
+          {
+            "href": "nasil-calisir.html",
+            "text": "📧\n            \n              Rehber\n              nasıl Çalışır? ı"
+          }
+        ]
+      },
+      "ai": {
+        "status": "error",
+        "issues": [
+          {
+            "type": "error",
+            "message": "AI analizi yapılamadı: 400 {\"error\":{\"message\":\"The model `llama-3.2-11b-vision-preview` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.\",\"type\":\"invalid_request_error\",\"code\":\"model_decommissioned\"}}"
+          }
+        ],
+        "positive": [],
+        "overall": "AI analizi başarısız"
+      },
+      "screenshots": {
+        "desktop": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\uzman-profil-desktop.png",
+        "mobile": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\uzman-profil-mobile.png"
+      },
+      "overall": "warning"
+    },
+    {
+      "name": "Hizmetler",
+      "path": "hizmetler.html",
+      "url": "https://isbul.online/hizmetler.html",
+      "critical": false,
+      "timestamp": "2026-08-21T09:12:32.537Z",
+      "technical": {
+        "loadTime": 749,
+        "status": 200,
+        "consoleErrors": [],
+        "networkErrors": [],
+        "accessibility": [
+          "10 input'ta label eksik"
+        ],
+        "buttons": [
+          {
+            "text": "Giriş Yap",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Ücretsiz Kaydol",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Boş",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Ara",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Tümü",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Montaj",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Temizlik",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Nakliyat",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Elektrik",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Tesisat",
+            "visible": true,
+            "enabled": true
+          }
+        ],
+        "links": [
+          {
+            "href": "index.html",
+            "text": "⚡\n        İşBul"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Hizmetler"
+          },
+          {
+            "href": "nasil-calisir.html",
+            "text": "Nasıl Çalışır?"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Ol"
+          },
+          {
+            "href": "mailto:Kurumsal@isbul.com.tr",
+            "text": "Kurumsal"
+          },
+          {
+            "href": "uzmanlar.html?kategori=montaj",
+            "text": "🔧 Mobilya Montajı 24 uzman"
+          },
+          {
+            "href": "uzmanlar.html?kategori=temizlik",
+            "text": "🧹 Ev Temizliği 38 uzman"
+          },
+          {
+            "href": "uzmanlar.html?kategori=nakliyat",
+            "text": "🚚 Nakliyat 15 uzman"
+          },
+          {
+            "href": "uzmanlar.html?kategori=elektrik",
+            "text": "⚡ Elektrikçi 19 uzman"
+          },
+          {
+            "href": "uzmanlar.html?kategori=tesisat",
+            "text": "🔧 Tesisatçı 22 uzman"
+          },
+          {
+            "href": "uzmanlar.html?kategori=boya",
+            "text": "🎨 Boyacı 17 uzman"
+          },
+          {
+            "href": "uzmanlar.html?kategori=bahce",
+            "text": "🌱 Bahçe 11 uzman"
+          },
+          {
+            "href": "uzmanlar.html?kategori=diger",
+            "text": "🛠️ Diğer 46 uzman"
+          }
+        ]
+      },
+      "ai": {
+        "status": "error",
+        "issues": [
+          {
+            "type": "error",
+            "message": "AI analizi yapılamadı: 400 {\"error\":{\"message\":\"The model `llama-3.2-11b-vision-preview` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.\",\"type\":\"invalid_request_error\",\"code\":\"model_decommissioned\"}}"
+          }
+        ],
+        "positive": [],
+        "overall": "AI analizi başarısız"
+      },
+      "screenshots": {
+        "desktop": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\hizmetler-desktop.png",
+        "mobile": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\hizmetler-mobile.png"
+      },
+      "overall": "warning"
+    },
+    {
+      "name": "Hakkımızda",
+      "path": "hakkimizda.html",
+      "url": "https://isbul.online/hakkimizda.html",
+      "critical": false,
+      "timestamp": "2026-08-21T09:12:39.052Z",
+      "technical": {
+        "loadTime": 775,
+        "status": 200,
+        "consoleErrors": [],
+        "networkErrors": [],
+        "accessibility": [
+          "8 input'ta label eksik"
+        ],
+        "buttons": [
+          {
+            "text": "Giriş Yap",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Ücretsiz Kaydol",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Boş",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Hizmet Ara",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Uzman Ol",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Daha Fazla Bilgi →",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Hizmet Ara →",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Uzman Ol →",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "×",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "×",
+            "visible": false,
+            "enabled": true
+          }
+        ],
+        "links": [
+          {
+            "href": "index.html",
+            "text": "⚡\n        İşBul"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Hizmetler"
+          },
+          {
+            "href": "nasil-calisir.html",
+            "text": "Nasıl Çalışır?"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Ol"
+          },
+          {
+            "href": "mailto:Kurumsal@isbul.com.tr",
+            "text": "Kurumsal"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Hizmet Ara"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Ol"
+          },
+          {
+            "href": "nasil-calisir.html",
+            "text": "Daha Fazla Bilgi →"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Hizmet Ara →"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Ol →"
+          },
+          {
+            "href": "index.html",
+            "text": "⚡İşBul"
+          },
+          {
+            "href": "https://www.linkedin.com/in/%C3%BCmit-yakup-dedeo%C4%9Flu-4321212a7/",
+            "text": "🔗"
+          },
+          {
+            "href": "uzmanlar.html?kategori=montaj",
+            "text": "Mobilya Montajı"
+          },
+          {
+            "href": "uzmanlar.html?kategori=temizlik",
+            "text": "Ev Temizliği"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Tüm Hizmetler"
+          },
+          {
+            "href": "hakkimizda.html",
+            "text": "Hakkımızda"
+          },
+          {
+            "href": "blog.html",
+            "text": "Blog"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Ol"
+          },
+          {
+            "href": "nasil-calisir.html?rol=tasker",
+            "text": "Kazanç Hesapla"
+          }
+        ]
+      },
+      "ai": {
+        "status": "error",
+        "issues": [
+          {
+            "type": "error",
+            "message": "AI analizi yapılamadı: 400 {\"error\":{\"message\":\"The model `llama-3.2-11b-vision-preview` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.\",\"type\":\"invalid_request_error\",\"code\":\"model_decommissioned\"}}"
+          }
+        ],
+        "positive": [],
+        "overall": "AI analizi başarısız"
+      },
+      "screenshots": {
+        "desktop": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\hakkimizda-desktop.png",
+        "mobile": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\hakkimizda-mobile.png"
+      },
+      "overall": "warning"
+    },
+    {
+      "name": "Nasıl Çalışır",
+      "path": "nasil-calisir.html",
+      "url": "https://isbul.online/nasil-calisir.html",
+      "critical": false,
+      "timestamp": "2026-08-21T09:12:45.817Z",
+      "technical": {
+        "loadTime": 759,
+        "status": 200,
+        "consoleErrors": [],
+        "networkErrors": [],
+        "accessibility": [
+          "10 input'ta label eksik"
+        ],
+        "buttons": [
+          {
+            "text": "Giriş Yap",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Ücretsiz Kaydol",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Boş",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "👤 Hizmet Almak İstiyorum",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "⚡ Uzman Olmak İstiyorum",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Hemen Uzman Olarak Kaydol ı",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Hizmet Ara →",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Uzman Ol ı",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "×",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Giriş Yap",
+            "visible": false,
+            "enabled": true
+          }
+        ],
+        "links": [
+          {
+            "href": "index.html",
+            "text": "⚡\n        İşBul"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Hizmetler"
+          },
+          {
+            "href": "nasil-calisir.html",
+            "text": "Nasıl Çalışır?"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Ol"
+          },
+          {
+            "href": "mailto:Kurumsal@isbul.com.tr",
+            "text": "Kurumsal"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Hemen Uzman Olarak Kaydol ı"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Hizmet Ara →"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Ol ı"
+          },
+          {
+            "href": "index.html",
+            "text": "⚡İşBul"
+          },
+          {
+            "href": "https://www.linkedin.com/in/%C3%BCmit-yakup-dedeo%C4%9Flu-4321212a7/",
+            "text": "🔗"
+          },
+          {
+            "href": "hizmetler.html?kategori=montaj",
+            "text": "Mobilya Montajı"
+          },
+          {
+            "href": "hizmetler.html?kategori=temizlik",
+            "text": "Ev Temizliği"
+          },
+          {
+            "href": "hizmetler.html?kategori=nakliyat",
+            "text": "Nakliyat"
+          },
+          {
+            "href": "hizmetler.html?kategori=elektrik",
+            "text": "Elektrikçi"
+          },
+          {
+            "href": "hakkimizda.html",
+            "text": "Hakkımızda"
+          },
+          {
+            "href": "blog.html",
+            "text": "Blog"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Ol"
+          },
+          {
+            "href": "kvkk.html",
+            "text": "KVKK"
+          }
+        ]
+      },
+      "ai": {
+        "status": "error",
+        "issues": [
+          {
+            "type": "error",
+            "message": "AI analizi yapılamadı: 400 {\"error\":{\"message\":\"The model `llama-3.2-11b-vision-preview` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.\",\"type\":\"invalid_request_error\",\"code\":\"model_decommissioned\"}}"
+          }
+        ],
+        "positive": [],
+        "overall": "AI analizi başarısız"
+      },
+      "screenshots": {
+        "desktop": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\nasil-calisir-desktop.png",
+        "mobile": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\nasil-calisir-mobile.png"
+      },
+      "overall": "warning"
+    },
+    {
+      "name": "Blog",
+      "path": "blog.html",
+      "url": "https://isbul.online/blog.html",
+      "critical": false,
+      "timestamp": "2026-08-21T09:13:14.487Z",
+      "technical": {
+        "loadTime": 749,
+        "status": 200,
+        "consoleErrors": [],
+        "networkErrors": [],
+        "accessibility": [
+          "10 input'ta label eksik"
+        ],
+        "buttons": [
+          {
+            "text": "Giriş Yap",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Ücretsiz Kaydol",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Boş",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Tümü",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Rehber",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "İpuçları",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Haberler",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Uzmanlar İçin",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Abone Ol",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "×",
+            "visible": false,
+            "enabled": true
+          }
+        ],
+        "links": [
+          {
+            "href": "index.html",
+            "text": "⚡\n        İşBul"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Hizmetler"
+          },
+          {
+            "href": "nasil-calisir.html",
+            "text": "Nasıl Çalışır?"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Ol"
+          },
+          {
+            "href": "mailto:Kurumsal@isbul.com.tr",
+            "text": "Kurumsal"
+          },
+          {
+            "href": "index.html",
+            "text": "⚡İşBul"
+          },
+          {
+            "href": "https://www.linkedin.com/in/%C3%BCmit-yakup-dedeo%C4%9Flu-4321212a7/",
+            "text": "🔗"
+          },
+          {
+            "href": "uzmanlar.html?kategori=montaj",
+            "text": "Mobilya Montajı"
+          },
+          {
+            "href": "uzmanlar.html?kategori=temizlik",
+            "text": "Ev Temizliği"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Tüm Hizmetler"
+          },
+          {
+            "href": "hakkimizda.html",
+            "text": "Hakkımızda"
+          },
+          {
+            "href": "blog.html",
+            "text": "Blog"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Ol"
+          },
+          {
+            "href": "nasil-calisir.html?rol=tasker",
+            "text": "Kazanç Hesapla"
+          },
+          {
+            "href": "kvkk.html",
+            "text": "KVKK"
+          },
+          {
+            "href": "nasil-calisir.html",
+            "text": "📚\n            RehberNasıl Çalışır? →"
+          }
+        ]
+      },
+      "ai": {
+        "status": "error",
+        "issues": [
+          {
+            "type": "error",
+            "message": "AI analizi yapılamadı: 400 {\"error\":{\"message\":\"The model `llama-3.2-11b-vision-preview` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.\",\"type\":\"invalid_request_error\",\"code\":\"model_decommissioned\"}}"
+          }
+        ],
+        "positive": [],
+        "overall": "AI analizi başarısız"
+      },
+      "screenshots": {
+        "desktop": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\blog-desktop.png",
+        "mobile": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\blog-mobile.png"
+      },
+      "overall": "warning"
+    },
+    {
+      "name": "Hesap Oluştur",
+      "path": "create-account.html",
+      "url": "https://isbul.online/create-account.html",
+      "critical": true,
+      "timestamp": "2026-08-21T09:13:34.530Z",
+      "technical": {
+        "loadTime": 759,
+        "status": 200,
+        "consoleErrors": [],
+        "networkErrors": [],
+        "accessibility": [
+          "10 input'ta label eksik"
+        ],
+        "buttons": [
+          {
+            "text": "Giriş Yap",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Ücretsiz Kaydol",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "🚪 Çıkış Yap",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Boş",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Mobilya Montajı",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Ev Temizlikçi",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "TV Montajı",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "nakliyat",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Boyacı",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "🕐 Bugün Müsait",
+            "visible": true,
+            "enabled": true
+          }
+        ],
+        "links": [
+          {
+            "href": "index.html",
+            "text": "⚡\n        İşBul"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Hizmetler"
+          },
+          {
+            "href": "nasil-calisir.html",
+            "text": "Nasıl Çalışır?"
+          },
+          {
+            "href": "uzman-panel.html",
+            "text": "Uzman Panelim"
+          },
+          {
+            "href": "mailto:Kurumsal@isBul.com.tr",
+            "text": "Kurumsal"
+          },
+          {
+            "href": "admin-panel.html",
+            "text": "🛡️ Admin Girişi"
+          },
+          {
+            "href": "profil.html",
+            "text": "👤 Profilim"
+          },
+          {
+            "href": "uzman-profil.html?id=e1",
+            "text": "Profil"
+          },
+          {
+            "href": "uzmanlar.html?kategori=montaj",
+            "text": "Uzmanları GÖR"
+          },
+          {
+            "href": "uzmanlar.html?kategori=montaj",
+            "text": "🔧\n          Mobilya Montajı\n          Tüm marka mobilya montajı\n          \n            ₺200'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=temizlik",
+            "text": "🧹\n          Ev Temizliği\n          Standart & derin temizlik\n          \n            ₺250'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=nakliyat",
+            "text": "🚚\n          Nakliyat & Taşıma\n          Ev ve ofis taşıma hizmetleri\n          \n            ₺500'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=elektrik",
+            "text": "⚡\n          Elektrikçi\n          Priz, aydınlatma, panel\n          \n            ₺280'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=tesisat",
+            "text": "🔧\n          Tesisatçı\n          Su, doğalgaz, kalorifer\n          \n            ₺300'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=boya",
+            "text": "🎨\n          Boyacı\n          İç cephe ve dekoratif boya\n          \n            ₺350'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=montaj",
+            "text": "📺\n          TV Montajı\n          Duvara askı ve bağlantı\n          \n            ₺220'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=bahce",
+            "text": "🌱\n          Bahçe Bakımı\n          Çim biçme, budama, düzenleme\n          \n            ₺200'den başlar\n            ›"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "📋\n          Tüm Hizmetler\n          30+ farklı kategori\n          \n            Keşfet\n            ›"
+          },
+          {
+            "href": "nasil-calisir.html",
+            "text": "Daha Fazla Bilgi"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Olarak Kaydol »"
+          }
+        ]
+      },
+      "ai": {
+        "status": "error",
+        "issues": [
+          {
+            "type": "error",
+            "message": "AI analizi yapılamadı: 400 {\"error\":{\"message\":\"The model `llama-3.2-11b-vision-preview` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.\",\"type\":\"invalid_request_error\",\"code\":\"model_decommissioned\"}}"
+          }
+        ],
+        "positive": [],
+        "overall": "AI analizi başarısız"
+      },
+      "screenshots": {
+        "desktop": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\create-account-desktop.png",
+        "mobile": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\create-account-mobile.png"
+      },
+      "overall": "warning"
+    },
+    {
+      "name": "Şifremi Unuttum",
+      "path": "forgot-password.html",
+      "url": "https://isbul.online/forgot-password.html",
+      "critical": false,
+      "timestamp": "2026-08-21T09:13:40.797Z",
+      "technical": {
+        "loadTime": 745,
+        "status": 200,
+        "consoleErrors": [],
+        "networkErrors": [],
+        "accessibility": [
+          "1 input'ta label eksik"
+        ],
+        "buttons": [
+          {
+            "text": "Sıfırlama Linki Gönder",
+            "visible": true,
+            "enabled": true
+          }
+        ],
+        "links": [
+          {
+            "href": "login.html",
+            "text": "← Giriş sayfasına dön"
+          }
+        ]
+      },
+      "ai": {
+        "status": "error",
+        "issues": [
+          {
+            "type": "error",
+            "message": "AI analizi yapılamadı: 400 {\"error\":{\"message\":\"The model `llama-3.2-11b-vision-preview` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.\",\"type\":\"invalid_request_error\",\"code\":\"model_decommissioned\"}}"
+          }
+        ],
+        "positive": [],
+        "overall": "AI analizi başarısız"
+      },
+      "screenshots": {
+        "desktop": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\forgot-password-desktop.png",
+        "mobile": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\forgot-password-mobile.png"
+      },
+      "overall": "warning"
+    },
+    {
+      "name": "Şifre Sıfırla",
+      "path": "reset-password.html",
+      "url": "https://isbul.online/reset-password.html",
+      "critical": false,
+      "timestamp": "2026-08-21T09:13:55.990Z",
+      "technical": {
+        "loadTime": 1117,
+        "status": 200,
+        "consoleErrors": [],
+        "networkErrors": [],
+        "accessibility": [
+          "1 input'ta label eksik"
+        ],
+        "buttons": [
+          {
+            "text": "Sıfırlama Linki Gönder",
+            "visible": true,
+            "enabled": true
+          }
+        ],
+        "links": [
+          {
+            "href": "login.html",
+            "text": "← Giriş sayfasına dön"
+          }
+        ]
+      },
+      "ai": {
+        "status": "error",
+        "issues": [
+          {
+            "type": "error",
+            "message": "AI analizi yapılamadı: 400 {\"error\":{\"message\":\"The model `llama-3.2-11b-vision-preview` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.\",\"type\":\"invalid_request_error\",\"code\":\"model_decommissioned\"}}"
+          }
+        ],
+        "positive": [],
+        "overall": "AI analizi başarısız"
+      },
+      "screenshots": {
+        "desktop": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\reset-password-desktop.png",
+        "mobile": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\reset-password-mobile.png"
+      },
+      "overall": "warning"
+    },
+    {
+      "name": "KVKK",
+      "path": "kvkk.html",
+      "url": "https://isbul.online/kvkk.html",
+      "critical": false,
+      "timestamp": "2026-08-21T09:14:02.446Z",
+      "technical": {
+        "loadTime": 1027,
+        "status": 200,
+        "consoleErrors": [],
+        "networkErrors": [],
+        "accessibility": [
+          "8 input'ta label eksik"
+        ],
+        "buttons": [
+          {
+            "text": "Giriş Yap",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Ücretsiz Kaydol",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "🚪 Çıkış Yap",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Boş",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "← Ana Sayfaya Dön",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "×",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Giriş Yap",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Ücretsiz Kaydol",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Google ile Giriş",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Giriş Yap",
+            "visible": false,
+            "enabled": true
+          }
+        ],
+        "links": [
+          {
+            "href": "index.html",
+            "text": "⚡İşBul"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Hizmetler"
+          },
+          {
+            "href": "nasil-calisir.html",
+            "text": "Nasıl Çalışır?"
+          },
+          {
+            "href": "uzman-panel.html",
+            "text": "Uzman Panelim"
+          },
+          {
+            "href": "admin-panel.html",
+            "text": "🛡️ Admin Girişi"
+          },
+          {
+            "href": "profil.html",
+            "text": "👤 Profilim"
+          },
+          {
+            "href": "index.html",
+            "text": "← Ana Sayfaya Dön"
+          }
+        ]
+      },
+      "ai": {
+        "status": "error",
+        "issues": [
+          {
+            "type": "error",
+            "message": "AI analizi yapılamadı: 400 {\"error\":{\"message\":\"The model `llama-3.2-11b-vision-preview` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.\",\"type\":\"invalid_request_error\",\"code\":\"model_decommissioned\"}}"
+          }
+        ],
+        "positive": [],
+        "overall": "AI analizi başarısız"
+      },
+      "screenshots": {
+        "desktop": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\kvkk-desktop.png",
+        "mobile": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\kvkk-mobile.png"
+      },
+      "overall": "warning"
+    },
+    {
+      "name": "Gizlilik",
+      "path": "gizlilik.html",
+      "url": "https://isbul.online/gizlilik.html",
+      "critical": false,
+      "timestamp": "2026-08-21T09:14:08.382Z",
+      "technical": {
+        "loadTime": 965,
+        "status": 200,
+        "consoleErrors": [],
+        "networkErrors": [],
+        "accessibility": [
+          "8 input'ta label eksik"
+        ],
+        "buttons": [
+          {
+            "text": "Giriş Yap",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Ücretsiz Kaydol",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "🚪 Çıkış Yap",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Boş",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "↩ Ana Sayfaya Dön",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "×",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Giriş Yap",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Ücretsiz Kaydol",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Google ile Giriş",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Giriş Yap",
+            "visible": false,
+            "enabled": true
+          }
+        ],
+        "links": [
+          {
+            "href": "index.html",
+            "text": "⚡İşBul"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Hizmetler"
+          },
+          {
+            "href": "nasil-calisir.html",
+            "text": "Nasıl Çalışır?"
+          },
+          {
+            "href": "uzman-panel.html",
+            "text": "Uzman Panelim"
+          },
+          {
+            "href": "admin-panel.html",
+            "text": "🛡️ Admin Girişi"
+          },
+          {
+            "href": "profil.html",
+            "text": "👤 Profilim"
+          },
+          {
+            "href": "mailto:kvkk@isbul.com.tr",
+            "text": "kvkk@isbul.com.tr"
+          },
+          {
+            "href": "index.html",
+            "text": "↩ Ana Sayfaya Dön"
+          },
+          {
+            "href": "index.html",
+            "text": "⚡İşBul"
+          },
+          {
+            "href": "https://www.linkedin.com/in/%C3%BCmit-yakup-dedeo%C4%9Flu-4321212a7/",
+            "text": "🔗"
+          },
+          {
+            "href": "hizmetler.html?kategori=montaj",
+            "text": "Mobilya Montajı"
+          },
+          {
+            "href": "hizmetler.html?kategori=temizlik",
+            "text": "Ev Temizliği"
+          },
+          {
+            "href": "hizmetler.html?kategori=nakliyat",
+            "text": "Nakliyat"
+          },
+          {
+            "href": "hizmetler.html?kategori=elektrik",
+            "text": "Elektrikçi"
+          },
+          {
+            "href": "hakkimizda.html",
+            "text": "Hakkımızda"
+          },
+          {
+            "href": "blog.html",
+            "text": "Blog"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Ol"
+          },
+          {
+            "href": "gizlilik.html",
+            "text": "Gizlilik Politikası"
+          },
+          {
+            "href": "sartlar.html",
+            "text": "Kullanım Şartları"
+          }
+        ]
+      },
+      "ai": {
+        "status": "error",
+        "issues": [
+          {
+            "type": "error",
+            "message": "AI analizi yapılamadı: 400 {\"error\":{\"message\":\"The model `llama-3.2-11b-vision-preview` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.\",\"type\":\"invalid_request_error\",\"code\":\"model_decommissioned\"}}"
+          }
+        ],
+        "positive": [],
+        "overall": "AI analizi başarısız"
+      },
+      "screenshots": {
+        "desktop": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\gizlilik-desktop.png",
+        "mobile": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\gizlilik-mobile.png"
+      },
+      "overall": "warning"
+    },
+    {
+      "name": "Şartlar",
+      "path": "sartlar.html",
+      "url": "https://isbul.online/sartlar.html",
+      "critical": false,
+      "timestamp": "2026-08-21T09:14:14.283Z",
+      "technical": {
+        "loadTime": 736,
+        "status": 200,
+        "consoleErrors": [],
+        "networkErrors": [],
+        "accessibility": [
+          "8 input'ta label eksik"
+        ],
+        "buttons": [
+          {
+            "text": "Giriş Yap",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Ücretsiz Kaydol",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "🚪 Çıkış Yap",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Boş",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "×",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Giriş Yap",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Ücretsiz Kaydol",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Google ile Giriş",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Giriş Yap",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Google ile Kayıt",
+            "visible": false,
+            "enabled": true
+          }
+        ],
+        "links": [
+          {
+            "href": "index.html",
+            "text": "⚡İşBul"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Hizmetler"
+          },
+          {
+            "href": "nasil-calisir.html",
+            "text": "Nasıl Çalışır?"
+          },
+          {
+            "href": "uzman-panel.html",
+            "text": "Uzman Panelim"
+          },
+          {
+            "href": "admin-panel.html",
+            "text": "🛡️ Admin Girişi"
+          },
+          {
+            "href": "profil.html",
+            "text": "👤 Profilim"
+          },
+          {
+            "href": "mailto:hukuk@isbul.com.tr",
+            "text": "hukuk@isbul.com.tr"
+          },
+          {
+            "href": "index.html",
+            "text": "⚡İşBul"
+          },
+          {
+            "href": "https://www.linkedin.com/in/%C3%BCmit-yakup-dedeo%C4%9Flu-4321212a7/",
+            "text": "🔗"
+          },
+          {
+            "href": "hizmetler.html?kategori=montaj",
+            "text": "Mobilya Montajı"
+          },
+          {
+            "href": "hizmetler.html?kategori=temizlik",
+            "text": "Ev Temizliği"
+          },
+          {
+            "href": "hizmetler.html?kategori=nakliyat",
+            "text": "Nakliyat"
+          },
+          {
+            "href": "hizmetler.html?kategori=elektrik",
+            "text": "Elektrikçi"
+          },
+          {
+            "href": "hakkimizda.html",
+            "text": "Hakkımızda"
+          },
+          {
+            "href": "blog.html",
+            "text": "Blog"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Ol"
+          },
+          {
+            "href": "gizlilik.html",
+            "text": "Gizlilik Politikası"
+          },
+          {
+            "href": "sartlar.html",
+            "text": "Kullanım Şartları"
+          },
+          {
+            "href": "kvkk.html",
+            "text": "KVKK"
+          }
+        ]
+      },
+      "ai": {
+        "status": "error",
+        "issues": [
+          {
+            "type": "error",
+            "message": "AI analizi yapılamadı: 400 {\"error\":{\"message\":\"The model `llama-3.2-11b-vision-preview` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.\",\"type\":\"invalid_request_error\",\"code\":\"model_decommissioned\"}}"
+          }
+        ],
+        "positive": [],
+        "overall": "AI analizi başarısız"
+      },
+      "screenshots": {
+        "desktop": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\sartlar-desktop.png",
+        "mobile": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\sartlar-mobile.png"
+      },
+      "overall": "warning"
+    }
+  ]
+}

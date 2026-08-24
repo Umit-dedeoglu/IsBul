@@ -1,0 +1,588 @@
+{
+  "timestamp": "2026-08-21T14:48:09.439412",
+  "duration": 90.88,
+  "summary": {
+    "total_pages": 17,
+    "pages_ok": 17,
+    "pages_with_issues": 0,
+    "total_issues": 0
+  },
+  "results": [
+    {
+      "page": "index.html",
+      "url": "https://isbul.online",
+      "timestamp": "2026-08-21T14:46:40.691851",
+      "issues": [],
+      "warnings": [
+        {
+          "type": "SUSPICIOUS_LINKS",
+          "message": "Found 19 suspicious links",
+          "details": [
+            "index.html",
+            "hizmetler.html",
+            "nasil-calisir.html",
+            "uzman-ol.html",
+            "mailto:Kurumsal@isBul.com.tr"
+          ]
+        },
+        {
+          "type": "MODAL_NOT_FOUND",
+          "message": "Login button clicked but no modal appeared"
+        }
+      ],
+      "info": {
+        "load_time": 4.98,
+        "status_code": 200,
+        "forms_count": 2,
+        "buttons_count": 33,
+        "nav_links_count": 5
+      }
+    },
+    {
+      "page": "uzmanlar.html",
+      "url": "https://isbul.online/uzmanlar.html",
+      "timestamp": "2026-08-21T14:46:48.064995",
+      "issues": [],
+      "warnings": [
+        {
+          "type": "SUSPICIOUS_LINKS",
+          "message": "Found 20 suspicious links",
+          "details": [
+            "index.html",
+            "hizmetler.html",
+            "nasil-calisir.html",
+            "uzman-ol.html",
+            "mailto:Kurumsal@isbul.com.tr"
+          ]
+        },
+        {
+          "type": "MODAL_NOT_FOUND",
+          "message": "Login button clicked but no modal appeared"
+        }
+      ],
+      "info": {
+        "load_time": 1.0,
+        "status_code": 200,
+        "forms_count": 2,
+        "buttons_count": 53,
+        "nav_links_count": 5
+      }
+    },
+    {
+      "page": "uzman-profil.html",
+      "url": "https://isbul.online/uzman-profil.html",
+      "timestamp": "2026-08-21T14:46:51.331148",
+      "issues": [],
+      "warnings": [
+        {
+          "type": "SUSPICIOUS_LINKS",
+          "message": "Found 17 suspicious links",
+          "details": [
+            "index.html",
+            "hizmetler.html",
+            "nasil-calisir.html",
+            "uzman-ol.html",
+            "mailto:Kurumsal@isbul.com.tr"
+          ]
+        },
+        {
+          "type": "MODAL_NOT_FOUND",
+          "message": "Login button clicked but no modal appeared"
+        }
+      ],
+      "info": {
+        "load_time": 1.09,
+        "status_code": 200,
+        "forms_count": 2,
+        "buttons_count": 30,
+        "nav_links_count": 5
+      }
+    },
+    {
+      "page": "uzman-ol.html",
+      "url": "https://isbul.online/uzman-ol.html",
+      "timestamp": "2026-08-21T14:46:54.674587",
+      "issues": [],
+      "warnings": [
+        {
+          "type": "SUSPICIOUS_LINKS",
+          "message": "Found 17 suspicious links",
+          "details": [
+            "index.html",
+            "hizmetler.html",
+            "nasil-calisir.html",
+            "uzman-ol.html",
+            "mailto:Kurumsal@isbul.com.tr"
+          ]
+        },
+        {
+          "type": "MODAL_NOT_FOUND",
+          "message": "Login button clicked but no modal appeared"
+        }
+      ],
+      "info": {
+        "load_time": 0.8,
+        "status_code": 200,
+        "forms_count": 3,
+        "buttons_count": 26,
+        "hidden_buttons": [
+          "← Geri",
+          "Devam Et → Belgeler",
+          "← Geri",
+          "Devam Et → Ödeme Bilgisi",
+          "← Geri"
+        ],
+        "nav_links_count": 5
+      }
+    },
+    {
+      "page": "uzman-panel.html",
+      "url": "https://isbul.online/uzman-panel.html",
+      "timestamp": "2026-08-21T14:46:57.781328",
+      "issues": [],
+      "warnings": [
+        {
+          "type": "SUSPICIOUS_LINKS",
+          "message": "Found 19 suspicious links",
+          "details": [
+            "index.html",
+            "hizmetler.html",
+            "nasil-calisir.html",
+            "uzman-panel.html",
+            "mailto:Kurumsal@isbul.com.tr"
+          ]
+        },
+        {
+          "type": "MODAL_NOT_FOUND",
+          "message": "Login button clicked but no modal appeared"
+        }
+      ],
+      "info": {
+        "load_time": 1.1,
+        "status_code": 200,
+        "forms_count": 3,
+        "buttons_count": 23,
+        "hidden_buttons": [
+          "\n                  Ekle\n                ",
+          "\n              Değişiklikleri Kaydet\n            ",
+          "×"
+        ],
+        "nav_links_count": 5
+      }
+    },
+    {
+      "page": "profil.html",
+      "url": "https://isbul.online/profil.html",
+      "timestamp": "2026-08-21T14:47:01.162665",
+      "issues": [],
+      "warnings": [
+        {
+          "type": "SUSPICIOUS_LINKS",
+          "message": "Found 17 suspicious links",
+          "details": [
+            "index.html",
+            "hizmetler.html",
+            "nasil-calisir.html",
+            "uzman-ol.html",
+            "mailto:Kurumsal@isbul.com.tr"
+          ]
+        }
+      ],
+      "info": {
+        "load_time": 0.77,
+        "status_code": 200,
+        "forms_count": 4,
+        "buttons_count": 32,
+        "nav_links_count": 5
+      }
+    },
+    {
+      "page": "admin-panel.html",
+      "url": "https://isbul.online/admin-panel.html",
+      "timestamp": "2026-08-21T14:47:33.171107",
+      "issues": [],
+      "warnings": [
+        {
+          "type": "SUSPICIOUS_LINKS",
+          "message": "Found 19 suspicious links",
+          "details": [
+            "index.html",
+            "hizmetler.html",
+            "nasil-calisir.html",
+            "uzman-ol.html",
+            "mailto:Kurumsal@isBul.com.tr"
+          ]
+        },
+        {
+          "type": "MODAL_NOT_FOUND",
+          "message": "Login button clicked but no modal appeared"
+        },
+        {
+          "type": "ADMIN_NO_SIDEBAR",
+          "message": "Admin panel has no sidebar"
+        },
+        {
+          "type": "ADMIN_NO_CONTENT",
+          "message": "Admin panel has no main content area"
+        }
+      ],
+      "info": {
+        "load_time": 1.39,
+        "status_code": 200,
+        "forms_count": 2,
+        "buttons_count": 33,
+        "nav_links_count": 5,
+        "admin_tables_count": 0
+      }
+    },
+    {
+      "page": "blog.html",
+      "url": "https://isbul.online/blog.html",
+      "timestamp": "2026-08-21T14:47:36.916078",
+      "issues": [],
+      "warnings": [
+        {
+          "type": "SUSPICIOUS_LINKS",
+          "message": "Found 15 suspicious links",
+          "details": [
+            "index.html",
+            "hizmetler.html",
+            "nasil-calisir.html",
+            "uzman-ol.html",
+            "mailto:Kurumsal@isbul.com.tr"
+          ]
+        },
+        {
+          "type": "MODAL_NOT_FOUND",
+          "message": "Login button clicked but no modal appeared"
+        }
+      ],
+      "info": {
+        "load_time": 0.78,
+        "status_code": 200,
+        "forms_count": 2,
+        "buttons_count": 24,
+        "hidden_buttons": [
+          "×"
+        ],
+        "nav_links_count": 5
+      }
+    },
+    {
+      "page": "hakkimizda.html",
+      "url": "https://isbul.online/hakkimizda.html",
+      "timestamp": "2026-08-21T14:47:39.921202",
+      "issues": [],
+      "warnings": [
+        {
+          "type": "SUSPICIOUS_LINKS",
+          "message": "Found 18 suspicious links",
+          "details": [
+            "index.html",
+            "hizmetler.html",
+            "nasil-calisir.html",
+            "uzman-ol.html",
+            "mailto:Kurumsal@isbul.com.tr"
+          ]
+        },
+        {
+          "type": "MODAL_NOT_FOUND",
+          "message": "Login button clicked but no modal appeared"
+        }
+      ],
+      "info": {
+        "load_time": 0.82,
+        "status_code": 200,
+        "forms_count": 2,
+        "buttons_count": 23,
+        "hidden_buttons": [
+          "×",
+          "×"
+        ],
+        "nav_links_count": 5
+      }
+    },
+    {
+      "page": "hizmetler.html",
+      "url": "https://isbul.online/hizmetler.html",
+      "timestamp": "2026-08-21T14:47:42.983809",
+      "issues": [],
+      "warnings": [
+        {
+          "type": "SUSPICIOUS_LINKS",
+          "message": "Found 13 suspicious links",
+          "details": [
+            "index.html",
+            "hizmetler.html",
+            "nasil-calisir.html",
+            "uzman-ol.html",
+            "mailto:Kurumsal@isbul.com.tr"
+          ]
+        },
+        {
+          "type": "MODAL_NOT_FOUND",
+          "message": "Login button clicked but no modal appeared"
+        }
+      ],
+      "info": {
+        "load_time": 0.77,
+        "status_code": 200,
+        "forms_count": 2,
+        "buttons_count": 30,
+        "nav_links_count": 5
+      }
+    },
+    {
+      "page": "nasil-calisir.html",
+      "url": "https://isbul.online/nasil-calisir.html",
+      "timestamp": "2026-08-21T14:47:45.986027",
+      "issues": [],
+      "warnings": [
+        {
+          "type": "SUSPICIOUS_LINKS",
+          "message": "Found 17 suspicious links",
+          "details": [
+            "index.html",
+            "hizmetler.html",
+            "nasil-calisir.html",
+            "uzman-ol.html",
+            "mailto:Kurumsal@isbul.com.tr"
+          ]
+        },
+        {
+          "type": "MODAL_NOT_FOUND",
+          "message": "Login button clicked but no modal appeared"
+        }
+      ],
+      "info": {
+        "load_time": 0.75,
+        "status_code": 200,
+        "forms_count": 2,
+        "buttons_count": 24,
+        "hidden_buttons": [
+          "Hemen Uzman Olarak Kaydol ı",
+          "×",
+          "Giriş Yap"
+        ],
+        "nav_links_count": 5
+      }
+    },
+    {
+      "page": "gizlilik.html",
+      "url": "https://isbul.online/gizlilik.html",
+      "timestamp": "2026-08-21T14:47:48.981248",
+      "issues": [],
+      "warnings": [
+        {
+          "type": "SUSPICIOUS_LINKS",
+          "message": "Found 17 suspicious links",
+          "details": [
+            "index.html",
+            "hizmetler.html",
+            "nasil-calisir.html",
+            "uzman-ol.html",
+            "mailto:kvkk@isbul.com.tr"
+          ]
+        },
+        {
+          "type": "MODAL_NOT_FOUND",
+          "message": "Login button clicked but no modal appeared"
+        }
+      ],
+      "info": {
+        "load_time": 0.96,
+        "status_code": 200,
+        "forms_count": 2,
+        "buttons_count": 18,
+        "hidden_buttons": [
+          "×",
+          "Giriş Yap",
+          "Ücretsiz Kaydol",
+          " Google ile Giriş",
+          "Giriş Yap",
+          " Google ile Kayıt"
+        ],
+        "nav_links_count": 4
+      }
+    },
+    {
+      "page": "kvkk.html",
+      "url": "https://isbul.online/kvkk.html",
+      "timestamp": "2026-08-21T14:47:52.201477",
+      "issues": [],
+      "warnings": [
+        {
+          "type": "SUSPICIOUS_LINKS",
+          "message": "Found 19 suspicious links",
+          "details": [
+            "index.html",
+            "hizmetler.html",
+            "nasil-calisir.html",
+            "uzman-ol.html",
+            "index.html"
+          ]
+        },
+        {
+          "type": "MODAL_NOT_FOUND",
+          "message": "Login button clicked but no modal appeared"
+        }
+      ],
+      "info": {
+        "load_time": 0.76,
+        "status_code": 200,
+        "forms_count": 2,
+        "buttons_count": 18,
+        "hidden_buttons": [
+          "×",
+          "Giriş Yap",
+          "Ücretsiz Kaydol",
+          " Google ile Giriş",
+          "Giriş Yap",
+          " Google ile Kayıt"
+        ],
+        "nav_links_count": 4
+      }
+    },
+    {
+      "page": "sartlar.html",
+      "url": "https://isbul.online/sartlar.html",
+      "timestamp": "2026-08-21T14:47:55.243554",
+      "issues": [],
+      "warnings": [
+        {
+          "type": "SUSPICIOUS_LINKS",
+          "message": "Found 16 suspicious links",
+          "details": [
+            "index.html",
+            "hizmetler.html",
+            "nasil-calisir.html",
+            "uzman-ol.html",
+            "mailto:hukuk@isbul.com.tr"
+          ]
+        },
+        {
+          "type": "MODAL_NOT_FOUND",
+          "message": "Login button clicked but no modal appeared"
+        }
+      ],
+      "info": {
+        "load_time": 0.75,
+        "status_code": 200,
+        "forms_count": 2,
+        "buttons_count": 17,
+        "hidden_buttons": [
+          "×",
+          "Giriş Yap",
+          "Ücretsiz Kaydol",
+          " Google ile Giriş",
+          "Giriş Yap",
+          " Google ile Kayıt",
+          "Hesap Oluştur"
+        ],
+        "nav_links_count": 4
+      }
+    },
+    {
+      "page": "create-account.html",
+      "url": "https://isbul.online/create-account.html",
+      "timestamp": "2026-08-21T14:47:58.323717",
+      "issues": [],
+      "warnings": [
+        {
+          "type": "SUSPICIOUS_LINKS",
+          "message": "Found 16 suspicious links",
+          "details": [
+            "index.html",
+            "uzmanlar.html?kategori=montaj",
+            "uzmanlar.html?kategori=temizlik",
+            "uzmanlar.html?kategori=nakliyat",
+            "uzmanlar.html?kategori=elektrik"
+          ]
+        },
+        {
+          "type": "NO_NAVIGATION",
+          "message": "No navigation element found"
+        }
+      ],
+      "info": {
+        "load_time": 0.79,
+        "status_code": 200,
+        "forms_count": 0,
+        "buttons_count": 7,
+        "hidden_buttons": [
+          "✕",
+          "💡 İstanbul'da elektrikçi lazım",
+          "📅 Rezervasyonumu iptal etmek istiyorum",
+          "❓ Uzmanları nasıl değerlendirebilirim?",
+          "🏠 Evime temizlik hizmeti nasıl bulabilirim?"
+        ]
+      }
+    },
+    {
+      "page": "forgot-password.html",
+      "url": "https://isbul.online/forgot-password.html",
+      "timestamp": "2026-08-21T14:48:00.478952",
+      "issues": [],
+      "warnings": [
+        {
+          "type": "SUSPICIOUS_LINKS",
+          "message": "Found 17 suspicious links",
+          "details": [
+            "login.html",
+            "index.html",
+            "uzmanlar.html?kategori=montaj",
+            "uzmanlar.html?kategori=temizlik",
+            "uzmanlar.html?kategori=nakliyat"
+          ]
+        },
+        {
+          "type": "NO_NAVIGATION",
+          "message": "No navigation element found"
+        },
+        {
+          "type": "MODAL_NOT_FOUND",
+          "message": "Login button clicked but no modal appeared"
+        }
+      ],
+      "info": {
+        "load_time": 0.78,
+        "status_code": 200,
+        "forms_count": 1,
+        "buttons_count": 1
+      }
+    },
+    {
+      "page": "reset-password.html",
+      "url": "https://isbul.online/reset-password.html",
+      "timestamp": "2026-08-21T14:48:03.884512",
+      "issues": [],
+      "warnings": [
+        {
+          "type": "SUSPICIOUS_LINKS",
+          "message": "Found 17 suspicious links",
+          "details": [
+            "login.html",
+            "index.html",
+            "uzmanlar.html?kategori=montaj",
+            "uzmanlar.html?kategori=temizlik",
+            "uzmanlar.html?kategori=nakliyat"
+          ]
+        },
+        {
+          "type": "NO_NAVIGATION",
+          "message": "No navigation element found"
+        },
+        {
+          "type": "MODAL_NOT_FOUND",
+          "message": "Login button clicked but no modal appeared"
+        }
+      ],
+      "info": {
+        "load_time": 1.24,
+        "status_code": 200,
+        "forms_count": 1,
+        "buttons_count": 1
+      }
+    }
+  ]
+}
