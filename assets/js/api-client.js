@@ -17,9 +17,7 @@ const BACKEND_URL = (() => {
   }
   // Production domain - api subdomain
   if (h === 'isbul.online' || h === 'www.isbul.online') {
-    // Geçici: DNS yayılana kadar Render URL kullan
-    return 'https://isbul-api.onrender.com';
-    // DNS yayılınca şunu aktifleştir: return 'https://api.isbul.online';
+    return 'https://isbul-backend.onrender.com';
   }
   }
   // Canlı ortam — api subdomain kullan
