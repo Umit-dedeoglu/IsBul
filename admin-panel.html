@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="assets/js/analytics.js" defer></script>
-  <title>Admin Paneli – işİşBul</title>
+  <title>Admin Paneli – İşBul</title>
   <link rel="stylesheet" href="assets/css/styles.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
@@ -259,7 +259,7 @@
 ══════════════════════════════════ -->
 <aside class="admin-sidebar">
   <div class="sidebar-logo">
-    <span>⚡ iş<span class="accent">İşBul</span></span>
+    <span>⚡ İş<span class="accent">Bul</span></span>
     <span class="sidebar-badge">ADMİN</span>
   </div>
 
@@ -314,6 +314,18 @@
       </div>
     </div>
   </header>
+
+  <!-- OFFLINE MODE BANNER -->
+  <div id="offlineBanner" style="display:none;background:#fef3c7;border-bottom:2px solid #f59e0b;padding:12px 32px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <span style="font-size:20px">⚠️</span>
+      <div style="flex:1">
+        <div style="font-weight:700;font-size:14px;color:#92400e">API Çevrimdışı Modu</div>
+        <div style="font-size:13px;color:#78350f">Backend API'ye bağlanılamıyor. Yerel veriler kullanılıyor. Bazı özellikler kısıtlı olabilir.</div>
+      </div>
+      <button onclick="checkApiStatus()" style="background:#fff;border:1px solid #f59e0b;color:#f59e0b;padding:8px 16px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer">🔄 Tekrar Dene</button>
+    </div>
+  </div>
 
   <div class="admin-body">
 
@@ -719,59 +731,82 @@ async function api(path, opts = {}) {
 async function checkApiStatus() {
   const el   = document.getElementById('apiStatus');
   const text = document.getElementById('apiStatusText');
+  const banner = document.getElementById('offlineBanner');
+  
   try {
     const res = await fetch(`${API}/health`, { signal: AbortSignal.timeout(3000) });
     if (res.ok) {
       _apiOnline = true;
       el.className   = 'api-status';
       text.textContent = 'API Aktif';
+      banner.style.display = 'none';
       return true;
     }
   } catch {}
+  
   _apiOnline = false;
   el.className   = 'api-status offline';
   text.textContent = 'API Çevrimdışı';
+  banner.style.display = 'block';
   return false;
 }
 
 /* — Auth kontrolü — */
 async function checkAuth() {
   adminToken = localStorage.getItem('isbul_jwt');
-
-  // — Önce API'yi dene —
-  if (adminToken) {
-    const data = await api('/auth/me');
-    if (data.success && data.user?.role === 'admin') {
-      currentUser = data.user;
-      _fillSidebar();
-      return;
-    }
-    if (!data.offline) {
-      // API çevrimiçi ama admin değil — giriş sayfasına yönlendir
-      redirectTologin(); return;
-    }
-  }
-
-  // — API çevrimdışı: localStorage'dan kontrol et —
+  
+  // — Önce localStorage'dan session kontrol et (ana siteden giriş yapmışsa) —
   const raw = localStorage.getItem('isbul_auth');
+  console.log('🔐 Admin Panel Auth Check:', { raw, adminToken });
+  
   if (raw) {
     try {
       const session = JSON.parse(raw);
+      console.log('✅ Session bulundu:', session);
+      // Admin veya belirli email ise direkt gir
       if (session?.role === 'admin' || session?.email === 'umityakupdedeoglu0@gmail.com') {
+        console.log('🎯 Admin erişimi onaylandı!');
         currentUser = {
-          firstName: session.firstName,
-          lastName:  session.lastName,
-          avatar:    session.avatar || (session.firstName?.[0] || 'A') + (session.lastName?.[0] || 'D'),
+          firstName: session.firstName || 'Admin',
+          lastName:  session.lastName || 'User',
+          avatar:    session.avatar || (session.firstName?.[0] || 'A') + (session.lastName?.[0] || 'U'),
           email:     session.email,
           role:      'admin'
         };
         _fillSidebar();
-        toast('API çevrimdışı — yerel oturum kullanılıyor.', 'error');
-        return;
+        // API durumunu kontrol et (ama login isteme)
+        await checkApiStatus();
+        console.log('🚀 Admin panel açıldı - localStorage session ile');
+        return; // ✅ Direkt gir, modal gösterme!
+      } else {
+        console.log('❌ Session var ama admin değil:', { role: session?.role, email: session?.email });
       }
-    } catch {}
+    } catch (e) {
+      console.error('⚠️ Session parse hatası:', e);
+    }
   }
 
+  // — API'den token kontrolü (eğer JWT varsa) —
+  console.log('🔑 JWT token kontrolü...');
+  if (adminToken) {
+    const data = await api('/auth/me');
+    console.log('📡 API /auth/me yanıtı:', data);
+    if (data.success && data.user?.role === 'admin') {
+      currentUser = data.user;
+      _fillSidebar();
+      console.log('✅ Admin panel açıldı - JWT token ile');
+      return; // ✅ Direkt gir
+    }
+    if (!data.offline) {
+      // API çevrimiçi ama admin değil
+      console.log('❌ API çevrimiçi ama kullanıcı admin değil');
+      redirectTologin(); 
+      return;
+    }
+  }
+
+  // — Hiç session yok, login modal göster —
+  console.log('📋 Session yok, login modal gösteriliyor');
   redirectTologin();
 }
 
@@ -781,9 +816,71 @@ function _fillSidebar() {
 }
 
 function redirectTologin() {
-  // Auth modal açık sayfa yüklenecek, URL'e admin=true parametresi ekle
-  sessionStorage.setItem('admin_redirect', 'true');
-  window.location.href = 'index.html?admin=1';
+  // Admin panelde login modal'ı aç (redirect etme!)
+  showLoginModal();
+}
+
+function showLoginModal() {
+  // Login modal HTML'i ekle
+  const modalHTML = `
+    <div id="adminLoginModal" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);z-index:10000;display:flex;align-items:center;justify-content:center">
+      <div style="background:#fff;border-radius:16px;padding:40px;max-width:400px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,0.3)">
+        <h2 style="font-size:24px;font-weight:800;margin-bottom:8px;text-align:center">Admin Girişi</h2>
+        <p style="color:#64748b;font-size:14px;margin-bottom:32px;text-align:center">Admin paneline erişmek için giriş yapın</p>
+        
+        <div style="margin-bottom:20px">
+          <label style="display:block;font-weight:600;margin-bottom:8px;font-size:14px">E-posta</label>
+          <input type="email" id="adminLoginEmail" value="umityakupdedeoglu0@gmail.com" placeholder="admin@isbul.online" style="width:100%;padding:12px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:14px">
+        </div>
+        
+        <div style="margin-bottom:24px">
+          <label style="display:block;font-weight:600;margin-bottom:8px;font-size:14px">Şifre</label>
+          <input type="password" id="adminLoginPassword" placeholder="••••••••" style="width:100%;padding:12px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:14px">
+        </div>
+        
+        <button onclick="handleAdminLogin()" style="width:100%;padding:14px;background:#6C63FF;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;margin-bottom:12px">Giriş Yap</button>
+        
+        <div style="text-align:center;margin-top:16px">
+          <a href="index.html" style="color:#6C63FF;font-size:13px;font-weight:600">← Ana sayfaya dön</a>
+        </div>
+      </div>
+    </div>
+  `;
+  
+  document.body.insertAdjacentHTML('beforeend', modalHTML);
+  document.getElementById('adminLoginEmail').focus();
+}
+
+async function handleAdminLogin() {
+  const email = document.getElementById('adminLoginEmail').value.trim();
+  const password = document.getElementById('adminLoginPassword').value;
+  
+  if (!email || !password) {
+    alert('Lütfen e-posta ve şifre girin');
+    return;
+  }
+  
+  // API'ye login isteği gönder
+  const result = await IsbulAPI.auth.login(email, password);
+  
+  if (result && result.success) {
+    // Başarılı login
+    if (result.user.role === 'admin') {
+      currentUser = result.user;
+      _fillSidebar();
+      document.getElementById('adminLoginModal').remove();
+      await checkApiStatus();
+      loadDashboard();
+      toast('✅ Giriş başarılı!', 'success');
+    } else {
+      alert('❌ Bu hesap admin yetkisine sahip değil');
+    }
+  } else if (result === null) {
+    // API çevrimdışı
+    alert('⚠️ API çevrimdışı. Lütfen daha sonra tekrar deneyin.');
+  } else {
+    alert('❌ Giriş başarısız: ' + (result.error || 'Bilinmeyen hata'));
+  }
 }
 
 function adminLogout() {
