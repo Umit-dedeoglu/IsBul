@@ -692,6 +692,10 @@
 const API = (() => {
   const h = window.location.hostname;
   if (h === 'localhost' || h === '127.0.0.1') return 'http://localhost:3001/api';
+  // Production: Backend Render URL
+  if (h === 'isbul.online' || h === 'www.isbul.online') {
+    return 'https://isbul-backend.onrender.com/api';
+  }
   return `https://api.${h}/api`;
 })();
 
