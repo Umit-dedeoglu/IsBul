@@ -130,24 +130,24 @@
     }
 
     /* Karşılaştırma tablosu */
-    .comparae-table { width: 100%; border-collapse: collapse; margin-bottom: 80px; }
-    .comparae-table th, .comparae-table td {
+    .compare-table { width: 100%; border-collapse: collapse; margin-bottom: 80px; }
+    .compare-table th, .compare-table td {
       padding: 14px 20px; text-align: left; border-bottom: 1px solid var(--border);
       font-size: 14px;
     }
-    .comparae-table th { background: var(--bg); font-weight: 700; font-size: 13px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .5px; }
-    .comparae-table tbody tr:hover { background: var(--bg); }
-    .comparae-table .check { color: var(--success); font-size: 16px; }
-    .comparae-table .cross { color: #ef4444; font-size: 16px; }
-    .comparae-table .col-isbul { background: var(--primary-light); font-weight: 700; color: var(--primary); }
-    .comparae-table thead .col-isbul { background: var(--primary); color: var(--white); }
+    .compare-table th { background: var(--bg); font-weight: 700; font-size: 13px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .5px; }
+    .compare-table tbody tr:hover { background: var(--bg); }
+    .compare-table .check { color: var(--success); font-size: 16px; }
+    .compare-table .cross { color: #ef4444; font-size: 16px; }
+    .compare-table .col-isbul { background: var(--primary-light); font-weight: 700; color: var(--primary); }
+    .compare-table thead .col-isbul { background: var(--primary); color: var(--white); }
 
     /* Responsive */
     @media (max-width: 900px) {
       .hiw-steps-grid { grid-template-columns: 1fr; }
       .trust-numbers { grid-template-columns: repeat(2,1fr); }
-      .comparae-table { font-size: 12px; }
-      .comparae-table th, .comparae-table td { padding: 10px 12px; }
+      .compare-table { font-size: 12px; }
+      .compare-table th, .compare-table td { padding: 10px 12px; }
     }
     @media (max-width: 560px) {
       .trust-numbers { grid-template-columns: repeat(2,1fr); padding: 28px 16px; gap: 16px; }
@@ -313,7 +313,7 @@
       </div>
     </section>
 
-    <!-- KARıILAıTIRMA TABLOSU -->
+    <!-- KARŞILAŞTIRMA TABLOSU -->
     <section class="section" style="background:var(--bg)">
       <div class="container">
         <div class="section-header">
@@ -321,12 +321,12 @@
           <h2 class="section-title">İşBul vs. Klasik Yöntemler</h2>
         </div>
         <div style="overflow-x:auto">
-          <table class="comparae-table">
+          <table class="compare-table">
             <thead>
               <tr>
                 <th>Özellik</th>
                 <th class="col-isbul">? İşBul</th>
-                <th>Elden İşbulmak</th>
+                <th>Elden iş bulmak</th>
                 <th>Klasik İlan Siteleri</th>
               </tr>
             </thead>
@@ -345,19 +345,19 @@
       </div>
     </section>
 
-    <!-- SSS ı Destek butonu içine gımülke -->
+    <!-- SSS ı Destek butonu içine gömülü -->
     <section class="section" id="faq" style="background:var(--white)">
       <div class="container" style="max-width:760px">
 
         <!-- Destek accordion butonu -->
         <div id="destekToggle" onclick="
           const body = document.getElementById('destekBody');
-          const icon = document.getElementById('destekIcon');
+          const icon = document.getElementById('desteğicon');
           const isOpen = body.style.display !== 'none';
           body.style.display = isOpen ? 'none' : 'block';
           icon.textContent = isOpen ? 'ı' : '^';
-          this.style.borderBottomLeftradius = isOpen ? 'var(--radius)' : '0';
-          this.style.borderBottomrightradius = isOpen ? 'var(--radius)' : '0';
+          this.style.borderBottomLeftRadius = isOpen ? 'var(--radius)' : '0';
+          this.style.borderBottomRightRadius = isOpen ? 'var(--radius)' : '0';
         " style="display:flex;align-items:center;justify-content:space-between;padding:22px 28px;background:var(--primary);color:#fff;border-radius:var(--radius);cursor:pointer;user-select:none;transition:border-radius .2s">
           <div style="display:flex;align-items:center;gap:12px">
             <span style="font-size:22px">✓</span>
@@ -366,10 +366,10 @@
               <div style="font-size:13px;opacity:.8">Sık sorulan sorular ve yardım</div>
             </div>
           </div>
-          <span id="destekIcon" style="font-size:16px;transition:transform .2s">ı</span>
+          <span id="desteğicon" style="font-size:16px;transition:transform .2s">ı</span>
         </div>
 
-        <!-- İşerik (başlangİşta gizli) -->
+        <!-- içerik (başlangıçta gizli) -->
         <div id="destekBody" style="display:none;border:1.5px solid var(--primary);border-top:none;border-radius:0 0 var(--radius) var(--radius);overflow:hidden">
           <div style="padding:28px 28px 8px;background:var(--bg)">
             <p style="font-size:13px;color:var(--text-muted);margin-bottom:20px">Aşağıdaki sorular en sık sorulan konuları kapsamaktadır. Bulamazsanız iletişim bağlantısını kullanın.</p>
@@ -445,12 +445,12 @@
           <div class="hiw-step-card fade-up">
             <div class="hiw-step-card__num">4</div>
             <div class="hiw-step-card__icon">✓</div>
-            <h3>Kazançn</h3>
-            <p>İşi tamamlayın, müşteri onayı geliönce Ödeme hesabınıza aktarılır. Aynı Gün veya ertesi iş gını transferiniz hazır.</p>
+            <h3>Kazanç</h3>
+            <p>İşi tamamlayın, müşteri onayı gelince Ödeme hesabınıza aktarılır. Aynı Gün veya ertesi iş günü transferiniz hazır.</p>
           </div>
         </div>
 
-        <!-- Kazanç detay zaman ıiözelgesi -->
+        <!-- Kazanç detay zaman çizelgesi -->
         <div class="section-header" style="margin-bottom:40px">
           <span class="section-tag">Kazanç Modeli</span>
           <h2 class="section-title">nasıl Kazançrsınız?</h2>
@@ -461,7 +461,7 @@
             <div class="timeline-dot">1</div>
             <span class="timeline-time">Ücretsiz</span>
             <h4>profil oluşturun</h4>
-            <p>Kayıt ve profil oluşturma tamamen Ücretsizdir. Herhangi bir başlangİş ücreti yoktur.</p>
+            <p>Kayıt ve profil oluşturma tamamen Ücretsizdir. Herhangi bir başlangıç ücreti yoktur.</p>
           </div>
           <div class="timeline-item">
             <div class="timeline-dot">2</div>
@@ -514,7 +514,7 @@
           <div style="background:linear-gradient(135deg,#1a1a2e,#0f3460);border-radius:var(--radius-sm);padding:24px;margin-top:24px;text-align:center">
             <div style="font-size:12px;color:rgba(255,255,255,.6);margin-bottom:8px">Tahmini Aylık Net Kazancınız</div>
             <div style="font-size:48px;font-weight:900;color:#fff" id="calcResult">?4.080</div>
-            <div style="font-size:12px;color:rgba(255,255,255,.5);margin-top:4px">%15 platform kesintisi dİşıldıkten sonra</div>
+            <div style="font-size:12px;color:rgba(255,255,255,.5);margin-top:4px">%15 platform kesintisi düşüldükten sonra</div>
           </div>
 
           <a href="uzman-ol.html" class="btn btn--primary" style="width:100%;justify-content:center;margin-top:20px;border-radius:var(--radius-sm)">Hemen Uzman Olarak Kaydol ı</a>
@@ -522,18 +522,18 @@
       </div>
     </section>
 
-    <!-- UZMAN SSS ı Destek butonu içine gımülke -->
+    <!-- UZMAN SSS ı Destek butonu içine gömülü -->
     <section class="section" style="background:var(--bg)">
       <div class="container" style="max-width:760px">
 
         <div id="destekToggleTasker" onclick="
           const body = document.getElementById('destekBodyTasker');
-          const icon = document.getElementById('destekIconTasker');
+          const icon = document.getElementById('desteğiconTasker');
           const isOpen = body.style.display !== 'none';
           body.style.display = isOpen ? 'none' : 'block';
           icon.textContent = isOpen ? 'ı' : '^';
-          this.style.borderBottomLeftradius = isOpen ? 'var(--radius)' : '0';
-          this.style.borderBottomrightradius = isOpen ? 'var(--radius)' : '0';
+          this.style.borderBottomLeftRadius = isOpen ? 'var(--radius)' : '0';
+          this.style.borderBottomRightRadius = isOpen ? 'var(--radius)' : '0';
         " style="display:flex;align-items:center;justify-content:space-between;padding:22px 28px;background:var(--primary);color:#fff;border-radius:var(--radius);cursor:pointer;user-select:none;transition:border-radius .2s">
           <div style="display:flex;align-items:center;gap:12px">
             <span style="font-size:22px">✓</span>
@@ -542,7 +542,7 @@
               <div style="font-size:13px;opacity:.8">Uzmanlar için sık sorulan sorular</div>
             </div>
           </div>
-          <span id="destekIconTasker" style="font-size:16px">ı</span>
+          <span id="desteğiconTasker" style="font-size:16px">ı</span>
         </div>
 
         <div id="destekBodyTasker" style="display:none;border:1.5px solid var(--primary);border-top:none;border-radius:0 0 var(--radius) var(--radius);overflow:hidden">
@@ -556,14 +556,14 @@
             </div>
             <div class="faq-item">
               <div class="faq-question">Hangi belgeleri hazırlamalıyım?<span class="faq-icon">+</span></div>
-              <div class="faq-answer">TC kimlik kartı veya pasaport, ikametgah belgesi ve ilgili kategoriler için varsa mesleki belgeleriniz (elektrikıi, tesisatİş vb. için ruhsat). Belgeler sistem ızerinden yüklenir.</div>
+              <div class="faq-answer">TC kimlik kartı veya pasaport, ikametgah belgesi ve ilgili kategoriler için varsa mesleki belgeleriniz (elektrikçi, tesisatçı vb. için ruhsat). Belgeler sistem üzerinden yüklenir.</div>
             </div>
             <div class="faq-item">
               <div class="faq-question">Ne zaman Ödeme alırım?<span class="faq-icon">+</span></div>
-              <div class="faq-answer">müşteri işi onayladıktan sonra kazancınız anında hesabınıza işlenir. Türk Lirası olarak IBAN'ınıza genellikle aynı gün veya ertesi iş gını aktarılır.</div>
+              <div class="faq-answer">müşteri işi onayladıktan sonra kazancınız anında hesabınıza işlenir. Türk Lirası olarak IBAN'ınıza genellikle aynı gün veya ertesi iş günü aktarılır.</div>
             </div>
             <div class="faq-item">
-              <div class="faq-question">Kaı kategoride hizmet verebilirim?<span class="faq-icon">+</span></div>
+              <div class="faq-question">Kaç kategoride hizmet verebilirim?<span class="faq-icon">+</span></div>
               <div class="faq-answer">Birden fazla kategoride hizmet verebilirsiniz. profilinizde her kategori için ayrı ücret ve aİşklama belirleyebilirsiniz. Doğrulama her kategori için ayrı yapılabilir.</div>
             </div>
             <div class="faq-item">
@@ -714,12 +714,12 @@
     if (window.location.hash === '#faq') {
       settimeout(() => {
         const body = document.getElementById('destekBody');
-        const icon = document.getElementById('destekIcon');
+        const icon = document.getElementById('desteğicon');
         const toggle = document.getElementById('destekToggle');
         if (body && body.style.display === 'none') {
           body.style.display = 'block';
           if (icon) icon.textContent = '^';
-          if (toggle) { toggle.style.borderBottomLeftradius = '0'; toggle.style.borderBottomrightradius = '0'; }
+          if (toggle) { toggle.style.borderBottomLeftRadius = '0'; toggle.style.borderBottomRightRadius = '0'; }
           document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth' });
         }
       }, 400);
