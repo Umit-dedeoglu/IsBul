@@ -1,52 +1,40 @@
-﻿const bcrypt   = require('bcryptjs');
-const { dbGet, dbRun } = require('../../db');
-const { signToken } = require('../../config/jwt');
-
-function genId(prefix = 'u') {
-  return `${prefix}_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
-}
-function getInitials(first, last) {
-  return ((first[0] || '') + (last[0] || '')).toUpperCase();
-}
-const COLORS = ['#6C63FF','#FF6B6B','#4ECDC4','#FFD93D','#96CEB4','#56AB2F','#f43f5e','#0891b2'];
-function randomColor() { return COLORS[Math.floor(Math.random() * COLORS.length)]; }
+﻿const authService = require('./services/auth.service');
+const AuthError = require('./errors/auth.error');
+const { dbGet } = require('../../db');
 
 /** POST /api/auth/register */
 async function register(req, res) {
   try {
-    const { firstName, lastName, email, password } = req.body;
-    if (!firstName || !lastName || !email || !password)
-      return res.status(400).json({ success: false, error: 'Tüm alanlar zorunludur.' });
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
-      return res.status(400).json({ success: false, error: 'Geçerli bir e-posta girin.' });
-    if (password.length < 8)
-      return res.status(400).json({ success: false, error: 'Şifre en az 8 karakter olmalıdır.' });
+    // ✅ YENİ: AuthService kullan
+    const { firstName, lastName, email, password, role } = req.body;
 
-    const existing = await dbGet('SELECT id FROM users WHERE email = ?', email.toLowerCase());
-    if (existing) return res.status(409).json({ success: false, error: 'Bu e-posta adresi zaten kayıtlı.' });
+    const result = await authService.registerWithEmail({
+      firstName,
+      lastName,
+      email,
+      password,
+      role
+    });
 
-    const passwordHash = await bcrypt.hash(password, 12);
-    const id = genId('u');
-    const avatar = getInitials(firstName, lastName);
-    const color  = randomColor();
-    // role parametresi ile pending_expert olarak kaydedilebilir
-    const userRole = (req.body.role === 'pending_expert') ? 'pending_expert' : 'customer';
-
-    await dbRun(
-      `INSERT INTO users (id, first_name, last_name, email, password_hash, avatar, color, role)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-      id, firstName, lastName, email.toLowerCase(), passwordHash, avatar, color, userRole
-    );
-
-    const token = signToken({ id, email: email.toLowerCase(), role: userRole });
     return res.status(201).json({
       success: true,
       message: `Hoş geldiniz, ${firstName}!`,
-      token,
-      user: { id, firstName, lastName, email: email.toLowerCase(), avatar, color, role: userRole, isExpert: false }
+      token: result.token,
+      user: formatUserFromProvider(result.user)
     });
+
   } catch (err) {
     console.error('[auth/register]', err);
+
+    // AuthError handling
+    if (err instanceof AuthError) {
+      const statusCode = getStatusCodeFromAuthError(err.code);
+      return res.status(statusCode).json({ 
+        success: false, 
+        error: err.message 
+      });
+    }
+
     return res.status(500).json({ success: false, error: 'Sunucu hatası.' });
   }
 }
@@ -54,27 +42,29 @@ async function register(req, res) {
 /** POST /api/auth/login */
 async function login(req, res) {
   try {
+    // ✅ YENİ: AuthService kullan
     const { email, password } = req.body;
-    if (!email || !password)
-      return res.status(400).json({ success: false, error: 'E-posta ve şifre gereklidir.' });
-
-    const user = await dbGet('SELECT * FROM users WHERE email = ?', email.toLowerCase());
-    if (!user) return res.status(401).json({ success: false, error: 'Bu e-posta ile kayıtlı hesap bulunamadı.' });
-    if (!user.password_hash) return res.status(401).json({ success: false, error: 'Bu hesap Google ile oluşturulmuştur.' });
-
-    const valid = await bcrypt.compare(password, user.password_hash);
-    if (!valid) return res.status(401).json({ success: false, error: 'Şifre hatalı.' });
-    if (!user.is_active) return res.status(403).json({ success: false, error: 'Hesabınız devre dışı.' });
-
-    const expert = await dbGet('SELECT * FROM expert_profiles WHERE user_id = ?', user.id);
-    const token  = signToken({ id: user.id, email: user.email, role: user.role });
+    
+    const result = await authService.loginWithEmail({ email, password });
 
     return res.json({
-      success: true, token,
-      user: formatUser(user, expert)
+      success: true,
+      token: result.token,
+      user: formatUserFromProvider(result.user)
     });
+
   } catch (err) {
     console.error('[auth/login]', err);
+
+    // AuthError handling
+    if (err instanceof AuthError) {
+      const statusCode = getStatusCodeFromAuthError(err.code);
+      return res.status(statusCode).json({ 
+        success: false, 
+        error: err.message 
+      });
+    }
+
     return res.status(500).json({ success: false, error: 'Sunucu hatası.' });
   }
 }
@@ -82,12 +72,38 @@ async function login(req, res) {
 /** GET /api/auth/me */
 async function me(req, res) {
   try {
+    // ✅ YENİ: AuthService kullan
     const user = await dbGet('SELECT * FROM users WHERE id = ?', req.user.id);
     if (!user) return res.status(404).json({ success: false, error: 'Kullanıcı bulunamadı.' });
-    const expert = await dbGet('SELECT * FROM expert_profiles WHERE user_id = ?', user.id);
-    return res.json({ success: true, user: formatUser(user, expert) });
+    
+    // Expert bilgisi ekle (authService üzerinden)
+    const enrichedUser = await authService.enrichUserWithExpertData({
+      id: user.id,
+      email: user.email,
+      firstName: user.first_name,
+      lastName: user.last_name,
+      avatar: user.avatar,
+      color: user.color,
+      role: user.role,
+      provider: 'email'
+    });
+
+    return res.json({ 
+      success: true, 
+      user: formatUser(user, enrichedUser.expertData) 
+    });
+
   } catch (err) {
     console.error('[auth/me]', err);
+    
+    // AuthError handling
+    if (err instanceof AuthError) {
+      return res.status(403).json({ 
+        success: false, 
+        error: err.message 
+      });
+    }
+
     return res.status(500).json({ success: false, error: 'Sunucu hatası.' });
   }
 }
@@ -112,6 +128,51 @@ function formatUser(user, expert) {
       reviews: expert.review_count,
     } : null
   };
+}
+
+/**
+ * Provider'dan gelen user object'i frontend formatına çevir
+ * @param {object} user - Provider user object
+ * @returns {object} - Frontend format user
+ */
+function formatUserFromProvider(user) {
+  return {
+    id: user.id,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    email: user.email,
+    avatar: user.avatar,
+    color: user.color,
+    role: user.role,
+    isExpert: user.isExpert || false,
+    expertData: user.expertData || null
+  };
+}
+
+/**
+ * AuthError code'a göre HTTP status code döndür
+ * @param {string} code - AuthError code
+ * @returns {number} - HTTP status code
+ */
+function getStatusCodeFromAuthError(code) {
+  const statusMap = {
+    [AuthError.CODES.INVALID_TOKEN]: 401,
+    [AuthError.CODES.TOKEN_EXPIRED]: 401,
+    [AuthError.CODES.NO_TOKEN]: 401,
+    [AuthError.CODES.USER_NOT_FOUND]: 404,
+    [AuthError.CODES.INVALID_CREDENTIALS]: 401,
+    [AuthError.CODES.USER_EXISTS]: 409,
+    [AuthError.CODES.EMAIL_NOT_VERIFIED]: 403,
+    [AuthError.CODES.PHONE_NOT_VERIFIED]: 403,
+    [AuthError.CODES.ACCOUNT_SUSPENDED]: 403,
+    [AuthError.CODES.ACCOUNT_INACTIVE]: 403,
+    [AuthError.CODES.TWO_FACTOR_REQUIRED]: 403,
+    [AuthError.CODES.INVALID_TWO_FACTOR_CODE]: 401,
+    [AuthError.CODES.PROVIDER_ERROR]: 500,
+    [AuthError.CODES.GOOGLE_AUTH_FAILED]: 401,
+    [AuthError.CODES.FACEBOOK_AUTH_FAILED]: 401,
+  };
+  return statusMap[code] || 500;
 }
 
 module.exports = { register, login, me };
