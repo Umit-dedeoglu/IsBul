@@ -1,4 +1,4 @@
-name: ⏰ Scheduled - Maintenance Tasks
+name: Scheduled - Maintenance Tasks
 
 on:
   schedule:
