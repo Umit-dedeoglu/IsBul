@@ -6,6 +6,7 @@ on:
       - main
       - develop
       - 'feature/**'
+      - 'sonhafta_pazartesi_gunsonu'
   pull_request:
     branches:
       - main
