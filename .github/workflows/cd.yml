@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - sonhafta_pazartesi_gunsonu  # Staging deployment için
     tags:
       - 'v*'
   workflow_dispatch:
