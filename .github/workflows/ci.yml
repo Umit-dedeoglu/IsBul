@@ -1,4 +1,4 @@
-name: 🚀 CI - Continuous Integration
+name: CI - Continuous Integration
 
 on:
   push:
@@ -6,6 +6,7 @@ on:
       - main
       - develop
       - 'feature/**'
+      - 'sonhafta_pazartesi_gunsonu'
   pull_request:
     branches:
       - main
@@ -31,6 +32,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
+          cache-dependency-path: 'server/package-lock.json'
           
       - name: 📦 Install dependencies
         run: |
@@ -84,13 +86,13 @@ jobs:
     name: 🧪 Backend Tests
     runs-on: ubuntu-latest
     
-    services:
-      # MongoDB için gerekirse eklenebilir
-      # mongodb:
-      #   image: mongo:6
-      #   ports:
-      #     - 27017:27017
-      
+    # MongoDB servisi gerekirse eklenebilir:
+    # services:
+    #   mongodb:
+    #     image: mongo:6
+    #     ports:
+    #       - 27017:27017
+    
     steps:
       - name: 📥 Checkout code
         uses: actions/checkout@v4
@@ -100,6 +102,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
+          cache-dependency-path: 'server/package-lock.json'
           
       - name: 📦 Install dependencies
         run: |
