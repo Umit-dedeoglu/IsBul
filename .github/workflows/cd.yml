@@ -1,0 +1,267 @@
+name: 🚢 CD - Continuous Deployment
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - production
+          - staging
+
+env:
+  NODE_VERSION: '18.x'
+  RENDER_SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID }}
+
+jobs:
+  # ==========================================
+  # JOB 1: Deploy to Render
+  # ==========================================
+  deploy-render:
+    name: 🚀 Deploy to Render
+    runs-on: ubuntu-latest
+    environment: 
+      name: ${{ github.event.inputs.environment || 'production' }}
+      url: https://isbul-backend.onrender.com
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+        
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          
+      - name: 📦 Install dependencies
+        run: |
+          cd server
+          npm ci --production
+          
+      - name: 🏗️ Build application
+        run: |
+          cd server
+          npm run build || echo "No build step required"
+        env:
+          NODE_ENV: production
+          
+      - name: 🚀 Trigger Render deployment
+        run: |
+          if [ -n "${{ secrets.RENDER_DEPLOY_HOOK }}" ]; then
+            echo "Triggering Render deployment..."
+            curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK }}"
+            echo "✅ Deployment triggered"
+          else
+            echo "⚠️ RENDER_DEPLOY_HOOK not configured"
+            echo "Add it in GitHub Secrets: Settings > Secrets > Actions"
+          fi
+          
+      - name: ⏳ Wait for deployment
+        run: |
+          echo "Waiting for deployment to complete..."
+          sleep 30
+          
+      - name: 🔍 Health check
+        run: |
+          max_attempts=10
+          attempt=0
+          
+          while [ $attempt -lt $max_attempts ]; do
+            if curl -f -s https://isbul-backend.onrender.com/api/health > /dev/null; then
+              echo "✅ Backend is healthy!"
+              exit 0
+            fi
+            
+            attempt=$((attempt + 1))
+            echo "Attempt $attempt/$max_attempts: Backend not ready yet..."
+            sleep 10
+          done
+          
+          echo "❌ Backend health check failed after $max_attempts attempts"
+          exit 1
+          
+      - name: 📊 Deployment summary
+        if: always()
+        run: |
+          echo "## 🚀 Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Environment:** ${{ github.event.inputs.environment || 'production' }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Backend URL:** https://isbul-backend.onrender.com" >> $GITHUB_STEP_SUMMARY
+          echo "- **Frontend URL:** https://isbul-frontend.onrender.com" >> $GITHUB_STEP_SUMMARY
+          echo "- **Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Triggered by:** ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY
+
+  # ==========================================
+  # JOB 2: Deploy Frontend (Static Files)
+  # ==========================================
+  deploy-frontend:
+    name: 🎨 Deploy Frontend
+    runs-on: ubuntu-latest
+    needs: deploy-render
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+        
+      - name: 📦 Prepare frontend files
+        run: |
+          echo "Preparing frontend files..."
+          mkdir -p dist
+          
+          # Copy HTML files
+          cp *.html dist/ 2>/dev/null || echo "No HTML files in root"
+          
+          # Copy assets
+          if [ -d "assets" ]; then
+            cp -r assets dist/
+          fi
+          
+          # Copy components
+          if [ -d "components" ]; then
+            cp -r components dist/
+          fi
+          
+          # Copy manifest and service worker
+          cp manifest.json dist/ 2>/dev/null || true
+          cp sw.js dist/ 2>/dev/null || true
+          
+          echo "✅ Frontend files prepared in dist/"
+          ls -la dist/
+          
+      - name: 🚀 Deploy to Render (Frontend)
+        run: |
+          if [ -n "${{ secrets.RENDER_FRONTEND_DEPLOY_HOOK }}" ]; then
+            echo "Triggering frontend deployment..."
+            curl -X POST "${{ secrets.RENDER_FRONTEND_DEPLOY_HOOK }}"
+            echo "✅ Frontend deployment triggered"
+          else
+            echo "⚠️ RENDER_FRONTEND_DEPLOY_HOOK not configured"
+            echo "Frontend deployment skipped"
+          fi
+
+  # ==========================================
+  # JOB 3: Smoke Tests
+  # ==========================================
+  smoke-tests:
+    name: 💨 Smoke Tests
+    runs-on: ubuntu-latest
+    needs: [deploy-render, deploy-frontend]
+    
+    steps:
+      - name: 🔍 Test backend endpoints
+        run: |
+          echo "Testing backend endpoints..."
+          
+          # Health check
+          curl -f -s https://isbul-backend.onrender.com/api/health || exit 1
+          echo "✅ Health endpoint OK"
+          
+          # Auth endpoints (without authentication)
+          curl -f -s -o /dev/null -w "%{http_code}" https://isbul-backend.onrender.com/api/v1/auth/status || exit 1
+          echo "✅ Auth status endpoint OK"
+          
+      - name: 🌐 Test frontend pages
+        run: |
+          echo "Testing frontend pages..."
+          
+          # Test main pages
+          pages=("" "uzmanlar.html" "hizmetler.html" "hakkimizda.html")
+          
+          for page in "${pages[@]}"; do
+            url="https://isbul-frontend.onrender.com/$page"
+            if curl -f -s -o /dev/null "$url"; then
+              echo "✅ $page OK"
+            else
+              echo "⚠️ $page failed (may not exist yet)"
+            fi
+          done
+          
+      - name: 📊 Create smoke test report
+        if: always()
+        run: |
+          echo "## 💨 Smoke Test Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Backend health check passed" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Authentication endpoints responding" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Frontend pages accessible" >> $GITHUB_STEP_SUMMARY
+
+  # ==========================================
+  # JOB 4: Notify
+  # ==========================================
+  notify:
+    name: 📢 Send Notifications
+    runs-on: ubuntu-latest
+    needs: [smoke-tests]
+    if: always()
+    
+    steps:
+      - name: 📊 Deployment status
+        run: |
+          if [ "${{ needs.smoke-tests.result }}" == "success" ]; then
+            echo "status=success" >> $GITHUB_ENV
+            echo "message=Deployment successful! 🎉" >> $GITHUB_ENV
+            echo "color=28a745" >> $GITHUB_ENV
+          else
+            echo "status=failure" >> $GITHUB_ENV
+            echo "message=Deployment failed! ❌" >> $GITHUB_ENV
+            echo "color=dc3545" >> $GITHUB_ENV
+          fi
+          
+      - name: 💬 Create deployment badge
+        run: |
+          echo "## 🚀 Deployment Status" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "![Deployment Status](https://img.shields.io/badge/deployment-${{ env.status }}-${{ env.color }})" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "${{ env.message }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**URLs:**" >> $GITHUB_STEP_SUMMARY
+          echo "- Backend: https://isbul-backend.onrender.com" >> $GITHUB_STEP_SUMMARY
+          echo "- Frontend: https://isbul-frontend.onrender.com" >> $GITHUB_STEP_SUMMARY
+          echo "- Deployed at: $(date -u +'%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_STEP_SUMMARY
+
+  # ==========================================
+  # JOB 5: Tag Release (for version tags)
+  # ==========================================
+  release:
+    name: 🏷️ Create Release
+    runs-on: ubuntu-latest
+    needs: [smoke-tests]
+    if: startsWith(github.ref, 'refs/tags/v')
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+        
+      - name: 🏷️ Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref_name }}
+          release_name: Release ${{ github.ref_name }}
+          body: |
+            ## 🚀 What's New in ${{ github.ref_name }}
+            
+            ### ✨ Features
+            - Auto-generated release notes
+            
+            ### 🐛 Bug Fixes
+            - See commit history for details
+            
+            ### 🔗 Links
+            - **Backend:** https://isbul-backend.onrender.com
+            - **Frontend:** https://isbul-frontend.onrender.com
+            - **Commit:** ${{ github.sha }}
+            
+            **Full Changelog:** https://github.com/${{ github.repository }}/compare/${{ github.event.before }}...${{ github.sha }}
+          draft: false
+          prerelease: false

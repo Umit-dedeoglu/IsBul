@@ -1,0 +1,283 @@
+name: ⏰ Scheduled - Maintenance Tasks
+
+on:
+  schedule:
+    # Her gün saat 03:00 UTC (Türkiye 06:00)
+    - cron: '0 3 * * *'
+  workflow_dispatch: # Manuel çalıştırma için
+
+jobs:
+  # ==========================================
+  # JOB 1: Dependency Updates Check
+  # ==========================================
+  dependency-check:
+    name: 📦 Check for Dependency Updates
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+        
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
+          
+      - name: 📦 Check outdated packages
+        run: |
+          cd server
+          npm outdated > outdated.txt || true
+          
+          echo "## 📦 Outdated Dependencies" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          if [ -s outdated.txt ]; then
+            echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+            cat outdated.txt >> $GITHUB_STEP_SUMMARY
+            echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "✅ All dependencies are up to date!" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+      - name: 🔒 Run security audit
+        run: |
+          cd server
+          npm audit --json > audit.json || true
+          
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## 🔒 Security Audit" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          vulnerabilities=$(cat audit.json | jq '.metadata.vulnerabilities | to_entries | map("\(.key): \(.value)") | join(", ")')
+          echo "Vulnerabilities: $vulnerabilities" >> $GITHUB_STEP_SUMMARY
+
+  # ==========================================
+  # JOB 2: Health Check
+  # ==========================================
+  health-check:
+    name: 🏥 Production Health Check
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 🔍 Check backend health
+        run: |
+          echo "## 🏥 Health Check Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          # Backend
+          if curl -f -s https://isbul-backend.onrender.com/api/health > /dev/null; then
+            echo "✅ **Backend:** Healthy" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ **Backend:** Unhealthy" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          # Response time
+          response_time=$(curl -o /dev/null -s -w '%{time_total}' https://isbul-backend.onrender.com/api/health)
+          echo "⏱️ **Response Time:** ${response_time}s" >> $GITHUB_STEP_SUMMARY
+          
+      - name: 🌐 Check frontend availability
+        run: |
+          # Frontend sayfaları kontrol et
+          pages=("index.html" "uzmanlar.html" "hizmetler.html")
+          
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🌐 Frontend Pages" >> $GITHUB_STEP_SUMMARY
+          
+          for page in "${pages[@]}"; do
+            url="https://isbul-frontend.onrender.com/$page"
+            if curl -f -s -o /dev/null "$url"; then
+              echo "✅ $page" >> $GITHUB_STEP_SUMMARY
+            else
+              echo "⚠️ $page (may not be deployed)" >> $GITHUB_STEP_SUMMARY
+            fi
+          done
+
+  # ==========================================
+  # JOB 3: Database Backup Check
+  # ==========================================
+  backup-check:
+    name: 💾 Check Backups
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+        
+      - name: 💾 List recent backups
+        run: |
+          echo "## 💾 Backup Status" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          # Git commit history (son 7 gün)
+          echo "### 📋 Recent Commits (Last 7 days)" >> $GITHUB_STEP_SUMMARY
+          git log --since="7 days ago" --oneline | head -n 10 >> $GITHUB_STEP_SUMMARY || echo "No commits in last 7 days" >> $GITHUB_STEP_SUMMARY
+
+  # ==========================================
+  # JOB 4: Code Quality Report
+  # ==========================================
+  code-quality:
+    name: 📊 Code Quality Report
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+        
+      - name: 📊 Generate code statistics
+        run: |
+          echo "## 📊 Code Statistics" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          # Count files by type
+          html_count=$(find . -name "*.html" ! -path "./node_modules/*" ! -path "./.git/*" | wc -l)
+          js_count=$(find . -name "*.js" ! -path "./node_modules/*" ! -path "./.git/*" | wc -l)
+          css_count=$(find . -name "*.css" ! -path "./node_modules/*" ! -path "./.git/*" | wc -l)
+          
+          echo "- **HTML Files:** $html_count" >> $GITHUB_STEP_SUMMARY
+          echo "- **JavaScript Files:** $js_count" >> $GITHUB_STEP_SUMMARY
+          echo "- **CSS Files:** $css_count" >> $GITHUB_STEP_SUMMARY
+          
+          # Total lines of code
+          total_lines=$(find . -name "*.html" -o -name "*.js" -o -name "*.css" | grep -v node_modules | xargs wc -l 2>/dev/null | tail -n 1 | awk '{print $1}')
+          echo "- **Total Lines:** $total_lines" >> $GITHUB_STEP_SUMMARY
+
+  # ==========================================
+  # JOB 5: Performance Monitoring
+  # ==========================================
+  performance:
+    name: ⚡ Performance Check
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: ⚡ Measure response times
+        run: |
+          echo "## ⚡ Performance Metrics" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          # Backend endpoints
+          endpoints=(
+            "/api/health"
+            "/api/v1/auth/status"
+          )
+          
+          for endpoint in "${endpoints[@]}"; do
+            url="https://isbul-backend.onrender.com$endpoint"
+            time=$(curl -o /dev/null -s -w '%{time_total}' "$url" 2>/dev/null || echo "N/A")
+            echo "- **$endpoint:** ${time}s" >> $GITHUB_STEP_SUMMARY
+          done
+
+  # ==========================================
+  # JOB 6: Cleanup old branches
+  # ==========================================
+  cleanup:
+    name: 🧹 Cleanup Old Branches
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
+      - name: 🧹 List merged branches
+        run: |
+          echo "## 🧹 Cleanup Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          # List branches that are merged but not deleted
+          git branch -r --merged origin/main | grep -v "main\|HEAD" | sed 's/origin\///' > merged.txt || true
+          
+          branch_count=$(wc -l < merged.txt)
+          
+          if [ "$branch_count" -gt 0 ]; then
+            echo "### ⚠️ $branch_count merged branches can be deleted:" >> $GITHUB_STEP_SUMMARY
+            cat merged.txt >> $GITHUB_STEP_SUMMARY
+          else
+            echo "✅ No old branches to clean up" >> $GITHUB_STEP_SUMMARY
+          fi
+
+  # ==========================================
+  # JOB 7: Create Daily Report
+  # ==========================================
+  daily-report:
+    name: 📋 Daily Report
+    runs-on: ubuntu-latest
+    needs: [dependency-check, health-check, backup-check, code-quality, performance, cleanup]
+    if: always()
+    
+    steps:
+      - name: 📊 Generate summary
+        run: |
+          echo "# 📋 Daily Maintenance Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Date:** $(date +'%Y-%m-%d %H:%M UTC')" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## 🎯 Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          # Check job statuses
+          if [ "${{ needs.dependency-check.result }}" == "success" ]; then
+            echo "✅ Dependency check passed" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ Dependency check failed" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          if [ "${{ needs.health-check.result }}" == "success" ]; then
+            echo "✅ Health check passed" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ Health check failed" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          if [ "${{ needs.code-quality.result }}" == "success" ]; then
+            echo "✅ Code quality check passed" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ Code quality check failed" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "---" >> $GITHUB_STEP_SUMMARY
+          echo "*Generated by GitHub Actions - Scheduled Maintenance*" >> $GITHUB_STEP_SUMMARY
+
+  # ==========================================
+  # JOB 8: Notify if issues found
+  # ==========================================
+  notify:
+    name: 📢 Notify on Issues
+    runs-on: ubuntu-latest
+    needs: [health-check]
+    if: failure()
+    
+    steps:
+      - name: 🚨 Create issue for failures
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '🚨 Daily Health Check Failed',
+              body: `## 🚨 Scheduled Maintenance Alert
+              
+              The daily health check has detected issues.
+              
+              **Date:** ${new Date().toISOString()}
+              **Workflow Run:** https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}
+              
+              ### 🔍 Investigation Required
+              
+              Please check:
+              - Backend health endpoint
+              - Frontend availability
+              - Recent deployments
+              - Error logs
+              
+              ### 📋 Action Items
+              
+              - [ ] Verify backend is running
+              - [ ] Check Render deployment status
+              - [ ] Review recent code changes
+              - [ ] Check for infrastructure issues
+              
+              cc: @Umit-dedeoglu`,
+              labels: ['bug', 'urgent', 'automated']
+            });
