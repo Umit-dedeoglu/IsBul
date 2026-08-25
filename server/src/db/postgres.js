@@ -163,10 +163,17 @@ async function createTables() {
   }
 }
 
+/** Convert SQLite-style ? placeholders to PostgreSQL $1, $2, ... */
+function convertPlaceholders(sql) {
+  let i = 0;
+  return sql.replace(/\?/g, () => `$${++i}`);
+}
+
 /** Query wrapper */
 async function query(sql, params = []) {
   if (!pool) throw new Error('Database not initialized');
-  const result = await pool.query(sql, params);
+  const convertedSql = convertPlaceholders(sql);
+  const result = await pool.query(convertedSql, params);
   return result.rows;
 }
 
@@ -183,7 +190,8 @@ async function pgAll(sql, ...params) {
 
 /** Execute (INSERT/UPDATE/DELETE) */
 async function pgRun(sql, ...params) {
-  const result = await pool.query(sql, params);
+  const convertedSql = convertPlaceholders(sql);
+  const result = await pool.query(convertedSql, params);
   return result.rowCount;
 }
 

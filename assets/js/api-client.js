@@ -5,15 +5,19 @@
  */
 
 // Ortama göre otomatik base URL tespiti
-// Canlıya alındığında BACKEND_URL sabitini kendi domain'inize göre güncellemeniz yeterli.
-const BACKEND_URL = (() => {
-  const h = window.location.hostname;
-  if (h === 'localhost' || h === '127.0.0.1') {
-    return 'http://localhost:3001';
-  }
-  // Canlı ortam — Nginx reverse proxy üzerinden /api path'i kullan
-  return window.location.origin; // https://isbul.online
-})();
+// config.js'den al
+const BACKEND_URL = window.ISBUL_CONFIG 
+  ? window.ISBUL_CONFIG.backendUrl
+  : (() => {
+      const h = window.location.hostname;
+      if (h === 'localhost' || h === '127.0.0.1') {
+        return 'http://localhost:3001';
+      }
+      if (h === 'isbul.online' || h === 'www.isbul.online') {
+        return 'https://isbul-backend.onrender.com';
+      }
+      return `https://api.${h}`;
+    })();
 
 const API_BASE = `${BACKEND_URL}/api/v1`;
 

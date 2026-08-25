@@ -12,68 +12,10 @@
   "categories": ["business", "productivity", "utilities"],
   "icons": [
     {
-      "src": "/assets/img/icon-72.png",
-      "sizes": "72x72",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/assets/img/icon-96.png",
-      "sizes": "96x96",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/assets/img/icon-128.png",
-      "sizes": "128x128",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/assets/img/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/assets/img/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
+      "src": "/assets/img/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
       "purpose": "any maskable"
     }
-  ],
-  "screenshots": [
-    {
-      "src": "/assets/img/screenshot-mobile.png",
-      "sizes": "390x844",
-      "type": "image/png",
-      "form_factor": "narrow",
-      "label": "İşBul Ana Sayfa"
-    }
-  ],
-  "shortcuts": [
-    {
-      "name": "Uzman Bul",
-      "short_name": "Uzman Bul",
-      "description": "Hizmet uzmanı ara",
-      "url": "/uzmanlar.html",
-      "icons": [{ "src": "/assets/img/icon-96.png", "sizes": "96x96" }]
-    },
-    {
-      "name": "Uzman Ol",
-      "short_name": "Uzman Ol",
-      "description": "Uzman olarak kaydol",
-      "url": "/uzman-ol.html",
-      "icons": [{ "src": "/assets/img/icon-96.png", "sizes": "96x96" }]
-    },
-    {
-      "name": "Profilim",
-      "short_name": "Profil",
-      "description": "Profilimi görüntüle",
-      "url": "/profil.html",
-      "icons": [{ "src": "/assets/img/icon-96.png", "sizes": "96x96" }]
-    }
-  ],
-  "prefer_related_applications": false,
-  "related_applications": []
+  ]
 }

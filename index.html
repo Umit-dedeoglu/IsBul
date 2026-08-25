@@ -2,21 +2,72 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
+  <!-- Google Analytics Configuration -->
+  <script>
+    // Google Analytics 4 Measurement ID
+    window.GA_MEASUREMENT_ID = 'G-S3MDEB0WGP';
+  </script>
   <script src="assets/js/analytics.js" defer></script>
+  <!-- Config - Backend URL ve sabitler -->
+  <script src="assets/js/config.js"></script>
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>İşBul - Güvenilir Ev ve Ofis Hizmetleri</title>
   <meta name="description" content="İşBul ile eviniz için güvenilir, arka plan kontrolünden geçmiş uzmanlara anında ulaşın. Montaj, taşıma, temizlik, tadihat ve daha fazlası." />
-  <link rel="stylesheet" href="assets/css/styles.css" />
+  <meta name="keywords" content="ev hizmetleri, ofis hizmetleri, montaj, taşıma, temizlik, tadihat, uzman, güvenilir hizmet, isbul" />
+  <meta name="author" content="İşBul" />
+  <link rel="canonical" href="https://isbul.online/" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://isbul.online/" />
+  <meta property="og:title" content="İşBul - Güvenilir Ev ve Ofis Hizmetleri" />
+  <meta property="og:description" content="İşBul ile eviniz için güvenilir, arka plan kontrolünden geçmiş uzmanlara anında ulaşın. Montaj, taşıma, temizlik, tadihat ve daha fazlası." />
+  <meta property="og:image" content="https://isbul.online/assets/img/og-image.jpg" />
+  <meta property="og:site_name" content="İşBul" />
+  <meta property="og:locale" content="tr_TR" />
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://isbul.online/" />
+  <meta name="twitter:title" content="İşBul - Güvenilir Ev ve Ofis Hizmetleri" />
+  <meta name="twitter:description" content="İşBul ile eviniz için güvenilir, arka plan kontrolünden geçmiş uzmanlara anında ulaşın." />
+  <meta name="twitter:image" content="https://isbul.online/assets/img/og-image.jpg" />
+  
+  <!-- Structured Data - LocalBusiness -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "İşBul",
+    "image": "https://isbul.online/assets/img/icon.svg",
+    "url": "https://isbul.online",
+    "telephone": "+90-555-123-4567",
+    "priceRange": "₺₺",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "İstanbul",
+      "addressCountry": "TR"
+    },
+    "description": "Güvenilir ev ve ofis hizmetleri platformu. Montaj, taşıma, temizlik, tadihat hizmetleri.",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "reviewCount": "1250"
+    }
+  }
+  </script>
+  
+  <link rel="stylesheet" href="assets/css/styles.css?v=20260824182003" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <!-- Feather Icons -->
   <script src="https://unpkg.com/feather-icons"></script>
   <!-- PWA -->
-  <link rel="manifest" href="/manifest.json" />
+  <link rel="manifest" href="/manifest.json?v=2" />
   <meta name="theme-color" content="#6C63FF" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -40,7 +91,6 @@
         <a href="hizmetler.html">Hizmetler</a>
         <a href="nasil-calisir.html">Nasıl Çalışır?</a>
         <a href="uzman-ol.html">Uzman Ol</a>
-        <a href="mailto:Kurumsal@isBul.com.tr">Kurumsal</a>
       </nav>
 
       <div class="navbar__actions">
@@ -649,84 +699,8 @@
   <script src="assets/js/data.js"></script>
   <script src="assets/js/api-client.js"></script>
   <script src="assets/js/app.js"></script>
-
-  <!-- ========== AUTH MODAL ========== -->
-  <div class="modal-overlay" id="authModal">
-    <div class="auth-modal-inner">
-      <div class="auth-modal-header">
-        <span class="navbar__logo"><span class="logo-icon">⚡</span><span class="logo-text"><strong>İşBul</strong></span></span>
-        <button class="auth-modal-close" id="authModalClose">×</button>
-      </div>
-      <div class="auth-tabs">
-        <button class="auth-tab active" data-tab="login">Giriş Yap</button>
-        <button class="auth-tab" data-tab="register">Ücretsiz Kaydol</button>
-      </div>
-      <div class="auth-body">
-        <!-- GİRİŞ PANELİ -->
-        <div class="auth-panel active" id="auth-login">
-          <div class="auth-social">
-            <button class="auth-social-btn" onclick="handleOAuth('google')">
-              <svg width="18" height="18" viewBox="0 0 18 18" style="margin-right:8px">
-                <path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/>
-                <path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"/>
-                <path fill="#FBBC05" d="M3.964 10.707c-.18-.54-.282-1.117-.282-1.707s.102-1.167.282-1.707V4.961H.957C.347 6.175 0 7.55 0 9s.348 2.825.957 4.039l3.007-2.332z"/>
-                <path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.961L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"/>
-              </svg>
-              Google ile Giriş
-            </button>
-          </div>
-          <div class="auth-divider">veya e-posta ile</div>
-          <form id="loginForm" novalidate>
-            <div class="form-group">
-              <label>E-posta</label>
-              <input type="email" name="email" placeholder="ornek@mail.com" required />
-            </div>
-            <div class="form-group">
-              <label>şifre <a href="#" class="auth-forgot" onclick="showToast('şifre sıfırlama e-postası gönderildi!','info');return false">şifremi unuttum</a></label>
-              <input type="password" name="password" placeholder="••••••" required />
-            </div>
-            <button type="submit" class="auth-submit">Giriş Yap</button>
-          </form>
-          <p class="auth-footer">Hesabınız yok mu? <a href="#" onclick="document.querySelector('[data-tab=register]').click();return false">Kayıt olun</a></p>
-        </div>
-        <!-- KAYIT PANELİ -->
-        <div class="auth-panel" id="auth-register">
-          <div class="auth-social">
-            <button class="auth-social-btn" onclick="handleOAuth('google')">
-              <svg width="18" height="18" viewBox="0 0 18 18" style="margin-right:8px">
-                <path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/>
-                <path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"/>
-                <path fill="#FBBC05" d="M3.964 10.707c-.18-.54-.282-1.117-.282-1.707s.102-1.167.282-1.707V4.961H.957C.347 6.175 0 7.55 0 9s.348 2.825.957 4.039l3.007-2.332z"/>
-                <path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.961L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"/>
-              </svg>
-              Google ile Kayıt
-            </button>
-          </div>
-          <div class="auth-divider">veya e-posta ile</div>
-          <form id="registerForm" novalidate>
-            <div class="form-group" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-              <div><label>Ad</label><input type="text" name="regFirstName" placeholder="Adınız" required /></div>
-              <div><label>Soyad</label><input type="text" name="regLastName" placeholder="Soyadınız" required /></div>
-            </div>
-            <div class="form-group">
-              <label>E-posta</label>
-              <input type="email" name="regEmail" placeholder="ornek@mail.com" required />
-            </div>
-            <div class="form-group">
-              <label>Şifre</label>
-              <input type="password" name="regPassword" placeholder="En az 8 karakter" required />
-            </div>
-            <div class="form-group">
-              <label>Şifre Tekrar</label>
-              <input type="password" name="regPasswordConfirm" placeholder="Şifreyi tekrar girin" required />
-            </div>
-            <button type="submit" class="auth-submit">Hesap Oluştur</button>
-          </form>
-          <p class="auth-footer">Hesabınız var mı? <a href="#" onclick="document.querySelector('[data-tab=login]').click();return false">Giriş yapın</a></p>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!-- Merkezi Component Loader -->
+  <script src="components/component-loader.js"></script>
 
   <!-- ========== REZERVASYON MODAL ========== -->
   <div class="modal-overlay" id="bookingModal">

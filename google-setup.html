@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <script src="assets/js/analytics.js" defer></script>
+  <!-- Config - Backend URL ve sabitler -->
+  <script src="assets/js/config.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Google OAuth Kurulum ı işİşBul</title>
   <style>
@@ -90,7 +92,8 @@
     <h3>2️⃣ Credentials oluşturun</h3>
     <p><strong>Create Credentials</strong> → <strong>OAuth client ID</strong> → Web application</p>
     <p style="margin-top:8px">Authorized redirect URIs:</p>
-    <p><code>http://localhost:3001/api/auth/google/callback</code></p>
+    <p><code>http://localhost:3001/api/v1/auth/google/callback</code> (Development)</p>
+    <p><code>https://isbul.online/api/v1/auth/google/callback</code> (Production)</p>
   </div>
 
   <div class="step" style="border-color:#34a853">
@@ -187,7 +190,15 @@
 
   function testGoogle() {
     sessionStorage.setItem('oauth_return_url', 'index.html');
-    window.location.href = 'http://localhost:3001/api/auth/google';
+    // Production veya localhost'a göre otomatik URL seçimi
+    const h = window.location.hostname;
+    let apiUrl = 'http://localhost:3001/api/v1/auth/google';
+    if (h === 'isbul.online' || h === 'www.isbul.online') {
+      apiUrl = 'https://isbul.online/api/v1/auth/google';
+    } else if (h === '34.239.191.168') {
+      apiUrl = 'http://34.239.191.168:3001/api/v1/auth/google';
+    }
+    window.location.href = apiUrl;
   }
 </script>
 

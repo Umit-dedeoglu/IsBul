@@ -20,13 +20,26 @@ router.get('/google',
 );
 
 router.get('/google/callback',
-  passport.authenticate('google', { session: false, failureRedirect: `${process.env.FRONTEND_URL || 'http://localhost:4000'}?auth=error` }),
+  passport.authenticate('google', { 
+    session: false, 
+    failureRedirect: `${process.env.FRONTEND_URL || 'https://isbul.online'}/oauth-callback.html?auth=error&error=Authentication%20failed`
+  }),
   (req, res) => {
-    // Başarılı OAuth — token üret ve frontend'e yönlendir
-    const token = signToken({ id: req.user.id, email: req.user.email, role: req.user.role });
-    const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:4000';
-    // Token'ı URL'e ekle — frontend bunu alıp localStorage'a kaydeder
-    res.redirect(`${frontendUrl}/oauth-callback.html?token=${token}`);
+    try {
+      // Başarılı OAuth — token üret ve frontend'e yönlendir
+      const token = signToken({ id: req.user.id, email: req.user.email, role: req.user.role });
+      const frontendUrl = process.env.FRONTEND_URL || 'https://isbul.online';
+      
+      console.log('✅ OAuth başarılı, token oluşturuldu');
+      console.log('🚀 Yönlendirme URL:', `${frontendUrl}/oauth-callback.html?token=${token.substring(0, 20)}...`);
+      
+      // Token'ı URL'e ekle — frontend bunu alıp localStorage'a kaydeder
+      res.redirect(`${frontendUrl}/oauth-callback.html?token=${token}`);
+    } catch (err) {
+      console.error('❌ OAuth callback hatası:', err);
+      const frontendUrl = process.env.FRONTEND_URL || 'https://isbul.online';
+      res.redirect(`${frontendUrl}/oauth-callback.html?auth=error&error=${encodeURIComponent(err.message)}`);
+    }
   }
 );
 

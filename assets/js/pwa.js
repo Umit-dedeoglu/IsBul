@@ -35,8 +35,8 @@
     e.preventDefault();
     deferredPrompt = e;
     
-    // 3 saniye sonra install banner göster
-    setTimeout(() => showInstallBanner(), 3000);
+    // PWA install banner devre dışı - kullanıcı manuel yükleyebilir
+    // setTimeout(() => showInstallBanner(), 3000);
   });
 
   window.addEventListener('appinstalled', () => {
@@ -214,39 +214,16 @@
   if (!navigator.onLine) showOfflineBar();
 
   // ─── iOS PWA DESTEĞI ──────────────────────────────────────
-  // iOS'ta 'beforeinstallprompt' yok, ayrı banner göster
+  // iOS banner devre dışı - kullanıcı manuel olarak ekleyebilir
   const isIos = /iphone|ipad|ipod/.test(navigator.userAgent.toLowerCase());
   const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
 
+  // iOS banner kapatıldı
+  /*
   if (isIos && !isStandalone && !localStorage.getItem('ios_install_dismissed')) {
-    setTimeout(() => {
-      const iosBanner = document.createElement('div');
-      iosBanner.id = 'pwa-ios-banner';
-      Object.assign(iosBanner.style, {
-        position: 'fixed', bottom: '0', left: '0', right: '0',
-        background: 'linear-gradient(135deg, #1e1b4b 0%, #312e81 100%)',
-        color: 'white', padding: '16px', zIndex: '99999',
-        boxShadow: '0 -4px 20px rgba(0,0,0,0.3)',
-        fontFamily: 'Inter, sans-serif', fontSize: '13px',
-        borderTop: '1px solid rgba(108,99,255,0.3)'
-      });
-      iosBanner.innerHTML = `
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
-          <strong style="font-size:14px;">📱 İşBul'u Ana Ekrana Ekle</strong>
-          <button onclick="this.closest('#pwa-ios-banner').remove(); localStorage.setItem('ios_install_dismissed','1')" 
-                  style="background:none;border:none;color:rgba(255,255,255,0.7);font-size:18px;cursor:pointer;padding:0;">✕</button>
-        </div>
-        <p style="margin:0;opacity:0.85;line-height:1.5;">
-          Safari'de <strong>Paylaş <span style="font-size:16px;">⬆</span></strong> butonuna, 
-          sonra <strong>"Ana Ekrana Ekle"</strong> seçeneğine dokun.
-        </p>
-        <div style="margin-top:10px;border-top:1px solid rgba(255,255,255,0.15);padding-top:10px;text-align:center;opacity:0.6;font-size:11px;">
-          Uygulama gibi tam ekran deneyim yaşa!
-        </div>
-      `;
-      document.body.appendChild(iosBanner);
-    }, 4000);
+    // ... iOS banner kodu ...
   }
+  */
 
   console.log('[PWA] İşBul PWA Manager yüklendi');
 })();

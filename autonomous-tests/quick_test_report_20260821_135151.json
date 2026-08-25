@@ -1,0 +1,247 @@
+{
+  "timestamp": "2026-08-21T13:51:51.355214",
+  "duration": 35.64346,
+  "total_pages": 17,
+  "facebook_pages": [
+    "uzmanlar.html",
+    "uzman-profil.html",
+    "uzman-ol.html",
+    "profil.html",
+    "blog.html",
+    "hakkimizda.html",
+    "nasil-calisir.html",
+    "gizlilik.html"
+  ],
+  "results": [
+    {
+      "page": "index.html",
+      "url": "https://isbul.online/index.html",
+      "facebook_button": false,
+      "facebook_modal": false,
+      "admin_panel_ok": true,
+      "footer_ok": true,
+      "http_status": 200,
+      "issues": [
+        "✅ Tüm kontroller başarılı"
+      ],
+      "screenshot": "quick_test_screenshots\\index.png"
+    },
+    {
+      "page": "uzmanlar.html",
+      "url": "https://isbul.online/uzmanlar.html",
+      "facebook_button": true,
+      "facebook_modal": false,
+      "admin_panel_ok": true,
+      "footer_ok": true,
+      "http_status": 200,
+      "issues": [
+        "❌ 1 Facebook butonu bulundu!",
+        "   → Buton 1: ✓ Facebook ile Kayıt"
+      ],
+      "screenshot": "quick_test_screenshots\\uzmanlar.png"
+    },
+    {
+      "page": "uzman-profil.html",
+      "url": "https://isbul.online/uzman-profil.html",
+      "facebook_button": true,
+      "facebook_modal": false,
+      "admin_panel_ok": true,
+      "footer_ok": false,
+      "http_status": 200,
+      "issues": [
+        "❌ 1 Facebook butonu bulundu!",
+        "   → Buton 1: ✓ Facebook ile Kayıt",
+        "⚠️ Footer bulunamadı"
+      ],
+      "screenshot": "quick_test_screenshots\\uzman-profil.png"
+    },
+    {
+      "page": "uzman-ol.html",
+      "url": "https://isbul.online/uzman-ol.html",
+      "facebook_button": true,
+      "facebook_modal": false,
+      "admin_panel_ok": true,
+      "footer_ok": true,
+      "http_status": 200,
+      "issues": [
+        "❌ 1 Facebook butonu bulundu!",
+        "   → Buton 1: ✓ Facebook ile Kayıt"
+      ],
+      "screenshot": "quick_test_screenshots\\uzman-ol.png"
+    },
+    {
+      "page": "uzman-panel.html",
+      "url": "https://isbul.online/uzman-panel.html",
+      "facebook_button": false,
+      "facebook_modal": false,
+      "admin_panel_ok": true,
+      "footer_ok": false,
+      "http_status": 200,
+      "issues": [
+        "⚠️ Footer bulunamadı"
+      ],
+      "screenshot": "quick_test_screenshots\\uzman-panel.png"
+    },
+    {
+      "page": "profil.html",
+      "url": "https://isbul.online/profil.html",
+      "facebook_button": true,
+      "facebook_modal": false,
+      "admin_panel_ok": true,
+      "footer_ok": true,
+      "http_status": 200,
+      "issues": [
+        "❌ 1 Facebook butonu bulundu!",
+        "   → Buton 1: ✓ Facebook ile Kayıt"
+      ],
+      "screenshot": "quick_test_screenshots\\profil.png"
+    },
+    {
+      "page": "admin-panel.html",
+      "url": "https://isbul.online/admin-panel.html",
+      "facebook_button": false,
+      "facebook_modal": false,
+      "admin_panel_ok": false,
+      "footer_ok": true,
+      "http_status": 200,
+      "issues": [
+        "⚠️ Admin panel container bulunamadı"
+      ],
+      "screenshot": "quick_test_screenshots\\admin-panel.png"
+    },
+    {
+      "page": "blog.html",
+      "url": "https://isbul.online/blog.html",
+      "facebook_button": true,
+      "facebook_modal": false,
+      "admin_panel_ok": true,
+      "footer_ok": true,
+      "http_status": 200,
+      "issues": [
+        "❌ 1 Facebook butonu bulundu!",
+        "   → Buton 1: 📘 Facebook ile Kayıt"
+      ],
+      "screenshot": "quick_test_screenshots\\blog.png"
+    },
+    {
+      "page": "hakkimizda.html",
+      "url": "https://isbul.online/hakkimizda.html",
+      "facebook_button": true,
+      "facebook_modal": false,
+      "admin_panel_ok": true,
+      "footer_ok": true,
+      "http_status": 200,
+      "issues": [
+        "❌ 1 Facebook butonu bulundu!",
+        "   → Buton 1: 📘 Facebook ile Kayıt"
+      ],
+      "screenshot": "quick_test_screenshots\\hakkimizda.png"
+    },
+    {
+      "page": "hizmetler.html",
+      "url": "https://isbul.online/hizmetler.html",
+      "facebook_button": false,
+      "facebook_modal": false,
+      "admin_panel_ok": true,
+      "footer_ok": true,
+      "http_status": 200,
+      "issues": [
+        "✅ Tüm kontroller başarılı"
+      ],
+      "screenshot": "quick_test_screenshots\\hizmetler.png"
+    },
+    {
+      "page": "nasil-calisir.html",
+      "url": "https://isbul.online/nasil-calisir.html",
+      "facebook_button": true,
+      "facebook_modal": false,
+      "admin_panel_ok": true,
+      "footer_ok": true,
+      "http_status": 200,
+      "issues": [
+        "❌ 1 Facebook butonu bulundu!",
+        "   → Buton 1: ✓ Facebook ile Kayıt"
+      ],
+      "screenshot": "quick_test_screenshots\\nasil-calisir.png"
+    },
+    {
+      "page": "gizlilik.html",
+      "url": "https://isbul.online/gizlilik.html",
+      "facebook_button": true,
+      "facebook_modal": false,
+      "admin_panel_ok": true,
+      "footer_ok": true,
+      "http_status": 200,
+      "issues": [
+        "❌ 1 Facebook butonu bulundu!",
+        "   → Buton 1: 📘 Facebook ile Kayıt"
+      ],
+      "screenshot": "quick_test_screenshots\\gizlilik.png"
+    },
+    {
+      "page": "kvkk.html",
+      "url": "https://isbul.online/kvkk.html",
+      "facebook_button": false,
+      "facebook_modal": false,
+      "admin_panel_ok": true,
+      "footer_ok": false,
+      "http_status": 200,
+      "issues": [
+        "⚠️ Footer bulunamadı"
+      ],
+      "screenshot": "quick_test_screenshots\\kvkk.png"
+    },
+    {
+      "page": "sartlar.html",
+      "url": "https://isbul.online/sartlar.html",
+      "facebook_button": false,
+      "facebook_modal": false,
+      "admin_panel_ok": true,
+      "footer_ok": true,
+      "http_status": 200,
+      "issues": [
+        "✅ Tüm kontroller başarılı"
+      ],
+      "screenshot": "quick_test_screenshots\\sartlar.png"
+    },
+    {
+      "page": "create-account.html",
+      "url": "https://isbul.online/create-account.html",
+      "facebook_button": false,
+      "facebook_modal": false,
+      "admin_panel_ok": true,
+      "footer_ok": false,
+      "http_status": 200,
+      "issues": [
+        "⚠️ Footer bulunamadı"
+      ],
+      "screenshot": "quick_test_screenshots\\create-account.png"
+    },
+    {
+      "page": "forgot-password.html",
+      "url": "https://isbul.online/forgot-password.html",
+      "facebook_button": false,
+      "facebook_modal": false,
+      "admin_panel_ok": true,
+      "footer_ok": false,
+      "http_status": 200,
+      "issues": [
+        "⚠️ Footer bulunamadı"
+      ],
+      "screenshot": "quick_test_screenshots\\forgot-password.png"
+    },
+    {
+      "page": "reset-password.html",
+      "url": "https://isbul.online/reset-password.html",
+      "facebook_button": false,
+      "facebook_modal": false,
+      "admin_panel_ok": true,
+      "footer_ok": false,
+      "http_status": 200,
+      "issues": [
+        "⚠️ Footer bulunamadı"
+      ],
+      "screenshot": "quick_test_screenshots\\reset-password.png"
+    }
+  ]
+}
