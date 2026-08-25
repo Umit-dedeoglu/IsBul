@@ -84,12 +84,12 @@ jobs:
     name: 🧪 Backend Tests
     runs-on: ubuntu-latest
     
+    # MongoDB servisi gerekirse eklenebilir:
     # services:
-      # MongoDB için gerekirse eklenebilir
-      # mongodb:
-      #   image: mongo:6
-      #   ports:
-      #     - 27017:27017
+    #   mongodb:
+    #     image: mongo:6
+    #     ports:
+    #       - 27017:27017
     
     steps:
       - name: 📥 Checkout code
