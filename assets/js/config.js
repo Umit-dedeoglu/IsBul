@@ -78,6 +78,27 @@
     return this.backendUrl + (endpoint || '/api/v1');
   };
 
+  // Keep-alive: production'da backend'i arka planda uyandır
+  // Render free tier 15 dakika boşta kalınca uyuyor, bu ping cold start'ı önler
+  if (window.ISBUL_CONFIG.settings.isProduction) {
+    function pingBackend() {
+      fetch(window.ISBUL_CONFIG.backendUrl + '/api/health', {
+        method: 'GET',
+        cache: 'no-store',
+      }).catch(function() {}); // Sessizce başarısız ol
+    }
+
+    // Sayfa yüklenince hemen bir kez pingla (arka planda, kullanıcıyı bloke etme)
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', pingBackend);
+    } else {
+      pingBackend();
+    }
+
+    // Her 14 dakikada bir tekrarla (Render 15 dakikada uyutuyor)
+    setInterval(pingBackend, 14 * 60 * 1000);
+  }
+
   console.log('%cİşBul Config Loaded', 'color:#6C63FF;font-weight:700', {
     backend: window.ISBUL_CONFIG.backendUrl,
     mode: window.ISBUL_CONFIG.settings.isDevelopment ? 'development' : 'production',
