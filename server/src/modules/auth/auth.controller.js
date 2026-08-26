@@ -1,6 +1,6 @@
 ﻿const authService = require('./services/auth.service');
 const AuthError = require('./errors/auth.error');
-const { dbGet } = require('../../db');
+const { dbGet, dbAll } = require('../../db');
 
 /** POST /api/auth/register */
 async function register(req, res) {
@@ -72,15 +72,13 @@ async function login(req, res) {
 /** GET /api/auth/me */
 async function me(req, res) {
   try {
-    const { pgGet, pgAll } = require('../../db');
-
-    const user = await pgGet('SELECT * FROM users WHERE id = $1', req.user.id);
+    const user = await dbGet('SELECT * FROM users WHERE id = ?', req.user.id);
     if (!user) return res.status(404).json({ success: false, error: 'Kullanıcı bulunamadı.' });
 
     // Expert profili direkt DB'den çek
     let expertData = null;
     if (user.role === 'expert' || user.role === 'admin') {
-      const ep = await pgGet('SELECT * FROM expert_profiles WHERE user_id = $1', user.id);
+      const ep = await dbGet('SELECT * FROM expert_profiles WHERE user_id = ?', user.id);
       if (ep) {
         expertData = {
           price:   ep.price,
