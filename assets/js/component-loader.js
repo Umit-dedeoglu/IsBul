@@ -93,8 +93,11 @@
     var page = window.location.pathname.split('/').pop() || 'index.html';
     document.querySelectorAll('#navLinks [data-nav]').forEach(function (link) {
       if (page.indexOf(link.dataset.nav) !== -1) {
-        link.style.color = 'var(--primary)';
+        link.style.color = '#6C63FF';
         link.style.fontWeight = '700';
+      } else {
+        link.style.color = 'rgba(255,255,255,0.85)';
+        link.style.fontWeight = '500';
       }
     });
   }
