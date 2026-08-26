@@ -70,6 +70,15 @@
       placeholder.outerHTML = html;
       setActiveNavLink();
       updateExpertNavLink();
+      // Navbar DOM'a eklendikten sonra app.js'deki auth state'i yeniden tetikle
+      // Bu sayede giriş yapılmışsa navbar butonları güncellenir
+      if (typeof window._initAuthState === 'function') {
+        window._initAuthState();
+      }
+      // Feather icons'ı yeniden render et (navbar ikonları için)
+      if (typeof feather !== 'undefined') {
+        feather.replace();
+      }
       console.log('✅ Navbar loaded');
     } catch (err) {
       console.error('❌ Navbar load failed:', err);

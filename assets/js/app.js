@@ -352,6 +352,9 @@ document.addEventListener('DOMContentLoaded', () => {
   _initAuthState(); // Her sayfa yüklendiğinde oturum durumunu kontrol et
 });
 
+// Component loader'dan çağrılabilmesi için global'e expose et
+window._initAuthState = _initAuthState;
+
 /* ---------- 2. NAVBAR SCROLL ---------- */
 (function initNavbar() {
   const navbar = document.getElementById('navbar');
