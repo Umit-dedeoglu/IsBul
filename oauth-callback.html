@@ -137,7 +137,9 @@
       // Kullanıcı bilgisini API'den al
       let userInfo = null;
       try {
-        const apiBase = 'https://isbul-backend.onrender.com/api/v1';
+        const apiBase = (window.ISBUL_CONFIG && window.ISBUL_CONFIG.backendUrl)
+          ? window.ISBUL_CONFIG.backendUrl + '/api/v1'
+          : 'https://isbul-backend.onrender.com/api/v1';
         console.log('👤 Kullanıcı bilgisi çekiliyor:', `${apiBase}/auth/me`);
         
         const res = await fetch(`${apiBase}/auth/me`, {
@@ -168,11 +170,13 @@
             email:      u.email,
             avatar:     u.avatar,
             color:      u.color,
-            isExpert:   u.isExpert,
+            role:       u.role || 'customer',
+            isExpert:   u.isExpert || u.role === 'expert' || u.role === 'admin',
             expertData: u.expertData || null
           };
           localStorage.setItem('isbul_auth', JSON.stringify(userInfo));
-          console.log('✅ Kullanıcı bilgisi kaydedildi:', u.email);
+          localStorage.setItem('isbul_jwt', token);
+          console.log('✅ Kullanıcı bilgisi kaydedildi:', u.email, '| Role:', u.role);
         } else {
           console.warn('⚠️ User data invalid:', data);
           throw new Error('Invalid user data structure');
@@ -180,19 +184,36 @@
       } catch (err) {
         console.error('❌ Kullanıcı bilgisi alınamadı:', err);
         
-        // Token varsa basic bilgiyle devam et
-        console.log('⚠️ Token var ama kullanıcı bilgisi alınamadı, basic bilgiyle devam ediliyor...');
+        // Token varsa basic bilgiyle devam et - ama gerçek bir hata var
+        console.log('⚠️ /auth/me başarısız, token geçerli ama kullanıcı bilgisi alınamadı');
         
-        userInfo = {
-          id: 'u_google_temp_' + Date.now(),
-          firstName: 'Google',
-          lastName: 'User',
-          email: 'temp@google.com',
-          avatar: 'GU',
-          color: '#4285F4',
-          isExpert: false,
-          expertData: null
-        };
+        // Token'ı JWT decode et (imza doğrulamadan)
+        try {
+          const payload = JSON.parse(atob(token.split('.')[1]));
+          userInfo = {
+            id:         payload.userId || payload.id || 'u_google_' + Date.now(),
+            firstName:  payload.firstName || 'Kullanıcı',
+            lastName:   payload.lastName || '',
+            email:      payload.email || '',
+            avatar:     null,
+            color:      '#4285F4',
+            role:       payload.role || 'customer',
+            isExpert:   payload.role === 'expert' || payload.role === 'admin',
+            expertData: null
+          };
+        } catch(decodeErr) {
+          userInfo = {
+            id: 'u_google_' + Date.now(),
+            firstName: 'Kullanıcı',
+            lastName: '',
+            email: '',
+            avatar: null,
+            color: '#4285F4',
+            role: 'customer',
+            isExpert: false,
+            expertData: null
+          };
+        }
         
         localStorage.setItem('isbul_auth', JSON.stringify(userInfo));
       }
