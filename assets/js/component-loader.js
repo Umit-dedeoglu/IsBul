@@ -69,6 +69,7 @@
 
       placeholder.outerHTML = html;
       setActiveNavLink();
+      updateExpertNavLink();
       console.log('✅ Navbar loaded');
     } catch (err) {
       console.error('❌ Navbar load failed:', err);
@@ -87,6 +88,34 @@
         link.style.fontWeight = '700';
       }
     });
+  }
+
+  /**
+   * Session'a göre 3. navbar linkini güncelle:
+   * - Uzman veya admin ise → "Uzman Panelim" → uzman-panel.html
+   * - Değilse → "Uzman Ol" → uzman-ol.html (varsayılan, değişmez)
+   * 
+   * app.js'deki getSession() yüklendikten sonra çalışması için
+   * kısa bir gecikmeyle çağrılır.
+   */
+  function updateExpertNavLink() {
+    var link = document.getElementById('navExpertLink');
+    if (!link) return;
+
+    // getSession app.js'de tanımlı, yüklenmiş olması lazım
+    if (typeof getSession !== 'function') {
+      // app.js henüz yüklenmediyse biraz bekle
+      setTimeout(updateExpertNavLink, 100);
+      return;
+    }
+
+    var session = getSession();
+    if (session && (session.isExpert || session.role === 'admin')) {
+      link.textContent = 'Uzman Panelim';
+      link.href = 'uzman-panel.html';
+      link.dataset.nav = 'uzman-panel';
+    }
+    // Uzman değilse zaten "Uzman Ol" olarak kalır
   }
 
   // ─── FOOTER ──────────────────────────────────────────────────────────────────
