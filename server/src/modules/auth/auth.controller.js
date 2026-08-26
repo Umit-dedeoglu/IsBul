@@ -72,38 +72,35 @@ async function login(req, res) {
 /** GET /api/auth/me */
 async function me(req, res) {
   try {
-    // ✅ YENİ: AuthService kullan
-    const user = await dbGet('SELECT * FROM users WHERE id = ?', req.user.id);
-    if (!user) return res.status(404).json({ success: false, error: 'Kullanıcı bulunamadı.' });
-    
-    // Expert bilgisi ekle (authService üzerinden)
-    const enrichedUser = await authService.enrichUserWithExpertData({
-      id: user.id,
-      email: user.email,
-      firstName: user.first_name,
-      lastName: user.last_name,
-      avatar: user.avatar,
-      color: user.color,
-      role: user.role,
-      provider: 'email'
-    });
+    const { pgGet, pgAll } = require('../../db');
 
-    return res.json({ 
-      success: true, 
-      user: formatUser(user, enrichedUser.expertData) 
+    const user = await pgGet('SELECT * FROM users WHERE id = $1', req.user.id);
+    if (!user) return res.status(404).json({ success: false, error: 'Kullanıcı bulunamadı.' });
+
+    // Expert profili direkt DB'den çek
+    let expertData = null;
+    if (user.role === 'expert' || user.role === 'admin') {
+      const ep = await pgGet('SELECT * FROM expert_profiles WHERE user_id = $1', user.id);
+      if (ep) {
+        expertData = {
+          price:   ep.price,
+          bio:     ep.bio,
+          city:    ep.city,
+          tags:    JSON.parse(ep.tags || '[]'),
+          hours:   ep.hours,
+          rating:  ep.rating,
+          reviews: ep.review_count,
+        };
+      }
+    }
+
+    return res.json({
+      success: true,
+      user: formatUser(user, expertData)
     });
 
   } catch (err) {
     console.error('[auth/me]', err);
-    
-    // AuthError handling
-    if (err instanceof AuthError) {
-      return res.status(403).json({ 
-        success: false, 
-        error: err.message 
-      });
-    }
-
     return res.status(500).json({ success: false, error: 'Sunucu hatası.' });
   }
 }
