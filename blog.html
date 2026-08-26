@@ -117,24 +117,7 @@
 <body class="blog-page">
 
   <!-- NAVBAR -->
-  <header class="navbar" id="navbar">
-    <div class="container navbar__inner">
-      <a href="index.html" class="navbar__logo">
-        <span class="logo-icon">⚡</span>
-        <span class="logo-text"><strong>İşBul</strong></span>
-      </a>
-      <nav class="navbar__links" id="navLinks">
-        <a href="hizmetler.html">Hizmetler</a>
-        <a href="nasil-calisir.html">Nasıl Çalışır?</a>
-        <a href="uzman-ol.html">Uzman Ol</a>
-      </nav>
-      <div class="navbar__actions">
-        <button onclick="openAuthModal('login')" class="btn btn--ghost">Giriş Yap</button>
-        <button onclick="openAuthModal('register')" class="btn btn--primary">Ücretsiz Kaydol</button>
-        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
-      </div>
-    </div>
-  </header>
+    <div id="navbar-container"></div>
 
   <!-- HERO -->
   <div class="blog-hero">
@@ -290,29 +273,7 @@
   </div>
 
   <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer__top">
-        <div class="footer__brand">
-          <a href="index.html" class="navbar__logo"><span class="logo-icon">⚡</span><span class="logo-text"><strong>İşBul</strong></span></a>
-          <p>Türkiye'nin güvenilir ev ve ofis hizmetleri platformu.</p>
-          <div class="footer__social">
-            <a href="https://www.linkedin.com/in/%C3%BCmit-yakup-dedeo%C4%9Flu-4321212a7/" target="_blank" rel="noopener" aria-label="LinkedIn">🔗</a>
-          </div>
-        </div>
-        <div class="footer__links">
-          <div class="footer__col"><h4>Hizmetler</h4><a href="uzmanlar.html?kategori=montaj">Mobilya Montajı</a><a href="uzmanlar.html?kategori=temizlik">Ev Temizliği</a><a href="hizmetler.html">Tüm Hizmetler</a></div>
-          <div class="footer__col"><h4>Şirket</h4><a href="hakkimizda.html">Hakkımızda</a><a href="blog.html" style="color:var(--primary);font-weight:700">Blog</a></div>
-          <div class="footer__col"><h4>Uzmanlar İçin</h4><a href="uzman-ol.html">Uzman Ol</a><a href="nasil-calisir.html?rol=tasker">Kazanç Hesapla</a></div>
-          <div class="footer__col"><h4>Destek</h4><a href="#" onclick="document.getElementById('contactModal').classList.add('active');document.body.style.overflow='hidden';return false">İletişim</a><a href="kvkk.html">KVKK</a></div>
-        </div>
-      </div>
-      <div class="footer__bottom">
-        <p>© 2026 İşBul Teknoloji A.Ş. Tüm hakları saklıdır.</p>
-        <div class="footer__badges"><span class="footer-badge">🔒 SSL Güvenli</span><span class="footer-badge">✓ KVKK Uyumlu</span></div>
-      </div>
-    </div>
-  </footer>
+    <div id="footer-container"></div>
 
   <!-- İLETİŞİM MODAL -->
   <div class="modal-overlay" id="contactModal">

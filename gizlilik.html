@@ -21,21 +21,7 @@
   <link rel="stylesheet" href="/assets/css/mobile.css" />
 </head>
 <body style="background:var(--bg)">
-  <header class="navbar scrolled" id="navbar">
-    <div class="container navbar__inner">
-      <a href="index.html" class="navbar__logo"><span class="logo-icon">⚡</span><span class="logo-text"><strong>İşBul</strong></span></a>
-      <nav class="navbar__links" id="navLinks">
-        <a href="hizmetler.html">Hizmetler</a>
-        <a href="nasil-calisir.html">Nasıl Çalışır?</a>
-        <a href="uzman-ol.html">Uzman Ol</a>
-      </nav>
-      <div class="navbar__actions">
-        <button onclick="openAuthModal('login')" class="btn btn--ghost">Giriş Yap</button>
-        <button onclick="openAuthModal('register')" class="btn btn--primary">Ücretsiz Kaydol</button>
-        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
-      </div>
-    </div>
-  </header>
+    <div id="navbar-container"></div>
 
   <div style="max-width:760px;margin:100px auto 60px;padding:0 24px">
     <div style="background:var(--white);border-radius:var(--radius);padding:48px;border:1.5px solid var(--border)">
@@ -71,48 +57,7 @@
   </div>
 
   <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer__top">
-        <div class="footer__brand">
-          <a href="index.html" class="navbar__logo"><span class="logo-icon">⚡</span><span class="logo-text"><strong>İşBul</strong></span></a>
-          <p>Türkiye'nin güvenilir ev ve ofis hizmetleri platformu.</p>
-          <div class="footer__social"><a href="https://www.linkedin.com/in/%C3%BCmit-yakup-dedeo%C4%9Flu-4321212a7/" target="_blank" rel="noopener" aria-label="LinkedIn" title="Ümit Yakup Dedeoğlu - LinkedIn">🔗</a></div>
-        </div>
-        <div class="footer__links">
-          <div class="footer__col">
-            <h4>Hizmetler</h4>
-            <a href="hizmetler.html?kategori=montaj">Mobilya Montajı</a>
-            <a href="hizmetler.html?kategori=temizlik">Ev Temizliği</a>
-            <a href="hizmetler.html?kategori=nakliyat">Nakliyat</a>
-            <a href="hizmetler.html?kategori=elektrik">Elektrikçi</a>
-          </div>
-          <div class="footer__col">
-            <h4>Şirket</h4>
-            <a href="hakkimizda.html">Hakkımızda</a>
-            <a href="blog.html">Blog</a>
-          </div>
-          <div class="footer__col">
-            <h4>Uzmanlar</h4>
-            <a href="uzman-ol.html">Uzman Ol</a>
-          </div>
-          <div class="footer__col">
-            <h4>Destek</h4>
-            <a href="gizlilik.html">Gizlilik Politikası</a>
-            <a href="sartlar.html">Kullanım Şartları</a>
-            <a href="kvkk.html">KVKK</a>
-          </div>
-        </div>
-      </div>
-      <div class="footer__bottom">
-        <p>© 2026 İşBul Teknoloji A.Ş. Tüm hakları saklıdır.</p>
-        <div class="footer__badges">
-          <span class="footer-badge">🔒 SSL Güvenli</span>
-          <span class="footer-badge">✓ KVKK Uyumlu</span>
-        </div>
-      </div>
-    </div>
-  </footer>
+    <div id="footer-container"></div>
 
   <script src="assets/js/data.js"></script>
     <script src="assets/js/component-loader.js"></script>`n  <script src="assets/js/api-client.js"></script>
