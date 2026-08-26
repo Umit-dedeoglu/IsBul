@@ -3,88 +3,125 @@
  * 
  * HTML component'lerini fetch ederek sayfaya yükler.
  * Endpoint yaklaşımı: Tek kaynak, tüm sayfalar aynı component'i kullanır.
+ * 
+ * Yüklenen component'ler:
+ *  - /components/auth-modal.html  → body sonuna eklenir
+ *  - /components/navbar.html      → id="navbar" elementinin yerine geçer
+ *  - /components/footer.html      → id="footer-container" elementine eklenir
  */
 
-/**
- * Auth modal component'ini yükle
- * Tüm sayfalar bu fonksiyonu çağırır
- */
-async function loadAuthModal() {
-  try {
-    // Component'i fetch et
-    const response = await fetch('/components/auth-modal.html');
-    
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+(function () {
+  'use strict';
+
+  // ─── AUTH MODAL ──────────────────────────────────────────────────────────────
+
+  async function loadAuthModal() {
+    try {
+      const response = await fetch('/components/auth-modal.html');
+      if (!response.ok) throw new Error('HTTP ' + response.status);
+      const html = await response.text();
+
+      let container = document.getElementById('modal-container');
+      if (!container) {
+        container = document.createElement('div');
+        container.id = 'modal-container';
+        document.body.appendChild(container);
+      }
+
+      container.innerHTML = html;
+      initAuthModalEvents();
+      console.log('✅ Auth modal loaded');
+    } catch (err) {
+      console.error('❌ Auth modal load failed:', err);
     }
-    
-    const html = await response.text();
-    
-    // Modal container oluştur veya kullan
-    let container = document.getElementById('modal-container');
-    if (!container) {
-      container = document.createElement('div');
-      container.id = 'modal-container';
-      document.body.appendChild(container);
-    }
-    
-    // Modal HTML'ini ekle
-    container.innerHTML = html;
-    
-    console.log('✅ Auth modal loaded from component');
-    
-    // Modal event listener'ları başlat
-    initAuthModalEvents();
-    
-  } catch (error) {
-    console.error('❌ Auth modal loading failed:', error);
-    
-    // Fallback: Hata durumunda basit bir mesaj göster
-    showToast('Modal yüklenemedi. Lütfen sayfayı yenileyin.', 'error');
   }
-}
 
-/**
- * Modal event listener'ları başlat
- */
-function initAuthModalEvents() {
-  // Close button
-  const closeBtn = document.getElementById('authModalClose');
-  if (closeBtn) {
-    closeBtn.addEventListener('click', () => {
-      window.closeAuthModal();
+  function initAuthModalEvents() {
+    const closeBtn = document.getElementById('authModalClose');
+    if (closeBtn) closeBtn.addEventListener('click', function () { window.closeAuthModal && window.closeAuthModal(); });
+
+    const overlay = document.getElementById('authModal');
+    if (overlay) overlay.addEventListener('click', function (e) {
+      if (e.target === overlay) { window.closeAuthModal && window.closeAuthModal(); }
+    });
+
+    document.querySelectorAll('.auth-tab').forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        if (tab.dataset.tab && window._switchAuthTab) window._switchAuthTab(tab.dataset.tab);
+      });
     });
   }
-  
-  // Overlay click (modal dışı)
-  const overlay = document.getElementById('authModal');
-  if (overlay) {
-    overlay.addEventListener('click', (e) => {
-      if (e.target === overlay) {
-        window.closeAuthModal();
+
+  // ─── NAVBAR ──────────────────────────────────────────────────────────────────
+
+  async function loadNavbar() {
+    // Sayfada zaten navbar var mı kontrol et — varsa component yükleme
+    if (document.getElementById('navbar')) return;
+
+    // Placeholder container ara
+    const placeholder = document.getElementById('navbar-container');
+    if (!placeholder) return;
+
+    try {
+      const response = await fetch('/components/navbar.html');
+      if (!response.ok) throw new Error('HTTP ' + response.status);
+      const html = await response.text();
+
+      placeholder.outerHTML = html;
+      setActiveNavLink();
+      console.log('✅ Navbar loaded');
+    } catch (err) {
+      console.error('❌ Navbar load failed:', err);
+    }
+  }
+
+  /**
+   * Mevcut sayfanın URL'ine göre navbar linkini aktif işaretle.
+   * Her sayfada inline style yerine bu fonksiyon halleder.
+   */
+  function setActiveNavLink() {
+    var page = window.location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('#navLinks [data-nav]').forEach(function (link) {
+      if (page.indexOf(link.dataset.nav) !== -1) {
+        link.style.color = 'var(--primary)';
+        link.style.fontWeight = '700';
       }
     });
   }
-  
-  // Tab switching
-  const tabs = document.querySelectorAll('.auth-tab');
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      const tabName = tab.dataset.tab;
-      if (tabName) {
-        window._switchAuthTab(tabName);
-      }
-    });
-  });
-  
-  console.log('✅ Auth modal events initialized');
-}
 
-/**
- * Sayfa yüklendiğinde modal'ı otomatik yükle
- */
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', loadAuthModal);
-} else {
-  loadAuthModal();
-}
+  // ─── FOOTER ──────────────────────────────────────────────────────────────────
+
+  async function loadFooter() {
+    // Sayfada zaten footer var mı kontrol et — varsa component yükleme
+    if (document.querySelector('footer.footer')) return;
+
+    const placeholder = document.getElementById('footer-container');
+    if (!placeholder) return;
+
+    try {
+      const response = await fetch('/components/footer.html');
+      if (!response.ok) throw new Error('HTTP ' + response.status);
+      const html = await response.text();
+
+      placeholder.outerHTML = html;
+      console.log('✅ Footer loaded');
+    } catch (err) {
+      console.error('❌ Footer load failed:', err);
+    }
+  }
+
+  // ─── BAŞLAT ──────────────────────────────────────────────────────────────────
+
+  function init() {
+    loadAuthModal();
+    loadNavbar();
+    loadFooter();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+})();
