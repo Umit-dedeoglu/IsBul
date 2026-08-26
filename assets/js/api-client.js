@@ -41,10 +41,14 @@ const TokenManager = {
 ───────────────────────────────────────────────────────── */
 async function apiFetch(path, options = {}) {
   try {
+    const hasBody = !!options.body;
     const res = await fetch(`${API_BASE}${path}`, {
-      headers: TokenManager.headers(),
+      headers: {
+        ...(hasBody ? { 'Content-Type': 'application/json' } : {}),
+        ...TokenManager.headers(),
+      },
       ...options,
-      body: options.body ? JSON.stringify(options.body) : undefined,
+      body: hasBody ? JSON.stringify(options.body) : undefined,
     });
     const data = await res.json();
     return { ok: res.ok, status: res.status, data };
