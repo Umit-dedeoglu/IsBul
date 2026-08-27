@@ -1,6 +1,7 @@
 ﻿const authService = require('./services/auth.service');
 const AuthError = require('./errors/auth.error');
 const { dbGet, dbAll } = require('../../db');
+const { blacklistToken } = require('../../middleware/auth');
 
 /** POST /api/auth/register */
 async function register(req, res) {
@@ -103,6 +104,20 @@ async function me(req, res) {
   }
 }
 
+/** POST /api/auth/logout */
+async function logout(req, res) {
+  try {
+    const token = req.token; // authenticate middleware'den geliyor
+    if (token) {
+      await blacklistToken(token);
+    }
+    return res.json({ success: true, message: 'Başarıyla çıkış yapıldı.' });
+  } catch (err) {
+    console.error('[auth/logout]', err);
+    return res.status(500).json({ success: false, error: 'Sunucu hatası.' });
+  }
+}
+
 function formatUser(user, expertData) {
   return {
     id:        user.id,
@@ -162,4 +177,4 @@ function getStatusCodeFromAuthError(code) {
   return statusMap[code] || 500;
 }
 
-module.exports = { register, login, me };
+module.exports = { register, login, me, logout };

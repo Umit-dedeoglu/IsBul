@@ -205,6 +205,14 @@ function loginUser(email, password) {
 
 /* Çıkış yap */
 function logoutUser() {
+  // Backend'e logout bildir (token blacklist)
+  const token = localStorage.getItem('isbul_jwt');
+  if (token && typeof IsbulAPI !== 'undefined') {
+    fetch((window.ISBUL_CONFIG?.backendUrl || 'https://isbul-backend.onrender.com') + '/api/v1/auth/logout', {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + token }
+    }).catch(() => {}); // Sessizce başarısız ol
+  }
   clearSession();
   if (typeof TokenManager !== 'undefined') TokenManager.clear();
   _updateNavbarGuest();

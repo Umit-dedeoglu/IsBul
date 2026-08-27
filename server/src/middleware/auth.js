@@ -1,17 +1,49 @@
 ﻿const { verifyToken } = require('../config/jwt');
+const cache = require('../config/cache');
+
+/**
+ * Token blacklist kontrolü
+ * Logout olan token'lar Redis'te saklanır
+ */
+async function isBlacklisted(token) {
+  const result = await cache.get(`blacklist:${token}`);
+  return !!result;
+}
+
+/**
+ * Token'ı blacklist'e ekle (logout için)
+ * TTL: token'ın kalan süresi kadar (max 7 gün)
+ */
+async function blacklistToken(token) {
+  // Token'ın exp claim'inden kalan süreyi hesapla
+  try {
+    const payload = verifyToken(token);
+    const now = Math.floor(Date.now() / 1000);
+    const ttl = Math.max((payload.exp || 0) - now, 1);
+    await cache.set(`blacklist:${token}`, '1', ttl);
+  } catch {
+    // Token zaten geçersizse yine de 7 gün blacklist'e al
+    await cache.set(`blacklist:${token}`, '1', 7 * 24 * 60 * 60);
+  }
+}
 
 /**
  * JWT doğrulama middleware
  * Authorization: Bearer <token>
  */
-function authenticate(req, res, next) {
+async function authenticate(req, res, next) {
   const authHeader = req.headers.authorization;
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
     return res.status(401).json({ success: false, error: 'Oturum açmanız gerekiyor.' });
   }
   const token = authHeader.slice(7);
   try {
+    // Blacklist kontrolü
+    if (await isBlacklisted(token)) {
+      return res.status(401).json({ success: false, error: 'Oturum sonlandırılmış. Lütfen tekrar giriş yapın.' });
+    }
     req.user = verifyToken(token);
+    req.token = token; // Logout için token'ı sakla
     next();
   } catch (err) {
     return res.status(401).json({ success: false, error: 'Geçersiz veya süresi dolmuş oturum.' });
@@ -20,9 +52,8 @@ function authenticate(req, res, next) {
 
 /**
  * Opsiyonel JWT doğrulama (giriş yapmadan da çalışır)
- * Token varsa req.user'a atar, yoksa next() ile devam eder
  */
-function optionalAuth(req, res, next) {
+async function optionalAuth(req, res, next) {
   const authHeader = req.headers.authorization;
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
     req.user = null;
@@ -30,8 +61,13 @@ function optionalAuth(req, res, next) {
   }
   const token = authHeader.slice(7);
   try {
+    if (await isBlacklisted(token)) {
+      req.user = null;
+      return next();
+    }
     req.user = verifyToken(token);
-  } catch (err) {
+    req.token = token;
+  } catch {
     req.user = null;
   }
   next();
@@ -39,7 +75,6 @@ function optionalAuth(req, res, next) {
 
 /**
  * Rol kontrolü middleware factory
- * Kullanım: requireRole('admin') veya requireRole('expert')
  */
 function requireRole(...roles) {
   return (req, res, next) => {
@@ -53,4 +88,4 @@ function requireRole(...roles) {
   };
 }
 
-module.exports = { authenticate, optionalAuth, requireRole };
+module.exports = { authenticate, optionalAuth, requireRole, blacklistToken };
