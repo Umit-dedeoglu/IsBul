@@ -354,6 +354,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Component loader'dan çağrılabilmesi için global'e expose et
 window._initAuthState = _initAuthState;
+window._initAuthModalFull = _initAuthModalFull;
 
 /* ---------- 2. NAVBAR SCROLL ---------- */
 (function initNavbar() {

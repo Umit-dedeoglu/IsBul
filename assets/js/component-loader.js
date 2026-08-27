@@ -29,6 +29,10 @@
       }
 
       container.innerHTML = html;
+      // Modal DOM'a eklendikten sonra form event listener'larını başlat
+      if (typeof window._initAuthModalFull === 'function') {
+        window._initAuthModalFull();
+      }
       initAuthModalEvents();
       console.log('✅ Auth modal loaded');
     } catch (err) {
