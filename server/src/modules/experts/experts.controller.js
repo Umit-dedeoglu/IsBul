@@ -28,7 +28,7 @@ async function listExperts(req, res) {
              ep.rating, ep.review_count, ep.experience
       FROM users u
       JOIN expert_profiles ep ON ep.user_id = u.id
-      WHERE u.role IN ('expert','admin') AND (u.is_active = true OR u.is_active = 1)
+      WHERE u.role IN ('expert','admin') AND u.is_active = true
     `;
     const params = [];
 
