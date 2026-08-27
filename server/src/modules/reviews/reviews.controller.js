@@ -1,11 +1,13 @@
 ﻿const { dbGet, dbAll, dbRun } = require('../../db');
 
-function genId() { return `rev_${Date.now()}_${Math.random().toString(36).slice(2,6)}`; }
+function genId() {
+  return `rev_${Date.now()}_${Math.random().toString(36).slice(2,6)}`;
+}
 
 /** GET /api/reviews/:expertId */
-function getReviews(req, res) {
+async function getReviews(req, res) {
   try {
-    const rows = dbAll(`
+    const rows = await dbAll(`
       SELECT r.*, u.first_name, u.last_name, u.avatar, u.color
       FROM reviews r
       JOIN users u ON u.id = r.customer_id
@@ -13,21 +15,22 @@ function getReviews(req, res) {
       ORDER BY r.created_at DESC
     `, req.params.expertId);
 
+    const list = Array.isArray(rows) ? rows : [];
     return res.json({
       success: true,
-      count: rows.length,
-      reviews: rows.map(r => ({
-        id:          r.id,
-        expertId:    r.expert_id,
-        customerId:  r.customer_id,
-        userName:    `${r.first_name} ${r.last_name}`,
-        avatar:      r.avatar,
-        color:       r.color,
-        rating:      r.rating,
-        text:        r.text,
-        service:     r.service,
-        date:        new Date(r.created_at).toLocaleDateString('tr-TR'),
-        createdAt:   r.created_at,
+      count: list.length,
+      reviews: list.map(r => ({
+        id:         r.id,
+        expertId:   r.expert_id,
+        customerId: r.customer_id,
+        userName:   `${r.first_name} ${r.last_name}`,
+        avatar:     r.avatar,
+        color:      r.color,
+        rating:     r.rating,
+        text:       r.text,
+        service:    r.service,
+        date:       new Date(r.created_at).toLocaleDateString('tr-TR'),
+        createdAt:  r.created_at,
       }))
     });
   } catch (err) {
@@ -37,7 +40,7 @@ function getReviews(req, res) {
 }
 
 /** POST /api/reviews/:expertId */
-function addReview(req, res) {
+async function addReview(req, res) {
   try {
     const { rating, text, service } = req.body;
 
@@ -46,36 +49,36 @@ function addReview(req, res) {
     if (!text || text.trim().length < 10)
       return res.status(400).json({ success: false, error: 'Yorum en az 10 karakter olmalıdır.' });
 
-    // Uzman veya müşteri mi kontrol et (sadece müşteriler yorum yapabilir)
     const expertId = req.params.expertId;
     const id = genId();
 
-    dbRun(
+    await dbRun(
       'INSERT INTO reviews (id, expert_id, customer_id, rating, text, service) VALUES (?,?,?,?,?,?)',
       id, expertId, req.user.id, rating, text.trim(), service || ''
     );
 
     // Expert profilinin puan ortalamasını güncelle
-    const stats = dbGet(
+    const stats = await dbGet(
       'SELECT AVG(rating) AS avg, COUNT(*) AS cnt FROM reviews WHERE expert_id = ?',
       expertId
     );
     if (stats) {
-      dbRun(
+      await dbRun(
         'UPDATE expert_profiles SET rating = ?, review_count = ? WHERE user_id = ?',
-        Math.round((stats.avg || 5) * 10) / 10, stats.cnt, expertId
+        Math.round((parseFloat(stats.avg) || 5) * 10) / 10,
+        parseInt(stats.cnt) || 0,
+        expertId
       );
     }
 
-    // Eklenen yorumu geri döndür
-    const user = dbGet('SELECT * FROM users WHERE id = ?', req.user.id);
+    const user = await dbGet('SELECT first_name, last_name, avatar, color FROM users WHERE id = ?', req.user.id);
     return res.status(201).json({
       success: true,
       review: {
         id,
         expertId,
         customerId: req.user.id,
-        userName:   `${user?.first_name} ${user?.last_name}`,
+        userName:   user ? `${user.first_name} ${user.last_name}` : 'Kullanıcı',
         avatar:     user?.avatar,
         color:      user?.color,
         rating,

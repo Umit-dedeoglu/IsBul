@@ -3,8 +3,14 @@ const router  = express.Router();
 const ctrl    = require('./admin.controller');
 const { authenticate, requireRole } = require('../../middleware/auth');
 
-// Admin hesabı oluştur — ilk kurulumda kullanılır, auth gerektirmez
-router.post('/create-admin', ctrl.createAdmin);
+// Admin hesabı oluştur — sadece ADMIN_SETUP_KEY ile erişilebilir
+router.post('/create-admin', (req, res, next) => {
+  const setupKey = req.headers['x-admin-setup-key'] || req.body.setupKey;
+  if (!process.env.ADMIN_SETUP_KEY || setupKey !== process.env.ADMIN_SETUP_KEY) {
+    return res.status(403).json({ success: false, error: 'Geçersiz setup key.' });
+  }
+  next();
+}, ctrl.createAdmin);
 
 // Tüm diğer admin route'ları korumalı
 router.use(authenticate, requireRole('admin'));
