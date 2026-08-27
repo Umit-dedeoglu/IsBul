@@ -1,37 +1,35 @@
-﻿const { app, request, resetDb, closeDb, registerAndLogin, dbRun, dbGet } = require('./helpers');
+const { app, request, resetDb, closeDb, registerAndLogin, dbRun, dbGet, TEST_SETUP_KEY } = require('./helpers');
 
 beforeEach(() => resetDb());
 afterAll(()  => closeDb());
 
-/* ── Yardımcı: admin hesabı oluştur ve token al ── */
+/* �� Yard�mc�: admin hesab� olu�tur ve token al �� */
 async function createAdminAndLogin() {
-  // createAdmin endpoint ile oluştur
-  await request(app).post('/api/admin/create-admin').send({
-    firstName: 'Admin',
-    lastName:  'User',
-    email:     'admin@isbul.com',
-    password:  'Admin1234!',
-  });
-  // Login yap
+  await request(app).post('/api/admin/create-admin')
+    .set('x-admin-setup-key', TEST_SETUP_KEY)
+    .send({
+      firstName: 'Admin', lastName: 'User',
+      email: 'admin@isbul.com', password: 'Admin1234!',
+    });
   const res = await request(app).post('/api/auth/login').send({
     email: 'admin@isbul.com', password: 'Admin1234!',
   });
   return { token: res.body.token, user: res.body.user };
 }
 
-/* ── Yardımcı: normal kullanıcı oluştur ── */
+/* �� Yard�mc�: normal kullan�c� olu�tur �� */
 async function createCustomer(suffix = '') {
   return registerAndLogin({
-    firstName: 'Müşteri', lastName: 'Test',
+    firstName: 'M��teri', lastName: 'Test',
     email: `musteri${suffix}_${Date.now()}@test.com`,
     password: 'Test1234!',
   });
 }
 
-// ═══════════════════════════════════════════════
+// ===============================================
 describe('POST /api/admin/create-admin', () => {
-  test('ilk admin hesabı oluşturulur', async () => {
-    const res = await request(app).post('/api/admin/create-admin').send({
+  test('ilk admin hesab� olu�turulur', async () => {
+    const res = await request(app).post('/api/admin/create-admin').set('x-admin-setup-key', TEST_SETUP_KEY).send({
       firstName: 'Admin', lastName: 'User',
       email: 'admin@test.com', password: 'Admin1234!',
     });
@@ -39,23 +37,23 @@ describe('POST /api/admin/create-admin', () => {
     expect(res.body.success).toBe(true);
   });
 
-  test('ikinci admin oluşturulamaz', async () => {
-    await request(app).post('/api/admin/create-admin').send({
+  test('ikinci admin olu�turulamaz', async () => {
+    await request(app).post('/api/admin/create-admin').set('x-admin-setup-key', TEST_SETUP_KEY).send({
       firstName: 'Admin', lastName: 'User',
       email: 'admin@test.com', password: 'Admin1234!',
     });
-    const res = await request(app).post('/api/admin/create-admin').send({
+    const res = await request(app).post('/api/admin/create-admin').set('x-admin-setup-key', TEST_SETUP_KEY).send({
       firstName: 'Admin2', lastName: 'User2',
       email: 'admin2@test.com', password: 'Admin1234!',
     });
     expect(res.status).toBe(409);
   });
 
-  test('mevcut kullanıcı admin yapılır', async () => {
-    // Önce normal kullanıcı oluştur
+  test('mevcut kullan�c� admin yap�l�r', async () => {
+    // �nce normal kullan�c� olu�tur
     await registerAndLogin({ email: 'existing@test.com' });
     // Sonra admin yap
-    const res = await request(app).post('/api/admin/create-admin').send({
+    const res = await request(app).post('/api/admin/create-admin').set('x-admin-setup-key', TEST_SETUP_KEY).send({
       firstName: 'Admin', lastName: 'User',
       email: 'existing@test.com', password: 'Admin1234!',
     });
@@ -64,9 +62,9 @@ describe('POST /api/admin/create-admin', () => {
   });
 });
 
-// ═══════════════════════════════════════════════
+// ===============================================
 describe('GET /api/admin/stats', () => {
-  test('admin olmadan erişilemez', async () => {
+  test('admin olmadan eri�ilemez', async () => {
     const { token } = await createCustomer();
     const res = await request(app)
       .get('/api/admin/stats')
@@ -74,7 +72,7 @@ describe('GET /api/admin/stats', () => {
     expect(res.status).toBe(403);
   });
 
-  test('admin istatistikleri alır', async () => {
+  test('admin istatistikleri al�r', async () => {
     const { token } = await createAdminAndLogin();
     const res = await request(app)
       .get('/api/admin/stats')
@@ -85,15 +83,15 @@ describe('GET /api/admin/stats', () => {
     expect(res.body.stats.revenue).toBeDefined();
   });
 
-  test('token olmadan 401 döner', async () => {
+  test('token olmadan 401 d�ner', async () => {
     const res = await request(app).get('/api/admin/stats');
     expect(res.status).toBe(401);
   });
 });
 
-// ═══════════════════════════════════════════════
+// ===============================================
 describe('GET /api/admin/users', () => {
-  test('admin kullanıcı listesini görür', async () => {
+  test('admin kullan�c� listesini g�r�r', async () => {
     const { token } = await createAdminAndLogin();
     await createCustomer('1');
     await createCustomer('2');
@@ -103,11 +101,11 @@ describe('GET /api/admin/users', () => {
       .set('Authorization', `Bearer ${token}`);
 
     expect(res.status).toBe(200);
-    expect(res.body.users.length).toBeGreaterThanOrEqual(3); // admin + 2 müşteri
+    expect(res.body.users.length).toBeGreaterThanOrEqual(3); // admin + 2 m��teri
     expect(res.body.total).toBeGreaterThanOrEqual(3);
   });
 
-  test('role filtresi çalışır', async () => {
+  test('role filtresi �al���r', async () => {
     const { token } = await createAdminAndLogin();
     await createCustomer();
 
@@ -119,10 +117,10 @@ describe('GET /api/admin/users', () => {
     res.body.users.forEach(u => expect(u.role).toBe('customer'));
   });
 
-  test('arama filtresi çalışır', async () => {
+  test('arama filtresi �al���r', async () => {
     const { token } = await createAdminAndLogin();
     await registerAndLogin({
-      firstName: 'Ahmet', lastName: 'Yılmaz',
+      firstName: 'Ahmet', lastName: 'Y�lmaz',
       email: `ahmet_${Date.now()}@test.com`, password: 'Test1234!',
     });
 
@@ -134,7 +132,7 @@ describe('GET /api/admin/users', () => {
     expect(res.body.users.some(u => u.firstName === 'Ahmet')).toBe(true);
   });
 
-  test('sayfalama çalışır', async () => {
+  test('sayfalama �al���r', async () => {
     const { token } = await createAdminAndLogin();
 
     const res = await request(app)
@@ -147,9 +145,9 @@ describe('GET /api/admin/users', () => {
   });
 });
 
-// ═══════════════════════════════════════════════
+// ===============================================
 describe('PATCH /api/admin/users/:id/role', () => {
-  test('kullanıcı uzman yapılır', async () => {
+  test('kullan�c� uzman yap�l�r', async () => {
     const { token } = await createAdminAndLogin();
     const { user }  = await createCustomer();
 
@@ -162,7 +160,7 @@ describe('PATCH /api/admin/users/:id/role', () => {
     expect(res.body.user.role).toBe('expert');
   });
 
-  test('geçersiz rol reddedilir', async () => {
+  test('ge�ersiz rol reddedilir', async () => {
     const { token } = await createAdminAndLogin();
     const { user }  = await createCustomer();
 
@@ -174,7 +172,7 @@ describe('PATCH /api/admin/users/:id/role', () => {
     expect(res.status).toBe(400);
   });
 
-  test('admin kendi rolünü değiştiremez', async () => {
+  test('admin kendi rol�n� de�i�tiremez', async () => {
     const { token, user } = await createAdminAndLogin();
 
     const res = await request(app)
@@ -186,9 +184,9 @@ describe('PATCH /api/admin/users/:id/role', () => {
   });
 });
 
-// ═══════════════════════════════════════════════
+// ===============================================
 describe('PATCH /api/admin/users/:id/toggle-active', () => {
-  test('kullanıcı devre dışı bırakılır', async () => {
+  test('kullan�c� devre d��� b�rak�l�r', async () => {
     const { token } = await createAdminAndLogin();
     const { user }  = await createCustomer();
 
@@ -200,11 +198,11 @@ describe('PATCH /api/admin/users/:id/toggle-active', () => {
     expect(res.body.isActive).toBe(false);
   });
 
-  test('devre dışı kullanıcı tekrar aktif edilir', async () => {
+  test('devre d��� kullan�c� tekrar aktif edilir', async () => {
     const { token } = await createAdminAndLogin();
     const { user }  = await createCustomer();
 
-    // Devre dışı bırak
+    // Devre d��� b�rak
     await request(app)
       .patch(`/api/admin/users/${user.id}/toggle-active`)
       .set('Authorization', `Bearer ${token}`);
@@ -219,9 +217,9 @@ describe('PATCH /api/admin/users/:id/toggle-active', () => {
   });
 });
 
-// ═══════════════════════════════════════════════
+// ===============================================
 describe('DELETE /api/admin/users/:id', () => {
-  test('kullanıcı silinir', async () => {
+  test('kullan�c� silinir', async () => {
     const { token } = await createAdminAndLogin();
     const { user }  = await createCustomer();
 
@@ -232,7 +230,7 @@ describe('DELETE /api/admin/users/:id', () => {
     expect(delRes.status).toBe(200);
     expect(delRes.body.success).toBe(true);
 
-    // Silinen kullanıcı artık bulunamaz
+    // Silinen kullan�c� art�k bulunamaz
     const getRes = await request(app)
       .get(`/api/admin/users/${user.id}`)
       .set('Authorization', `Bearer ${token}`);
@@ -250,9 +248,9 @@ describe('DELETE /api/admin/users/:id', () => {
   });
 });
 
-// ═══════════════════════════════════════════════
+// ===============================================
 describe('GET /api/admin/bookings', () => {
-  test('admin tüm rezervasyonları görür', async () => {
+  test('admin t�m rezervasyonlar� g�r�r', async () => {
     const { token } = await createAdminAndLogin();
 
     const res = await request(app)
@@ -264,7 +262,7 @@ describe('GET /api/admin/bookings', () => {
     expect(typeof res.body.total).toBe('number');
   });
 
-  test('status filtresi çalışır', async () => {
+  test('status filtresi �al���r', async () => {
     const { token } = await createAdminAndLogin();
 
     const res = await request(app)
@@ -276,14 +274,14 @@ describe('GET /api/admin/bookings', () => {
   });
 });
 
-// ═══════════════════════════════════════════════
+// ===============================================
 describe('GET /api/admin/applications', () => {
-  test('bekleyen başvurular listelenir', async () => {
+  test('bekleyen ba�vurular listelenir', async () => {
     const { token } = await createAdminAndLogin();
 
-    // pending_expert olarak kayıt ol
+    // pending_expert olarak kay�t ol
     await request(app).post('/api/auth/register').send({
-      firstName: 'Başvuru', lastName: 'Testi',
+      firstName: 'Ba�vuru', lastName: 'Testi',
       email: `basvuru_${Date.now()}@test.com`,
       password: 'Test1234!',
       role: 'pending_expert',
@@ -301,7 +299,7 @@ describe('GET /api/admin/applications', () => {
 });
 
 describe('PATCH /api/admin/applications/:id/approve', () => {
-  test('başvuru onaylandığında rol expert olur', async () => {
+  test('ba�vuru onayland���nda rol expert olur', async () => {
     const { token } = await createAdminAndLogin();
 
     const reg = await request(app).post('/api/auth/register').send({
@@ -319,7 +317,7 @@ describe('PATCH /api/admin/applications/:id/approve', () => {
     expect(res.status).toBe(200);
     expect(res.body.success).toBe(true);
 
-    // Rol expert olmuş mu?
+    // Rol expert olmu� mu?
     const userRes = await request(app)
       .get(`/api/admin/users/${userId}`)
       .set('Authorization', `Bearer ${token}`);
@@ -328,7 +326,7 @@ describe('PATCH /api/admin/applications/:id/approve', () => {
 });
 
 describe('PATCH /api/admin/applications/:id/reject', () => {
-  test('başvuru reddedildiğinde rol customer olur', async () => {
+  test('ba�vuru reddedildi�inde rol customer olur', async () => {
     const { token } = await createAdminAndLogin();
 
     const reg = await request(app).post('/api/auth/register').send({

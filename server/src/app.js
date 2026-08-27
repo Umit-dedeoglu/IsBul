@@ -9,7 +9,14 @@
  *   Ba�ar�: { success: true, data: {...}, meta: {...}, timestamp }
  *   Hata:   { success: false, error: { code, message }, timestamp }
  */
-require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') });
+// Test ortamında .env yükleme — DATABASE_URL zaten setup.js'de silinmiş
+if (process.env.NODE_ENV !== 'test') {
+  require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') });
+} else {
+  require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') });
+  // Test ortamında production DB'yi devre dışı bırak
+  delete process.env.DATABASE_URL;
+}
 
 // Sentry — en başta init edilmeli
 const Sentry = require('@sentry/node');

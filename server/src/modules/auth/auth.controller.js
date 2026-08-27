@@ -161,8 +161,9 @@ function getStatusCodeFromAuthError(code) {
     [AuthError.CODES.INVALID_TOKEN]: 401,
     [AuthError.CODES.TOKEN_EXPIRED]: 401,
     [AuthError.CODES.NO_TOKEN]: 401,
-    [AuthError.CODES.USER_NOT_FOUND]: 404,
+    [AuthError.CODES.USER_NOT_FOUND]: 401,    // Güvenlik: kullanıcı var mı belli olmamalı
     [AuthError.CODES.INVALID_CREDENTIALS]: 401,
+    [AuthError.CODES.VALIDATION_ERROR]: 400,  // Input validation hatası
     [AuthError.CODES.USER_EXISTS]: 409,
     [AuthError.CODES.EMAIL_NOT_VERIFIED]: 403,
     [AuthError.CODES.PHONE_NOT_VERIFIED]: 403,

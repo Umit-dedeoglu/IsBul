@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Email/Password Authentication Provider
  * 
  * Email ve şifre ile authentication işlemlerini yönetir.
@@ -167,29 +167,17 @@ class EmailAuthProvider extends IAuthProvider {
   async register({ firstName, lastName, email, password, role }) {
     // Validation
     if (!firstName || !lastName || !email || !password) {
-      throw new AuthError(
-        AuthError.CODES.INVALID_CREDENTIALS,
-        {},
-        'Tüm alanlar zorunludur'
-      );
+      throw new AuthError(AuthError.CODES.VALIDATION_ERROR, {}, 'Tüm alanlar zorunludur');
     }
 
     // Email format kontrolü
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      throw new AuthError(
-        AuthError.CODES.INVALID_CREDENTIALS,
-        {},
-        'Geçerli bir e-posta girin'
-      );
+      throw new AuthError(AuthError.CODES.VALIDATION_ERROR, {}, 'Geçerli bir e-posta girin');
     }
 
     // Password uzunluk kontrolü
     if (password.length < 8) {
-      throw new AuthError(
-        AuthError.CODES.INVALID_CREDENTIALS,
-        {},
-        'Şifre en az 8 karakter olmalıdır'
-      );
+      throw new AuthError(AuthError.CODES.VALIDATION_ERROR, {}, 'Şifre en az 8 karakter olmalıdır');
     }
 
     // Email zaten kayıtlı mı kontrol et

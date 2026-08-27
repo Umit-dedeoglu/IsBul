@@ -39,7 +39,9 @@ async function getUsers(req, res) {
 
     if (role)   { sql += ' AND u.role = ?';  params.push(role); }
     if (search) {
-      sql += ' AND (u.first_name ILIKE ? OR u.last_name ILIKE ? OR u.email ILIKE ?)';
+      // PostgreSQL ILIKE, SQLite LIKE (case-insensitive zaten)
+      const likeOp = process.env.DATABASE_URL ? 'ILIKE' : 'LIKE';
+      sql += ` AND (u.first_name ${likeOp} ? OR u.last_name ${likeOp} ? OR u.email ${likeOp} ?)`;
       const q = `%${search}%`;
       params.push(q, q, q);
     }
@@ -225,8 +227,13 @@ async function getApplications(req, res) {
     const pending = await dbAll(
       "SELECT u.*, ep.price, ep.bio, ep.city, ep.tags, ep.experience FROM users u LEFT JOIN expert_profiles ep ON ep.user_id = u.id WHERE u.role = 'pending_expert' ORDER BY u.created_at DESC"
     );
+    // Son 7 günde onaylanmış uzmanlar — DB uyumlu sorgu
+    const recentFilter = process.env.DATABASE_URL
+      ? "AND u.updated_at >= NOW() - INTERVAL '7 days'"
+      : "AND u.updated_at >= datetime('now','-7 days')";
+
     const recent = await dbAll(
-      "SELECT u.*, ep.price, ep.bio, ep.city, ep.tags, ep.experience FROM users u LEFT JOIN expert_profiles ep ON ep.user_id = u.id WHERE u.role = 'expert' AND u.updated_at >= NOW() - INTERVAL '7 days' ORDER BY u.updated_at DESC LIMIT 20"
+      `SELECT u.*, ep.price, ep.bio, ep.city, ep.tags, ep.experience FROM users u LEFT JOIN expert_profiles ep ON ep.user_id = u.id WHERE u.role = 'expert' ${recentFilter} ORDER BY u.updated_at DESC LIMIT 20`
     );
 
     return res.json({

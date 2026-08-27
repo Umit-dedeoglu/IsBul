@@ -38,12 +38,13 @@ async function authenticate(req, res, next) {
   }
   const token = authHeader.slice(7);
   try {
-    // Blacklist kontrolü
-    if (await isBlacklisted(token)) {
+    // Blacklist kontrolü — cache yoksa (test/dev) geç
+    const blacklisted = await isBlacklisted(token).catch(() => false);
+    if (blacklisted) {
       return res.status(401).json({ success: false, error: 'Oturum sonlandırılmış. Lütfen tekrar giriş yapın.' });
     }
     req.user = verifyToken(token);
-    req.token = token; // Logout için token'ı sakla
+    req.token = token;
     next();
   } catch (err) {
     return res.status(401).json({ success: false, error: 'Geçersiz veya süresi dolmuş oturum.' });

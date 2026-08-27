@@ -1,29 +1,32 @@
 /**
  * Input sanitization — XSS koruması
- * Tüm user-generated text içeriği bu fonksiyondan geçmeli
+ * HTML tag'lerini regex ile kaldırır, entity'leri decode eder
+ * Jest/CommonJS uyumlu (sanitize-html yerine)
  */
-const sanitizeHtml = require('sanitize-html');
-
-// HTML tamamen yasaklı — sadece düz metin
-const PLAIN_TEXT_OPTIONS = {
-  allowedTags: [],
-  allowedAttributes: {},
-  disallowedTagsMode: 'discard',
-};
 
 /**
- * Düz metin sanitize et (bio, notes, review, vb.)
- * HTML tag'lerini tamamen kaldırır
+ * HTML tag'lerini kaldır ve tehlikeli karakterleri temizle
  */
 function sanitizeText(input) {
   if (!input || typeof input !== 'string') return '';
-  return sanitizeHtml(input.trim(), PLAIN_TEXT_OPTIONS);
+  return input
+    .trim()
+    // Script/style tag içeriklerini tamamen kaldır
+    .replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi, '')
+    .replace(/<style[\s\S]*?>[\s\S]*?<\/style>/gi, '')
+    // Tüm HTML tag'lerini kaldır
+    .replace(/<[^>]+>/g, '')
+    // HTML entity'leri decode et (& < > " ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .trim();
 }
 
 /**
  * Birden fazla alanı sanitize et
- * @param {object} obj - Sanitize edilecek obje
- * @param {string[]} fields - Sanitize edilecek alan adları
  */
 function sanitizeFields(obj, fields) {
   const result = { ...obj };

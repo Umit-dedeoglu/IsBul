@@ -44,13 +44,28 @@ async function createBooking(req, res) {
       JSON.stringify(allSlots), city||'', sanitizeText(notes||'')
     );
 
-    // Takvime işle
+    // Takvime işle — SQLite ve PostgreSQL uyumlu
     for (const slot of allSlots) {
-      await dbRun(
-        'INSERT INTO calendar_slots (id, expert_id, slot, slot_key, booking_id) VALUES (?,?,?,?,?) ON CONFLICT (expert_id, slot) DO NOTHING',
-        `cs_${Date.now()}_${Math.random().toString(36).slice(2,4)}`,
-        expertId, slot, slot, id
-      );
+      try {
+        // PostgreSQL: id TEXT, slot_key kolonu var
+        // SQLite: id AUTOINCREMENT, slot_key yok
+        const isPostgres = !!process.env.DATABASE_URL;
+        if (isPostgres) {
+          const slotId = `cs_${Date.now()}_${Math.random().toString(36).slice(2,4)}`;
+          await dbRun(
+            'INSERT INTO calendar_slots (id, expert_id, slot, slot_key, booking_id) VALUES (?,?,?,?,?)',
+            slotId, expertId, slot, slot, id
+          );
+        } else {
+          // SQLite: id AUTOINCREMENT, slot_key kolonu yok
+          await dbRun(
+            'INSERT OR IGNORE INTO calendar_slots (expert_id, slot_key, booking_id) VALUES (?,?,?)',
+            expertId, slot, id
+          );
+        }
+      } catch (e) {
+        if (!e.message?.includes('UNIQUE') && !e.message?.includes('unique')) throw e;
+      }
     }
 
     const booking = await dbGet('SELECT * FROM bookings WHERE id = ?', id);
