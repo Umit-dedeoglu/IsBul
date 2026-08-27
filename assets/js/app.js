@@ -206,8 +206,10 @@ function loginUser(email, password) {
 /* Çıkış yap */
 function logoutUser() {
   clearSession();
+  if (typeof TokenManager !== 'undefined') TokenManager.clear();
   _updateNavbarGuest();
   showToast('Çıkış yapıldı. Görüşmek üzere!', 'info');
+  setTimeout(() => { window.location.href = 'index.html'; }, 800);
 }
 window.logoutUser = logoutUser;
 
