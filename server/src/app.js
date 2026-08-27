@@ -19,6 +19,9 @@ Sentry.init({
   tracesSampleRate: 1.0,
   enabled: !!process.env.SENTRY_DSN,
 });
+
+const logger = require('./config/logger');
+global.logger = logger; // Tüm modüllerden erişilebilir
 const express  = require('express');
 const cors     = require('cors');
 const helmet   = require('helmet');
@@ -69,7 +72,7 @@ app.use(cors({
 }));
 // �� Logging ���������������������������������������������
 if (process.env.NODE_ENV !== 'test') {
-  app.use(morgan('dev'));
+  app.use(morgan('combined', { stream: { write: (msg) => logger.http(msg.trim()) } }));
 }
 // �� Body Parser �����������������������������������������
 app.use(express.json({ limit: '10mb' }));
