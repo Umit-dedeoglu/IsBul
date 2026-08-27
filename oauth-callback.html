@@ -228,9 +228,9 @@
         console.log('2️⃣ localStorage returnUrl:', returnUrl || 'yok');
       }
       
-      // Hiçbir yerde yoksa veya index.html ise profil sayfasına yönlendir
-      if (!returnUrl || returnUrl.includes('index.html') || returnUrl.includes('oauth-callback')) {
-        returnUrl = 'profil.html';
+      // Hiçbir yerde yoksa — mevcut sayfada kal, index'e git
+      if (!returnUrl || returnUrl.includes('oauth-callback')) {
+        returnUrl = 'index.html';
         console.log('3️⃣ Fallback returnUrl:', returnUrl);
       }
       
