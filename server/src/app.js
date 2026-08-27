@@ -10,6 +10,15 @@
  *   Hata:   { success: false, error: { code, message }, timestamp }
  */
 require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') });
+
+// Sentry — en başta init edilmeli
+const Sentry = require('@sentry/node');
+Sentry.init({
+  dsn: process.env.SENTRY_DSN,
+  environment: process.env.NODE_ENV || 'development',
+  tracesSampleRate: 1.0,
+  enabled: !!process.env.SENTRY_DSN,
+});
 const express  = require('express');
 const cors     = require('cors');
 const helmet   = require('helmet');
@@ -152,6 +161,7 @@ app.use((req, res) => {
 });
 // �� Global Error Handler ���������������������������������
 app.use((err, req, res, next) => {
+  Sentry.captureException(err);
   // CORS hatas�
   if (err.message?.startsWith('CORS:')) {
     return res.status(403).json({
