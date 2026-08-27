@@ -49,12 +49,12 @@ async function apiFetch(path, options = {}) {
       },
       ...options,
       body: hasBody ? JSON.stringify(options.body) : undefined,
+      signal: AbortSignal.timeout(10000),
     });
     const data = await res.json();
     return { ok: res.ok, status: res.status, data };
   } catch (err) {
-    // API erişilemiyorsa (sunucu kapalı vb.)
-    console.warn(`[API] ${path} erişilemedi, localStorage fallback:`, err.message);
+    console.warn(`[API] ${path} erişilemedi:`, err.message);
     return { ok: false, status: 0, data: null, offline: true };
   }
 }
@@ -67,7 +67,7 @@ let _apiAvailable = null; // null = henüz kontrol edilmedi
 async function checkApiAvailability() {
   if (_apiAvailable !== null) return _apiAvailable;
   try {
-    const res = await fetch(`${API_BASE}/health`, { signal: AbortSignal.timeout(2000) });
+    const res = await fetch(`${API_BASE}/health`, { signal: AbortSignal.timeout(8000) });
     _apiAvailable = res.ok;
   } catch {
     _apiAvailable = false;
@@ -110,7 +110,9 @@ const AuthAPI = {
       method: 'POST',
       body: { firstName, lastName, email, password, role }
     });
-    if (offline) return null; // localStorage fallback
+    if (offline) {
+      return { success: false, error: 'Sunucuya bağlanılamıyor. Lütfen tekrar deneyin.' };
+    }
     if (ok && data.token) {
       TokenManager.set(data.token);
       return { success: true, user: data.user, token: data.token };
@@ -127,7 +129,10 @@ const AuthAPI = {
       method: 'POST',
       body: { email, password }
     });
-    if (offline) return null;
+    if (offline) {
+      // API'ye ulaşılamadı, hata göster
+      return { success: false, error: 'Sunucuya bağlanılamıyor. Lütfen tekrar deneyin.' };
+    }
     if (ok && data.token) {
       TokenManager.set(data.token);
       return { success: true, user: data.user, token: data.token };
