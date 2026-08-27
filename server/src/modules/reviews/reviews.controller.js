@@ -1,4 +1,5 @@
 ﻿const { dbGet, dbAll, dbRun } = require('../../db');
+const { sanitizeText } = require('../../utils/sanitize');
 
 function genId() {
   return `rev_${Date.now()}_${Math.random().toString(36).slice(2,6)}`;
@@ -49,12 +50,16 @@ async function addReview(req, res) {
     if (!text || text.trim().length < 10)
       return res.status(400).json({ success: false, error: 'Yorum en az 10 karakter olmalıdır.' });
 
+    const cleanText = sanitizeText(text);
+    if (!cleanText || cleanText.length < 10)
+      return res.status(400).json({ success: false, error: 'Yorum en az 10 karakter olmalıdır.' });
+
     const expertId = req.params.expertId;
     const id = genId();
 
     await dbRun(
       'INSERT INTO reviews (id, expert_id, customer_id, rating, text, service) VALUES (?,?,?,?,?,?)',
-      id, expertId, req.user.id, rating, text.trim(), service || ''
+      id, expertId, req.user.id, rating, cleanText, sanitizeText(service || '')
     );
 
     // Expert profilinin puan ortalamasını güncelle
@@ -82,8 +87,8 @@ async function addReview(req, res) {
         avatar:     user?.avatar,
         color:      user?.color,
         rating,
-        text:       text.trim(),
-        service:    service || '',
+        text:       cleanText,
+        service:    sanitizeText(service || ''),
         date:       new Date().toLocaleDateString('tr-TR'),
         createdAt:  new Date().toISOString(),
       }

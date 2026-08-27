@@ -1,4 +1,5 @@
 ﻿const { dbGet, dbAll, dbRun } = require('../../db');
+const { sanitizeText } = require('../../utils/sanitize');
 
 function genId() {
   return `rez_${Date.now()}_${Math.random().toString(36).slice(2,6)}`;
@@ -40,7 +41,7 @@ async function createBooking(req, res) {
       id, session.id, expertId, service, date, endDate||date,
       time, endTime||time, durationType||'hours', durationValue||1,
       durationLabel||'', totalPrice||0,
-      JSON.stringify(allSlots), city||'', notes||''
+      JSON.stringify(allSlots), city||'', sanitizeText(notes||'')
     );
 
     // Takvime işle

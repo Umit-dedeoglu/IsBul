@@ -1,4 +1,4 @@
-/**
+﻿/**
  * ��Bul API � Ana Uygulama
  *
  * Mimari: Mod�ler Monolith
@@ -40,7 +40,16 @@ const { swaggerUi, swaggerDocument, swaggerOptions } = require('./config/swagger
 const app = express();
 // �� G�venlik ��������������������������������������������
 app.use(helmet({
-  contentSecurityPolicy: false, // Swagger UI i�in kapal�
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc:  ["'self'", "'unsafe-inline'", "'unsafe-eval'", "cdn.jsdelivr.net"],
+      styleSrc:   ["'self'", "'unsafe-inline'", "cdn.jsdelivr.net"],
+      imgSrc:     ["'self'", "data:", "cdn.jsdelivr.net"],
+      connectSrc: ["'self'", "https://isbul-backend.onrender.com"],
+    },
+  },
+  crossOriginEmbedderPolicy: false,
 }));
 // �� CORS � Web ve Mobil ��in Geni�letilmi� ��������������
 const allowedOrigins = [
