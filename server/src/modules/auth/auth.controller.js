@@ -103,7 +103,7 @@ async function me(req, res) {
   }
 }
 
-function formatUser(user, expert) {
+function formatUser(user, expertData) {
   return {
     id:        user.id,
     firstName: user.first_name,
@@ -113,15 +113,7 @@ function formatUser(user, expert) {
     color:     user.color,
     role:      user.role,
     isExpert:  user.role === 'expert' || user.role === 'admin',
-    expertData: expert ? {
-      price:   expert.price,
-      bio:     expert.bio,
-      city:    expert.city,
-      tags:    JSON.parse(expert.tags || '[]'),
-      hours:   expert.hours,
-      rating:  expert.rating,
-      reviews: expert.review_count,
-    } : null
+    expertData: expertData || null
   };
 }
 
