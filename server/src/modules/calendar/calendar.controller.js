@@ -8,13 +8,18 @@ async function getSlots(req, res) {
 
     let rows;
     if (date) {
+      // PostgreSQL: LIKE çalışır, slot_key olmayabilir — hem slot hem slot_key kontrol et
       rows = await dbAll(
-        'SELECT slot_key FROM calendar_slots WHERE expert_id = ? AND slot_key LIKE ?',
+        `SELECT COALESCE(slot_key, slot) AS slot_key
+         FROM calendar_slots
+         WHERE expert_id = ? AND COALESCE(slot_key, slot) LIKE ?`,
         expertId, `${date}_%`
       );
     } else {
       rows = await dbAll(
-        'SELECT slot_key FROM calendar_slots WHERE expert_id = ?',
+        `SELECT COALESCE(slot_key, slot) AS slot_key
+         FROM calendar_slots
+         WHERE expert_id = ?`,
         expertId
       );
     }
@@ -22,7 +27,8 @@ async function getSlots(req, res) {
     const list = Array.isArray(rows) ? rows : [];
     const slots = {};
     list.forEach(r => {
-      if (r.slot_key) slots[r.slot_key] = true;
+      const key = r.slot_key || r.slot;
+      if (key) slots[key] = true;
     });
 
     return res.json({ success: true, slots });
@@ -43,7 +49,9 @@ async function checkSlots(req, res) {
 
     for (const slot of slots) {
       const conflict = await dbGet(
-        'SELECT slot_key FROM calendar_slots WHERE expert_id = ? AND slot_key = ?',
+        `SELECT COALESCE(slot_key, slot) AS slot_key
+         FROM calendar_slots
+         WHERE expert_id = ? AND COALESCE(slot_key, slot) = ?`,
         expertId, slot
       );
       if (conflict) {
