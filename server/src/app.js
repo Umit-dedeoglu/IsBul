@@ -28,7 +28,20 @@ Sentry.init({
 });
 
 const logger = require('./config/logger');
-global.logger = logger; // Tüm modüllerden erişilebilir
+global.logger = logger;
+
+// Tüm console.error çağrılarını Sentry'e de gönder
+const originalConsoleError = console.error;
+console.error = function(...args) {
+  originalConsoleError.apply(console, args);
+  if (args[0] instanceof Error) {
+    Sentry.captureException(args[0]);
+  } else if (typeof args[0] === 'string' && args[0].startsWith('[')) {
+    // [module/action] formatındaki hatalar
+    const err = args[1] instanceof Error ? args[1] : new Error(args.join(' '));
+    Sentry.captureMessage(args.join(' '), 'error');
+  }
+};
 const express  = require('express');
 const cors     = require('cors');
 const helmet   = require('helmet');
