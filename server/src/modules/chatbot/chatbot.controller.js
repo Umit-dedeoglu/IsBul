@@ -5,9 +5,14 @@
 const Groq = require('groq-sdk');
 const { dbAll, dbGet } = require('../../db');
 
-const groq = new Groq({
-  apiKey: process.env.GROQ_API_KEY,
-});
+// Lazy init — key yoksa crash etme, istekte hata döndür
+let groq = null;
+function getGroq() {
+  if (!groq && process.env.GROQ_API_KEY) {
+    groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+  }
+  return groq;
+}
 
 /** POST /api/v1/chatbot/chat */
 async function chat(req, res) {
@@ -67,7 +72,11 @@ ${userContext.isExpert ? '- Uzman olarak aktif' : ''}
     ];
 
     // Groq API çağrısı
-    const completion = await groq.chat.completions.create({
+    const client = getGroq();
+    if (!client) {
+      return res.status(503).json({ success: false, error: 'Chatbot servisi şu an kullanılamıyor.' });
+    }
+    const completion = await client.chat.completions.create({
       model: 'llama-3.1-70b-versatile',
       messages,
       temperature: 0.7,

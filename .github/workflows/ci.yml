@@ -115,6 +115,7 @@ jobs:
           npm test
         env:
           NODE_ENV: test
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           
       - name: 📊 Generate coverage report
         run: |
