@@ -56,8 +56,9 @@ async function createBooking(req, res) {
             slotId, expertId, slot, id
           );
         } else {
+          // SQLite: id AUTOINCREMENT, slot kolonu kullan
           await dbRun(
-            'INSERT OR IGNORE INTO calendar_slots (expert_id, slot_key, booking_id) VALUES (?,?,?)',
+            'INSERT OR IGNORE INTO calendar_slots (expert_id, slot, booking_id) VALUES (?,?,?)',
             expertId, slot, id
           );
         }

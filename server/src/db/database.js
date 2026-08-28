@@ -120,9 +120,9 @@ function initSchema() {
     CREATE TABLE IF NOT EXISTS calendar_slots (
       id          INTEGER PRIMARY KEY AUTOINCREMENT,
       expert_id   TEXT NOT NULL,
-      slot_key    TEXT NOT NULL,
+      slot        TEXT NOT NULL,
       booking_id  TEXT,
-      UNIQUE(expert_id, slot_key)
+      UNIQUE(expert_id, slot)
     );
 
     CREATE TABLE IF NOT EXISTS reviews (

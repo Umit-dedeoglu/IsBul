@@ -112,14 +112,14 @@ jobs:
       - name: 🧪 Run tests
         run: |
           cd server
-          npm test || echo "Tests not configured yet"
+          npm test
         env:
           NODE_ENV: test
           
       - name: 📊 Generate coverage report
         run: |
           cd server
-          npm run test:coverage || echo "Coverage not configured yet"
+          npm run test:coverage || true
           
       - name: 📤 Upload coverage to Codecov
         uses: codecov/codecov-action@v4
