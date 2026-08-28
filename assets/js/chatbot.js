@@ -347,10 +347,11 @@ class ChatbotWidget {
     this.conversationHistory = [];
 
     // Ortama göre otomatik API URL tespiti — api-client.js ile aynı mantık
-    const h = window.location.hostname;
-    const backendBase = (h === 'localhost' || h === '127.0.0.1')
-      ? 'http://localhost:3001'
-      : window.location.origin;  // Production'da domain kullan
+    const backendBase = (window.ISBUL_CONFIG && window.ISBUL_CONFIG.backendUrl)
+      ? window.ISBUL_CONFIG.backendUrl
+      : (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+        ? 'http://localhost:3001'
+        : 'https://isbul-backend.onrender.com';
     this.apiUrl = `${backendBase}/api/v1/chatbot`;
 
     this.init();
