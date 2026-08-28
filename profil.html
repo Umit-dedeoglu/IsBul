@@ -631,6 +631,17 @@
                   🚫 İptal Et
                 </button>
               ` : ''}
+              ${r.status === 'confirmed' ? `
+                <button onclick="openPaymentModal('${r.id}', ${r.totalPrice||r.price||0})"
+                  style="margin-top:6px;padding:6px 12px;border-radius:8px;background:#6C63FF;color:#fff;border:none;font-size:12px;font-weight:600;cursor:pointer;width:100%;">
+                  💳 Ödeme Yap
+                </button>
+              ` : ''}
+              ${r.status === 'completed' ? `
+                <div style="margin-top:6px;padding:5px 10px;border-radius:8px;background:#d1fae5;color:#065f46;font-size:11px;font-weight:600;text-align:center;">
+                  ✅ Ödendi
+                </div>
+              ` : ''}
             </div>
           </div>`).join('');
       }
@@ -727,6 +738,116 @@
     })();
 
   </script>
+
+  <!-- İYZİCO ÖDEME MODALI -->
+  <div id="paymentModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;align-items:center;justify-content:center;">
+    <div style="background:#fff;border-radius:20px;max-width:480px;width:92%;max-height:90vh;overflow-y:auto;padding:0;position:relative;">
+      <!-- Header -->
+      <div style="padding:20px 24px 16px;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;justify-content:space-between;">
+        <div>
+          <div style="font-size:18px;font-weight:800;color:#1a202c;">💳 Ödeme Yap</div>
+          <div style="font-size:13px;color:#64748b;margin-top:2px;" id="paymentModalSubtitle">Rezervasyon ödemesi</div>
+        </div>
+        <button onclick="closePaymentModal()" style="width:32px;height:32px;border-radius:50%;background:#f3f4f6;border:none;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;">×</button>
+      </div>
+
+      <!-- Sandbox uyarısı -->
+      <div style="margin:16px 24px 0;padding:10px 14px;background:#fef3c7;border-radius:8px;font-size:13px;color:#92400e;display:flex;gap:8px;align-items:center;">
+        <span>⚠️</span>
+        <span><strong>Test modu</strong> — Gerçek ödeme alınmaz. Test kartı: 5528790000000008</span>
+      </div>
+
+      <!-- İyzico form container -->
+      <div id="iyzico-checkout-form" style="padding:16px 24px 24px;"></div>
+
+      <!-- Loading -->
+      <div id="paymentLoading" style="padding:40px;text-align:center;display:none;">
+        <div style="width:40px;height:40px;border:3px solid #e5e7eb;border-top-color:#6C63FF;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px;"></div>
+        <p style="color:#64748b;font-size:14px;">Ödeme formu yükleniyor...</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // İyzico ödeme modal
+    window.openPaymentModal = async function(bookingId, amount) {
+      const modal = document.getElementById('paymentModal');
+      const formContainer = document.getElementById('iyzico-checkout-form');
+      const loading = document.getElementById('paymentLoading');
+      const subtitle = document.getElementById('paymentModalSubtitle');
+
+      subtitle.textContent = `Tutar: ₺${amount.toLocaleString('tr-TR')}`;
+      formContainer.innerHTML = '';
+      loading.style.display = 'block';
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+
+      try {
+        const token = localStorage.getItem('isbul_jwt');
+        const apiBase = (window.ISBUL_CONFIG && window.ISBUL_CONFIG.backendUrl)
+          ? window.ISBUL_CONFIG.backendUrl + '/api/v1'
+          : 'https://isbul-backend.onrender.com/api/v1';
+
+        const res = await fetch(`${apiBase}/payments/initialize`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+          body: JSON.stringify({ bookingId })
+        });
+
+        const data = await res.json();
+        loading.style.display = 'none';
+
+        if (!data.success) {
+          formContainer.innerHTML = `<div style="padding:20px;text-align:center;color:#ef4444;">❌ ${data.error}</div>`;
+          return;
+        }
+
+        // İyzico checkout formunu inject et
+        formContainer.innerHTML = data.checkoutFormContent;
+
+        // Script tag'larını çalıştır
+        formContainer.querySelectorAll('script').forEach(oldScript => {
+          const newScript = document.createElement('script');
+          if (oldScript.src) {
+            newScript.src = oldScript.src;
+          } else {
+            newScript.textContent = oldScript.textContent;
+          }
+          document.head.appendChild(newScript);
+          oldScript.remove();
+        });
+
+      } catch (err) {
+        loading.style.display = 'none';
+        formContainer.innerHTML = `<div style="padding:20px;text-align:center;color:#ef4444;">❌ Ödeme formu yüklenemedi. Lütfen tekrar deneyin.</div>`;
+        console.error('[payment]', err);
+      }
+    };
+
+    window.closePaymentModal = function() {
+      document.getElementById('paymentModal').style.display = 'none';
+      document.body.style.overflow = '';
+    };
+
+    // URL'de ödeme sonucu varsa göster
+    (function checkPaymentResult() {
+      const params = new URLSearchParams(window.location.search);
+      const result = params.get('payment');
+      if (result === 'success') {
+        setTimeout(() => {
+          if (typeof showToast === 'function') showToast('✅ Ödemeniz başarıyla tamamlandı!', 'success');
+        }, 500);
+        // URL'i temizle
+        window.history.replaceState({}, '', window.location.pathname);
+      } else if (result === 'failed' || result === 'error') {
+        setTimeout(() => {
+          if (typeof showToast === 'function') showToast('❌ Ödeme başarısız. Lütfen tekrar deneyin.', 'error');
+        }, 500);
+        window.history.replaceState({}, '', window.location.pathname);
+      }
+    })();
+  </script>
+
   <!-- AI Chatbot Widget -->
   <link rel="stylesheet" href="assets/css/chatbot.css" />
   <script src="assets/js/chatbot.js"></script>

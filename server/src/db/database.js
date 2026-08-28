@@ -138,6 +138,24 @@ function initSchema() {
     CREATE INDEX IF NOT EXISTS idx_bookings_expert   ON bookings(expert_id);
     CREATE INDEX IF NOT EXISTS idx_bookings_customer ON bookings(customer_id);
     CREATE INDEX IF NOT EXISTS idx_calendar_expert   ON calendar_slots(expert_id);
+
+    CREATE TABLE IF NOT EXISTS payments (
+      id                TEXT PRIMARY KEY,
+      booking_id        TEXT REFERENCES bookings(id) ON DELETE CASCADE,
+      customer_id       TEXT REFERENCES users(id) ON DELETE CASCADE,
+      amount            INTEGER NOT NULL,
+      currency          TEXT DEFAULT 'TRY',
+      status            TEXT DEFAULT 'pending',
+      iyzico_token      TEXT,
+      iyzico_payment_id TEXT,
+      conversation_id   TEXT,
+      created_at        TEXT DEFAULT (datetime('now')),
+      updated_at        TEXT DEFAULT (datetime('now'))
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_payments_booking  ON payments(booking_id);
+    CREATE INDEX IF NOT EXISTS idx_payments_customer ON payments(customer_id);
+    CREATE INDEX IF NOT EXISTS idx_payments_token    ON payments(iyzico_token);
   `);
 }
 
