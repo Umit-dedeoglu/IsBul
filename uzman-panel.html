@@ -456,16 +456,19 @@
         });
       }
       
-      // Kategori dropdown'unu doldur
+      // Kategori dropdown'unu data.js'deki merkezi listeden doldur
       const categorySelect = document.getElementById('categorySelect');
-      if (typeof UZMANLIK_KATEGORILERI !== 'undefined') {
-        UZMANLIK_KATEGORILERI.forEach(cat => {
-          const opt = document.createElement('option');
-          opt.value = cat;
-          opt.textContent = cat;
-          categorySelect.appendChild(opt);
-        });
-      }
+      const tagListesi = typeof TÜM_KATEGORİ_TAGLERİ !== 'undefined'
+        ? TÜM_KATEGORİ_TAGLERİ
+        : typeof UZMANLIK_KATEGORILERI !== 'undefined'
+          ? UZMANLIK_KATEGORILERI
+          : [];
+      tagListesi.forEach(cat => {
+        const opt = document.createElement('option');
+        opt.value = cat;
+        opt.textContent = cat;
+        categorySelect.appendChild(opt);
+      });
     }
 
     // Bio karakter sayacı

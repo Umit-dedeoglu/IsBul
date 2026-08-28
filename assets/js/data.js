@@ -2,6 +2,30 @@
    İşBul – Veri Tabanı (data.js)
    ============================================================ */
 
+/* ---------- MERKEZİ KATEGORİ LİSTESİ ----------
+ * Tek kaynak: uzman paneli + uzmanlar filtresi + hizmetler sayfası
+ * cat: URL'de kullanılan slug (uzmanlar.html?kategori=montaj)
+ * label: Görüntülenen isim
+ * tags: Bu kategorideki uzmanların tag'leri (büyük-küçük harf duyarsız eşleşme için)
+ */
+const KATEGORİLER = [
+  { cat: 'montaj',   label: 'Mobilya Montajı', icon: '🔧', tags: ['Mobilya Montaj', 'Mobilya Montajı', 'TV Montaj', 'TV Montajı', 'Raf Kurulum', 'Gardırop', 'Dolap', 'Tablo', 'Raf'] },
+  { cat: 'temizlik', label: 'Ev Temizliği',    icon: '🧹', tags: ['Temizlik', 'Ev Temizliği', 'Derin Temizlik', 'Ofis Temizliği', 'Cam Silme', 'Koltuk Yıkama'] },
+  { cat: 'nakliyat', label: 'Nakliyat',         icon: '🚚', tags: ['Nakliyat', 'Taşıma', 'Eşya Taşıma', 'Evden Eve'] },
+  { cat: 'elektrik', label: 'Elektrikçi',       icon: '⚡', tags: ['Elektrik', 'Elektrikçi', 'Priz Montajı', 'Aydınlatma', 'Panel'] },
+  { cat: 'tesisat',  label: 'Tesisatçı',        icon: '🔩', tags: ['Tesisat', 'Tesisatçı', 'Su Tesisatı', 'Isıtma'] },
+  { cat: 'boya',     label: 'Boyacı',           icon: '🎨', tags: ['Boya', 'Boyacı', 'İç Boya', 'Dış Boya', 'Duvar Kağıdı', 'Tadilat', 'Alçı'] },
+  { cat: 'bahce',    label: 'Bahçe',            icon: '🌱', tags: ['Bahçe', 'Bahçe Bakımı', 'Çim Biçme', 'Budama', 'Peyzaj'] },
+  { cat: 'klima',    label: 'Klima',            icon: '❄️', tags: ['Klima', 'Klima Montajı', 'Klima Servisi'] },
+  { cat: 'diger',    label: 'Diğer',            icon: '🛠️', tags: ['Asma Tavan', 'Cam Balkon', 'Isı Yalıtım', 'Ses Yalıtım', 'Laminat', 'Parke', 'Seramik', 'Tamir', 'Kilit', 'Beyaz Eşya'] },
+];
+
+// Kolay erişim için map
+const KATEGORİ_MAP = Object.fromEntries(KATEGORİLER.map(k => [k.cat, k]));
+
+// Uzman paneli select için tüm tag'ler (tekrarsız, sıralı)
+const TÜM_KATEGORİ_TAGLERİ = [...new Set(KATEGORİLER.flatMap(k => k.tags))].sort();
+
 /* ---------- 81 İL VE İLÇELERİ ---------- */
 const ILLER = {
   "Adana":        ["Aladağ","Ceyhan","Çukurova","Feke","İmamoğlu","Karaisalı","Karataş","Kozan","Pozantı","Saimbeyli","Sarıçam","Seyhan","Tufanbeyli","Yumurtalık","Yüreğir"],
@@ -164,6 +188,25 @@ const TÜM_UZMANLAR = [
 
 /* ---------- YARDIMCI FONKSİYONLAR ---------- */
 
+/** Tag'i merkezi KATEGORİLER listesine göre kategori slug'una çevir */
+function tagToCategory(tag) {
+  if (typeof KATEGORİLER === 'undefined') return 'diger';
+  const t = tag.toLowerCase().trim();
+  for (const k of KATEGORİLER) {
+    if (k.tags.some(kt => kt.toLowerCase() === t || t.includes(kt.toLowerCase()) || kt.toLowerCase().includes(t))) {
+      return k.cat;
+    }
+  }
+  return 'diger';
+}
+
+/** Uzman tag listesini → benzersiz kategori slug listesine çevir */
+function tagsToCategoryList(tags) {
+  if (!tags || !tags.length) return ['diger'];
+  const cats = [...new Set(tags.map(tagToCategory))];
+  return cats;
+}
+
 /** localStorage'daki gerçek uzman kullanıcılarını TÜM_UZMANLAR formatına dönüştür */
 function getRealExperts() {
   try {
@@ -177,19 +220,7 @@ function getRealExperts() {
         avatar:     u.avatar || (u.firstName[0] + u.lastName[0]).toUpperCase(),
         color:      u.color || '#6C63FF',
         title:      (u.expertData.tags && u.expertData.tags[0]) ? u.expertData.tags[0] + ' Uzmanı' : 'Uzman',
-        categories: u.expertData.categories || (u.expertData.tags || []).map(t => {
-          // Tag'i kategoriye dönüştür (küçük harf + boşluk kaldır)
-          const tag = t.toLowerCase().trim();
-          if (tag.includes('mobilya')) return 'montaj';
-          if (tag.includes('tv')) return 'tv';
-          if (tag.includes('elektrik')) return 'elektrik';
-          if (tag.includes('tesisat')) return 'tesisat';
-          if (tag.includes('boya')) return 'boya';
-          if (tag.includes('temizlik')) return 'temizlik';
-          if (tag.includes('bahçe') || tag.includes('bahce')) return 'bahce';
-          if (tag.includes('nakliyat')) return 'nakliyat';
-          return 'diger';
-        }),
+        categories: tagsToCategoryList(u.expertData.tags),
         rating:     u.expertData.rating || 5.0,
         reviews:    u.expertData.reviews || 0,
         price:      u.expertData.price || 300,
@@ -199,7 +230,7 @@ function getRealExperts() {
         tags:       u.expertData.tags || [],
         hours:      u.expertData.hours || '',
         reviewList: [],
-        isRealUser: true   // gerçek kullanıcı işareti
+        isRealUser: true
       }));
   } catch(e) { return []; }
 }

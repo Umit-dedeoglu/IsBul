@@ -207,13 +207,18 @@
       if (typeof IsbulAPI !== 'undefined') {
         const apiExperts = await IsbulAPI.experts.list();
         if (apiExperts !== null) {
-          // API'den gelen uzmanları gerçek localStorage uzmanlarıyla birleştir
+          // API uzmanlarının categories'ini tag→slug dönüşümüyle normalize et
+          const normalizedApiExperts = apiExperts.map(e => ({
+            ...e,
+            categories: typeof tagsToCategoryList === 'function'
+              ? tagsToCategoryList(e.tags || e.categories || [])
+              : (e.categories || []),
+          }));
           const realExperts = typeof getRealExperts === 'function' ? getRealExperts() : [];
-          const apiIds      = new Set(apiExperts.map(e => e.id));
+          const apiIds      = new Set(normalizedApiExperts.map(e => e.id));
           const realIds     = new Set(realExperts.map(e => e.id));
           const staticOnly  = TÜM_UZMANLAR.filter(e => !apiIds.has(e.id) && !realIds.has(e.id));
-          // Gerçek kullanıcılar en önde
-          return [...realExperts, ...apiExperts.filter(e => !realIds.has(e.id)), ...staticOnly];
+          return [...realExperts, ...normalizedApiExperts.filter(e => !realIds.has(e.id)), ...staticOnly];
         }
       }
       // API yoksa: gerçek localStorage uzmanları + statik liste
