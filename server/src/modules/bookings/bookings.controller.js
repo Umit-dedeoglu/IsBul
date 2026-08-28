@@ -21,7 +21,7 @@ async function createBooking(req, res) {
     // Çakışma kontrolü
     for (const slot of allSlots) {
       const conflict = await dbGet(
-        'SELECT slot_key FROM calendar_slots WHERE expert_id = ? AND slot_key = ?',
+        'SELECT slot FROM calendar_slots WHERE expert_id = ? AND slot = ?',
         expertId, slot
       );
       if (conflict) {
@@ -45,19 +45,17 @@ async function createBooking(req, res) {
     );
 
     // Takvime işle — SQLite ve PostgreSQL uyumlu
+    // Takvime işle — her iki DB için sadece slot kolonu kullan
     for (const slot of allSlots) {
       try {
-        // PostgreSQL: id TEXT, slot_key kolonu var
-        // SQLite: id AUTOINCREMENT, slot_key yok
         const isPostgres = !!process.env.DATABASE_URL;
         if (isPostgres) {
           const slotId = `cs_${Date.now()}_${Math.random().toString(36).slice(2,4)}`;
           await dbRun(
-            'INSERT INTO calendar_slots (id, expert_id, slot, slot_key, booking_id) VALUES (?,?,?,?,?)',
-            slotId, expertId, slot, slot, id
+            'INSERT INTO calendar_slots (id, expert_id, slot, booking_id) VALUES (?,?,?,?)',
+            slotId, expertId, slot, id
           );
         } else {
-          // SQLite: id AUTOINCREMENT, slot_key kolonu yok
           await dbRun(
             'INSERT OR IGNORE INTO calendar_slots (expert_id, slot_key, booking_id) VALUES (?,?,?)',
             expertId, slot, id
@@ -164,7 +162,7 @@ async function updateStatus(req, res) {
       })();
       for (const s of slotArr) {
         await dbRun(
-          'DELETE FROM calendar_slots WHERE expert_id = ? AND slot_key = ?',
+          'DELETE FROM calendar_slots WHERE expert_id = ? AND slot = ?',
           booking.expert_id, s
         );
       }
