@@ -156,6 +156,10 @@ function initSchema() {
     CREATE INDEX IF NOT EXISTS idx_payments_booking  ON payments(booking_id);
     CREATE INDEX IF NOT EXISTS idx_payments_customer ON payments(customer_id);
     CREATE INDEX IF NOT EXISTS idx_payments_token    ON payments(iyzico_token);
+
+    CREATE INDEX IF NOT EXISTS idx_bookings_expert   ON bookings(expert_id);
+    CREATE INDEX IF NOT EXISTS idx_bookings_customer ON bookings(customer_id);
+    CREATE INDEX IF NOT EXISTS idx_calendar_expert   ON calendar_slots(expert_id);
   `);
 }
 
@@ -196,6 +200,7 @@ function dbRun(sql, ...params) {
 function resetDb() {
   if (!db) return;
   db.run('DELETE FROM calendar_slots;');
+  db.run('DELETE FROM payments;');
   db.run('DELETE FROM reviews;');
   db.run('DELETE FROM bookings;');
   db.run('DELETE FROM expert_profiles;');
