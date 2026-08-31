@@ -360,6 +360,30 @@
       requireAuth(function() { location.reload(); }, 'Profilinizi görüntülemek için giriş yapmanız gerekiyor.');
     }
 
+    // Ödeme sonucu bildirimi — iyzico callback'ten gelen ?payment=... parametresi
+    (function handlePaymentResult() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const paymentStatus = urlParams.get('payment');
+      if (!paymentStatus) return;
+
+      // URL'i temizle (sayfa yenilenince tekrar göstermesin)
+      const cleanUrl = window.location.pathname + window.location.hash;
+      window.history.replaceState({}, '', cleanUrl);
+
+      setTimeout(() => {
+        if (paymentStatus === 'success') {
+          showToast('✅ Ödemeniz başarıyla tamamlandı! Rezervasyonunuz onaylandı.', 'success');
+          // Rezervasyonlar sekmesini aç
+          const rezTab = document.querySelector('.profil-tab[data-panel="rezervasyonlar"]');
+          if (rezTab) rezTab.click();
+        } else if (paymentStatus === 'failed') {
+          showToast('❌ Ödeme başarısız. Lütfen tekrar deneyin.', 'error');
+        } else if (paymentStatus === 'error') {
+          showToast('⚠️ Ödeme işlemi sırasında bir hata oluştu. Destek ile iletişime geçin.', 'error');
+        }
+      }, 500);
+    })();
+
     // URL hash ile sekme aç (#rezervasyonlar gibi)
     if (window.location.hash) {
       const hashPanel = window.location.hash.replace('#','');

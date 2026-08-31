@@ -280,6 +280,26 @@ const CalendarAPI = {
 };
 
 /* ─────────────────────────────────────────────────────────
+   PAYMENTS API
+───────────────────────────────────────────────────────── */
+const PaymentsAPI = {
+  async initialize(bookingId) {
+    const { ok, data, offline } = await apiFetch('/payments/initialize', {
+      method: 'POST', body: { bookingId }
+    });
+    if (offline) return null;
+    if (ok) return { success: true, checkoutFormContent: data.checkoutFormContent, token: data.token, paymentPageUrl: data.paymentPageUrl, isSandbox: data.isSandbox };
+    return { success: false, error: data?.error };
+  },
+
+  async getStatus(bookingId) {
+    const { ok, data, offline } = await apiFetch(`/payments/${bookingId}`);
+    if (offline || !ok) return null;
+    return data.payment;
+  }
+};
+
+/* ─────────────────────────────────────────────────────────
    NOTIFICATIONS API
 ───────────────────────────────────────────────────────── */
 const NotificationsAPI = {
@@ -325,6 +345,7 @@ window.IsbulAPI = {
   users:         UsersAPI,
   experts:       ExpertsAPI,
   bookings:      BookingsAPI,
+  payments:      PaymentsAPI,
   calendar:      CalendarAPI,
   reviews:       ReviewsAPI,
   notifications: NotificationsAPI,
