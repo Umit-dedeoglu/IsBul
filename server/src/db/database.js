@@ -7,12 +7,14 @@ const path = require('path');
 const fs   = require('fs');
 const initSqlJs = require('sql.js');
 
-const DB_PATH = process.env.DB_PATH
-  ? path.resolve(__dirname, '../../', process.env.DB_PATH)
-  : path.resolve(__dirname, '../../data/isbul.db');
+const DB_PATH = process.env.DB_PATH === ':memory:'
+  ? ':memory:'
+  : process.env.DB_PATH
+    ? path.resolve(__dirname, '../../', process.env.DB_PATH)
+    : path.resolve(__dirname, '../../data/isbul.db');
 
-const dbDir = path.dirname(DB_PATH);
-if (!fs.existsSync(dbDir)) fs.mkdirSync(dbDir, { recursive: true });
+const dbDir = DB_PATH === ':memory:' ? null : path.dirname(DB_PATH);
+if (dbDir && !fs.existsSync(dbDir)) fs.mkdirSync(dbDir, { recursive: true });
 
 let db   = null;
 let SQL  = null;
@@ -151,6 +153,26 @@ function initSchema() {
       conversation_id   TEXT,
       created_at        TEXT DEFAULT (datetime('now')),
       updated_at        TEXT DEFAULT (datetime('now'))
+    );
+
+    CREATE TABLE IF NOT EXISTS password_reset_tokens (
+      id          TEXT PRIMARY KEY,
+      user_id     TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      token       TEXT NOT NULL UNIQUE,
+      expires_at  TEXT NOT NULL,
+      used        INTEGER DEFAULT 0,
+      created_at  TEXT DEFAULT (datetime('now'))
+    );
+
+    CREATE TABLE IF NOT EXISTS notifications (
+      id          TEXT PRIMARY KEY,
+      user_id     TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      type        TEXT NOT NULL,
+      title       TEXT NOT NULL,
+      message     TEXT,
+      is_read     INTEGER DEFAULT 0,
+      data        TEXT DEFAULT '{}',
+      created_at  TEXT DEFAULT (datetime('now'))
     );
 
     CREATE INDEX IF NOT EXISTS idx_payments_booking  ON payments(booking_id);

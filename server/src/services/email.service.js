@@ -4,7 +4,18 @@
  */
 const { Resend } = require('resend');
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Test modunda Resend başlatılmaz — gerçek mail gönderilmez
+let resend = null;
+function getResend() {
+  if (!resend) {
+    if (!process.env.RESEND_API_KEY) {
+      if (process.env.NODE_ENV === 'test') return null;
+      throw new Error('RESEND_API_KEY env variable is not set');
+    }
+    resend = new Resend(process.env.RESEND_API_KEY);
+  }
+  return resend;
+}
 
 const FROM_ADDRESS = process.env.MAIL_FROM || 'noreply@isbul.online';
 const FRONTEND_URL = process.env.FRONTEND_URL || 'https://isbul.online';
@@ -14,8 +25,12 @@ const FRONTEND_URL = process.env.FRONTEND_URL || 'https://isbul.online';
 ───────────────────────────────────────────────────────── */
 async function sendPasswordResetEmail({ to, firstName, resetToken }) {
   const resetLink = `${FRONTEND_URL}/reset-password.html?token=${resetToken}`;
-
-  const { data, error } = await resend.emails.send({
+  const client = getResend();
+  if (!client) {
+    console.log(`[email:test] Şifre sıfırlama maili ATLANДИ (test modu): ${to} → ${resetLink}`);
+    return { id: 'test-skip' };
+  }
+  const { data, error } = await client.emails.send({
     from: `İşBul <${FROM_ADDRESS}>`,
     to,
     subject: 'Şifre Sıfırlama Talebi — İşBul',
@@ -71,7 +86,12 @@ async function sendPasswordResetEmail({ to, firstName, resetToken }) {
    UZMAN BAŞVURUSU ONAYLANDI
 ───────────────────────────────────────────────────────── */
 async function sendExpertApprovedEmail({ to, firstName }) {
-  const { data, error } = await resend.emails.send({
+  const client = getResend();
+  if (!client) {
+    console.log(`[email:test] Uzman onay maili ATLANDI (test modu): ${to}`);
+    return { id: 'test-skip' };
+  }
+  const { data, error } = await client.emails.send({
     from: `İşBul <${FROM_ADDRESS}>`,
     to,
     subject: 'Uzman Başvurunuz Onaylandı 🎉 — İşBul',
@@ -118,7 +138,12 @@ async function sendExpertApprovedEmail({ to, firstName }) {
    YENİ REZERVASYON BİLDİRİMİ
 ───────────────────────────────────────────────────────── */
 async function sendNewBookingEmail({ to, expertName, customerName, service, date }) {
-  const { data, error } = await resend.emails.send({
+  const client = getResend();
+  if (!client) {
+    console.log(`[email:test] Rezervasyon maili ATLANDI (test modu): ${to}`);
+    return { id: 'test-skip' };
+  }
+  const { data, error } = await client.emails.send({
     from: `İşBul <${FROM_ADDRESS}>`,
     to,
     subject: `Yeni Rezervasyon: ${customerName} — İşBul`,
