@@ -1134,11 +1134,20 @@ window.confirmBooking = confirmBooking;
       if (query) params.search = query;
       const apiExperts = await IsbulAPI.experts.list(params);
       if (apiExperts !== null) {
-        // API'den gelenleri statikle birleştir
-        const apiIds     = new Set(apiExperts.map(e => e.id));
-        const staticOnly = TÜM_UZMANLAR.filter(e => !apiIds.has(e.id));
-        const allExperts = [...apiExperts, ...staticOnly];
-        // renderExperts'e geç — önbelleği geçici doldur
+        // API + localStorage realExperts + statik birleştir (uzmanlar.html ile aynı mantık)
+        const realExperts = typeof getRealExperts === 'function' ? getRealExperts() : [];
+        const apiIds      = new Set(apiExperts.map(e => e.id));
+        const realIds     = new Set(realExperts.map(e => e.id));
+        // API uzmanlarına categories normalize et
+        const normalizedApi = apiExperts.map(e => ({
+          ...e,
+          categories: e.categories?.length
+            ? e.categories
+            : (typeof tagsToCategoryList === 'function' ? tagsToCategoryList(e.tags || []) : []),
+        }));
+        const staticOnly  = TÜM_UZMANLAR.filter(e => !apiIds.has(e.id) && !realIds.has(e.id));
+        const realOnly    = realExperts.filter(e => !apiIds.has(e.id));
+        const allExperts  = [...realOnly, ...normalizedApi, ...staticOnly];
         window._searchModalExperts = allExperts;
         renderExperts(query, city);
         return;
