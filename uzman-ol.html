@@ -872,28 +872,26 @@
       try {
         let success = false;
 
-        // 1) önce API ile kayıt dene ı role: pending_expert (admin onayı bekler)
+        // 1) önce API ile kayıt dene — role: pending_expert (admin onayı bekler)
         if (typeof IsbulAPI !== 'undefined') {
-          const regRes = await IsbulAPI.auth.register(firstName, lastName, email, password, 'pending_expert');
+          const regRes = await IsbulAPI.auth.register(firstName, lastName, email, password, 'pending_expert', {
+            price:      parseInt(hourlyRate) || 300,
+            bio:        bio,
+            city:       city,
+            tags:       selectedCats,
+            experience: '1 yıl'
+          });
           if (regRes !== null) {
             if (!regRes.success) {
               showToast(regRes.error || 'Kayıt başarısız.', 'error');
               btn.textContent = 'Başvuruyu Tamamla'; btn.disabled = false;
               return;
             }
-            // Uzman Profilini kaydet
-            await IsbulAPI.experts.updateProfile({
-              price:      parseInt(hourlyRate) || 300,
-              bio:        bio,
-              city:       city,
-              tags:       selectedCats,
-              experience: '1 yıl'
-            });
-            // Session göncelle
+            // Session güncelle — pending_expert, henüz uzman değil
             const session = typeof getSession === 'function' ? getSession() : null;
             if (session) {
               session.role       = 'pending_expert';
-              session.isExpert   = false; // onay bekleniyor
+              session.isExpert   = false;
               session.expertData = { price: parseInt(hourlyRate)||300, bio, city, tags: selectedCats };
               if (typeof saveSession === 'function') saveSession(session);
             }
@@ -933,32 +931,27 @@
           }
         }
 
-        // Baıarı ekranı
+        // Başarı ekranı
         document.querySelector('.signup-form-card').innerHTML = `
           <div style="text-align:center;padding:48px 20px">
             <div style="font-size:72px;margin-bottom:20px">✓</div>
             <h2 style="font-size:26px;font-weight:900;margin-bottom:12px;color:var(--dark)">
-              ${success ? 'hesabınız oluşturuldu!' : 'Baıvurunuz Alındı!'}
+              Başvurunuz Alındı!
             </h2>
             <p style="font-size:16px;color:var(--text-muted);line-height:1.7;max-width:400px;margin:0 auto 28px">
-              ${success
-                ? `Hoı geldiniz, <strong>${firstName}</strong>! Uzman Profiliniz oluşturuldu. Hemen panele gidebilirsiniz.`
-                : 'Ekibimiz belgelerinizi inceleyecek ve <strong>24ı48 saat</strong> içinde e-posta ile size geri döneceğiz.'
-              }
+              Hoş geldiniz, <strong>${firstName}</strong>! Uzman başvurunuz incelemeye alındı.
+              Ekibimiz profilinizi kontrol edecek ve <strong>24–48 saat</strong> içinde e-posta ile size geri dönecek.
             </p>
             <div style="background:var(--bg);border-radius:var(--radius-sm);padding:20px;text-align:left;margin-bottom:24px;border:1.5px solid var(--border)">
               <div style="font-size:13px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px">Sonraki Adımlar</div>
               <div style="display:flex;flex-direction:column;gap:10px">
-                <div style="display:flex;align-items:center;gap:10px;font-size:14px"><span style="width:24px;height:24px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">1</span>${success ? 'Uzman Panelinize gidin' : 'E-posta kutunuzu kontrol edin'}</div>
-                <div style="display:flex;align-items:center;gap:10px;font-size:14px"><span style="width:24px;height:24px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">2</span>${success ? 'Profilinizi tamamlayın' : 'Kimlik doğrulama onayı (24ı48 saat)'}</div>
-                <div style="display:flex;align-items:center;gap:10px;font-size:14px"><span style="width:24px;height:24px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">3</span>Görev almaya başlayın!</div>
+                <div style="display:flex;align-items:center;gap:10px;font-size:14px"><span style="width:24px;height:24px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">1</span>E-posta kutunuzu kontrol edin</div>
+                <div style="display:flex;align-items:center;gap:10px;font-size:14px"><span style="width:24px;height:24px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">2</span>Admin onayını bekleyin (24–48 saat)</div>
+                <div style="display:flex;align-items:center;gap:10px;font-size:14px"><span style="width:24px;height:24px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">3</span>Onaylandıktan sonra uzman panelinize erişin</div>
               </div>
             </div>
             <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-              ${success
-                ? '<a href="uzman-panel.html" class="btn btn--primary btn--lg">? Uzman Paneline Git ı</a>'
-                : '<a href="index.html" class="btn btn--primary btn--lg">Ana Sayfaya Dön ı</a>'
-              }
+              <a href="index.html" class="btn btn--primary btn--lg">Ana Sayfaya Dön →</a>
             </div>
           </div>`;
 

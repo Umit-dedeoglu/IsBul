@@ -105,10 +105,10 @@ const AuthAPI = {
    * Kayıt ol
    * @returns { success, token, user, error }
    */
-  async register(firstName, lastName, email, password, role = 'customer') {
+  async register(firstName, lastName, email, password, role = 'customer', expertProfile = null) {
     const { ok, data, offline } = await apiFetch('/auth/register', {
       method: 'POST',
-      body: { firstName, lastName, email, password, role }
+      body: { firstName, lastName, email, password, role, expertProfile }
     });
     if (offline) {
       return { success: false, error: 'Sunucuya bağlanılamıyor. Lütfen tekrar deneyin.' };
