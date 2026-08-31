@@ -4,6 +4,7 @@
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const { dbGet, dbRun } = require('../../db');
+const { sendPasswordResetEmail } = require('../../services/email.service');
 
 /** POST /api/v1/auth/forgot-password */
 async function forgotPassword(req, res) {
@@ -32,11 +33,21 @@ async function forgotPassword(req, res) {
       tokenId, user.id, token, expiresAt.toISOString()
     );
 
-    // Gerçek üretimde e-posta gönderilir (SendGrid, Mailgun)
-    // Şimdilik console'a yazdır
+    // Gerçek mail gönder
     const resetLink = `${process.env.FRONTEND_URL}/reset-password.html?token=${token}`;
-    console.log('\n🔐 ŞİFRE SIFIRLAMA LİNKİ:');
-    console.log(`   ${resetLink}\n`);
+    try {
+      await sendPasswordResetEmail({
+        to:         user.email,
+        firstName:  user.first_name || user.firstName || '',
+        resetToken: token,
+      });
+    } catch (mailErr) {
+      console.error('[forgot-password] Mail gönderilemedi:', mailErr.message);
+      // Mail hatası isteği durdurmaz — loglarda görülebilir
+    }
+
+    // Development için token'ı da dön
+    console.log(`\n🔐 ŞİFRE SIFIRLAMA LİNKİ:\n   ${resetLink}\n`);
 
     return res.json({ 
       success: true, 
