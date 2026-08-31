@@ -16,6 +16,10 @@ async function createBooking(req, res) {
     if (!expertId || !service || !date || !time)
       return res.status(400).json({ success: false, error: 'Zorunlu alanlar eksik.' });
 
+    // Negatif fiyat koruması
+    if (totalPrice !== undefined && totalPrice < 0)
+      return res.status(400).json({ success: false, error: 'Geçersiz fiyat.' });
+
     const allSlots = Array.isArray(slots) && slots.length ? slots : [`${date}_${time}`];
 
     // Çakışma kontrolü
@@ -150,6 +154,20 @@ async function updateStatus(req, res) {
       return res.status(403).json({ success: false, error: 'Yetkisiz.' });
     if (isCustomer && !isExpert && status !== 'cancelled')
       return res.status(403).json({ success: false, error: 'Sadece iptal yapabilirsiniz.' });
+
+    // State machine — geçersiz durum geçişlerini engelle
+    const current = booking.status;
+    const FORBIDDEN_TRANSITIONS = {
+      cancelled:  ['confirmed', 'rejected', 'completed'], // iptal edilmişi onaylayamazsın
+      completed:  ['confirmed', 'rejected', 'cancelled'], // tamamlanmışı geri alamazsın
+      rejected:   ['confirmed', 'completed'],             // reddedilmişi onaylayamazsın
+    };
+    if (FORBIDDEN_TRANSITIONS[current]?.includes(status)) {
+      return res.status(400).json({
+        success: false,
+        error: `"${current}" durumundaki rezervasyon "${status}" yapılamaz.`
+      });
+    }
 
     await dbRun(
       'UPDATE bookings SET status = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?',
