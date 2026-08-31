@@ -13,7 +13,7 @@ async function forgotPassword(req, res) {
       return res.status(400).json({ success: false, error: 'E-posta adresi gerekli.' });
     }
 
-    const user = dbGet('SELECT * FROM users WHERE email = ?', email);
+    const user = await dbGet('SELECT * FROM users WHERE email = ?', email);
     if (!user) {
       // Güvenlik: Kullanıcı yoksa bile başarılı gibi davran (email enumeration önleme)
       return res.json({ 
@@ -27,7 +27,7 @@ async function forgotPassword(req, res) {
     const tokenId = 'prt_' + Date.now();
     const expiresAt = new Date(Date.now() + 60 * 60 * 1000); // 1 saat
 
-    dbRun(
+    await dbRun(
       'INSERT INTO password_reset_tokens (id, user_id, token, expires_at) VALUES (?, ?, ?, ?)',
       tokenId, user.id, token, expiresAt.toISOString()
     );
@@ -64,7 +64,7 @@ async function resetPassword(req, res) {
     }
 
     // Token kontrolü
-    const resetToken = dbGet(
+    const resetToken = await dbGet(
       'SELECT * FROM password_reset_tokens WHERE token = ? AND used = 0 AND expires_at > ?',
       token, new Date().toISOString()
     );
@@ -78,10 +78,10 @@ async function resetPassword(req, res) {
 
     // Şifreyi güncelle
     const hashedPassword = await bcrypt.hash(newPassword, 10);
-    dbRun('UPDATE users SET password_hash = ? WHERE id = ?', hashedPassword, resetToken.user_id);
+    await dbRun('UPDATE users SET password_hash = ? WHERE id = ?', hashedPassword, resetToken.user_id);
 
     // Token'ı kullanılmış olarak işaretle
-    dbRun('UPDATE password_reset_tokens SET used = 1 WHERE id = ?', resetToken.id);
+    await dbRun('UPDATE password_reset_tokens SET used = 1 WHERE id = ?', resetToken.id);
 
     return res.json({ 
       success: true, 
@@ -108,12 +108,12 @@ async function verifyEmail(req, res) {
     const decoded = Buffer.from(token, 'base64').toString('utf-8');
     const [userId, timestamp] = decoded.split('|');
     
-    const user = dbGet('SELECT * FROM users WHERE id = ?', userId);
+    const user = await dbGet('SELECT * FROM users WHERE id = ?', userId);
     if (!user) {
       return res.status(400).json({ success: false, error: 'Geçersiz token.' });
     }
 
-    dbRun('UPDATE users SET email_verified = 1 WHERE id = ?', userId);
+    await dbRun('UPDATE users SET email_verified = 1 WHERE id = ?', userId);
 
     return res.json({ success: true, message: 'E-posta adresiniz doğrulandı!' });
   } catch (err) {

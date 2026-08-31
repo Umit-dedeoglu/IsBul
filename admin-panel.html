@@ -760,59 +760,23 @@ async function checkApiStatus() {
 /* — Auth kontrolü — */
 async function checkAuth() {
   adminToken = localStorage.getItem('isbul_jwt');
-  
-  // — Önce localStorage'dan session kontrol et (ana siteden giriş yapmışsa) —
-  const raw = localStorage.getItem('isbul_auth');
-  console.log('🔐 Admin Panel Auth Check:', { raw, adminToken });
-  
-  if (raw) {
-    try {
-      const session = JSON.parse(raw);
-      console.log('✅ Session bulundu:', session);
-      // Admin veya belirli email ise direkt gir
-      if (session?.role === 'admin' || session?.email === 'umityakupdedeoglu0@gmail.com') {
-        console.log('🎯 Admin erişimi onaylandı!');
-        currentUser = {
-          firstName: session.firstName || 'Admin',
-          lastName:  session.lastName || 'User',
-          avatar:    session.avatar || (session.firstName?.[0] || 'A') + (session.lastName?.[0] || 'U'),
-          email:     session.email,
-          role:      'admin'
-        };
-        _fillSidebar();
-        // API durumunu kontrol et (ama login isteme)
-        await checkApiStatus();
-        console.log('🚀 Admin panel açıldı - localStorage session ile');
-        return; // ✅ Direkt gir, modal gösterme!
-      } else {
-        console.log('❌ Session var ama admin değil:', { role: session?.role, email: session?.email });
-      }
-    } catch (e) {
-      console.error('⚠️ Session parse hatası:', e);
-    }
-  }
 
-  // — API'den token kontrolü (eğer JWT varsa) —
-  console.log('🔑 JWT token kontrolü...');
+  // — JWT token ile backend kontrolü —
   if (adminToken) {
     const data = await api('/auth/me');
-    console.log('📡 API /auth/me yanıtı:', data);
     if (data.success && data.user?.role === 'admin') {
       currentUser = data.user;
       _fillSidebar();
-      console.log('✅ Admin panel açıldı - JWT token ile');
-      return; // ✅ Direkt gir
+      return; // ✅ Backend onayladı, giriş izni ver
     }
     if (!data.offline) {
       // API çevrimiçi ama admin değil
-      console.log('❌ API çevrimiçi ama kullanıcı admin değil');
-      redirectTologin(); 
+      redirectTologin();
       return;
     }
   }
 
-  // — Hiç session yok, login modal göster —
-  console.log('📋 Session yok, login modal gösteriliyor');
+  // — Token yok veya API çevrimdışı — login modal göster —
   redirectTologin();
 }
 
@@ -836,7 +800,7 @@ function showLoginModal() {
         
         <div style="margin-bottom:20px">
           <label style="display:block;font-weight:600;margin-bottom:8px;font-size:14px">E-posta</label>
-          <input type="email" id="adminLoginEmail" value="umityakupdedeoglu0@gmail.com" placeholder="admin@isbul.online" style="width:100%;padding:12px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:14px">
+          <input type="email" id="adminLoginEmail" placeholder="admin@isbul.online" style="width:100%;padding:12px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:14px">
         </div>
         
         <div style="margin-bottom:24px">

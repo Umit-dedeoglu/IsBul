@@ -5,7 +5,7 @@
   <script src="assets/js/analytics.js" defer></script>
   <!-- Config - Backend URL ve sabitler -->
   <script src="assets/js/config.js"></script>
-  <meta http-equiv="refresh" content="2;url=index.html" />
+
   <title>Uzman Aktivasyonu</title>
   <style>
     body {
@@ -104,13 +104,13 @@
         }
         
         // Başarı mesajı göster
-        settimeout(() => {
+        setTimeout(() => {
           document.getElementById('loading').style.display = 'none';
           document.getElementById('success').style.display = 'block';
         }, 1000);
         
-        // 2 saniye sonra yınlendir
-        settimeout(() => {
+        // 2 saniye sonra yönlendir
+        setTimeout(() => {
           window.location = 'uzman-panel.html';
         }, 2000);
       } else {

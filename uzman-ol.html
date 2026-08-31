@@ -873,8 +873,8 @@
         let success = false;
 
         // 1) önce API ile kayıt dene ı role: pending_expert (admin onayı bekler)
-        if (typeof IsBulAPI !== 'undefined') {
-          const regRes = await IsBulAPI.auth.register(firstName, lastName, email, password, 'pending_expert');
+        if (typeof IsbulAPI !== 'undefined') {
+          const regRes = await IsbulAPI.auth.register(firstName, lastName, email, password, 'pending_expert');
           if (regRes !== null) {
             if (!regRes.success) {
               showToast(regRes.error || 'Kayıt başarısız.', 'error');
@@ -882,7 +882,7 @@
               return;
             }
             // Uzman Profilini kaydet
-            await IsBulAPI.experts.updateProfile({
+            await IsbulAPI.experts.updateProfile({
               price:      parseInt(hourlyRate) || 300,
               bio:        bio,
               city:       city,
