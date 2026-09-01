@@ -3,21 +3,147 @@
    ============================================================ */
 
 /* ---------- MERKEZİ KATEGORİ LİSTESİ ----------
- * Tek kaynak: uzman paneli + uzmanlar filtresi + hizmetler sayfası
- * cat: URL'de kullanılan slug (uzmanlar.html?kategori=montaj)
+ * Sahibinden.com ve benzer platformların kategori yapısından esinlenilerek oluşturuldu
+ * cat: URL'de kullanılan slug (uzmanlar.html?kategori=elektrik)
  * label: Görüntülenen isim
- * tags: Bu kategorideki uzmanların tag'leri (büyük-küçük harf duyarsız eşleşme için)
+ * icon: Emoji ikonu
+ * tags: Alt hizmetler (arama ve eşleştirme için)
+ * desc: Kategori açıklaması
  */
 const KATEGORİLER = [
-  { cat: 'montaj',   label: 'Mobilya Montajı', icon: '🔧', tags: ['Mobilya Montaj', 'Mobilya Montajı', 'TV Montaj', 'TV Montajı', 'Raf Kurulum', 'Gardırop', 'Dolap', 'Tablo', 'Raf'] },
-  { cat: 'temizlik', label: 'Ev Temizliği',    icon: '🧹', tags: ['Temizlik', 'Ev Temizliği', 'Derin Temizlik', 'Ofis Temizliği', 'Cam Silme', 'Koltuk Yıkama'] },
-  { cat: 'nakliyat', label: 'Nakliyat',         icon: '🚚', tags: ['Nakliyat', 'Taşıma', 'Eşya Taşıma', 'Evden Eve'] },
-  { cat: 'elektrik', label: 'Elektrikçi',       icon: '⚡', tags: ['Elektrik', 'Elektrikçi', 'Priz Montajı', 'Aydınlatma', 'Panel'] },
-  { cat: 'tesisat',  label: 'Tesisatçı',        icon: '🔩', tags: ['Tesisat', 'Tesisatçı', 'Su Tesisatı', 'Isıtma'] },
-  { cat: 'boya',     label: 'Boyacı',           icon: '🎨', tags: ['Boya', 'Boyacı', 'İç Boya', 'Dış Boya', 'Duvar Kağıdı', 'Tadilat', 'Alçı'] },
-  { cat: 'bahce',    label: 'Bahçe',            icon: '🌱', tags: ['Bahçe', 'Bahçe Bakımı', 'Çim Biçme', 'Budama', 'Peyzaj'] },
-  { cat: 'klima',    label: 'Klima',            icon: '❄️', tags: ['Klima', 'Klima Montajı', 'Klima Servisi'] },
-  { cat: 'diger',    label: 'Diğer',            icon: '🛠️', tags: ['Asma Tavan', 'Cam Balkon', 'Isı Yalıtım', 'Ses Yalıtım', 'Laminat', 'Parke', 'Seramik', 'Tamir', 'Kilit', 'Beyaz Eşya'] },
+  {
+    cat: 'temizlik',
+    label: 'Temizlik Hizmetleri',
+    icon: '🧹',
+    desc: 'Ev, ofis, derin temizlik',
+    tags: ['Ev Temizliği', 'Ofis Temizliği', 'Derin Temizlik', 'Cam Silme', 'Halı Yıkama', 'Koltuk Yıkama', 'Perde Yıkama']
+  },
+  {
+    cat: 'nakliyat',
+    label: 'Nakliyat & Taşımacılık',
+    icon: '🚚',
+    desc: 'Evden eve, ofis, eşya taşıma',
+    tags: ['Evden Eve Nakliyat', 'Ofis Taşıma', 'Eşya Taşıma', 'Asansörlü Taşıma', 'Parça Eşya Taşıma', 'Şehir İçi Taşıma', 'Şehirler Arası Taşıma']
+  },
+  {
+    cat: 'tadilat',
+    label: 'Tadilat & Dekorasyon',
+    icon: '🏗️',
+    desc: 'Boya, alçı, duvar kağıdı',
+    tags: ['Boya Badana', 'İç Cephe Boyama', 'Dış Cephe Boyama', 'Duvar Kağıdı', 'Alçıpan', 'Asma Tavan', 'Dekoratif Boya', 'Alçı Süsleme']
+  },
+  {
+    cat: 'elektrik',
+    label: 'Elektrik İşleri',
+    icon: '⚡',
+    desc: 'Elektrik tesisatı, arıza, montaj',
+    tags: ['Elektrik Tesisatı', 'Priz Montajı', 'Elektrik Arızası', 'Aydınlatma Montajı', 'Elektrik Pano İşleri', 'Jeneratör İşleri', 'Sigorta Takviyesi', 'LED Montajı']
+  },
+  {
+    cat: 'tesisat',
+    label: 'Tesisat İşleri',
+    icon: '🔧',
+    desc: 'Su, doğalgaz, kalorifer',
+    tags: ['Su Tesisatı', 'Doğalgaz Tesisatı', 'Kalorifer Tesisatı', 'Tıkanıklık Açma', 'Musluk Tamiri', 'Kombi Bakımı', 'Sıhhi Tesisat', 'Petek Temizliği']
+  },
+  {
+    cat: 'mobilya-montaj',
+    label: 'Mobilya Montajı',
+    icon: '🪛',
+    desc: 'Mobilya kurulum, dolap, raf',
+    tags: ['Mobilya Montajı', 'Dolap Montajı', 'Gardırop Montajı', 'Yatak Montajı', 'Raf Montajı', 'Masa Montajı', 'Mutfak Dolapları', 'Vestiyer']
+  },
+  {
+    cat: 'beyaz-esya',
+    label: 'Beyaz Eşya Servisi',
+    icon: '🔌',
+    desc: 'Beyaz eşya tamir, montaj',
+    tags: ['Beyaz Eşya Tamiri', 'Çamaşır Makinesi Tamiri', 'Bulaşık Makinesi Tamiri', 'Buzdolabı Tamiri', 'Fırın Tamiri', 'Ankastre Montajı']
+  },
+  {
+    cat: 'klima',
+    label: 'Klima & Kombi',
+    icon: '❄️',
+    desc: 'Klima montaj, bakım, servis',
+    tags: ['Klima Montajı', 'Klima Bakımı', 'Klima Tamiri', 'Klima Gazı Dolumu', 'Kombi Montajı', 'Kombi Bakımı', 'Kombi Tamiri']
+  },
+  {
+    cat: 'zemin-kaplama',
+    label: 'Zemin Kaplama',
+    icon: '🏠',
+    desc: 'Parke, laminat, seramik',
+    tags: ['Parke Döşeme', 'Laminat Döşeme', 'Seramik Döşeme', 'Fayans Döşeme', 'Granit Döşeme', 'Mermer Döşeme', 'Vinil Döşeme', 'Halıfleks']
+  },
+  {
+    cat: 'cam-balkon',
+    label: 'Cam & PVC',
+    icon: '🪟',
+    desc: 'Cam balkon, pencere, pvc',
+    tags: ['Cam Balkon', 'PVC Pencere', 'Alüminyum Doğrama', 'Cam Filmi', 'Pencere Tamiri', 'Sineklik Montajı', 'Jaluzi', 'Panjur']
+  },
+  {
+    cat: 'bahce',
+    label: 'Bahçe & Peyzaj',
+    icon: '🌳',
+    desc: 'Bahçe bakımı, çim, budama',
+    tags: ['Bahçe Bakımı', 'Çim Biçme', 'Ağaç Budama', 'Peyzaj Düzenleme', 'Sulama Sistemi', 'Çit Çekme', 'Toprak İşleme', 'Gübreleme']
+  },
+  {
+    cat: 'cilingir',
+    label: 'Çilingir',
+    icon: '🔑',
+    desc: 'Kapı açma, kilit değişimi',
+    tags: ['Çilingir', 'Kapı Açma', 'Kilit Değişimi', 'Anahtar Çoğaltma', 'Oto Kilit Açma', 'Elektronik Kilit', 'Kale Kilit', 'Kilit Tamiri']
+  },
+  {
+    cat: 'perde-stor',
+    label: 'Perde & Stor',
+    icon: '🪟',
+    desc: 'Perde montaj, stor perde',
+    tags: ['Perde Montajı', 'Stor Perde', 'Jaluzi', 'Tül Montajı', 'Zebra Perde', 'Dikey Perde', 'Panel Perde', 'Perde Yıkama']
+  },
+  {
+    cat: 'uydu-anten',
+    label: 'Uydu & Anten',
+    icon: '📡',
+    desc: 'Uydu, anten, sinyal',
+    tags: ['Uydu Kurulumu', 'Çanak Anten', 'Anten Montajı', 'Sinyal Ayarı', 'Uydu Tamiri', 'Merkezi Uydu', 'Kablo TV']
+  },
+  {
+    cat: 'kalorifer-petek',
+    label: 'Kalorifer & Petek',
+    icon: '🔥',
+    desc: 'Petek, kalorifer, temizlik',
+    tags: ['Kalorifer Tesisatı', 'Petek Temizliği', 'Petek Değişimi', 'Radyatör Bakımı', 'Kalorifer Kazan', 'Yerden Isıtma']
+  },
+  {
+    cat: 'yalitim',
+    label: 'Yalıtım İşleri',
+    icon: '🛡️',
+    desc: 'Isı, ses, su yalıtımı',
+    tags: ['Isı Yalıtımı', 'Ses Yalıtımı', 'Su Yalıtımı', 'Çatı Yalıtımı', 'Zemin Yalıtımı', 'Mantolama']
+  },
+  {
+    cat: 'kapı-pencere',
+    label: 'Kapı & Pencere',
+    icon: '🚪',
+    desc: 'Kapı montaj, pencere tamir',
+    tags: ['Kapı Montajı', 'Pencere Montajı', 'Kapı Tamiri', 'Menteşe Değişimi', 'Eşik Montajı', 'Otomatik Kapı', 'Çelik Kapı']
+  },
+  {
+    cat: 'hasar-onarim',
+    label: 'Hasar Onarımı',
+    icon: '🔨',
+    desc: 'Tamir, bakım, onarım',
+    tags: ['Duvar Tamiri', 'Fayans Tamiri', 'Sıva Tamiri', 'Çatı Tamiri', 'Nem Sorunu', 'Su Kaçağı', 'Boya Rötuşu']
+  },
+  {
+    cat: 'diger',
+    label: 'Diğer Hizmetler',
+    icon: '🛠️',
+    desc: 'Listelenmeyen hizmetler',
+    tags: ['Saksı Taşıma', 'Resim Asma', 'Tablo Montajı', 'Ayna Asma', 'Banyo Aksesuarları', 'Havlu Askısı', 'Raflar', 'TV Ünitesi Montajı']
+  }
 ];
 
 // Kolay erişim için map
