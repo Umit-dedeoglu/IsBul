@@ -180,19 +180,18 @@
     const kategori = params.get('kategori') || '';
     const sehir    = params.get('sehir')    || '';
 
-    const catNames = {
-      montaj:'Mobilya Montajı', temizlik:'Ev Temizliği', nakliyat:'Nakliyat',
-      elektrik:'Elektrikçi', tesisat:'Tesisatçı', boya:'Boyacı',
-      bahce:'Bahçe Bakımı', tv:'TV Montajı', diger:'Diğer Hizmetler'
-    };
-    const catEmojis = {
-      montaj:'🔧', temizlik:'🧹', nakliyat:'🚚', elektrik:'⚡',
-      tesisat:'🔧', boya:'🎨', bahce:'🌱', tv:'📺', diger:'🛠️'
-    };
+    // Merkezi KATEGORİLER listesinden isimleri ve emojiileri al
+    const catMap = typeof KATEGORİ_MAP !== 'undefined' ? KATEGORİ_MAP : {};
+    const catNames = Object.fromEntries(
+      (typeof KATEGORİLER !== 'undefined' ? KATEGORİLER : []).map(k => [k.cat, k.label])
+    );
+    const catEmojis = Object.fromEntries(
+      (typeof KATEGORİLER !== 'undefined' ? KATEGORİLER : []).map(k => [k.cat, k.icon])
+    );
 
     // Hero güncelle
     if (kategori) {
-      document.getElementById('heroTag').textContent = catEmojis[kategori]||'' + ' ' + (catNames[kategori]||'Hizmet');
+      document.getElementById('heroTag').textContent = (catEmojis[kategori]||'🔧') + ' ' + (catNames[kategori]||'Hizmet');
       document.getElementById('heroTitle').textContent = (catNames[kategori]||'Uzmanlar') + ' için Uzmanlar';
       document.getElementById('heroSubtitle').textContent = (sehir ? sehir + ' bölgesindeki' : 'Türkiye genelindeki') + ' ' + (catNames[kategori]||'') + ' uzmanları';
     } else if (sehir) {
