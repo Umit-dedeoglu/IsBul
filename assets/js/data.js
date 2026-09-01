@@ -16,14 +16,14 @@ const KATEGORİLER = [
     label: 'Temizlik Hizmetleri',
     icon: '🧹',
     desc: 'Ev, ofis, derin temizlik',
-    tags: ['Ev Temizliği', 'Ofis Temizliği', 'Derin Temizlik', 'Cam Silme', 'Halı Yıkama', 'Koltuk Yıkama', 'Perde Yıkama']
+    tags: ['Temizlik', 'Ev Temizliği', 'Ofis Temizliği', 'Derin Temizlik', 'Cam Silme', 'Halı Yıkama', 'Koltuk Yıkama', 'Perde Yıkama']
   },
   {
     cat: 'nakliyat',
     label: 'Nakliyat & Taşımacılık',
     icon: '🚚',
     desc: 'Evden eve, ofis, eşya taşıma',
-    tags: ['Evden Eve Nakliyat', 'Ofis Taşıma', 'Eşya Taşıma', 'Asansörlü Taşıma', 'Parça Eşya Taşıma', 'Şehir İçi Taşıma', 'Şehirler Arası Taşıma']
+    tags: ['Nakliyat', 'Taşıma', 'Evden Eve Nakliyat', 'Ofis Taşıma', 'Eşya Taşıma', 'Asansörlü Taşıma', 'Parça Eşya Taşıma', 'Şehir İçi Taşıma', 'Şehirler Arası Taşıma']
   },
   {
     cat: 'tadilat',
@@ -44,14 +44,14 @@ const KATEGORİLER = [
     label: 'Tesisat İşleri',
     icon: '🔧',
     desc: 'Su, doğalgaz, kalorifer',
-    tags: ['Su Tesisatı', 'Doğalgaz Tesisatı', 'Kalorifer Tesisatı', 'Tıkanıklık Açma', 'Musluk Tamiri', 'Kombi Bakımı', 'Sıhhi Tesisat', 'Petek Temizliği']
+    tags: ['Tesisat', 'Tesisatçı', 'Su Tesisatı', 'Doğalgaz Tesisatı', 'Kalorifer Tesisatı', 'Tıkanıklık Açma', 'Musluk Tamiri', 'Kombi Bakımı', 'Sıhhi Tesisat', 'Petek Temizliği']
   },
   {
     cat: 'mobilya-montaj',
     label: 'Mobilya Montajı',
     icon: '🪛',
     desc: 'Mobilya kurulum, dolap, raf',
-    tags: ['Mobilya Montajı', 'Dolap Montajı', 'Gardırop Montajı', 'Yatak Montajı', 'Raf Montajı', 'Masa Montajı', 'Mutfak Dolapları', 'Vestiyer']
+    tags: ['Mobilya Montajı', 'Montaj', 'Dolap Montajı', 'Gardırop Montajı', 'Yatak Montajı', 'Raf Montajı', 'Masa Montajı', 'Mutfak Dolapları', 'Vestiyer']
   },
   {
     cat: 'beyaz-esya',
@@ -65,7 +65,7 @@ const KATEGORİLER = [
     label: 'Klima & Kombi',
     icon: '❄️',
     desc: 'Klima montaj, bakım, servis',
-    tags: ['Klima Montajı', 'Klima Bakımı', 'Klima Tamiri', 'Klima Gazı Dolumu', 'Kombi Montajı', 'Kombi Bakımı', 'Kombi Tamiri']
+    tags: ['Klima', 'Klima Montajı', 'Klima Bakımı', 'Klima Tamiri', 'Klima Gazı Dolumu', 'Kombi', 'Kombi Montajı', 'Kombi Bakımı', 'Kombi Tamiri']
   },
   {
     cat: 'zemin-kaplama',
@@ -86,7 +86,7 @@ const KATEGORİLER = [
     label: 'Bahçe & Peyzaj',
     icon: '🌳',
     desc: 'Bahçe bakımı, çim, budama',
-    tags: ['Bahçe Bakımı', 'Çim Biçme', 'Ağaç Budama', 'Peyzaj Düzenleme', 'Sulama Sistemi', 'Çit Çekme', 'Toprak İşleme', 'Gübreleme']
+    tags: ['Bahçe', 'Bahçe Bakımı', 'Çim Biçme', 'Ağaç Budama', 'Peyzaj Düzenleme', 'Sulama Sistemi', 'Çit Çekme', 'Toprak İşleme', 'Gübreleme']
   },
   {
     cat: 'cilingir',
