@@ -395,113 +395,44 @@ window._initAuthModalFull = _initAuthModalFull;
 
 /* ---------- 4. ARAMA ÖNERİLERİ + ŞEHİR DROPDOWN ---------- */
 (function initSearch() {
-  const SERVICES = [
-    'Mobilya Montajı','Mobilya Montajı','Raf Montajı','Yatak Montajı','Karyola Montajı',
-    'Ev Temizliği','Derin Temizlik','Ofis Temizliği','Cam Temizliği','Banyо Temizliği',
-    'Nakliyat','Ev Taşıma','Ofis Taşıma','Eşya Depolama','Parça Taşıma',
-    'Elektrikçi','Priz Montajı','Aydınlatma Kurulumu','Sigorta Paneli','Kablo Çekme',
-    'Tesisatçı','Su Tesisatı','Musluk Tamiri','Kalorifer Tamiri','Tıkanıklık Açma',
-    'Boyacı','İç Cephe Boya','Duvar Kağıdı','Dekoratif Boya','Alçı Tamiri',
-    'TV Montajı','Uydu Kurulumu','Klima Montajı','Çanak Anten','Projeksiyon Kurulum',
-    'Bahçe Bakımı','Çim Biçme','Ağaç Budama','Peyzaj Düzenleme','Sulama Sistemi',
-    'Tadilat','Alçıpan','Seramik Döşeme','Parke Döşeme','Kapı Kilit Değişimi',
-    'Halı Yıkama','Koltuk Yıkama','Stor Perde Montajı','Çilingir','Bilgisayar Destek',
-  ];
-
-  const categoryInput = document.getElementById('categoryInput');
-  const categoryDropdown = document.getElementById('categoryDropdown');
-  const cityInput    = document.getElementById('cityInput');
+  const searchQuery = document.getElementById('searchQuery');
+  const cityInput = document.getElementById('cityInput');
   const cityDropdown = document.getElementById('cityDropdown');
+  const searchBtn = document.getElementById('searchBtn');
 
-  if (categoryInput && categoryDropdown) {
-    // Tüm kategorileri bir array'e al
-    const allCategories = Array.from(categoryDropdown.querySelectorAll('.category-option')).map(opt => ({
-      element: opt,
-      category: opt.dataset.category,
-      text: opt.textContent
-    }));
-
-    // Input'a focus olduğunda dropdown'u aç
-    categoryInput.addEventListener('focus', () => {
-      categoryDropdown.classList.add('active');
-      // Tüm kategorileri göster
-      allCategories.forEach(cat => {
-        cat.element.style.display = '';
-      });
-    });
-
-    // Yazarken filtreleme yap - İLK HARF EŞLEŞMESI
-    categoryInput.addEventListener('input', () => {
-      const searchText = categoryInput.value.toLowerCase().trim();
-      categoryDropdown.classList.add('active');
-      
-      if (!searchText) {
-        // Boşsa hepsini göster
-        allCategories.forEach(cat => {
-          cat.element.style.display = '';
-        });
-      } else {
-        // Filtrele - İLK HARFLE BAŞLAYANLAR
-        allCategories.forEach(cat => {
-          const matches = cat.text.toLowerCase().startsWith(searchText);
-          cat.element.style.display = matches ? '' : 'none';
-        });
-      }
-    });
-
-    // Kategori seçildiğinde
-    categoryDropdown.querySelectorAll('.category-option').forEach(opt =>
-      opt.addEventListener('click', () => {
-        categoryInput.value = opt.textContent;
-        categoryDropdown.classList.remove('active');
-      })
-    );
-
-    // Dışarıya tıklayınca kapat
-    document.addEventListener('click', e => {
-      if (!categoryInput.parentElement.contains(e.target)) categoryDropdown.classList.remove('active');
-    });
-  }
-
+  // Şehir dropdown mantığı
   if (cityInput && cityDropdown) {
-    // Tüm şehirleri bir array'e al
     const allCities = Array.from(cityDropdown.querySelectorAll('.city-option')).map(opt => ({
       element: opt,
       name: opt.dataset.city,
       text: opt.textContent
     }));
 
-    // Input'a focus olduğunda dropdown'u aç
     cityInput.addEventListener('focus', () => {
       cityDropdown.classList.add('active');
-      // Tüm şehirleri göster
       allCities.forEach(city => {
         if (city.element.dataset.city) city.element.style.display = '';
       });
     });
 
-    // Yazarken filtreleme yap - İLK HARF EŞLEŞMESI
     cityInput.addEventListener('input', () => {
       const searchText = cityInput.value.toLowerCase().trim();
       cityDropdown.classList.add('active');
       
       if (!searchText) {
-        // Boşsa hepsini göster
         allCities.forEach(city => {
           if (city.element.dataset.city) city.element.style.display = '';
         });
       } else {
-        // Filtrele - İLK HARFLE BAŞLAYANLAR
         allCities.forEach(city => {
           if (city.name) {
-            const matches = city.name.toLowerCase().startsWith(searchText);
+            const matches = city.name.toLowerCase().includes(searchText);
             city.element.style.display = matches ? '' : 'none';
           }
         });
       }
     });
 
-    // Şehir seçildiğinde
     cityDropdown.querySelectorAll('.city-option').forEach(opt => {
       opt.addEventListener('click', () => {
         if (opt.dataset.city) {
@@ -511,11 +442,32 @@ window._initAuthModalFull = _initAuthModalFull;
       });
     });
 
-    // Dışarıya tıklayınca kapat
     document.addEventListener('click', e => {
       if (!cityInput.parentElement.contains(e.target)) {
         cityDropdown.classList.remove('active');
       }
+    });
+  }
+
+  // Arama butonuna tıklayınca uzmanlar sayfasına yönlendir
+  if (searchBtn && searchQuery && cityInput) {
+    searchBtn.addEventListener('click', () => {
+      const query = searchQuery.value.trim();
+      const city = cityInput.value.trim();
+      let url = 'uzmanlar.html';
+      const params = [];
+      if (query) params.push(`arama=${encodeURIComponent(query)}`);
+      if (city) params.push(`sehir=${encodeURIComponent(city)}`);
+      if (params.length) url += '?' + params.join('&');
+      window.location.href = url;
+    });
+
+    // Enter tuşu ile de arama yapılabilsin
+    searchQuery.addEventListener('keydown', e => {
+      if (e.key === 'Enter') searchBtn.click();
+    });
+    cityInput.addEventListener('keydown', e => {
+      if (e.key === 'Enter') searchBtn.click();
     });
   }
 })();

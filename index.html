@@ -107,25 +107,11 @@
         <div class="search-box">
           <div class="search-box__category">
             <i data-feather="grid"></i>
-            <input type="text" placeholder="Kategori" id="categoryInput" autocomplete="off" />
-            <div class="category-dropdown" id="categoryDropdown">
-              <div class="category-option" data-category="">Tüm Kategoriler</div>
-              <div class="category-option" data-category="montaj">Mobilya Montajı</div>
-              <div class="category-option" data-category="temizlik">Ev Temizliği</div>
-              <div class="category-option" data-category="nakliyat">Nakliyat & Taşıma</div>
-              <div class="category-option" data-category="elektrik">Elektrikçi</div>
-              <div class="category-option" data-category="tesisat">Tesisatçı</div>
-              <div class="category-option" data-category="boya">Boyacı</div>
-              <div class="category-option" data-category="tv-montaj">TV Montajı</div>
-              <div class="category-option" data-category="bahce">Bahçe Bakımı</div>
-              <div class="category-option" data-category="tadilat">Tadilat & Tamirat</div>
-              <div class="category-option" data-category="koltuk">Koltuk Yıkama</div>
-              <div class="category-option" data-category="klima">Klima Servisi</div>
-            </div>
+            <input type="text" placeholder="Hizmet veya uzman adı arayın..." id="searchQuery" autocomplete="off" />
           </div>
           <div class="search-box__location">
             <i data-feather="map-pin"></i>
-            <input type="text" placeholder="Şehir" id="cityInput" autocomplete="off" />
+            <input type="text" placeholder="Şehir seçin" id="cityInput" autocomplete="off" />
             <div class="city-dropdown" id="cityDropdown">
               <div class="city-option" data-city="İstanbul">İstanbul</div>
               <div class="city-option" data-city="Ankara">Ankara</div>
@@ -210,6 +196,10 @@
               <div class="city-option" data-city="Zonguldak">Zonguldak</div>
             </div>
           </div>
+          <button class="btn btn--primary" id="searchBtn" style="height: 56px; padding: 0 32px; white-space: nowrap;">
+            <i data-feather="search" style="width: 18px; height: 18px; margin-right: 8px;"></i>
+            Ara
+          </button>
         </div>
 
         <div class="hero__tags">
@@ -244,7 +234,7 @@
               <span class="price">₺280/saat</span>
               <div style="display:flex;gap:6px">
                 <a href="uzman-profil.html?id=e1" class="btn btn--sm btn--ghost" style="padding:6px 12px;font-size:12px">Profil</a>
-                <a href="uzmanlar.html?kategori=montaj" class="btn btn--sm btn--primary">Uzmanları GÖR</a>
+                <a href="uzmanlar.html?kategori=montaj" class="btn btn--sm btn--primary">Uzmanları Gör</a>
               </div>
             </div>
           </div>
