@@ -157,9 +157,19 @@ function initSchema() {
       updated_at        TEXT DEFAULT (datetime('now'))
     );
 
+    CREATE TABLE IF NOT EXISTS password_reset_tokens (
+      id          INTEGER PRIMARY KEY AUTOINCREMENT,
+      user_id     TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      token       TEXT NOT NULL UNIQUE,
+      expires_at  TEXT NOT NULL,
+      used        INTEGER DEFAULT 0,
+      created_at  TEXT DEFAULT (datetime('now'))
+    );
+
     CREATE INDEX IF NOT EXISTS idx_payments_booking  ON payments(booking_id);
     CREATE INDEX IF NOT EXISTS idx_payments_customer ON payments(customer_id);
     CREATE INDEX IF NOT EXISTS idx_payments_token    ON payments(iyzico_token);
+    CREATE INDEX IF NOT EXISTS idx_password_reset_token ON password_reset_tokens(token);
 
     CREATE INDEX IF NOT EXISTS idx_bookings_expert   ON bookings(expert_id);
     CREATE INDEX IF NOT EXISTS idx_bookings_customer ON bookings(customer_id);
@@ -203,6 +213,7 @@ function dbRun(sql, ...params) {
 /** Test için veritabanını sıfırla */
 function resetDb() {
   if (!db) return;
+  db.run('DELETE FROM password_reset_tokens;'); // ✅ Şifre reset tokenları temizle
   db.run('DELETE FROM calendar_slots;');
   db.run('DELETE FROM payments;');
   db.run('DELETE FROM reviews;');

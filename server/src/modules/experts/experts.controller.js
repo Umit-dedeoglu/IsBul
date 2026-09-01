@@ -1,5 +1,6 @@
 ﻿const { dbGet, dbAll, dbRun } = require('../../db');
 const cache = require('../../config/cache');
+const { sanitizeText } = require('../../utils/sanitize');
 
 /** GET /api/experts */
 async function listExperts(req, res) {
@@ -118,17 +119,21 @@ async function updateExpertProfile(req, res) {
     const { price, bio, city, tags, hours, experience } = req.body;
     const existing = await dbGet('SELECT user_id FROM expert_profiles WHERE user_id = ?', req.user.id);
 
+    // ✅ XSS koruması — bio ve city'yi sanitize et
+    const safeBio  = bio !== undefined ? sanitizeText(bio) : undefined;
+    const safeCity = city !== undefined ? sanitizeText(city) : undefined;
+
     if (!existing) {
       await dbRun(
         'INSERT INTO expert_profiles (user_id, price, bio, city, tags, hours, experience) VALUES (?,?,?,?,?,?,?)',
-        req.user.id, price||300, bio||'', city||'İstanbul',
+        req.user.id, price||300, safeBio||'', safeCity||'İstanbul',
         JSON.stringify(tags||[]), hours||'', experience||'1 yıl'
       );
     } else {
       const updates = [];
       if (price !== undefined)      updates.push(dbRun('UPDATE expert_profiles SET price=? WHERE user_id=?', price, req.user.id));
-      if (bio !== undefined)        updates.push(dbRun('UPDATE expert_profiles SET bio=? WHERE user_id=?', bio, req.user.id));
-      if (city !== undefined)       updates.push(dbRun('UPDATE expert_profiles SET city=? WHERE user_id=?', city, req.user.id));
+      if (bio !== undefined)        updates.push(dbRun('UPDATE expert_profiles SET bio=? WHERE user_id=?', safeBio, req.user.id));
+      if (city !== undefined)       updates.push(dbRun('UPDATE expert_profiles SET city=? WHERE user_id=?', safeCity, req.user.id));
       if (tags !== undefined)       updates.push(dbRun('UPDATE expert_profiles SET tags=? WHERE user_id=?', JSON.stringify(tags), req.user.id));
       if (hours !== undefined)      updates.push(dbRun('UPDATE expert_profiles SET hours=? WHERE user_id=?', hours, req.user.id));
       if (experience !== undefined) updates.push(dbRun('UPDATE expert_profiles SET experience=? WHERE user_id=?', experience, req.user.id));
