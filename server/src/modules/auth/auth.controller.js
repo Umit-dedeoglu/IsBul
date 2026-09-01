@@ -7,14 +7,15 @@ const { blacklistToken } = require('../../middleware/auth');
 async function register(req, res) {
   try {
     // ✅ YENİ: AuthService kullan
-    const { firstName, lastName, email, password, role } = req.body;
+    const { firstName, lastName, email, password, role, expertProfile } = req.body;
 
     const result = await authService.registerWithEmail({
       firstName,
       lastName,
       email,
       password,
-      role
+      role,
+      expertProfile
     });
 
     return res.status(201).json({

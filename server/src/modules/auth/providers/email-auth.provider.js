@@ -161,10 +161,10 @@ class EmailAuthProvider extends IAuthProvider {
 
   /**
    * Yeni user kaydet
-   * @param {object} data - {firstName, lastName, email, password, role}
+   * @param {object} data - {firstName, lastName, email, password, role, expertProfile}
    * @returns {Promise<{user, token}>}
    */
-  async register({ firstName, lastName, email, password, role }) {
+  async register({ firstName, lastName, email, password, role, expertProfile }) {
     // Validation
     if (!firstName || !lastName || !email || !password) {
       throw new AuthError(AuthError.CODES.VALIDATION_ERROR, {}, 'Tüm alanlar zorunludur');
@@ -220,6 +220,21 @@ class EmailAuthProvider extends IAuthProvider {
       color,
       userRole
     );
+
+    // ✅ YENİ: pending_expert ise expert_profiles tablosuna kaydet
+    if (userRole === 'pending_expert' && expertProfile) {
+      const { price, bio, city, tags, experience } = expertProfile;
+      await dbRun(
+        `INSERT INTO expert_profiles (user_id, price, bio, city, tags, experience)
+         VALUES (?, ?, ?, ?, ?, ?)`,
+        userId,
+        price || 0,
+        bio || '',
+        city || '',
+        JSON.stringify(tags || []),
+        experience || ''
+      );
+    }
 
     // Token üret
     const token = signToken({

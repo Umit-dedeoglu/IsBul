@@ -48,6 +48,10 @@ function getDb() {
 /** Disk üzerine kaydet */
 function saveDb() {
   if (!db) return;
+  // :memory: database'i kaydetmeye çalışma
+  const isMemory = DB_PATH === ':memory:' || process.env.DB_PATH === ':memory:';
+  if (isMemory) return;
+  
   try {
     const data = db.export();
     fs.writeFileSync(DB_PATH, Buffer.from(data));
