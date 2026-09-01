@@ -105,10 +105,10 @@ const AuthAPI = {
    * Kayıt ol
    * @returns { success, token, user, error }
    */
-  async register(firstName, lastName, email, password, role = 'customer', expertProfile = null) {
+  async register(firstName, lastName, email, password, role = 'customer') {
     const { ok, data, offline } = await apiFetch('/auth/register', {
       method: 'POST',
-      body: { firstName, lastName, email, password, role, expertProfile }
+      body: { firstName, lastName, email, password, role }
     });
     if (offline) {
       return { success: false, error: 'Sunucuya bağlanılamıyor. Lütfen tekrar deneyin.' };
@@ -280,26 +280,6 @@ const CalendarAPI = {
 };
 
 /* ─────────────────────────────────────────────────────────
-   PAYMENTS API
-───────────────────────────────────────────────────────── */
-const PaymentsAPI = {
-  async initialize(bookingId) {
-    const { ok, data, offline } = await apiFetch('/payments/initialize', {
-      method: 'POST', body: { bookingId }
-    });
-    if (offline) return null;
-    if (ok) return { success: true, checkoutFormContent: data.checkoutFormContent, token: data.token, paymentPageUrl: data.paymentPageUrl, isSandbox: data.isSandbox };
-    return { success: false, error: data?.error };
-  },
-
-  async getStatus(bookingId) {
-    const { ok, data, offline } = await apiFetch(`/payments/${bookingId}`);
-    if (offline || !ok) return null;
-    return data.payment;
-  }
-};
-
-/* ─────────────────────────────────────────────────────────
    NOTIFICATIONS API
 ───────────────────────────────────────────────────────── */
 const NotificationsAPI = {
@@ -345,7 +325,6 @@ window.IsbulAPI = {
   users:         UsersAPI,
   experts:       ExpertsAPI,
   bookings:      BookingsAPI,
-  payments:      PaymentsAPI,
   calendar:      CalendarAPI,
   reviews:       ReviewsAPI,
   notifications: NotificationsAPI,

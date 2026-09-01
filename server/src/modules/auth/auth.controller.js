@@ -6,7 +6,8 @@ const { blacklistToken } = require('../../middleware/auth');
 /** POST /api/auth/register */
 async function register(req, res) {
   try {
-    const { firstName, lastName, email, password, role, expertProfile } = req.body;
+    // ✅ YENİ: AuthService kullan
+    const { firstName, lastName, email, password, role } = req.body;
 
     const result = await authService.registerWithEmail({
       firstName,
@@ -15,25 +16,6 @@ async function register(req, res) {
       password,
       role
     });
-
-    // pending_expert kaydında profil bilgilerini hemen kaydet
-    if (role === 'pending_expert' && expertProfile && result.user) {
-      const { dbRun: dbRunLocal } = require('../../db');
-      const { price, bio, city, tags, experience } = expertProfile;
-      await dbRunLocal(
-        `INSERT INTO expert_profiles (user_id, price, bio, city, tags, experience)
-         VALUES (?, ?, ?, ?, ?, ?)
-         ON CONFLICT(user_id) DO UPDATE SET
-           price = excluded.price, bio = excluded.bio, city = excluded.city,
-           tags = excluded.tags, experience = excluded.experience`,
-        result.user.id,
-        price || 300,
-        bio || '',
-        city || '',
-        JSON.stringify(tags || []),
-        experience || '1 yıl'
-      );
-    }
 
     return res.status(201).json({
       success: true,

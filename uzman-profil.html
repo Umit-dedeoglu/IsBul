@@ -385,92 +385,76 @@
     // Tüm uzmanlar — gerçek kullanıcılar dahil
     const tumUzmanlar = typeof getTumUzmanlar === 'function' ? getTumUzmanlar() : TÜM_UZMANLAR;
 
-    // Aktif uzman — loadExpert() tarafından set edilir, submitReview ve fillStats tarafından kullanılır
-    let _expert = null;
-    let _selectedRating = 0;
-    let _updateStars = null;
+    // id önce tüm listede, sonra statik listede ara
+    const expert = (expertId ? tumUzmanlar.find(e => e.id === expertId) : null)
+                || TÜM_UZMANLAR[expertIdx]
+                || TÜM_UZMANLAR[0];
 
-    // Profili doldur
-    function fillProfile(expert) {
-      document.title = `${expert.name}  | İşBul`;
-      document.getElementById('breadcrumbName').textContent = expert.name;
-      document.getElementById('profileName').textContent = expert.name;
-      document.getElementById('profileRating').textContent = expert.rating;
-      document.getElementById('profilereviews').textContent = expert.reviews;
-      document.getElementById('profilecity').textContent = expert.city;
-      document.getElementById('profileExp').textContent = expert.experience + ' deneyim';
-      document.getElementById('profilePrice').textContent = expert.price;
-      document.getElementById('profileBio').textContent = expert.bio;
-      document.getElementById('overviewBio').textContent = expert.bio;
-      document.getElementById('profileAvatar').textContent = expert.avatar;
-      document.getElementById('profileAvatar').style.background = expert.color;
-      document.getElementById('ratingBig').textContent = expert.rating;
-      document.getElementById('ratingTotal').textContent = expert.reviews;
-      document.getElementById('reviewCount').textContent = expert.reviewList?.length || 0;
+    // profili doldur
+    document.title = `${expert.name}  | İşBul`;
+    document.getElementById('breadcrumbName').textContent = expert.name;
+    document.getElementById('profileName').textContent = expert.name;
+    document.getElementById('profileRating').textContent = expert.rating;
+    document.getElementById('profilereviews').textContent = expert.reviews;
+    document.getElementById('profilecity').textContent = expert.city;
+    document.getElementById('profileExp').textContent = expert.experience + ' deneyim';
+    document.getElementById('profilePrice').textContent = expert.price;
+    document.getElementById('profileBio').textContent = expert.bio;
+    document.getElementById('overviewBio').textContent = expert.bio;
+    document.getElementById('profileAvatar').textContent = expert.avatar;
+    document.getElementById('profileAvatar').style.background = expert.color;
+    document.getElementById('ratingBig').textContent = expert.rating;
+    document.getElementById('ratingTotal').textContent = expert.reviews;
+    document.getElementById('reviewCount').textContent = expert.reviewList?.length || 0;
 
-      if (!expert.elite) document.getElementById('eliteBadge').style.display = 'none';
+    if (!expert.elite) document.getElementById('eliteBadge').style.display = 'none';
 
-      // Uzmanlık etiketleri
-      const tagsEl = document.getElementById('overviewTags');
-      tagsEl.innerHTML = '';
-      (expert.tags||[]).forEach(t => {
-        const s = document.createElement('span');
-        s.style.cssText = 'padding:6px 14px;border-radius:20px;background:var(--primary-light);color:var(--primary);font-size:13px;font-weight:500';
-        s.textContent = t;
-        tagsEl.appendChild(s);
-      });
+    // Uzmanlık etiketleri
+    const tagsEl = document.getElementById('overviewTags');
+    (expert.tags||[]).forEach(t => {
+      const s = document.createElement('span');
+      s.style.cssText = 'padding:6px 14px;border-radius:20px;background:var(--primary-light);color:var(--primary);font-size:13px;font-weight:500';
+      s.textContent = t;
+      tagsEl.appendChild(s);
+    });
 
-      // Hizmetler
-      const catEmojis = { montaj:'🔧', temizlik:'🧹', nakliyat:'🚚', elektrik:'⚡', tesisat:'🔧', boya:'🎨', bahce:'🌱', tv:'📺', diger:'🛠️' };
-      const catNames  = { montaj:'Mobilya Montajı', temizlik:'Ev Temizliği', nakliyat:'Nakliyat', elektrik:'Elektrikçi', tesisat:'Tesisatçı', boya:'Boyacı', bahce:'Bahçe', tv:'TV Montajı', diger:'Diğer Hizmetler' };
-      document.getElementById('servicesList').innerHTML = (expert.categories||expert.tags||[]).map(cat => `
-        <div class="service-item">
-          <div class="service-item__icon">${catEmojis[cat]||'🛠️'}</div>
-          <div class="service-item__info">
-            <h4>${catNames[cat]||cat}</h4>
-            <p>${(expert.bio||'').slice(0,80)}...</p>
-          </div>
-          <div style="text-align:right">
-            <div class="service-item__price">₺${expert.price}/saat</div>
-            <button onclick="openBookingModal('${expert.id}','${catNames[cat]||cat}')" style="margin-top:8px;padding:7px 16px;border-radius:50px;background:var(--primary);color:#fff;border:none;font-size:12px;font-weight:600;cursor:pointer">Rezervasyon</button>
-          </div>
-        </div>`).join('');
-
-      loadReviews(expert);
-      fillStats(expert);
+    // Yorumlar ı yardımcı render fonksiyonu
+    function renderreview(r) {
+      const stars = '?'.repeat(r.rating||5) + '?'.repeat(5-(r.rating||5));
+      const avatar = r.avatar || (r.userName||r.user||'M')[0].toUpperCase();
+      const color  = r.color  || '#6C63FF';
+      const name   = r.userName || 'müşteri';
+      return `<div class="review-item">
+        <div class="review-item__header">
+          <div style="width:36px;height:36px;border-radius:50%;background:${color};color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">${avatar}</div>
+          <div><strong style="font-size:14px">${name}</strong><div class="review-item__stars">${stars}</div></div>
+          <span class="review-item__date">${r.date||''}</span>
+        </div>
+        <p class="review-item__text">"${r.text||''}"</p>
+        <span class="review-item__service">${r.service||''}</span>
+      </div>`;
     }
 
-    // Yorumları yükle
-    async function loadReviews(expert) {
+    // Yorumları API'den yükle
+    async function loadReviews() {
       let reviews = null;
 
       if (typeof IsbulAPI !== 'undefined') {
         reviews = await IsbulAPI.reviews.getReviews(expert.id);
       }
 
+      // API başarısız — statik yorumları göster
       if (!reviews) {
         reviews = (expert.reviewList||[]).map(r => ({
           ...r,
-          userName: r.userName || 'Müşteri',
-          color:    r.color    || '#6C63FF',
-          avatar:   r.avatar   || 'M',
+          userName: r.userName || (USERS?.customers?.find(c=>c.id===r.user)?.name) || 'Müşteri',
+          color:    r.color    || (USERS?.customers?.find(c=>c.id===r.user)?.color) || '#6C63FF',
+          avatar:   r.avatar   || (USERS?.customers?.find(c=>c.id===r.user)?.avatar) || 'M',
         }));
       }
 
+      // Sayfadaki reviewList'i güncelle (submitReview için)
       expert.reviewList = reviews;
-      if (_expert) _expert.reviewList = reviews;
-
-      function renderReview(r) {
-        return `<div class="review-item">
-          <div class="review-item__header">
-            <div style="width:36px;height:36px;border-radius:50%;background:${r.color||'#6C63FF'};color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">${(r.userName||'M')[0].toUpperCase()}</div>
-            <div><strong style="font-size:14px">${r.userName||'Müşteri'}</strong><div class="review-item__stars">${'⭐'.repeat(r.rating||5)}</div></div>
-            <span class="review-item__date">${r.date||''}</span>
-          </div>
-          <p class="review-item__text">"${r.text||''}"</p>
-          <span class="review-item__service">${r.service||''}</span>
-        </div>`;
-      }
 
       const html = reviews.length
         ? reviews.map(renderReview).join('')
@@ -480,84 +464,33 @@
       document.getElementById('allreviews').innerHTML = html;
       document.getElementById('reviewCount').textContent = reviews.length;
 
+      // Puan ortalamasını güncelle
       if (reviews.length) {
         const avg = reviews.reduce((s,r) => s+(r.rating||5), 0) / reviews.length;
-        document.getElementById('ratingBig').textContent      = avg.toFixed(1);
-        document.getElementById('ratingTotal').textContent    = reviews.length;
-        document.getElementById('profileRating').textContent  = avg.toFixed(1);
+        document.getElementById('ratingBig').textContent   = avg.toFixed(1);
+        document.getElementById('ratingTotal').textContent = reviews.length;
+        document.getElementById('profileRating').textContent = avg.toFixed(1);
         document.getElementById('profilereviews').textContent = reviews.length;
       }
     }
 
-    // Yıldız rating sistemi loadExpert() içinde başlatılır
+    loadReviews();
 
-    // API'den uzman verisi normalize et
-    function normalizeApiExpert(e) {
-      return {
-        id:         e.id,
-        name:       `${e.firstName || e.first_name || ''} ${e.lastName || e.last_name || ''}`.trim(),
-        avatar:     e.avatar || (e.firstName||'U')[0].toUpperCase(),
-        color:      e.color || '#6C63FF',
-        rating:     e.expertData?.rating || e.rating || '5.0',
-        reviews:    e.expertData?.reviews || e.reviews || 0,
-        city:       e.expertData?.city || e.city || '—',
-        experience: e.expertData?.experience || e.experience || '1 yıl',
-        price:      e.expertData?.price || e.price || 300,
-        bio:        e.expertData?.bio || e.bio || '',
-        tags:       e.expertData?.tags || e.tags || [],
-        categories: e.expertData?.tags || e.tags || [],
-        elite:      e.elite || false,
-        reviewList: [],
-      };
-    }
-
-    // Uzman verisini yükle — önce API, fallback localStorage/statik
-    async function loadExpert() {
-      let expert = null;
-
-      // 1) API'den çek (id varsa)
-      if (expertId && typeof IsbulAPI !== 'undefined') {
-        try {
-          const apiExpert = await IsbulAPI.experts.getById(expertId);
-          if (apiExpert) {
-            expert = normalizeApiExpert(apiExpert);
-          }
-        } catch(e) {
-          console.warn('[uzman-profil] API hatası, fallback kullanılıyor:', e);
-        }
-      }
-
-      // 2) Fallback: localStorage + statik liste
-      if (!expert) {
-        expert = (expertId ? tumUzmanlar.find(e => e.id === expertId) : null)
-               || TÜM_UZMANLAR[expertIdx]
-               || TÜM_UZMANLAR[0];
-      }
-
-      if (!expert) {
-        document.body.innerHTML = '<div style="text-align:center;padding:80px"><h2>Uzman bulunamadı</h2><a href="uzmanlar.html">← Uzmanlara dön</a></div>';
-        return;
-      }
-
-      _expert = expert;
-      fillProfile(expert);
-
-      // Yıldız rating sistemi
-      _selectedRating = 0;
-      const ratingStars = document.querySelectorAll('#starRating span');
-      _updateStars = (val) => {
-        ratingStars.forEach(s => {
-          s.style.color = (+s.dataset.val <= val) ? '#f59e0b' : 'var(--border)';
-        });
-      };
-      ratingStars.forEach(s => {
-        s.addEventListener('mouseover', () => _updateStars(+s.dataset.val));
-        s.addEventListener('mouseout',  () => _updateStars(_selectedRating));
-        s.addEventListener('click',     () => { _selectedRating = +s.dataset.val; _updateStars(_selectedRating); });
-      });
-    }
-
-    loadExpert();
+    // hizmetler
+    const catEmojis = { montaj:'🔧', temizlik:'🧹', nakliyat:'🚚', elektrik:'⚡', tesisat:'🔧', boya:'🎨', bahce:'🌱', tv:'📺', diger:'🛠️' };
+    const catNames  = { montaj:'Mobilya Montajı', temizlik:'Ev Temizliği', nakliyat:'Nakliyat', elektrik:'Elektrikçi', tesisat:'Tesisatçı', boya:'Boyacı', bahce:'Bahçe', tv:'TV Montajı', diger:'Diğer Hizmetler' };
+    document.getElementById('servicesList').innerHTML = (expert.categories||[]).map(cat => `
+      <div class="service-item">
+        <div class="service-item__icon">${catEmojis[cat]||'🛠️'}</div>
+        <div class="service-item__info">
+          <h4>${catNames[cat]||cat}</h4>
+          <p>${expert.bio.slice(0,80)}...</p>
+        </div>
+        <div style="text-align:right">
+          <div class="service-item__price">₺${expert.price}/saat</div>
+          <button onclick="openBookingModal('${expert.id}','${catNames[cat]||cat}')" style="margin-top:8px;padding:7px 16px;border-radius:50px;background:var(--primary);color:#fff;border:none;font-size:12px;font-weight:600;cursor:pointer">Rezervasyon</button>
+        </div>
+      </div>`).join('');
 
     // Fotoğraf galerisi (placeholder)
     const emojis = ['🔧','🧹','🚚','⚡','🔧','🎨','🌱','📺','🛠️','🏠','🪛','🪚'];
@@ -576,44 +509,56 @@
         </div>
       </div>`).join('');
 
-    // İstatistikler — fillProfile sonrası çağrılır, expert parametresi gerekli
-    function fillStats(expert) {
-      document.getElementById('statsWidget').innerHTML = `
-        <div class="stat-row"><span>Toplam Görev</span><strong>${expert.reviews}+</strong></div>
-        <div class="stat-row"><span>Tekrar Müşteri</span><strong>%78</strong></div>
-        <div class="stat-row"><span>Yanıt Süresi</span><strong>~15 dk</strong></div>
-        <div class="stat-row"><span>Katılım</span><strong>2023</strong></div>
-        <div class="stat-row"><span>Tamamlanma</span><strong>%98</strong></div>`;
+    // İstatistikler
+    document.getElementById('statsWidget').innerHTML = `
+      <div class="stat-row"><span>Toplam Görev</span><strong>${expert.reviews}+</strong></div>
+      <div class="stat-row"><span>Tekrar Müşteri</span><strong>%78</strong></div>
+      <div class="stat-row"><span>Yanıt Süresi</span><strong>~15 dk</strong></div>
+      <div class="stat-row"><span>Katılım</span><strong>2023</strong></div>
+      <div class="stat-row"><span>Tamamlanma</span><strong>%98</strong></div>`;
 
-      // Benzer uzmanlar
-      const similar = TÜM_UZMANLAR.filter(e=>e.id!==expert.id&&(e.categories||[]).some(c=>(expert.categories||[]).includes(c))).slice(0,3);
-      document.getElementById('similarExperts').innerHTML = similar.map((s) => `
-        <a href="uzman-profil.html?id=${s.id}" style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);text-decoration:none;color:inherit">
-          <div style="width:38px;height:38px;border-radius:50%;background:${s.color};color:#fff;font-weight:700;font-size:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0">${s.avatar}</div>
-          <div style="flex:1"><strong style="font-size:13px">${s.name}</strong><div style="font-size:11px;color:var(--text-muted)">⭐ ${s.rating} · ₺${s.price}/saat</div></div>
-        </a>`).join('') || '<p style="font-size:13px;color:var(--text-muted)">Benzer uzman bulunamadı.</p>';
+    // Benzer uzmanlar
+    const similar = TÜM_UZMANLAR.filter(e=>e.id!==expert.id&&e.categories.some(c=>expert.categories.includes(c))).slice(0,3);
+    document.getElementById('similarExperts').innerHTML = similar.map((s) => `
+      <a href="uzman-profil.html?id=${s.id}" style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);text-decoration:none;color:inherit">
+        <div style="width:38px;height:38px;border-radius:50%;background:${s.color};color:#fff;font-weight:700;font-size:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0">${s.avatar}</div>
+        <div style="flex:1"><strong style="font-size:13px">${s.name}</strong><div style="font-size:11px;color:var(--text-muted)">⭐ ${s.rating} · ₺${s.price}/saat</div></div>
+      </a>`).join('') || '<p style="font-size:13px;color:var(--text-muted)">Benzer uzman bulunamadı.</p>';
 
-      // hizmet seçeneklerini doldur
-      const reviewsvcSel = document.getElementById('reviewservice');
-      if (reviewsvcSel) {
-        reviewsvcSel.innerHTML = '<option value="">Hizmet seçin</option>';
-        (expert.tags||[]).forEach(t => {
-          const o = document.createElement('option'); o.value = t; o.textContent = t;
-          reviewsvcSel.appendChild(o);
-        });
+    // Yıldız rating sistemi
+    let selectedRating = 0;
+    const stars = document.querySelectorAll('#starRating span');
+    const updateStars = (val) => {
+      stars.forEach(s => {
+        s.style.color = (+s.dataset.val <= val) ? '#f59e0b' : 'var(--border)';
+      });
+    };
+    stars.forEach(s => {
+      s.addEventListener('mouseover', () => updateStars(+s.dataset.val));
+      s.addEventListener('mouseout',  () => updateStars(selectedRating));
+      s.addEventListener('click',     () => { selectedRating = +s.dataset.val; updateStars(selectedRating); });
+    });
+
+    // hizmet seıeneklerini doldur
+    const reviewsvcSel = document.getElementById('reviewservice');
+    if (reviewsvcSel) {
+      (expert.tags||[]).forEach(t => {
+        const o = document.createElement('option'); o.value = t; o.textContent = t;
+        reviewsvcSel.appendChild(o);
+      });
+    }
+
+    // Rezervasyon butonu — requireAuth ile korumalı
+    document.getElementById('bookBtn').addEventListener('click', function() {
+      if (typeof requireAuth === 'function' && typeof isLoggedIn === 'function' && !isLoggedIn()) {
+        requireAuth(() => {
+          if (typeof openBookingModal === 'function') openBookingModal(expert.id, expert.title);
+        }, 'Rezervasyon yapabilmek için giriş yapmanız gerekiyor.');
+      } else if (typeof openBookingModal === 'function') {
+        openBookingModal(expert.id, expert.title);
+      } else {
+        showToast('Rezervasyon sistemi yükleniyor, lütfen bekleyin.', 'info');
       }
-
-      // Rezervasyon butonu
-      document.getElementById('bookBtn').addEventListener('click', function() {
-        if (typeof requireAuth === 'function' && typeof isLoggedIn === 'function' && !isLoggedIn()) {
-          requireAuth(() => {
-            if (typeof openBookingModal === 'function') openBookingModal(expert.id, expert.name);
-          }, 'Rezervasyon yapabilmek için giriş yapmanız gerekiyor.');
-        } else if (typeof openBookingModal === 'function') {
-          openBookingModal(expert.id, expert.name);
-        } else {
-          showToast('Rezervasyon sistemi yükleniyor, lütfen bekleyin.', 'info');
-        }
     });
 
     // Yorum gönder fonksiyonu
@@ -624,10 +569,9 @@
         }
         return;
       }
-      if (!_expert) return;
       const txt = document.getElementById('reviewText')?.value.trim();
       const svc = document.getElementById('reviewservice')?.value;
-      if (!_selectedRating) { showToast('Lütfen bir puan verin.','error'); return; }
+      if (!selectedRating) { showToast('Lütfen bir puan verin.','error'); return; }
       if (!txt || txt.length < 10) { showToast('Yorumunuz en az 10 karakter olmalı.','error'); return; }
 
       const session  = typeof getSession === 'function' ? getSession() : null;
@@ -641,10 +585,10 @@
 
       // 1) API dene
       if (typeof IsbulAPI !== 'undefined') {
-        const res = await IsbulAPI.reviews.addReview(_expert.id, {
-          rating:  _selectedRating,
+        const res = await IsbulAPI.reviews.addReview(expert.id, {
+          rating:  selectedRating,
           text:    txt,
-          service: svc || (_expert.tags||[])[0] || 'Hizmet'
+          service: svc || (expert.tags||[])[0] || 'Hizmet'
         });
         if (res === null) {
           showToast('Bağlantı hatası. Yorumunuz gönderilemedi.', 'error');
@@ -658,18 +602,20 @@
         }
         finalReview = res.review;
       } else {
+        // API yoksa localStorage'a yaz
         finalReview = {
-          rating: _selectedRating,
+          rating: selectedRating,
           text: txt,
-          service: svc || (_expert.tags||[])[0] || 'Hizmet',
+          service: svc || (expert.tags||[])[0] || 'Hizmet',
           userName,
           color: session?.color || '#6C63FF',
           date: new Date().toLocaleDateString('tr-TR'),
         };
       }
 
-      _expert.reviewList = _expert.reviewList || [];
-      _expert.reviewList.unshift(finalReview);
+      // Listeyi güncelle
+      expert.reviewList = expert.reviewList || [];
+      expert.reviewList.unshift(finalReview);
 
       function renderReviewItem(r) {
         return `<div class="review-item">
@@ -683,12 +629,12 @@
         </div>`;
       }
 
-      document.getElementById('allreviews').innerHTML = _expert.reviewList.map(renderReviewItem).join('');
-      document.getElementById('overviewreviews').innerHTML = _expert.reviewList.slice(0,2).map(renderReviewItem).join('');
-      document.getElementById('reviewCount').textContent = _expert.reviewList.length;
+      document.getElementById('allreviews').innerHTML = expert.reviewList.map(renderReviewItem).join('');
+      document.getElementById('overviewreviews').innerHTML = expert.reviewList.slice(0,2).map(renderReviewItem).join('');
+      document.getElementById('reviewCount').textContent = expert.reviewList.length;
       document.getElementById('reviewText').value = '';
-      _selectedRating = 0;
-      if (_updateStars) _updateStars(0);
+      selectedRating = 0;
+      updateStars(0);
       if (btn) { btn.textContent = 'Yorumu Gönder'; btn.disabled = false; }
       showToast('✅ Yorumunuz eklendi, teşekkürler!', 'success');
     };

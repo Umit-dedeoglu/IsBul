@@ -6,12 +6,12 @@
   <!-- Config - Backend URL ve sabitler -->
   <script src="assets/js/config.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Uzman Panelim  | ��Bul</title>
+  <title>Uzman Panelim  | İşBul</title>
   <link rel="stylesheet" href="assets/css/styles.css?v=2" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <script src="https://unpkg.com/feather-icons"></script>
   <style>
-    /* CSS Variables Override i�in */
+    /* CSS Variables Override için */
     :root {
       --primary: #6C63FF;
       --primary-light: #ede9ff;
@@ -166,7 +166,7 @@
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="��Bul" />
+  <meta name="apple-mobile-web-app-title" content="İşBul" />
   <link rel="apple-touch-icon" href="/assets/img/icon.svg" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="stylesheet" href="/assets/css/mobile.css" />
@@ -179,42 +179,42 @@
     <!-- Hero -->
     <div class="panel-hero">
       <div class="container">
-        <h1 style="color: #ffffff !important; font-size: 28px; font-weight: 900; margin-bottom: 8px;">? Ho� geldin, <span id="expertName" style="color: #ffffff !important;">Uzman</span>!</h1>
-        <p id="expertSubtitle" style="color: #ffffff !important; opacity: 0.9; font-size: 15px;">Bug�n 3 yeni rezervasyon var</p>
+        <h1 style="color: #ffffff !important; font-size: 28px; font-weight: 900; margin-bottom: 8px;">✅ Hoş geldin, <span id="expertName" style="color: #ffffff !important;">Uzman</span>!</h1>
+        <p id="expertSubtitle" style="color: #ffffff !important; opacity: 0.9; font-size: 15px;">Bugün 3 yeni rezervasyon var</p>
       </div>
     </div>
 
     <div class="container">
-      <!-- �statistikler -->
+      <!-- İstatistikler -->
       <div class="stats-grid">
         <div class="stat-card">
-          <div class="stat-icon" style="background: #fef3c7; color: #f59e0b">?</div>
+          <div class="stat-icon" style="background: #fef3c7; color: #f59e0b">⏳</div>
           <div class="stat-value" id="statPending" style="color: #1a202c !important;">0</div>
           <div class="stat-label" style="color: #64748b !important;">Bekleyen Rezervasyon</div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon" style="background: #d1fae5; color: #10b981">?</div>
+          <div class="stat-icon" style="background: #d1fae5; color: #10b981">✅</div>
           <div class="stat-value" id="statCompleted" style="color: #1a202c !important;">0</div>
-          <div class="stat-label" style="color: #64748b !important;">Tamamlanan ��</div>
+          <div class="stat-label" style="color: #64748b !important;">Tamamlanan İş</div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon" style="background: #dbeafe; color: #3b82f6">?</div>
+          <div class="stat-icon" style="background: #dbeafe; color: #3b82f6">⭐</div>
           <div class="stat-value" id="statRating" style="color: #1a202c !important;">5.0</div>
           <div class="stat-label" style="color: #64748b !important;">Ortalama Puan</div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon" style="background: #e0e7ff; color: #6366f1">??</div>
+          <div class="stat-icon" style="background: #e0e7ff; color: #6366f1">💰</div>
           <div class="stat-value" id="statEarnings" style="color: #1a202c !important;">0</div>
-          <div class="stat-label" style="color: #64748b !important;">Toplam Kazan�</div>
+          <div class="stat-label" style="color: #64748b !important;">Toplam Kazanç</div>
         </div>
       </div>
 
       <!-- Sekmeler -->
       <div class="panel-tabs">
-        <button class="panel-tab active" data-panel="bookings" style="color: #6C63FF; border-bottom-color: #6C63FF;">?? Rezervasyonlar</button>
-        <button class="panel-tab" data-panel="earnings" style="color: #2d2d2d;">?? Kazan�lar�m</button>
-        <button class="panel-tab" data-panel="profile" style="color: #2d2d2d;">?? Profil Ayarlar�</button>
-        <button class="panel-tab" data-panel="stats" style="color: #2d2d2d;">?? �statistikler</button>
+        <button class="panel-tab active" data-panel="bookings" style="color: #6C63FF; border-bottom-color: #6C63FF;">📋 Rezervasyonlar</button>
+        <button class="panel-tab" data-panel="earnings" style="color: #2d2d2d;">💰 Kazançlarım</button>
+        <button class="panel-tab" data-panel="profile" style="color: #2d2d2d;">⚙️ Profil Ayarları</button>
+        <button class="panel-tab" data-panel="stats" style="color: #2d2d2d;">📊 İstatistikler</button>
       </div>
 
       <!-- Panel: Rezervasyonlar -->
@@ -223,27 +223,27 @@
           <h2 style="font-size: 20px; font-weight: 900; margin-bottom: 16px; color: #1a202c !important;">Rezervasyonlar</h2>
           <div class="booking-list" id="bookingList">
             <div class="empty-state">
-              <div class="empty-state-icon">??</div>
-              <h3 style="color: #1a202c !important;">Hen�z rezervasyon yok</h3>
-              <p style="color: #64748b !important;">Rezervasyonlar�n�z burada g�r�necek</p>
+              <div class="empty-state-icon">📭</div>
+              <h3 style="color: #1a202c !important;">Henüz rezervasyon yok</h3>
+              <p style="color: #64748b !important;">Rezervasyonlarınız burada görünecek</p>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Panel: Kazan�lar -->
+      <!-- Panel: Kazançlar -->
       <div class="panel-content" id="panel-earnings">
         <div class="earning-summary">
-          <h2 style="color: #ffffff !important; font-size: 15px; opacity: 0.9; margin-bottom: 8px;">Bu Ay Kazanc�n�z</h2>
-          <div class="earning-amount" style="color: #ffffff !important; font-size: 48px; font-weight: 900; margin-bottom: 16px;">?<span id="monthlyEarning" style="color: #ffffff !important;">0</span></div>
+          <h2 style="color: #ffffff !important; font-size: 15px; opacity: 0.9; margin-bottom: 8px;">Bu Ay Kazancınız</h2>
+          <div class="earning-amount" style="color: #ffffff !important; font-size: 48px; font-weight: 900; margin-bottom: 16px;">₺<span id="monthlyEarning" style="color: #ffffff !important;">0</span></div>
           <div class="earning-details">
             <div class="earning-item">
               <div class="earning-item-value" id="monthlyJobs" style="color: #ffffff !important;">0</div>
-              <div class="earning-item-label" style="color: #ffffff !important; opacity: 0.8;">�� Say�s�</div>
+              <div class="earning-item-label" style="color: #ffffff !important; opacity: 0.8;">İş Sayısı</div>
             </div>
             <div class="earning-item">
-              <div class="earning-item-value" style="color: #ffffff !important;">?<span id="avgJobPrice" style="color: #ffffff !important;">0</span></div>
-              <div class="earning-item-label" style="color: #ffffff !important; opacity: 0.8;">Ortalama �cret</div>
+              <div class="earning-item-value" style="color: #ffffff !important;">₺<span id="avgJobPrice" style="color: #ffffff !important;">0</span></div>
+              <div class="earning-item-label" style="color: #ffffff !important; opacity: 0.8;">Ortalama Ücret</div>
             </div>
             <div class="earning-item">
               <div class="earning-item-value" id="monthlyHours" style="color: #ffffff !important;">0</div>
@@ -252,52 +252,52 @@
           </div>
         </div>
         <div style="background: var(--white); border-radius: var(--radius); padding: 24px; border: 1.5px solid var(--border);">
-          <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 16px; color: #1a202c !important;">Ge�mi� Kazan�lar</h3>
+          <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 16px; color: #1a202c !important;">Geçmiş Kazançlar</h3>
           <div id="earningHistory">
-            <p style="color: #64748b !important; font-size: 14px;">Kazan� ge�mi�i yak�nda eklenecek...</p>
+            <p style="color: #64748b !important; font-size: 14px;">Kazanç geçmişi yakında eklenecek...</p>
           </div>
         </div>
       </div>
 
-      <!-- Panel: profil Ayarlar� -->
+      <!-- Panel: profil Ayarları -->
       <div class="panel-content" id="panel-profile">
         <div style="background: var(--white); border-radius: var(--radius); padding: 32px; border: 1.5px solid var(--border);">
-          <h2 style="font-size: 20px; font-weight: 900; margin-bottom: 24px; color: #1a202c !important;">Profil Ayarlar�</h2>
+          <h2 style="font-size: 20px; font-weight: 900; margin-bottom: 24px; color: #1a202c !important;">Profil Ayarları</h2>
           <form class="profile-edit-form" id="profileForm">
             <div class="form-group">
-              <label>Saat �creti (?)</label>
+              <label>Saat Ücreti (₺)</label>
               <div style="display: flex; align-items: center; gap: 12px;">
                 <select id="expertPrice" style="width: 100%; padding: 12px 14px; border-radius: 8px; border: 1.5px solid var(--border); font-size: 14px; color: #1a202c;">
-                  <option value="">�cret se�in...</option>
-                  <option value="100">?100 / saat</option>
-                  <option value="150">?150 / saat</option>
-                  <option value="200">?200 / saat</option>
-                  <option value="250">?250 / saat</option>
-                  <option value="300">?300 / saat</option>
-                  <option value="350">?350 / saat</option>
-                  <option value="400">?400 / saat</option>
-                  <option value="450">?450 / saat</option>
-                  <option value="500">?500 / saat</option>
-                  <option value="600">?600 / saat</option>
-                  <option value="750">?750 / saat</option>
-                  <option value="1000">?1000 / saat</option>
+                  <option value="">Ücret seçin...</option>
+                  <option value="100">₺100 / saat</option>
+                  <option value="150">₺150 / saat</option>
+                  <option value="200">₺200 / saat</option>
+                  <option value="250">₺250 / saat</option>
+                  <option value="300">₺300 / saat</option>
+                  <option value="350">₺350 / saat</option>
+                  <option value="400">₺400 / saat</option>
+                  <option value="450">₺450 / saat</option>
+                  <option value="500">₺500 / saat</option>
+                  <option value="600">₺600 / saat</option>
+                  <option value="750">₺750 / saat</option>
+                  <option value="1000">₺1000 / saat</option>
                 </select>
               </div>
             </div>
             <div class="form-group">
-              <label>Hakk�nda <span id="bioCount" style="font-weight:400; color:#64748b; font-size:12px;">(0/300)</span></label>
-              <textarea id="expertBio" rows="4" placeholder="Kendinizi tan�t�n... (maks. 300 karakter)" maxlength="300"></textarea>
+              <label>Hakkında <span id="bioCount" style="font-weight:400; color:#64748b; font-size:12px;">(0/300)</span></label>
+              <textarea id="expertBio" rows="4" placeholder="Kendinizi tanıtın... (maks. 300 karakter)" maxlength="300"></textarea>
             </div>
             <div class="form-group">
-              <label>�al��ma �ehri</label>
+              <label>Çalışma Şehri</label>
               <select id="expertCity"></select>
             </div>
             <div class="form-group">
-              <label>Uzmanl�k Alanlar�</label>
+              <label>Uzmanlık Alanları</label>
               <div class="tag-input-wrap" id="expertTags"></div>
               <div style="display: flex; gap: 8px; margin-top: 8px;">
                 <select id="categorySelect" style="flex: 1; padding: 10px 14px; border-radius: 8px; border: 1.5px solid var(--border); font-size: 14px; color: #1a202c;">
-                  <option value="">Kategori se�in...</option>
+                  <option value="">Kategori seçin...</option>
                 </select>
                 <button type="button" id="addCategoryBtn" class="btn btn--primary" style="padding: 10px 20px; border-radius: 8px;">
                   Ekle
@@ -305,15 +305,15 @@
               </div>
             </div>
             <div class="form-group">
-              <label>�al��ma Saatleri</label>
+              <label>Çalışma Saatleri</label>
               <div style="border: 1.5px solid var(--border); border-radius: 10px; padding: 16px; background: #f9fafb;">
-                <!-- G�nler -->
+                <!-- Günler -->
                 <div style="margin-bottom: 14px;">
-                  <div style="font-size: 13px; font-weight: 600; color: #64748b; margin-bottom: 8px;">�al��ma G�nleri</div>
+                  <div style="font-size: 13px; font-weight: 600; color: #64748b; margin-bottom: 8px;">Çalışma Günleri</div>
                   <div style="display: flex; flex-wrap: wrap; gap: 8px;" id="workDays">
                     <label style="display:flex;align-items:center;gap:5px;font-size:13px;cursor:pointer;"><input type="checkbox" value="Pzt" style="width:auto;" /> Pzt</label>
                     <label style="display:flex;align-items:center;gap:5px;font-size:13px;cursor:pointer;"><input type="checkbox" value="Sal" style="width:auto;" /> Sal</label>
-                    <label style="display:flex;align-items:center;gap:5px;font-size:13px;cursor:pointer;"><input type="checkbox" value="�ar" style="width:auto;" /> �ar</label>
+                    <label style="display:flex;align-items:center;gap:5px;font-size:13px;cursor:pointer;"><input type="checkbox" value="Çar" style="width:auto;" /> Çar</label>
                     <label style="display:flex;align-items:center;gap:5px;font-size:13px;cursor:pointer;"><input type="checkbox" value="Per" style="width:auto;" /> Per</label>
                     <label style="display:flex;align-items:center;gap:5px;font-size:13px;cursor:pointer;"><input type="checkbox" value="Cum" style="width:auto;" /> Cum</label>
                     <label style="display:flex;align-items:center;gap:5px;font-size:13px;cursor:pointer;"><input type="checkbox" value="Cmt" style="width:auto;" /> Cmt</label>
@@ -323,7 +323,7 @@
                 <!-- Saatler -->
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
                   <div>
-                    <div style="font-size: 13px; font-weight: 600; color: #64748b; margin-bottom: 6px;">Ba�lang�� Saati</div>
+                    <div style="font-size: 13px; font-weight: 600; color: #64748b; margin-bottom: 6px;">Başlangıç Saati</div>
                     <select id="startHour" style="width:100%; padding: 10px; border-radius: 8px; border: 1.5px solid var(--border); font-size: 14px; color: #1a202c;">
                       <option value="06:00">06:00</option>
                       <option value="07:00">07:00</option>
@@ -337,7 +337,7 @@
                     </select>
                   </div>
                   <div>
-                    <div style="font-size: 13px; font-weight: 600; color: #64748b; margin-bottom: 6px;">Biti� Saati</div>
+                    <div style="font-size: 13px; font-weight: 600; color: #64748b; margin-bottom: 6px;">Bitiş Saati</div>
                     <select id="endHour" style="width:100%; padding: 10px; border-radius: 8px; border: 1.5px solid var(--border); font-size: 14px; color: #1a202c;">
                       <option value="14:00">14:00</option>
                       <option value="15:00">15:00</option>
@@ -351,25 +351,25 @@
                     </select>
                   </div>
                 </div>
-                <!-- �nizleme -->
+                <!-- Önizleme -->
                 <div style="margin-top: 12px; padding: 10px; background: #ede9ff; border-radius: 8px; font-size: 13px; color: #6C63FF; font-weight: 600;" id="hoursPreview">
-                  �nizleme: Hen�z g�n se�ilmedi
+                  Önizleme: Henüz gün seçilmedi
                 </div>
               </div>
               <input type="hidden" id="expertHours" />
             </div>
             <button type="submit" class="btn btn--primary" style="width: 100%; justify-content: center;">
-              De�i�iklikleri Kaydet
+              Değişiklikleri Kaydet
             </button>
           </form>
         </div>
       </div>
 
-      <!-- Panel: �statistikler -->
+      <!-- Panel: İstatistikler -->
       <div class="panel-content" id="panel-stats">
         <div style="background: var(--white); border-radius: var(--radius); padding: 32px; border: 1.5px solid var(--border);">
-          <h2 style="font-size: 20px; font-weight: 900; margin-bottom: 24px; color: #1a202c !important;">Detayl� �statistikler</h2>
-          <p style="color: #64748b !important;">Geli�mi� analitik �zellikler yak�nda eklenecek...</p>
+          <h2 style="font-size: 20px; font-weight: 900; margin-bottom: 24px; color: #1a202c !important;">Detaylı İstatistikler</h2>
+          <p style="color: #64748b !important;">Gelişmiş analitik özellikler yakında eklenecek...</p>
         </div>
       </div>
     </div>
@@ -380,25 +380,25 @@
   <script src="assets/js/api-client.js"></script>
   <script src="assets/js/app.js"></script>
   <script>
-    let expertTags = []; // Uzman etiketlerini tutmak i�in global de�i�ken
+    let expertTags = []; // Uzman etiketlerini tutmak için global değişken
     
-    // Auth kontrol� � uzman de�ilse y�nlendir
+    // Auth kontrolü – uzman değilse yönlendir
     const session = typeof getSession === 'function' ? getSession() : null;
     if (!session) {
-      showToast('Uzman paneline eri�mek i�in giri� yapman�z gerekiyor.', 'error');
+      showToast('Uzman paneline erişmek için giriş yapmanız gerekiyor.', 'error');
       setTimeout(() => window.location = 'index.html', 1500);
     } else if (!session.isExpert && session.role !== 'admin') {
-      showToast('Bu sayfa sadece uzmanlar i�indir.', 'error');
+      showToast('Bu sayfa sadece uzmanlar içindir.', 'error');
       setTimeout(() => window.location = 'index.html', 1500);
     }
 
-    // Uzman bilgilerini y�kle
+    // Uzman bilgilerini yıkle
     if (session) {
       const expertNameEl = document.getElementById('expertName');
       expertNameEl.textContent = session.firstName;
       expertNameEl.style.color = '#ffffff';
       
-      // �ehir dropdown'unu doldur
+      // Şehir dropdown'unu doldur
       const citySelect = document.getElementById('expertCity');
       Object.keys(ILLER).forEach(city => {
         const opt = document.createElement('option');
@@ -408,9 +408,9 @@
         citySelect.appendChild(opt);
       });
 
-      // E�er kullan�c�n�n expertData's� varsa doldur
+      // Eğer kullanıcının expertData'sı varsa doldur
       if (session.expertData) {
-        // Saat �creti
+        // Saat Ücreti
         const priceSelect = document.getElementById('expertPrice');
         const price = session.expertData.price || 300;
         for (let opt of priceSelect.options) {
@@ -421,16 +421,16 @@
         document.getElementById('expertBio').value = session.expertData.bio || '';
         document.getElementById('bioCount').textContent = `(${(session.expertData.bio||'').length}/300)`;
 
-        // �al��ma saatlerini parse et ve forma y�kle
+        // Çalışma saatlerini parse et ve forma yükle
         const hours = session.expertData.hours || '';
         if (hours) {
-          // "Pzt-Cum: 09:00-18:00, Cmt: 10:00-16:00" format�n� parse et
+          // "Pzt-Cum: 09:00-18:00, Cmt: 10:00-16:00" formatını parse et
           const parts = hours.split(':')[0]; // "Pzt-Cum" veya "Pzt,Sal,Cum"
           const dayPart = hours.match(/^([^:]+):/);
           if (dayPart) {
             const dayStr = dayPart[1].trim();
-            const allDays = ['Pzt','Sal','�ar','Per','Cum','Cmt','Paz'];
-            // Tek tek i�aretle
+            const allDays = ['Pzt','Sal','Çar','Per','Cum','Cmt','Paz'];
+            // Tek tek işaretle
             document.querySelectorAll('#workDays input[type=checkbox]').forEach(cb => {
               if (dayStr.includes(cb.value)) cb.checked = true;
             });
@@ -445,9 +445,9 @@
           }
         }
 
-        // Etiketleri g�ster
+        // Etiketleri göster
         const tagsWrap = document.getElementById('expertTags');
-        expertTags = session.expertData.tags || []; // Global diziye y�kle
+        expertTags = session.expertData.tags || []; // Global diziye yükle
         expertTags.forEach(tag => {
           const badge = document.createElement('div');
           badge.className = 'tag-badge';
@@ -458,8 +458,8 @@
       
       // Kategori dropdown'unu data.js'deki merkezi listeden doldur
       const categorySelect = document.getElementById('categorySelect');
-      const tagListesi = typeof T�M_KATEGOR�_TAGLER� !== 'undefined'
-        ? T�M_KATEGOR�_TAGLER�
+      const tagListesi = typeof TÜM_KATEGORİ_TAGLERİ !== 'undefined'
+        ? TÜM_KATEGORİ_TAGLERİ
         : typeof UZMANLIK_KATEGORILERI !== 'undefined'
           ? UZMANLIK_KATEGORILERI
           : [];
@@ -471,12 +471,12 @@
       });
     }
 
-    // Bio karakter sayac�
+    // Bio karakter sayacı
     document.getElementById('expertBio').addEventListener('input', function() {
       document.getElementById('bioCount').textContent = `(${this.value.length}/300)`;
     });
 
-    // �al��ma saatleri �nizleme
+    // Çalışma saatleri önizleme
     function updateHoursPreview() {
       const checked = [...document.querySelectorAll('#workDays input:checked')].map(cb => cb.value);
       const start = document.getElementById('startHour').value;
@@ -485,13 +485,13 @@
       const hidden = document.getElementById('expertHours');
 
       if (checked.length === 0) {
-        preview.textContent = '�nizleme: Hen�z g�n se�ilmedi';
+        preview.textContent = 'Önizleme: Henüz gün seçilmedi';
         hidden.value = '';
         return;
       }
 
-      // Ard���k g�nleri "Pzt-Cum" format�na �evir
-      const allDays = ['Pzt','Sal','�ar','Per','Cum','Cmt','Paz'];
+      // Ardışık günleri "Pzt-Cum" formatına çevir
+      const allDays = ['Pzt','Sal','Çar','Per','Cum','Cmt','Paz'];
       let result = '';
       let i = 0;
       while (i < allDays.length) {
@@ -507,7 +507,7 @@
       }
 
       const hoursStr = `${result}: ${start}-${end}`;
-      preview.textContent = '�nizleme: ' + hoursStr;
+      preview.textContent = 'Önizleme: ' + hoursStr;
       hidden.value = hoursStr;
     }
 
@@ -517,7 +517,7 @@
     document.getElementById('startHour').addEventListener('change', updateHoursPreview);
     document.getElementById('endHour').addEventListener('change', updateHoursPreview);
 
-    // �lk y�klemede �nizlemeyi g�ncelle
+    // İlk yüklemede önizlemeyi güncelle
     updateHoursPreview();
     
     // Dropdown'dan kategori ekleme
@@ -537,13 +537,13 @@
       }
     });
     
-    // Enter tu�u ile ekleme deste�i (eski input alan� kald�r�ld�)
+    // Enter tuşu ile ekleme desteği (eski input alanı kaldırıldı)
     function removeTag(tag) {
       expertTags = expertTags.filter(t => t !== tag);
-      // Badge zaten onclick ile kald�r�lkeyor
+      // Badge zaten onclick ile kaldırülkeyor
     }
 
-    // Profil kaydet � API �ncelikli, localStorage fallback
+    // Profil kaydet – API öncelikli, localStorage fallback
     document.getElementById('profileForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       if (!session) return;
@@ -554,7 +554,7 @@
         city:       document.getElementById('expertCity').value,
         tags:       expertTags,
         hours:      document.getElementById('expertHours').value.trim(),
-        experience: session.expertData?.experience || '1 y�l'
+        experience: session.expertData?.experience || '1 yıl'
       };
 
       const btn = this.querySelector('button[type=submit]');
@@ -562,16 +562,16 @@
       btn.textContent = 'Kaydediliyor...'; btn.disabled = true;
 
       // API dene
-      if (typeof IsbulAPI !== 'undefined') {
-        const res = await IsbulAPI.experts.updateProfile(expertData);
+      if (typeof IsBulAPI !== 'undefined') {
+        const res = await IsBulAPI.experts.updateProfile(expertData);
         if (res !== null) {
           btn.textContent = origText; btn.disabled = false;
-          if (!res) { showToast('Profil g�ncellenemedi.', 'error'); return; }
-          // API ba�ar�l� � session'� da g�ncelle
+          if (!res) { showToast('Profil güncellenemedi.', 'error'); return; }
+          // API başarılı – session'ı da güncelle
           session.expertData = expertData;
           session.city = expertData.city;
           if (typeof saveSession === 'function') saveSession(session);
-          showToast('? Profil bilgileriniz kaydedildi!', 'success');
+          showToast('✅ Profil bilgileriniz kaydedildi!', 'success');
           return;
         }
       }
@@ -587,10 +587,10 @@
         if (typeof saveUsersDB === 'function') saveUsersDB(db);
       }
       btn.textContent = origText; btn.disabled = false;
-      showToast('? Profil bilgileriniz kaydedildi!', 'success');
+      showToast('✅ Profil bilgileriniz kaydedildi!', 'success');
     });
 
-    // Sekme ge�i�i
+    // Sekme geçişi
     document.querySelectorAll('.panel-tab').forEach(tab => {
       tab.addEventListener('click', function() {
         document.querySelectorAll('.panel-tab').forEach(t => {
@@ -606,17 +606,17 @@
       });
     });
 
-    // Rezervasyonlar� y�kle � API �ncelikli, localStorage fallback
+    // Rezervasyonları yükle – API öncelikli, localStorage fallback
     async function loadExpertBookings() {
       if (!session) return;
 
       let expertBookings = null;
 
-      if (typeof IsbulAPI !== 'undefined') {
-        expertBookings = await IsbulAPI.bookings.getExpertBookings();
+      if (typeof IsBulAPI !== 'undefined') {
+        expertBookings = await IsBulAPI.bookings.getExpertBookings();
       }
 
-      // API ba�ar�s�z veya yoksa � localStorage'dan oku
+      // API başarısız veya yoksa — localStorage'dan oku
       if (!expertBookings) {
         try {
           const bookingDB = JSON.parse(localStorage.getItem('isbul_booking_db') || '{}');
@@ -628,7 +628,7 @@
 
       expertBookings = expertBookings.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
-      // �statistikleri g�ncelle
+      // İstatistikleri güncelle
       const pending   = expertBookings.filter(b => b.status === 'pending').length;
       const confirmed = expertBookings.filter(b => b.status === 'confirmed').length;
       const completed = expertBookings.filter(b => b.status === 'completed').length;
@@ -636,68 +636,68 @@
 
       document.getElementById('statPending').textContent   = pending + confirmed;
       document.getElementById('statCompleted').textContent = completed;
-      document.getElementById('statEarnings').textContent  = '?' + earnings.toLocaleString('tr-TR');
+      document.getElementById('statEarnings').textContent  = '₺' + earnings.toLocaleString('tr-TR');
       document.getElementById('monthlyEarning').textContent = earnings.toLocaleString('tr-TR');
       document.getElementById('monthlyJobs').textContent   = completed;
       document.getElementById('avgJobPrice').textContent   = completed > 0 ? Math.round(earnings / completed) : 0;
       document.getElementById('monthlyHours').textContent  = completed * 4;
 
-      // Hero subtitle g�ncelle
+      // Hero subtitle güncelle
       if (pending > 0) {
-        document.getElementById('expertSubtitle').textContent = `Bug�n ${pending} yeni rezervasyon onay� bekliyor`;
+        document.getElementById('expertSubtitle').textContent = `Bugün ${pending} yeni rezervasyon onayı bekliyor`;
       } else {
-        document.getElementById('expertSubtitle').textContent = 'Ho� geldiniz! T�m rezervasyonlar g�ncel.';
+        document.getElementById('expertSubtitle').textContent = 'Hoş geldiniz! Tüm rezervasyonlar güncel.';
       }
 
       const listEl = document.getElementById('bookingList');
       if (!expertBookings.length) {
         listEl.innerHTML = `
           <div class="empty-state">
-            <div class="empty-state-icon">??</div>
-            <h3 style="color: #1a202c !important;">Hen�z rezervasyon yok</h3>
-            <p style="color: #64748b !important;">M��teriler rezervasyon yapt���nda burada g�r�necek</p>
+            <div class="empty-state-icon">📭</div>
+            <h3 style="color: #1a202c !important;">Henüz rezervasyon yok</h3>
+            <p style="color: #64748b !important;">Müşteriler rezervasyon yaptığında burada görünecek</p>
           </div>`;
         return;
       }
 
-      const statusLabel = { pending: 'Bekliyor', confirmed: 'Onayland�', completed: 'Tamamland�', rejected: 'Reddedildi', cancelled: '�ptal' };
+      const statusLabel = { pending: 'Bekliyor', confirmed: 'Onaylandı', completed: 'Tamamlandı', rejected: 'Reddedildi', cancelled: 'İptal' };
       const statusClass = { pending: 'status-pending', confirmed: 'status-confirmed', completed: 'status-completed', rejected: 'status-cancelled', cancelled: 'status-cancelled' };
 
       listEl.innerHTML = expertBookings.map(b => `
         <div class="booking-card" id="bcard-${b.id}">
           <div class="booking-avatar" style="background:${b.customerColor||'#6C63FF'}">${b.customerAvatar||'M'}</div>
           <div class="booking-info">
-            <h3 style="color:#1a202c !important;">${b.customerName||'M��teri'}</h3>
+            <h3 style="color:#1a202c !important;">${b.customerName||'Müşteri'}</h3>
             <div class="booking-meta" style="color:#64748b !important;">
-              <span>?? ${b.dateStr||b.date}${b.endDate && b.endDate !== b.date ? ' � ' + new Date(b.endDate).toLocaleDateString('tr-TR',{day:'numeric',month:'short'}) : ''}</span>
-              <span>?? ${b.time}${b.endTime && b.endTime !== b.time ? '�'+b.endTime : ''}</span>
-              <span>?? ${b.city}</span>
+              <span>📅 ${b.dateStr||b.date}${b.endDate && b.endDate !== b.date ? ' – ' + new Date(b.endDate).toLocaleDateString('tr-TR',{day:'numeric',month:'short'}) : ''}</span>
+              <span>🕐 ${b.time}${b.endTime && b.endTime !== b.time ? '–'+b.endTime : ''}</span>
+              <span>📍 ${b.city}</span>
             </div>
             <div style="font-size:14px;color:#1a202c;margin-bottom:6px;">
               ${b.service}
-              ${b.durationLabel ? `&nbsp;�&nbsp;<span style="background:#ede9ff;color:#6C63FF;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:600;">? ${b.durationLabel}</span>` : ''}
+              ${b.durationLabel ? `&nbsp;·&nbsp;<span style="background:#ede9ff;color:#6C63FF;padding:2px 8px;border-radius:12px;font-size:12px;font-weight:600;">⏱ ${b.durationLabel}</span>` : ''}
             </div>
-            ${b.notes ? `<div style="font-size:12px;color:#64748b;background:#f8f9fa;padding:6px 10px;border-radius:6px;">?? ${b.notes}</div>` : ''}
+            ${b.notes ? `<div style="font-size:12px;color:#64748b;background:#f8f9fa;padding:6px 10px;border-radius:6px;">📝 ${b.notes}</div>` : ''}
           </div>
           <div class="booking-actions">
             <div class="booking-status ${statusClass[b.status]||'status-pending'}">
               ${statusLabel[b.status]||'Bekliyor'}
             </div>
-            <div style="font-size:15px;font-weight:800;color:#6C63FF;margin:4px 0;">?${(b.totalPrice||b.price).toLocaleString('tr-TR')}</div>
+            <div style="font-size:15px;font-weight:800;color:#6C63FF;margin:4px 0;">₺${(b.totalPrice||b.price).toLocaleString('tr-TR')}</div>
             ${b.status === 'pending' ? `
               <button onclick="updateBookingStatus('${b.id}','confirmed')"
                 style="padding:7px 14px;border-radius:8px;background:#10b981;color:#fff;border:none;font-size:12px;font-weight:700;cursor:pointer;width:100%;margin-top:4px;">
-                ? Onayla
+                ✅ Onayla
               </button>
               <button onclick="updateBookingStatus('${b.id}','rejected')"
                 style="padding:7px 14px;border-radius:8px;background:#fee2e2;color:#ef4444;border:none;font-size:12px;font-weight:700;cursor:pointer;width:100%;margin-top:4px;">
-                ? Reddet
+                ❌ Reddet
               </button>
             ` : ''}
             ${b.status === 'confirmed' ? `
               <button onclick="updateBookingStatus('${b.id}','completed')"
                 style="padding:7px 14px;border-radius:8px;background:#e0e7ff;color:#3730a3;border:none;font-size:12px;font-weight:700;cursor:pointer;width:100%;margin-top:4px;">
-                ? Tamamland�
+                ✅ Tamamlandı
               </button>
             ` : ''}
           </div>
@@ -705,16 +705,16 @@
       `).join('');
     }
 
-    // Rezervasyon durumunu g�ncelle (uzman panelinden) � API �ncelikli, localStorage fallback
+    // Rezervasyon durumunu güncelle (uzman panelinden) – API öncelikli, localStorage fallback
     window.updateBookingStatus = async function(rezId, newStatus) {
       let success = false;
 
-      if (typeof IsbulAPI !== 'undefined') {
-        const apiRes = await IsbulAPI.bookings.updateStatus(rezId, newStatus);
+      if (typeof IsBulAPI !== 'undefined') {
+        const apiRes = await IsBulAPI.bookings.updateStatus(rezId, newStatus);
         if (apiRes && apiRes.success) success = true;
       }
 
-      // API yoksa veya ba�ar�s�zsa localStorage'� g�ncelle
+      // API yoksa veya başarısızsa localStorage'ı güncelle
       if (!success) {
         try {
           const bookingDB = JSON.parse(localStorage.getItem('isbul_booking_db') || '{}');
@@ -722,7 +722,7 @@
             bookingDB[rezId].status = newStatus;
             localStorage.setItem('isbul_booking_db', JSON.stringify(bookingDB));
 
-            // M��teri listesini de g�ncelle
+            // Müşteri listesini de güncelle
             const rez = bookingDB[rezId];
             if (rez && rez.customerId) {
               const REZ_KEY = 'isbul_rezervasyonlar_' + rez.customerId;
@@ -733,22 +733,22 @@
             }
             success = true;
           }
-        } catch(err) { console.warn('localStorage g�ncelleme hatas�:', err); }
+        } catch(err) { console.warn('localStorage güncelleme hatası:', err); }
       }
 
       if (!success) {
-        showToast('G�ncelleme ba�ar�s�z.', 'error');
+        showToast('Güncelleme başarısız.', 'error');
         return;
       }
 
-      const msgs = { confirmed:'? Rezervasyon onayland�!', rejected:'? Rezervasyon reddedildi.', completed:'? Rezervasyon tamamland�!' };
-      showToast(msgs[newStatus] || 'G�ncellendi', newStatus === 'rejected' ? 'error' : 'success');
+      const msgs = { confirmed:'✅ Rezervasyon onaylandı!', rejected:'❌ Rezervasyon reddedildi.', completed:'✅ Rezervasyon tamamlandı!' };
+      showToast(msgs[newStatus] || 'Güncellendi', newStatus === 'rejected' ? 'error' : 'success');
       loadExpertBookings();
     };
 
     loadExpertBookings();
 
-    // Sekme odakland���nda otomatik yenile
+    // Sekme odaklandığında otomatik yenile
     document.addEventListener('visibilitychange', () => {
       if (!document.hidden) loadExpertBookings();
     });

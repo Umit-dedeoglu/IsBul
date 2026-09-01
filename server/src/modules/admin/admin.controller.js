@@ -1,6 +1,5 @@
 ﻿const bcrypt = require('bcryptjs');
 const { dbGet, dbAll, dbRun } = require('../../db');
-const { sendExpertApprovedEmail } = require('../../services/email.service');
 
 /* ─── GET /api/admin/stats ─── */
 async function getStats(req, res) {
@@ -259,16 +258,6 @@ async function approveApplication(req, res) {
 
     const ep = await dbGet('SELECT user_id FROM expert_profiles WHERE user_id = ?', req.params.id);
     if (!ep) await dbRun('INSERT INTO expert_profiles (user_id) VALUES (?)', req.params.id);
-
-    // Onay maili gönder (hata olsa bile isteği durdurmaz)
-    try {
-      await sendExpertApprovedEmail({
-        to:        user.email,
-        firstName: user.first_name,
-      });
-    } catch (mailErr) {
-      console.error('[admin/approve] Onay maili gönderilemedi:', mailErr.message);
-    }
 
     return res.json({ success: true, message: `${user.first_name} ${user.last_name} uzman olarak onaylandı.` });
   } catch (err) {

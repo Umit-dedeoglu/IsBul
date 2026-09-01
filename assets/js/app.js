@@ -960,81 +960,27 @@ function confirmBooking() {
   localStorage.setItem(REZ_KEY, JSON.stringify(rezList));
 
   // ── API'ye de gönder (varsa) ──
-  let apiBookingId = null;
   if (typeof IsbulAPI !== 'undefined') {
-    try {
-      const apiRes = await IsbulAPI.bookings.create({
-        expertId:      e.id,
-        service:       rezervasyon.service,
-        date:          rezervasyon.date,
-        endDate:       rezervasyon.endDate,
-        time:          rezervasyon.time,
-        endTime:       rezervasyon.endTime,
-        durationType:  rezervasyon.durationType,
-        durationValue: rezervasyon.durationValue,
-        durationLabel: rezervasyon.durationLabel,
-        totalPrice:    rezervasyon.totalPrice,
-        slots:         allSlots,
-        city:          rezervasyon.city,
-        notes:         rezervasyon.notes,
-      });
-      if (apiRes && apiRes.success && apiRes.booking?.id) {
-        apiBookingId = apiRes.booking.id;
-        // localStorage'daki kaydı backend id ile güncelle
-        bookingDB[rezId].apiBookingId = apiBookingId;
-        localStorage.setItem(BOOKING_DB_KEY, JSON.stringify(bookingDB));
-      }
-    } catch (err) {
-      console.warn('[API] Rezervasyon API kaydı başarısız:', err);
-    }
+    IsbulAPI.bookings.create({
+      expertId:      e.id,
+      service:       rezervasyon.service,
+      date:          rezervasyon.date,
+      endDate:       rezervasyon.endDate,
+      time:          rezervasyon.time,
+      endTime:       rezervasyon.endTime,
+      durationType:  rezervasyon.durationType,
+      durationValue: rezervasyon.durationValue,
+      durationLabel: rezervasyon.durationLabel,
+      totalPrice:    rezervasyon.totalPrice,
+      slots:         allSlots,
+      city:          rezervasyon.city,
+      notes:         rezervasyon.notes,
+    }).catch(err => console.warn('[API] Rezervasyon API kaydı başarısız:', err));
   }
 
   const timeRange = endStr
     ? `${startStr} ${bookingState.time} → ${endStr} ${bookingState.endTime}`
     : `${startStr} ${bookingState.time}`;
-
-  // ── Ödeme başlat (API booking ID varsa) ──
-  if (apiBookingId && typeof IsbulAPI !== 'undefined') {
-    body.innerHTML = `
-      <div style="text-align:center;padding:28px 0">
-        <div style="font-size:48px;margin-bottom:12px">💳</div>
-        <h3 style="font-size:18px;font-weight:900;margin-bottom:8px">Ödeme Sayfasına Yönlendiriliyorsunuz</h3>
-        <p style="font-size:14px;color:var(--text-muted);margin-bottom:16px">
-          Rezervasyonunuz alındı. Ödemeyi tamamlamak için iyzico güvenli ödeme sayfasına yönlendiriliyorsunuz.
-        </p>
-        <div class="spinner" style="width:36px;height:36px;border:4px solid #e2e8f0;border-top-color:#6C63FF;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto"></div>
-      </div>`;
-
-    try {
-      const payRes = await IsbulAPI.payments.initialize(apiBookingId);
-      if (payRes && payRes.success) {
-        if (payRes.checkoutFormContent) {
-          // İyzico inline form — modal içine render et
-          body.innerHTML = `
-            <div>
-              <h3 style="font-size:16px;font-weight:800;margin-bottom:16px;text-align:center">Güvenli Ödeme</h3>
-              <div id="iyzico-checkout-form" class="responsive">${payRes.checkoutFormContent}</div>
-            </div>`;
-          // iyzico script'lerini execute et
-          body.querySelectorAll('script').forEach(oldScript => {
-            const newScript = document.createElement('script');
-            if (oldScript.src) newScript.src = oldScript.src;
-            else newScript.textContent = oldScript.textContent;
-            document.head.appendChild(newScript);
-          });
-        } else if (payRes.paymentPageUrl) {
-          // Hosted ödeme sayfasına yönlendir
-          window.location.href = payRes.paymentPageUrl;
-        }
-        return;
-      } else {
-        console.warn('[ödeme] Başlatılamadı:', payRes?.error);
-        // Ödeme başlatılamazsa normal başarı ekranı göster
-      }
-    } catch (err) {
-      console.warn('[ödeme] Hata:', err);
-    }
-  }
 
   body.innerHTML = `
     <div style="text-align:center;padding:20px 0">
@@ -1134,20 +1080,11 @@ window.confirmBooking = confirmBooking;
       if (query) params.search = query;
       const apiExperts = await IsbulAPI.experts.list(params);
       if (apiExperts !== null) {
-        // API + localStorage realExperts + statik birleştir (uzmanlar.html ile aynı mantık)
-        const realExperts = typeof getRealExperts === 'function' ? getRealExperts() : [];
-        const apiIds      = new Set(apiExperts.map(e => e.id));
-        const realIds     = new Set(realExperts.map(e => e.id));
-        // API uzmanlarına categories normalize et
-        const normalizedApi = apiExperts.map(e => ({
-          ...e,
-          categories: e.categories?.length
-            ? e.categories
-            : (typeof tagsToCategoryList === 'function' ? tagsToCategoryList(e.tags || []) : []),
-        }));
-        const staticOnly  = TÜM_UZMANLAR.filter(e => !apiIds.has(e.id) && !realIds.has(e.id));
-        const realOnly    = realExperts.filter(e => !apiIds.has(e.id));
-        const allExperts  = [...realOnly, ...normalizedApi, ...staticOnly];
+        // API'den gelenleri statikle birleştir
+        const apiIds     = new Set(apiExperts.map(e => e.id));
+        const staticOnly = TÜM_UZMANLAR.filter(e => !apiIds.has(e.id));
+        const allExperts = [...apiExperts, ...staticOnly];
+        // renderExperts'e geç — önbelleği geçici doldur
         window._searchModalExperts = allExperts;
         renderExperts(query, city);
         return;

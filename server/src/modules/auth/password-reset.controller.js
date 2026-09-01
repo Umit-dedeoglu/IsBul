@@ -4,7 +4,6 @@
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const { dbGet, dbRun } = require('../../db');
-const { sendPasswordResetEmail } = require('../../services/email.service');
 
 /** POST /api/v1/auth/forgot-password */
 async function forgotPassword(req, res) {
@@ -14,7 +13,7 @@ async function forgotPassword(req, res) {
       return res.status(400).json({ success: false, error: 'E-posta adresi gerekli.' });
     }
 
-    const user = await dbGet('SELECT * FROM users WHERE email = ?', email);
+    const user = dbGet('SELECT * FROM users WHERE email = ?', email);
     if (!user) {
       // Güvenlik: Kullanıcı yoksa bile başarılı gibi davran (email enumeration önleme)
       return res.json({ 
@@ -28,26 +27,16 @@ async function forgotPassword(req, res) {
     const tokenId = 'prt_' + Date.now();
     const expiresAt = new Date(Date.now() + 60 * 60 * 1000); // 1 saat
 
-    await dbRun(
+    dbRun(
       'INSERT INTO password_reset_tokens (id, user_id, token, expires_at) VALUES (?, ?, ?, ?)',
       tokenId, user.id, token, expiresAt.toISOString()
     );
 
-    // Gerçek mail gönder
+    // Gerçek üretimde e-posta gönderilir (SendGrid, Mailgun)
+    // Şimdilik console'a yazdır
     const resetLink = `${process.env.FRONTEND_URL}/reset-password.html?token=${token}`;
-    try {
-      await sendPasswordResetEmail({
-        to:         user.email,
-        firstName:  user.first_name || user.firstName || '',
-        resetToken: token,
-      });
-    } catch (mailErr) {
-      console.error('[forgot-password] Mail gönderilemedi:', mailErr.message);
-      // Mail hatası isteği durdurmaz — loglarda görülebilir
-    }
-
-    // Development için token'ı da dön
-    console.log(`\n🔐 ŞİFRE SIFIRLAMA LİNKİ:\n   ${resetLink}\n`);
+    console.log('\n🔐 ŞİFRE SIFIRLAMA LİNKİ:');
+    console.log(`   ${resetLink}\n`);
 
     return res.json({ 
       success: true, 
@@ -75,7 +64,7 @@ async function resetPassword(req, res) {
     }
 
     // Token kontrolü
-    const resetToken = await dbGet(
+    const resetToken = dbGet(
       'SELECT * FROM password_reset_tokens WHERE token = ? AND used = 0 AND expires_at > ?',
       token, new Date().toISOString()
     );
@@ -89,10 +78,10 @@ async function resetPassword(req, res) {
 
     // Şifreyi güncelle
     const hashedPassword = await bcrypt.hash(newPassword, 10);
-    await dbRun('UPDATE users SET password_hash = ? WHERE id = ?', hashedPassword, resetToken.user_id);
+    dbRun('UPDATE users SET password_hash = ? WHERE id = ?', hashedPassword, resetToken.user_id);
 
     // Token'ı kullanılmış olarak işaretle
-    await dbRun('UPDATE password_reset_tokens SET used = 1 WHERE id = ?', resetToken.id);
+    dbRun('UPDATE password_reset_tokens SET used = 1 WHERE id = ?', resetToken.id);
 
     return res.json({ 
       success: true, 
@@ -119,12 +108,12 @@ async function verifyEmail(req, res) {
     const decoded = Buffer.from(token, 'base64').toString('utf-8');
     const [userId, timestamp] = decoded.split('|');
     
-    const user = await dbGet('SELECT * FROM users WHERE id = ?', userId);
+    const user = dbGet('SELECT * FROM users WHERE id = ?', userId);
     if (!user) {
       return res.status(400).json({ success: false, error: 'Geçersiz token.' });
     }
 
-    await dbRun('UPDATE users SET email_verified = 1 WHERE id = ?', userId);
+    dbRun('UPDATE users SET email_verified = 1 WHERE id = ?', userId);
 
     return res.json({ success: true, message: 'E-posta adresiniz doğrulandı!' });
   } catch (err) {
