@@ -458,12 +458,11 @@
       
       // Kategori dropdown'unu data.js'deki merkezi listeden doldur
       const categorySelect = document.getElementById('categorySelect');
-      const tagListesi = (typeof TÜM_KATEGORİ_TAGLERİ !== 'undefined' && TÜM_KATEGORİ_TAGLERİ.length > 0)
-        ? TÜM_KATEGORİ_TAGLERİ
-        : (typeof UZMANLIK_KATEGORILERI !== 'undefined' ? UZMANLIK_KATEGORILERI : []);
-      
-      console.log('[Uzman Panel] Kategori listesi yüklendi:', tagListesi);
-      
+      const tagListesi = typeof T�M_KATEGOR�_TAGLER� !== 'undefined'
+        ? T�M_KATEGOR�_TAGLER�
+        : typeof UZMANLIK_KATEGORILERI !== 'undefined'
+          ? UZMANLIK_KATEGORILERI
+          : [];
       tagListesi.forEach(cat => {
         const opt = document.createElement('option');
         opt.value = cat;
