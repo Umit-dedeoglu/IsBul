@@ -30,14 +30,14 @@ const KATEGORİLER = [
     label: 'Tadilat & Dekorasyon',
     icon: '🏗️',
     desc: 'Boya, alçı, duvar kağıdı',
-    tags: ['Boya Badana', 'İç Cephe Boyama', 'Dış Cephe Boyama', 'Duvar Kağıdı', 'Alçıpan', 'Asma Tavan', 'Dekoratif Boya', 'Alçı Süsleme']
+    tags: ['Boya', 'Tadilat', 'Boya Badana', 'İç Cephe Boyama', 'Dış Cephe Boyama', 'Duvar Kağıdı', 'Alçıpan', 'Asma Tavan', 'Dekoratif Boya', 'Alçı Süsleme']
   },
   {
     cat: 'elektrik',
     label: 'Elektrik İşleri',
     icon: '⚡',
     desc: 'Elektrik tesisatı, arıza, montaj',
-    tags: ['Elektrik Tesisatı', 'Priz Montajı', 'Elektrik Arızası', 'Aydınlatma Montajı', 'Elektrik Pano İşleri', 'Jeneratör İşleri', 'Sigorta Takviyesi', 'LED Montajı']
+    tags: ['Elektrik', 'Elektrik Tesisatı', 'Priz Montajı', 'Elektrik Arızası', 'Aydınlatma Montajı', 'Elektrik Pano İşleri', 'Jeneratör İşleri', 'Sigorta Takviyesi', 'LED Montajı']
   },
   {
     cat: 'tesisat',
