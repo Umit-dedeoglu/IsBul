@@ -250,15 +250,8 @@
 
         <div class="sidebar-card">
           <div class="sidebar-card__title">Kategoriler</div>
-          <ul class="sidebar-list">
-            <li><a href="uzmanlar.html?kategori=montaj" class="sidebar-link" data-cat="montaj">🔧 Mobilya Montajı <span>24 uzman</span></a></li>
-            <li><a href="uzmanlar.html?kategori=temizlik" class="sidebar-link" data-cat="temizlik">🧹 Ev Temizliği <span>38 uzman</span></a></li>
-            <li><a href="uzmanlar.html?kategori=nakliyat" class="sidebar-link" data-cat="nakliyat">🚚 Nakliyat <span>15 uzman</span></a></li>
-            <li><a href="uzmanlar.html?kategori=elektrik" class="sidebar-link" data-cat="elektrik">⚡ Elektrikçi <span>19 uzman</span></a></li>
-            <li><a href="uzmanlar.html?kategori=tesisat" class="sidebar-link" data-cat="tesisat">🔧 Tesisatçı <span>22 uzman</span></a></li>
-            <li><a href="uzmanlar.html?kategori=boya" class="sidebar-link" data-cat="boya">🎨 Boyacı <span>17 uzman</span></a></li>
-            <li><a href="uzmanlar.html?kategori=bahce" class="sidebar-link" data-cat="bahce">🌱 Bahçe <span>11 uzman</span></a></li>
-            <li><a href="uzmanlar.html?kategori=diger" class="sidebar-link" data-cat="diger">🛠️ Diğer <span>46 uzman</span></a></li>
+          <ul class="sidebar-list" id="categoryList">
+            <!-- Kategoriler data.js'den dinamik yüklenecek -->
           </ul>
         </div>
 
@@ -655,6 +648,26 @@
   <script src="assets/js/chatbot.js"></script>
   <script src="/assets/js/pwa.js" defer></script>
   <script src="/assets/js/mobile-nav.js" defer></script>
+
+  <script>
+    // Kategorileri dinamik yükle
+    document.addEventListener('DOMContentLoaded', () => {
+      const categoryList = document.getElementById('categoryList');
+      if (categoryList && typeof KATEGORİLER !== 'undefined') {
+        categoryList.innerHTML = KATEGORİLER.map(kat => `
+          <li>
+            <a href="uzmanlar.html?kategori=${kat.cat}" class="sidebar-link" data-cat="${kat.cat}">
+              ${kat.icon} ${kat.label}
+              <span>-</span>
+            </a>
+          </li>
+        `).join('');
+      }
+      
+      // Mevcut filtreler çalışmaya devam etsin
+      if (typeof initServiceFilter === 'function') initServiceFilter();
+    });
+  </script>
 
   <!-- FOOTER -->
   <div id="footer-container"></div>
