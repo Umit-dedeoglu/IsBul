@@ -74,25 +74,14 @@ function loadCategorySidebar(containerId = 'categoryList') {
 // Kategori için renk seç
 function getColorForCategory(cat) {
   const colors = {
-    temizlik: '#fce7f3',
-    nakliyat: '#fef3c7',
-    tadilat: '#fce7f3',
-    elektrik: '#fef9c3',
-    tesisat: '#e0f2fe',
-    'mobilya-montaj': '#ede9ff',
-    'beyaz-esya': '#f0fdf4',
-    klima: '#dbeafe',
-    'zemin-kaplama': '#ecfdf5',
-    'cam-balkon': '#e0f2fe',
-    bahce: '#dcfce7',
-    cilingir: '#f5f3ff',
-    'perde-stor': '#ede9ff',
-    'uydu-anten': '#dbeafe',
-    'kalorifer-petek': '#fed7aa',
-    yalitim: '#e0e7ff',
-    'kapı-pencere': '#fce7f3',
-    'hasar-onarim': '#fef3c7',
-    diger: '#f3f4f6'
+    temizlik: '#e0f2fe', // soft blue
+    tadilat: '#fef3c7',  // soft yellow/orange
+    nakliyat: '#ede9ff', // soft purple
+    elektrik: '#fef9c3', // soft yellow
+    tesisat: '#dbeafe',  // soft sky blue
+    montaj: '#ecfdf5',   // soft green
+    egitim: '#e0e7ff',   // soft indigo
+    diger: '#f3f4f6'     // soft gray
   };
   return colors[cat] || '#f3f4f6';
 }
