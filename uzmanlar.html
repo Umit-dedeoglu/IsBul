@@ -326,32 +326,54 @@
         return;
       }
 
-      grid.innerHTML = list.map(e => {
+      let topBanner = '';
+      if (typeof KATEGORİLER !== 'undefined' && searchVal) {
+        const foundKat = KATEGORİLER.find(k => k.label.toLocaleLowerCase('tr-TR').includes(searchVal));
+        if (foundKat) {
+          topBanner = `<div style="grid-column:1/-1;background:var(--primary);color:#fff;border-radius:12px;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <span style="font-size:24px">${foundKat.icon}</span>
+              <div>
+                <h3 style="margin:0;font-size:18px;font-weight:700">${foundKat.label} Kategorisi</h3>
+                <p style="margin:4px 0 0;font-size:14px;opacity:0.9">${foundKat.desc}</p>
+              </div>
+            </div>
+            <a href="hizmetler.html" style="background:#fff;color:var(--primary);padding:8px 16px;border-radius:20px;font-weight:600;text-decoration:none;font-size:14px">Hizmetlere Git</a>
+          </div>`;
+        }
+      }
+
+      grid.innerHTML = topBanner + list.map(e => {
         const init      = e.avatar || (e.name||'').split(' ').map(w=>w[0]).join('').slice(0,2);
         const stars     = '⭐'.repeat(Math.round(e.rating||5)) + '☆'.repeat(5-Math.round(e.rating||5));
         const realBadge = e.isRealUser
           ? '<span style="background:#d1fae5;color:#065f46;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;margin-left:6px">✅ Kayıtlı</span>'
           : '';
+          
+        const hasService = e.tags && e.tags.length > 0;
+        const tagsHtml = hasService ? e.tags.slice(0,3).map(t=>`<span>${t}</span>`).join('') : `<span style="background:#fee2e2;color:#991b1b">Hizmet Belirtilmemiş</span>`;
+        const rezBtn = hasService ? `<button onclick="openBookingModal('${e.id}','${(heroLabel||e.title||'').replace(/'/g,"\\'")}')">Rezervasyon</button>` : '';
+
         return `
           <div class="expert-card-full">
             <div class="expert-card-full__header">
               <div class="ecf-avatar" style="background:${e.color||'#6C63FF'}">${init}</div>
               <div class="ecf-info">
                 <div class="ecf-name">${e.name}${e.elite ? '<span class="ecf-elite">🏆 Elite</span>' : ''}${realBadge}</div>
-                <div class="ecf-title">${e.title||''}</div>
+                <div class="ecf-title">${e.title||'Uzman'}</div>
                 <div class="ecf-rating">⭐ ${e.rating||5} <span style="color:var(--text-muted);font-size:11px">(${e.reviews||0} yorum)${e.experience ? ' · ' + e.experience : ''}</span></div>
                 <div class="ecf-city">📍 ${e.city||''}</div>
               </div>
             </div>
             <div class="expert-card-full__tags">
-              ${(e.tags||[]).slice(0,3).map(t=>`<span>${t}</span>`).join('')}
+              ${tagsHtml}
             </div>
-            <div class="expert-card-full__bio">${e.bio||''}</div>
+            <div class="expert-card-full__bio">${e.bio||(hasService ? '' : 'Bu uzman henüz hizmet kategorilerini belirlememiş.')}</div>
             <div class="expert-card-full__footer">
               <div class="ecf-price">₺${e.price||0}<span>/saat</span></div>
               <div class="ecf-actions">
                 <a href="uzman-profil.html?id=${e.id}">Profil</a>
-                <button onclick="openBookingModal('${e.id}','${(heroLabel||e.title||'').replace(/'/g,"\\'")}')">Rezervasyon</button>
+                ${rezBtn}
               </div>
             </div>
           </div>`;
