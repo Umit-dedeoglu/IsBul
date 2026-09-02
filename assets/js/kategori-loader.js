@@ -109,8 +109,6 @@ if (typeof document !== 'undefined') {
       loadCategoryTabs();
     } else if (path.includes('uzmanlar.html')) {
       loadCategorySidebar();
-    } else if (path.includes('uzman-panel.html')) {
-      loadCategorySelect();
     }
   });
 }
