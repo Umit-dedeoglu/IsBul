@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    İşBul – Veri Tabanı (data.js)
    ============================================================ */
 
@@ -13,136 +13,109 @@
 const KATEGORİLER = [
   {
     cat: 'temizlik',
-    label: 'Temizlik Hizmetleri',
+    label: 'Temizlik',
     icon: '🧹',
-    desc: 'Ev, ofis, derin temizlik',
-    tags: ['Temizlik', 'Ev Temizliği', 'Ofis Temizliği', 'Derin Temizlik', 'Cam Silme', 'Halı Yıkama', 'Koltuk Yıkama', 'Perde Yıkama']
-  },
-  {
-    cat: 'nakliyat',
-    label: 'Nakliyat & Taşımacılık',
-    icon: '🚚',
-    desc: 'Evden eve, ofis, eşya taşıma',
-    tags: ['Nakliyat', 'Taşıma', 'Evden Eve Nakliyat', 'Ofis Taşıma', 'Eşya Taşıma', 'Asansörlü Taşıma', 'Parça Eşya Taşıma', 'Şehir İçi Taşıma', 'Şehirler Arası Taşıma']
+    desc: 'Ev, ofis, koltuk ve dış cephe',
+    tags: ['Ev Temizliği', 'Ofis Temizliği', 'İnşaat Sonrası Temizlik', 'Koltuk Yıkama', 'Halı Yıkama', 'Dış Cephe Cam Temizliği'],
+    subCategories: [
+      { id: 'ev-temizligi', label: 'Ev Temizliği', icon: '🏠', desc: 'Haftalık ve aylık rutin ev temizliği. Tüm odalar, mutfak ve banyo dahil.', price: '300', hot: true },
+      { id: 'ofis-temizligi', label: 'Ofis Temizliği', icon: '🏢', desc: 'Açık ofis, toplantı odası, mutfak ve tuvaletlerin düzenli olarak temizlenmesi.', price: '400' },
+      { id: 'insaat-sonrasi', label: 'İnşaat Sonrası Temizlik', icon: '🏗️', desc: 'Tadilat veya inşaat sonrası boya, harç ve toz kalıntılarının temizlenmesi.', price: '600' },
+      { id: 'koltuk-yikama', label: 'Koltuk & Halı Yıkama', icon: '🛋️', desc: 'Makineli yıkama ve buharlı temizleme ile koltuk, halı ve kilimler yenileniyor.', price: '350' },
+      { id: 'dis-cephe', label: 'Dış Cephe Cam Temizliği', icon: '🪟', desc: 'Plaza ve yüksek binalar için profesyonel dış cephe cam temizliği.', price: '1000' }
+    ]
   },
   {
     cat: 'tadilat',
     label: 'Tadilat & Dekorasyon',
     icon: '🏗️',
-    desc: 'Boya, alçı, duvar kağıdı',
-    tags: ['Boya', 'Tadilat', 'Boya Badana', 'İç Cephe Boyama', 'Dış Cephe Boyama', 'Duvar Kağıdı', 'Alçıpan', 'Asma Tavan', 'Dekoratif Boya', 'Alçı Süsleme']
+    desc: 'Boya, alçı, fayans, yalıtım',
+    tags: ['Boya Badana', 'Fayans Seramik', 'Mutfak Banyo Tadilatı', 'Alçıpan', 'Çatı Tamiri', 'Mantolama İzolasyon'],
+    subCategories: [
+      { id: 'boya-badana', label: 'Boya Badana', icon: '🎨', desc: 'Oda, salon ve tüm iç mekan boya işleri. Alçı düzeltme ve badana dahil.', price: '400', hot: true },
+      { id: 'fayans-seramik', label: 'Fayans & Seramik', icon: '🪨', desc: 'Mutfak, banyo ve zemin için seramik döşeme ve parke kaplama hizmetleri.', price: '500' },
+      { id: 'mutfak-banyo', label: 'Mutfak & Banyo Tadilatı', icon: '🛁', desc: 'Komple banyo veya mutfak yenileme, dolap, tesisat ve fayans işleri.', price: '2000' },
+      { id: 'alcipan', label: 'Alçıpan & Asma Tavan', icon: '🏠', desc: 'Bölme duvar, asma tavan, led spot ve niş uygulamaları.', price: '800' },
+      { id: 'izolasyon', label: 'Mantolama & İzolasyon', icon: '🛡️', desc: 'Isı, ses ve su yalıtımı işlemleri. Dış cephe mantolama.', price: '1500' }
+    ]
   },
   {
-    cat: 'elektrik',
-    label: 'Elektrik İşleri',
-    icon: '⚡',
-    desc: 'Elektrik tesisatı, arıza, montaj',
-    tags: ['Elektrik', 'Elektrik Tesisatı', 'Priz Montajı', 'Elektrik Arızası', 'Aydınlatma Montajı', 'Elektrik Pano İşleri', 'Jeneratör İşleri', 'Sigorta Takviyesi', 'LED Montajı']
+    cat: 'nakliyat',
+    label: 'Nakliyat & Taşıma',
+    icon: '🚚',
+    desc: 'Evden eve, parça eşya, depolama',
+    tags: ['Evden Eve Nakliyat', 'Şehirler Arası Nakliyat', 'Parça Eşya Taşıma', 'Nakliye Aracı', 'Depolama'],
+    subCategories: [
+      { id: 'evden-eve', label: 'Evden Eve Nakliyat', icon: '📦', desc: 'Büyük-küçük ev taşımaları. Ambalajlama, yükleme, taşıma ve yerleştirme dahil.', price: '1000', hot: true },
+      { id: 'sehirler-arasi', label: 'Şehirler Arası Nakliye', icon: '🛣️', desc: 'Türkiye geneli güvenli ve sigortalı şehirler arası eşya taşıma.', price: '5000' },
+      { id: 'parca-esya', label: 'Parça Eşya Taşıma', icon: '🪑', desc: 'Az miktarda veya tek parça eşya (beyaz eşya, koltuk vb.) taşıma.', price: '400' },
+      { id: 'nakliye-araci', label: 'Sadece Nakliye Aracı', icon: '🚛', desc: 'Sadece şoförlü araç kiralama (yükleme dahil değil).', price: '600' }
+    ]
   },
   {
     cat: 'tesisat',
-    label: 'Tesisat İşleri',
+    label: 'Tesisat & Bakım',
     icon: '🔧',
-    desc: 'Su, doğalgaz, kalorifer',
-    tags: ['Tesisat', 'Tesisatçı', 'Su Tesisatı', 'Doğalgaz Tesisatı', 'Kalorifer Tesisatı', 'Tıkanıklık Açma', 'Musluk Tamiri', 'Kombi Bakımı', 'Sıhhi Tesisat', 'Petek Temizliği']
+    desc: 'Su tesisatı, tıkanıklık, doğalgaz',
+    tags: ['Su Tesisatı', 'Tıkanıklık Açma', 'Petek Temizleme', 'Doğalgaz Tesisatı', 'Su Kaçağı Tespiti'],
+    subCategories: [
+      { id: 'su-tesisati', label: 'Su Tesisatı', icon: '💧', desc: 'Musluk, sifon, duş başlığı değişimi ve genel su tesisatı arızaları.', price: '300' },
+      { id: 'tikaniklik', label: 'Tıkanıklık Açma', icon: '🪠', desc: 'Lavabo, tuvalet, mutfak gideri ve ana logar tıkanıklıklarının açılması.', price: '450', hot: true },
+      { id: 'petek-temizleme', label: 'Petek Temizleme', icon: '🔥', desc: 'Kalorifer peteklerinin makine ile içinin temizlenip ısınma veriminin artırılması.', price: '350' },
+      { id: 'dogalgaz', label: 'Doğalgaz Tesisatı', icon: '🔥', desc: 'Doğalgaz boru çekimi, ocak dönüşümü ve tesisat proje işleri.', price: '500' }
+    ]
   },
   {
-    cat: 'mobilya-montaj',
-    label: 'Mobilya Montajı',
+    cat: 'elektrik',
+    label: 'Elektrik & Elektronik',
+    icon: '⚡',
+    desc: 'Arıza, klima, beyaz eşya, kamera',
+    tags: ['Elektrik Arıza', 'Klima Servisi', 'Beyaz Eşya Servisi', 'Güvenlik Sistemleri', 'Uydu Anten'],
+    subCategories: [
+      { id: 'elektrik-ariza', label: 'Elektrik Arıza & Montaj', icon: '🔌', desc: 'Priz, anahtar, şalter arızaları, aydınlatma ve avize montajı.', price: '250', hot: true },
+      { id: 'klima-servisi', label: 'Klima Servisi', icon: '❄️', desc: 'Klima montajı, gaz dolumu, filtre temizliği ve arıza onarımı.', price: '400' },
+      { id: 'beyaz-esya', label: 'Beyaz Eşya Servisi', icon: '🧺', desc: 'Çamaşır, bulaşık makinesi ve buzdolabı arızaları.', price: '350' },
+      { id: 'kamera', label: 'Kamera & Güvenlik', icon: '📹', desc: 'Ev ve iş yerleri için güvenlik kamerası, alarm sistemleri kurulumu.', price: '700' }
+    ]
+  },
+  {
+    cat: 'montaj',
+    label: 'Montaj & Tamirat',
     icon: '🪛',
-    desc: 'Mobilya kurulum, dolap, raf',
-    tags: ['Mobilya Montajı', 'Montaj', 'Dolap Montajı', 'Gardırop Montajı', 'Yatak Montajı', 'Raf Montajı', 'Masa Montajı', 'Mutfak Dolapları', 'Vestiyer']
+    desc: 'Mobilya, TV, perde, kilit',
+    tags: ['Mobilya Montajı', 'TV Montajı', 'Perde Montajı', 'Çilingir', 'Kapı Pencere Tamiri'],
+    subCategories: [
+      { id: 'mobilya-montaj', label: 'Mobilya Montajı', icon: '🪑', desc: 'IKEA, Koçtaş, Bellona vb. hazır mobilyaların ve dolapların kurulumu.', price: '250', hot: true },
+      { id: 'tv-montaji', label: 'TV Montajı', icon: '📺', desc: 'Her boyda televizyonun duvara veya üniteye güvenli montajı.', price: '200' },
+      { id: 'perde-montaji', label: 'Perde & Korniş Montajı', icon: '🪟', desc: 'Korniş çekilmesi, stor ve zebra perde montajı.', price: '150' },
+      { id: 'cilingir', label: 'Çilingir & Kilit', icon: '🔑', desc: 'Kapı kilit değişimi, kasa açma, oto çilingir hizmetleri.', price: '250' }
+    ]
   },
   {
-    cat: 'beyaz-esya',
-    label: 'Beyaz Eşya Servisi',
-    icon: '🔌',
-    desc: 'Beyaz eşya tamir, montaj',
-    tags: ['Beyaz Eşya Tamiri', 'Çamaşır Makinesi Tamiri', 'Bulaşık Makinesi Tamiri', 'Buzdolabı Tamiri', 'Fırın Tamiri', 'Ankastre Montajı']
-  },
-  {
-    cat: 'klima',
-    label: 'Klima & Kombi',
-    icon: '❄️',
-    desc: 'Klima montaj, bakım, servis',
-    tags: ['Klima', 'Klima Montajı', 'Klima Bakımı', 'Klima Tamiri', 'Klima Gazı Dolumu', 'Kombi', 'Kombi Montajı', 'Kombi Bakımı', 'Kombi Tamiri']
-  },
-  {
-    cat: 'zemin-kaplama',
-    label: 'Zemin Kaplama',
-    icon: '🏠',
-    desc: 'Parke, laminat, seramik',
-    tags: ['Parke Döşeme', 'Laminat Döşeme', 'Seramik Döşeme', 'Fayans Döşeme', 'Granit Döşeme', 'Mermer Döşeme', 'Vinil Döşeme', 'Halıfleks']
-  },
-  {
-    cat: 'cam-balkon',
-    label: 'Cam & PVC',
-    icon: '🪟',
-    desc: 'Cam balkon, pencere, pvc',
-    tags: ['Cam Balkon', 'PVC Pencere', 'Alüminyum Doğrama', 'Cam Filmi', 'Pencere Tamiri', 'Sineklik Montajı', 'Jaluzi', 'Panjur']
-  },
-  {
-    cat: 'bahce',
-    label: 'Bahçe & Peyzaj',
-    icon: '🌳',
-    desc: 'Bahçe bakımı, çim, budama',
-    tags: ['Bahçe', 'Bahçe Bakımı', 'Çim Biçme', 'Ağaç Budama', 'Peyzaj Düzenleme', 'Sulama Sistemi', 'Çit Çekme', 'Toprak İşleme', 'Gübreleme']
-  },
-  {
-    cat: 'cilingir',
-    label: 'Çilingir',
-    icon: '🔑',
-    desc: 'Kapı açma, kilit değişimi',
-    tags: ['Çilingir', 'Kapı Açma', 'Kilit Değişimi', 'Anahtar Çoğaltma', 'Oto Kilit Açma', 'Elektronik Kilit', 'Kale Kilit', 'Kilit Tamiri']
-  },
-  {
-    cat: 'perde-stor',
-    label: 'Perde & Stor',
-    icon: '🪟',
-    desc: 'Perde montaj, stor perde',
-    tags: ['Perde Montajı', 'Stor Perde', 'Jaluzi', 'Tül Montajı', 'Zebra Perde', 'Dikey Perde', 'Panel Perde', 'Perde Yıkama']
-  },
-  {
-    cat: 'uydu-anten',
-    label: 'Uydu & Anten',
-    icon: '📡',
-    desc: 'Uydu, anten, sinyal',
-    tags: ['Uydu Kurulumu', 'Çanak Anten', 'Anten Montajı', 'Sinyal Ayarı', 'Uydu Tamiri', 'Merkezi Uydu', 'Kablo TV']
-  },
-  {
-    cat: 'kalorifer-petek',
-    label: 'Kalorifer & Petek',
-    icon: '🔥',
-    desc: 'Petek, kalorifer, temizlik',
-    tags: ['Kalorifer Tesisatı', 'Petek Temizliği', 'Petek Değişimi', 'Radyatör Bakımı', 'Kalorifer Kazan', 'Yerden Isıtma']
-  },
-  {
-    cat: 'yalitim',
-    label: 'Yalıtım İşleri',
-    icon: '🛡️',
-    desc: 'Isı, ses, su yalıtımı',
-    tags: ['Isı Yalıtımı', 'Ses Yalıtımı', 'Su Yalıtımı', 'Çatı Yalıtımı', 'Zemin Yalıtımı', 'Mantolama']
-  },
-  {
-    cat: 'kapı-pencere',
-    label: 'Kapı & Pencere',
-    icon: '🚪',
-    desc: 'Kapı montaj, pencere tamir',
-    tags: ['Kapı Montajı', 'Pencere Montajı', 'Kapı Tamiri', 'Menteşe Değişimi', 'Eşik Montajı', 'Otomatik Kapı', 'Çelik Kapı']
-  },
-  {
-    cat: 'hasar-onarim',
-    label: 'Hasar Onarımı',
-    icon: '🔨',
-    desc: 'Tamir, bakım, onarım',
-    tags: ['Duvar Tamiri', 'Fayans Tamiri', 'Sıva Tamiri', 'Çatı Tamiri', 'Nem Sorunu', 'Su Kaçağı', 'Boya Rötuşu']
+    cat: 'egitim',
+    label: 'Özel Ders & Eğitim',
+    icon: '📚',
+    desc: 'Okul destek, dil, direksiyon',
+    tags: ['İngilizce Özel Ders', 'Matematik Özel Ders', 'Direksiyon Dersi', 'Müzik Dersi'],
+    subCategories: [
+      { id: 'ingilizce', label: 'İngilizce Özel Ders', icon: '🇬🇧', desc: 'Her seviyeye uygun okul destek ve konuşma odaklı İngilizce özel ders.', price: '400' },
+      { id: 'matematik', label: 'Matematik Özel Ders', icon: '📐', desc: 'İlkokuldan üniversiteye hazırlık seviyesine kadar matematik dersi.', price: '450', hot: true },
+      { id: 'direksiyon', label: 'Direksiyon Dersi', icon: '🚗', desc: 'Manuel ve otomatik vitesli araçlarla, trafikte pratik direksiyon eğitimi.', price: '350' },
+      { id: 'muzik', label: 'Müzik & Enstrüman', icon: '🎸', desc: 'Gitar, piyano, keman vb. enstrümanlar için özel ders.', price: '300' }
+    ]
   },
   {
     cat: 'diger',
     label: 'Diğer Hizmetler',
     icon: '🛠️',
-    desc: 'Listelenmeyen hizmetler',
-    tags: ['Saksı Taşıma', 'Resim Asma', 'Tablo Montajı', 'Ayna Asma', 'Banyo Aksesuarları', 'Havlu Askısı', 'Raflar', 'TV Ünitesi Montajı']
+    desc: 'İlaçlama, bahçe, kurye, ekspertiz',
+    tags: ['Böcek İlaçlama', 'Bahçe Bakımı', 'Kurye Hizmeti', 'Oto Ekspertiz', 'Fotoğraf Çekimi'],
+    subCategories: [
+      { id: 'bocek-ilaclama', label: 'Böcek İlaçlama', icon: '🕷️', desc: 'Ev, işyeri, apartman vb. alanlarda hamamböceği, pire, fare vb. ilaçlama.', price: '350', hot: true },
+      { id: 'bahce-bakimi', label: 'Bahçe Bakımı & Peyzaj', icon: '🌳', desc: 'Çim biçme, ağaç budama, peyzaj düzenleme ve otomatik sulama sistemleri.', price: '400' },
+      { id: 'kurye', label: 'Moto Kurye', icon: '🛵', desc: 'Acil evrak ve paket teslimatları için şehir içi hızlı moto kurye hizmeti.', price: '150' },
+      { id: 'oto-ekspertiz', label: 'Oto Ekspertiz & Çekici', icon: '🚘', desc: 'Mobil oto ekspertiz, araç kurtarma ve oto çekici hizmeti.', price: '750' }
+    ]
   }
 ];
 

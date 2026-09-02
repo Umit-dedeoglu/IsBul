@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    İşBul – Ana JavaScript Dosyası  (v5)
    ============================================================ */
 'use strict';
@@ -1162,32 +1162,30 @@ window.confirmBooking = confirmBooking;
 
 /* ---------- 10. HİZMETLER FİLTRE ---------- */
 (function initServiceFilter() {
-  const tabs  = document.querySelectorAll('.filter-tab[data-cat]');
-  if (!tabs.length) return;
-
-  function getCards() {
-    return document.querySelectorAll('.service-card-v2[data-cat]');
-  }
-
   function applyFilters() {
-    const activeCat = document.querySelector('.filter-tab.active')?.dataset.cat || 'all';
+    const activeLink = document.querySelector('.sidebar-cat-link.active');
+    const activeCat = activeLink ? activeLink.dataset.cat : 'all';
+    
+    // First, regenerate the cards for this category using the data
+    if (typeof renderSubCategoryCards === 'function') {
+      renderSubCategoryCards(activeCat, 'servicesgrid');
+    }
+
     const maxPrice  = parseInt(document.getElementById('priceRange')?.value || '99999');
     const minRating = parseFloat(document.querySelector('.rating-filter.active')?.dataset.min || '0');
-    const cards = getCards();
+    const cards = document.querySelectorAll('#servicesgrid .service-card-v2');
     let count = 0;
 
     cards.forEach(card => {
-      // fade-up / visible state'ini temizle — filtre display ile çalışsın
       card.classList.remove('fade-up');
       card.style.opacity = '';
       card.style.transform = '';
 
-      const catMatch    = activeCat === 'all' || card.dataset.cat === activeCat;
       const cardPrice   = parseInt(card.dataset.price || '99999');
       const priceMatch  = cardPrice <= maxPrice;
       const cardRating  = parseFloat(card.dataset.rating || '5');
       const ratingMatch = cardRating >= minRating;
-      const show = catMatch && priceMatch && ratingMatch;
+      const show = priceMatch && ratingMatch;
 
       card.style.display = show ? '' : 'none';
       if (show) count++;
@@ -1197,12 +1195,16 @@ window.confirmBooking = confirmBooking;
     if (rc) rc.textContent = count;
   }
 
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      tabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
+  // Event Delegation for dynamic sidebar links
+  document.addEventListener('click', e => {
+    const link = e.target.closest('.sidebar-cat-link');
+    if (link) {
+      e.preventDefault();
+      document.querySelectorAll('.sidebar-cat-link').forEach(t => t.classList.remove('active'));
+      link.classList.add('active');
       applyFilters();
-    });
+      window.scrollTo({ top: document.getElementById('servicesgrid')?.offsetTop - 120 || 0, behavior: 'smooth' });
+    }
   });
 
   // Fiyat aralığı
@@ -1229,7 +1231,7 @@ window.confirmBooking = confirmBooking;
   const sortSel = document.getElementById('sortSelect');
   if (sortSel) {
     sortSel.addEventListener('change', () => {
-      const grid = document.getElementById('servicesGrid');
+      const grid = document.getElementById('servicesgrid');
       if (!grid) return;
       const items = [...grid.querySelectorAll('.service-card-v2')].filter(c => c.style.display !== 'none');
       items.sort((a, b) => {
@@ -1251,17 +1253,6 @@ window.confirmBooking = confirmBooking;
     });
   });
 
-  // Sidebar link → tab
-  document.querySelectorAll('.sidebar-link').forEach(link => {
-    link.addEventListener('click', e => {
-      e.preventDefault();
-      const cat = link.dataset.cat;
-      const matchTab = document.querySelector(`.filter-tab[data-cat="${cat}"]`);
-      if (matchTab) matchTab.click();
-      window.scrollTo({ top: document.getElementById('servicesGrid')?.offsetTop - 120 || 0, behavior: 'smooth' });
-    });
-  });
-
   // İlk yüklemede applyFilters'ı biraz gecikmeli çalıştır — DOM tam render olsun
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
@@ -1276,17 +1267,24 @@ window.confirmBooking = confirmBooking;
   const cards = document.querySelectorAll('.service-card-v2');
   if (!inp || !cards.length) return;
   inp.addEventListener('input', () => {
-    const val = inp.value.trim().toLowerCase();
+    const val = inp.value.trim().toLocaleLowerCase('tr-TR');
     let count = 0;
     cards.forEach(card => {
-      const h3 = card.querySelector('h3')?.textContent.toLowerCase() || '';
-      const p  = card.querySelector('p')?.textContent.toLowerCase()  || '';
+      const h3 = card.querySelector('h3')?.textContent.toLocaleLowerCase('tr-TR') || '';
+      const p  = card.querySelector('p')?.textContent.toLocaleLowerCase('tr-TR')  || '';
       const show = !val || h3.includes(val) || p.includes(val);
       card.style.display = show ? '' : 'none';
       if (show) count++;
     });
     const rc = document.getElementById('resultCount');
     if (rc) rc.textContent = count;
+  });
+
+  inp.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      const q = inp.value.trim();
+      if (q) window.location.href = `uzmanlar.html?arama=${encodeURIComponent(q)}`;
+    }
   });
 })();
 

@@ -4,80 +4,70 @@
  * data.js'deki KATEGORİLER array'ini kullanır
  */
 
+function renderSubCategoryCards(filterCat = 'all', containerId = 'servicesgrid') {
+  const container = document.getElementById(containerId);
+  if (!container || typeof KATEGORİLER === 'undefined') return;
+
+  let subCats = [];
+  if (filterCat === 'all') {
+    subCats = KATEGORİLER.flatMap(k => (k.subCategories || []).map(sc => ({...sc, parentCat: k.cat})));
+  } else {
+    const kat = KATEGORİLER.find(k => k.cat === filterCat);
+    if (kat && kat.subCategories) {
+      subCats = kat.subCategories.map(sc => ({...sc, parentCat: kat.cat}));
+    }
+  }
+
+  container.innerHTML = subCats.map(sc => `
+    <div class="service-card-v2" style="cursor:pointer" 
+         onclick="window.location='uzmanlar.html?kategori=${encodeURIComponent(sc.label)}'" 
+         data-cat="${sc.parentCat}" data-price="${sc.price}" data-rating="4.9">
+      <div class="service-card-v2__thumb" style="background:${getColorForCategory(sc.parentCat)}">
+        ${sc.icon}
+        ${sc.hot ? '<span class="service-card-v2__badge service-card-v2__badge--hot">Popüler</span>' : ''}
+      </div>
+      <div class="service-card-v2__body">
+        <h3>${sc.label}</h3>
+        <p>${sc.desc}</p>
+        <div class="service-card-v2__meta">
+          <div class="service-meta-left">
+            <div class="price-tag">₺${sc.price}'den başlar</div>
+            <div class="rating-tag"><span>⭐</span> 4.9+</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  const rc = document.getElementById('resultCount');
+  if (rc) rc.textContent = subCats.length;
+}
+
 // Kategorileri sidebar'a yükle (hizmetler.html, uzmanlar.html)
 function loadCategorySidebar(containerId = 'categoryList') {
   const container = document.getElementById(containerId);
   if (!container || typeof KATEGORİLER === 'undefined') return;
 
-  container.innerHTML = KATEGORİLER.map(kat => `
+  container.innerHTML = `
     <li>
-      <a href="uzmanlar.html?kategori=${kat.cat}" data-cat="${kat.cat}">
+      <a href="#" class="sidebar-cat-link active" data-cat="all">
+        <span style="display:flex;align-items:center;gap:8px">
+          <span style="font-size:18px">🌍</span>
+          Tüm Hizmetler
+        </span>
+        <span>${KATEGORİLER.reduce((acc,k)=>acc+(k.subCategories?.length||0),0)}</span>
+      </a>
+    </li>
+  ` + KATEGORİLER.map(kat => `
+    <li>
+      <a href="#" class="sidebar-cat-link" data-cat="${kat.cat}">
         <span style="display:flex;align-items:center;gap:8px">
           <span style="font-size:18px">${kat.icon}</span>
           ${kat.label}
         </span>
-        <span>${kat.tags.length}</span>
+        <span>${kat.subCategories?.length || 0}</span>
       </a>
     </li>
-  `).join('');
-}
-
-// Kategorileri filtre tab'larına yükle (hizmetler.html üst kısım)
-function loadCategoryTabs(containerId = 'filterTabs') {
-  const container = document.getElementById(containerId);
-  if (!container || typeof KATEGORİLER === 'undefined') return;
-
-  // İlk 8 popüler kategori + Tümü
-  const popularCats = ['temizlik', 'mobilya-montaj', 'nakliyat', 'elektrik', 'tesisat', 'tadilat', 'bahce', 'diger'];
-  
-  const tabs = [
-    '<button class="filter-tab active" data-cat="all">Tümü</button>',
-    ...popularCats.map(slug => {
-      const kat = KATEGORİLER.find(k => k.cat === slug);
-      return kat ? `<button class="filter-tab" data-cat="${kat.cat}">${kat.icon} ${kat.label}</button>` : '';
-    }).filter(Boolean)
-  ];
-
-  container.innerHTML = tabs.join('');
-}
-
-// Kategorileri select dropdown'a yükle (uzman-panel.html)
-function loadCategorySelect(selectId = 'categorySelect') {
-  const select = document.getElementById(selectId);
-  if (!select || typeof KATEGORİLER === 'undefined') return;
-
-  // Tüm tag'leri topluca ekle (uzman birden fazla seçebilir)
-  const allTags = [...new Set(KATEGORİLER.flatMap(k => k.tags))].sort();
-  
-  select.innerHTML = `
-    <option value="">Kategori seçin</option>
-    ${allTags.map(tag => `<option value="${tag}">${tag}</option>`).join('')}
-  `;
-}
-
-// Kategorileri hizmet kartları olarak render et (hizmetler.html)
-function renderCategoryCards(containerId = 'servicesGrid') {
-  const container = document.getElementById(containerId);
-  if (!container || typeof KATEGORİLER === 'undefined') return;
-
-  container.innerHTML = KATEGORİLER.map(kat => `
-    <div class="service-card-v2" style="cursor:pointer" 
-         onclick="window.location='uzmanlar.html?kategori=${kat.cat}'" 
-         data-cat="${kat.cat}">
-      <div class="service-card-v2__thumb" style="background:${getColorForCategory(kat.cat)}">
-        ${kat.icon}
-      </div>
-      <div class="service-card-v2__body">
-        <h3>${kat.label}</h3>
-        <p>${kat.desc}</p>
-        <div class="service-card-v2__meta">
-          <div class="service-meta-left">
-            <div class="price-tag">₺200'den başlar</div>
-            <div class="rating-tag"><span>⭐</span> 4.9+ (${kat.tags.length * 10}+ yorum)</div>
-          </div>
-        </div>
-      </div>
-    </div>
   `).join('');
 }
 

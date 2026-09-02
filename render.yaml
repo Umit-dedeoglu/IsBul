@@ -2,6 +2,7 @@ services:
   - type: web
     name: isbul-api
     runtime: node
+    autoDeploy: false
     region: frankfurt
     plan: free
     buildCommand: cd server && npm install

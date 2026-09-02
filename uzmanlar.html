@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
@@ -180,22 +180,33 @@
     const params = new URLSearchParams(window.location.search);
     const kategori = params.get('kategori') || '';
     const sehir    = params.get('sehir')    || '';
+    const arama    = params.get('arama')    || '';
 
-    const catNames = {
-      montaj:'Mobilya Montajı', temizlik:'Ev Temizliği', nakliyat:'Nakliyat',
-      elektrik:'Elektrikçi', tesisat:'Tesisatçı', boya:'Boyacı',
-      bahce:'Bahçe Bakımı', tv:'TV Montajı', diger:'Diğer Hizmetler'
-    };
-    const catEmojis = {
-      montaj:'🔧', temizlik:'🧹', nakliyat:'🚚', elektrik:'⚡',
-      tesisat:'🔧', boya:'🎨', bahce:'🌱', tv:'📺', diger:'🛠️'
-    };
+    let heroLabel = kategori;
+    let heroIcon = '💼';
+
+    if (kategori && typeof KATEGORİLER !== 'undefined') {
+      const mainCat = KATEGORİLER.find(k => k.cat === kategori || k.label === kategori);
+      if (mainCat) {
+        heroLabel = mainCat.label;
+        heroIcon = mainCat.icon;
+      } else {
+        for (const k of KATEGORİLER) {
+          const sub = (k.subCategories || []).find(s => s.label === kategori || s.id === kategori);
+          if (sub) {
+            heroLabel = sub.label;
+            heroIcon = sub.icon;
+            break;
+          }
+        }
+      }
+    }
 
     // Hero güncelle
     if (kategori) {
-      document.getElementById('heroTag').textContent = catEmojis[kategori]||'' + ' ' + (catNames[kategori]||'Hizmet');
-      document.getElementById('heroTitle').textContent = (catNames[kategori]||'Uzmanlar') + ' için Uzmanlar';
-      document.getElementById('heroSubtitle').textContent = (sehir ? sehir + ' bölgesindeki' : 'Türkiye genelindeki') + ' ' + (catNames[kategori]||'') + ' uzmanları';
+      document.getElementById('heroTag').textContent = heroIcon + ' ' + heroLabel;
+      document.getElementById('heroTitle').textContent = heroLabel + ' için Uzmanlar';
+      document.getElementById('heroSubtitle').textContent = (sehir ? sehir + ' bölgesindeki' : 'Türkiye genelindeki') + ' ' + heroLabel + ' uzmanları';
     } else if (sehir) {
       document.getElementById('heroTitle').textContent = sehir + ' Uzmanları';
     }
@@ -243,7 +254,10 @@
     let _cachedExperts  = null;
 
     async function renderExperts(forceRefresh = false) {
-      const searchVal = document.getElementById('expertSearch').value.trim().toLowerCase();
+      if (forceRefresh && arama && !document.getElementById('expertSearch').value) {
+          document.getElementById('expertSearch').value = arama;
+      }
+      const searchVal = document.getElementById('expertSearch').value.trim().toLocaleLowerCase('tr-TR');
       const sortVal   = document.getElementById('sortExperts').value;
       const cityVal   = document.getElementById('cityFilter').value;
       const grid      = document.getElementById('expertGrid');
@@ -269,13 +283,13 @@
 
       let list = (_cachedExperts || []).filter(e => {
         const catMatch = !kategori || (e.categories||[]).some(c =>
-          c === kategori || c.toLowerCase().replace(/\s/g,'') === kategori.toLowerCase()
+          c === kategori || c.toLocaleLowerCase('tr-TR').replace(/\s/g,'') === kategori.toLocaleLowerCase('tr-TR')
         );
         const cityMatch   = !cityVal || e.city === cityVal;
         const searchMatch = !searchVal ||
-          (e.name||'').toLowerCase().includes(searchVal) ||
-          (e.title||'').toLowerCase().includes(searchVal) ||
-          (e.tags||[]).some(t => t.toLowerCase().includes(searchVal));
+          (e.name||'').toLocaleLowerCase('tr-TR').includes(searchVal) ||
+          (e.title||'').toLocaleLowerCase('tr-TR').includes(searchVal) ||
+          (e.tags||[]).some(t => t.toLocaleLowerCase('tr-TR').includes(searchVal));
         return catMatch && cityMatch && searchMatch;
       });
 
