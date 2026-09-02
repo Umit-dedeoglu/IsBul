@@ -5,7 +5,8 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('./category-requests.controller');
-const { authenticate, requireAdmin } = require('../../middleware/auth');
+const { authenticate, requireRole } = require('../../middleware/auth');
+const requireAdmin = requireRole('admin');
 
 // Public routes (none - tüm routes authentication gerektirir)
 
