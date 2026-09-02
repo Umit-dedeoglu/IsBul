@@ -341,7 +341,7 @@
               <div class="ecf-price">₺${e.price||0}<span>/saat</span></div>
               <div class="ecf-actions">
                 <a href="uzman-profil.html?id=${e.id}">Profil</a>
-                <button onclick="openBookingModal('${e.id}','${(catNames[kategori]||e.title||'').replace(/'/g,"\\'")}')">Rezervasyon</button>
+                <button onclick="openBookingModal('${e.id}','${(heroLabel||e.title||'').replace(/'/g,"\\'")}')">Rezervasyon</button>
               </div>
             </div>
           </div>`;
