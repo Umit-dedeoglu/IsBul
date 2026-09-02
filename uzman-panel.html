@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
@@ -303,7 +303,53 @@
                   Ekle
                 </button>
               </div>
+              <div style="margin-top: 12px; font-size: 13px; color: var(--text-muted);">
+                Aradığınız hizmeti bulamadınız mı? <a href="#" onclick="event.preventDefault(); document.getElementById('categorySuggestModal').classList.add('active');" style="color: var(--primary); font-weight: 600; text-decoration: none;">Kategori Önerin</a>
+              </div>
             </div>
+
+            <!-- Kategori Öneri Modalı -->
+            <div id="categorySuggestModal" class="modal">
+              <div class="modal-content" style="max-width: 500px;">
+                <div class="modal-header">
+                  <h3>Yeni Kategori Öner</h3>
+                  <button type="button" class="modal-close" onclick="document.getElementById('categorySuggestModal').classList.remove('active');">&times;</button>
+                </div>
+                <div class="modal-body">
+                  <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px;">
+                    Sistemde olmayan bir kategoride hizmet veriyorsanız, bize önerebilirsiniz. İncelendikten sonra sisteme eklenecektir.
+                  </p>
+                  <form id="categorySuggestForm" onsubmit="submitCategorySuggest(event)">
+                    <div class="form-group" style="margin-bottom: 16px;">
+                      <label>Kategori Adı</label>
+                      <input type="text" id="csName" class="form-control" placeholder="Örn: Evcil Hayvan Bakımı" required>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 16px;">
+                      <label>Kategori İkonu (Emoji)</label>
+                      <input type="text" id="csIcon" class="form-control" placeholder="Örn: 🐾" required maxlength="5">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 16px;">
+                      <label>Örnek Hizmetler (En az 3 adet, virgülle ayırın)</label>
+                      <input type="text" id="csServices" class="form-control" placeholder="Örn: Köpek Gezdirme, Kedi Bakımı, Evcil Hayvan Oteli" required>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 24px;">
+                      <label>Açıklama (İsteğe bağlı)</label>
+                      <textarea id="csDesc" class="form-control" placeholder="Bu kategori hakkında ek bilgi..." rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn--primary" style="width: 100%;">Öneriyi Gönder</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <style>
+              .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; }
+              .modal.active { display: flex; }
+              .modal-content { background: #fff; width: 90%; max-width: 500px; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+              .modal-header { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+              .modal-header h3 { margin: 0; font-size: 18px; font-weight: 700; }
+              .modal-close { background: none; border: none; font-size: 24px; cursor: pointer; color: var(--text-muted); }
+              .modal-body { padding: 20px; }
+            </style>
             <div class="form-group">
               <label>Çalışma Saatleri</label>
               <div style="border: 1.5px solid var(--border); border-radius: 10px; padding: 16px; background: #f9fafb;">
@@ -755,6 +801,55 @@
     });
     // Her 30 saniyede bir yenile
     setInterval(loadExpertBookings, 30000);
+
+    // Kategori Öneri Gönderme
+    async function submitCategorySuggest(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('button[type="submit"]');
+      const originalText = btn.textContent;
+      
+      const name = document.getElementById('csName').value.trim();
+      const icon = document.getElementById('csIcon').value.trim();
+      const servicesStr = document.getElementById('csServices').value.trim();
+      const desc = document.getElementById('csDesc').value.trim();
+      
+      if (!name || !icon || !servicesStr) {
+        return showToast('Lütfen zorunlu alanları doldurun.', 'error');
+      }
+      
+      const services = servicesStr.split(',').map(s => s.trim()).filter(s => s);
+      if (services.length < 3) {
+        return showToast('Lütfen en az 3 adet örnek hizmet belirtin.', 'error');
+      }
+      
+      btn.textContent = 'Gönderiliyor...';
+      btn.disabled = true;
+      
+      try {
+        const res = await api('/category-requests', {
+          method: 'POST',
+          body: {
+            category_name: name,
+            icon: icon,
+            sample_services: services,
+            description: desc
+          }
+        });
+        
+        if (res.success) {
+          showToast(res.message || 'Öneriniz başarıyla alındı!', 'success');
+          document.getElementById('categorySuggestForm').reset();
+          document.getElementById('categorySuggestModal').classList.remove('active');
+        } else {
+          showToast(res.error?.message || 'Bir hata oluştu.', 'error');
+        }
+      } catch (err) {
+        showToast('Bağlantı hatası.', 'error');
+      } finally {
+        btn.textContent = originalText;
+        btn.disabled = false;
+      }
+    }
   </script>
 
   <script src="/assets/js/pwa.js" defer></script>

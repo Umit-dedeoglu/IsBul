@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
@@ -1818,7 +1818,13 @@ async function loadCategoryRequests(status = '') {
   
   try {
     const url = status ? `/category-requests?status=${status}` : '/category-requests';
-    const requests = await api(url);
+    let requests = await api(url);
+
+    if (!Array.isArray(requests)) {
+      if (requests.success === false) throw new Error(requests.error?.message || 'Yükleme hatası');
+      if (requests.data && Array.isArray(requests.data)) requests = requests.data;
+      else throw new Error('Geçersiz veri formatı');
+    }
 
     // Bekleyen başvurular (sadece pending durumundakiler)
     const pending = requests.filter(r => r.status === 'pending');
@@ -1842,8 +1848,8 @@ async function loadCategoryRequests(status = '') {
           </td>
           <td>
             <div style="font-size:12px;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">
-              ${r.sample_services.slice(0, 3).join(', ')}
-              ${r.sample_services.length > 3 ? '...' : ''}
+              ${(Array.isArray(r.sample_services) ? r.sample_services : []).slice(0, 3).join(', ')}
+              ${(Array.isArray(r.sample_services) ? r.sample_services : []).length > 3 ? '...' : ''}
             </div>
           </td>
           <td style="font-size:12px;color:#64748b">
@@ -1981,7 +1987,7 @@ Slug: ${r.category_slug}
 Açıklama: ${r.description || 'Yok'}
 
 Örnek Hizmetler:
-${r.sample_services.map((s, i) => `${i + 1}. ${s}`).join('\n')}
+${(Array.isArray(r.sample_services) ? r.sample_services : []).map((s, i) => `${i + 1}. ${s}`).join('\n')}
 
 Öneren: ${r.user_name} (${r.user_email})
 Tarih: ${new Date(r.created_at).toLocaleString('tr-TR')}
