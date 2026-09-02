@@ -286,7 +286,17 @@
           c === kategori || c.toLocaleLowerCase('tr-TR').replace(/\s/g,'') === kategori.toLocaleLowerCase('tr-TR')
         );
         const cityMatch   = !cityVal || e.city === cityVal;
-        const searchMatch = !searchVal ||
+        let matchedCat = false;
+        if (typeof KATEGORİLER !== 'undefined' && searchVal) {
+          KATEGORİLER.forEach(kat => {
+            if (kat.label.toLocaleLowerCase('tr-TR').includes(searchVal) || 
+                (kat.subCategories||[]).some(sc => sc.label.toLocaleLowerCase('tr-TR').includes(searchVal))) {
+               if ((e.categories||[]).includes(kat.cat)) matchedCat = true;
+            }
+          });
+        }
+        
+        const searchMatch = !searchVal || matchedCat ||
           (e.name||'').toLocaleLowerCase('tr-TR').includes(searchVal) ||
           (e.title||'').toLocaleLowerCase('tr-TR').includes(searchVal) ||
           (e.tags||[]).some(t => t.toLocaleLowerCase('tr-TR').includes(searchVal));
@@ -348,10 +358,16 @@
       }).join('');
     }
 
-    // Event listener'lar
-    document.getElementById('expertSearch').addEventListener('input', renderExperts);
-    document.getElementById('sortExperts').addEventListener('change', renderExperts);
-    document.getElementById('cityFilter').addEventListener('change', renderExperts);
+    // Event listener'lar (Debounce ile)
+    let searchTimeout;
+    document.getElementById('expertSearch').addEventListener('input', (e) => {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(() => {
+        renderExperts();
+      }, 300);
+    });
+    document.getElementById('sortExperts').addEventListener('change', () => renderExperts());
+    document.getElementById('cityFilter').addEventListener('change', () => renderExperts());
 
     // app.js'deki _initAuthState() → seedDemoExpert() → renderExperts(true) zinciri
     // ile liste otomatik yükleniyor. Eğer app.js daha önce yüklendiyse burada da tetikle:
