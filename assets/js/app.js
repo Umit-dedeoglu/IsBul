@@ -1009,7 +1009,7 @@ window.confirmBooking = confirmBooking;
             <a href="uzmanlar.html?kategori=${(e.categories||[])[0]||''}"
               onclick="closeSearchModal()"
               style="padding:7px 16px;border-radius:50px;background:var(--primary);color:#fff;font-size:12px;font-weight:600;text-decoration:none">
-              Uzmanları Gör →</a>
+              Uzmanlar\u0131 G\u00f6r \u2192</a>
           </div>
         </div>
       </div>`;
