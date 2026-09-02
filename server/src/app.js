@@ -128,6 +128,7 @@ v1.use('/notifications',                 require('./modules/notifications/notifi
 v1.use('/admin',                         require('./modules/admin/admin.routes'));
 v1.use('/chatbot',       _actionLimiter, require('./modules/chatbot/chatbot.routes'));
 v1.use('/payments',      _actionLimiter, require('./modules/payments/payments.routes'));
+v1.use('/category-requests',             require('./modules/categories/category-requests.routes'));
 // v1 router'� iki prefix'e ba�la � geriye d�n�k uyumluluk
 app.use('/api/v1', v1);
 app.use('/api',    v1);   // eski /api/... URL'leri �al��maya devam eder

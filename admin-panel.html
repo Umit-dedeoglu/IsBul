@@ -281,6 +281,9 @@
     <a href="#" data-tab="applications">
       <span class="icon">📝</span><span>Başvurular</span>
     </a>
+    <a href="#" data-tab="category-requests">
+      <span class="icon">🏷️</span><span>Kategori Önerileri</span>
+    </a>
     <a href="#" data-tab="analytics">
       <span class="icon">📊</span><span>Analitik</span>
     </a>
@@ -672,6 +675,94 @@
           </thead>
           <tbody id="topExpertsBody">
             <tr class="loading-row"><td colspan="7"><span class="spinner-sm"></span>Yükleniyor...</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <!-- ── CATEGORY REQUESTS TAB ── -->
+    <div class="admin-tab" id="tab-category-requests">
+      
+      <!-- İstatistik Kartları -->
+      <div class="stats-grid" style="margin-bottom:24px">
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#fef3c7">⏳</div>
+          <div class="stat-info">
+            <div class="val" id="cr-pending">—</div>
+            <div class="lbl">Bekleyen</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#d1fae5">✅</div>
+          <div class="stat-info">
+            <div class="val" id="cr-approved">—</div>
+            <div class="lbl">Onaylanan</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#fee2e2">❌</div>
+          <div class="stat-info">
+            <div class="val" id="cr-rejected">—</div>
+            <div class="lbl">Reddedilen</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#e0e7ff">📊</div>
+          <div class="stat-info">
+            <div class="val" id="cr-total">—</div>
+            <div class="lbl">Toplam</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bekleyen Başvurular -->
+      <div class="table-card" style="margin-bottom:24px">
+        <div class="table-header">
+          <h2>⏳ Bekleyen Kategori Önerileri</h2>
+          <button onclick="loadCategoryRequests('pending')" class="page-btn">🔄 Yenile</button>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Kategori</th>
+              <th>Öneren</th>
+              <th>Örnek Hizmetler</th>
+              <th>Tarih</th>
+              <th>İşlemler</th>
+            </tr>
+          </thead>
+          <tbody id="pendingCategoryRequestsBody">
+            <tr class="loading-row"><td colspan="5"><span class="spinner-sm"></span>Yükleniyor...</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Tüm Başvurular -->
+      <div class="table-card">
+        <div class="table-header">
+          <h2>📋 Tüm Kategori Önerileri</h2>
+          <div class="table-controls">
+            <select class="filter-select" id="crStatusFilter" onchange="loadCategoryRequests(this.value)">
+              <option value="">Tümü</option>
+              <option value="pending">Bekleyen</option>
+              <option value="approved">Onaylanan</option>
+              <option value="rejected">Reddedilen</option>
+            </select>
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Kategori</th>
+              <th>Durum</th>
+              <th>Öneren</th>
+              <th>Tarih</th>
+              <th>İnceleme</th>
+            </tr>
+          </thead>
+          <tbody id="allCategoryRequestsBody">
+            <tr class="loading-row"><td colspan="5"><span class="spinner-sm"></span>Yükleniyor...</td></tr>
           </tbody>
         </table>
       </div>
@@ -1696,3 +1787,221 @@ function formatDate(d)  {
 
 
 
+
+
+<script>
+// ═══════════════════════════════════════════════════════════
+// KATEGORİ BAŞVURULARI YÖNETİMİ
+// ═══════════════════════════════════════════════════════════
+
+/**
+ * Kategori başvuru istatistiklerini yükle
+ */
+async function loadCategoryRequestStats() {
+  try {
+    const stats = await api('/category-requests/stats');
+    document.getElementById('cr-pending').textContent = stats.pending || 0;
+    document.getElementById('cr-approved').textContent = stats.approved || 0;
+    document.getElementById('cr-rejected').textContent = stats.rejected || 0;
+    document.getElementById('cr-total').textContent = stats.total || 0;
+  } catch (err) {
+    console.error('Category request stats error:', err);
+  }
+}
+
+/**
+ * Kategori başvurularını yükle
+ */
+async function loadCategoryRequests(status = '') {
+  const pendingBody = document.getElementById('pendingCategoryRequestsBody');
+  const allBody = document.getElementById('allCategoryRequestsBody');
+  
+  try {
+    const url = status ? `/category-requests?status=${status}` : '/category-requests';
+    const requests = await api(url);
+
+    // Bekleyen başvurular (sadece pending durumundakiler)
+    const pending = requests.filter(r => r.status === 'pending');
+    if (pending.length === 0) {
+      pendingBody.innerHTML = '<tr><td colspan="5" class="empty-state"><div class="empty-icon">📭</div><p>Bekleyen başvuru yok</p></td></tr>';
+    } else {
+      pendingBody.innerHTML = pending.map(r => `
+        <tr>
+          <td>
+            <div style="display:flex;align-items:center;gap:8px">
+              <span style="font-size:24px">${r.icon}</span>
+              <div>
+                <div style="font-weight:700;font-size:14px">${r.category_name}</div>
+                <div style="font-size:12px;color:#64748b">${r.category_slug}</div>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div style="font-size:13px;font-weight:600">${r.user_name || 'Bilinmiyor'}</div>
+            <div style="font-size:11px;color:#94a3b8">${r.user_email || ''}</div>
+          </td>
+          <td>
+            <div style="font-size:12px;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">
+              ${r.sample_services.slice(0, 3).join(', ')}
+              ${r.sample_services.length > 3 ? '...' : ''}
+            </div>
+          </td>
+          <td style="font-size:12px;color:#64748b">
+            ${new Date(r.created_at).toLocaleDateString('tr-TR')}
+          </td>
+          <td>
+            <div class="actions-cell">
+              <button class="action-btn" style="background:#d1fae5;color:#065f46" onclick="reviewCategoryRequest(${r.id}, 'approved')">
+                ✅ Onayla
+              </button>
+              <button class="action-btn" style="background:#fee2e2;color:#dc2626" onclick="showRejectDialog(${r.id})">
+                ❌ Reddet
+              </button>
+              <button class="action-btn" style="background:#e0e7ff;color:#3730a3" onclick="showCategoryDetails(${JSON.stringify(r).replace(/"/g, '&quot;')})">
+                👁️ Detay
+              </button>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    // Tüm başvurular
+    if (requests.length === 0) {
+      allBody.innerHTML = '<tr><td colspan="5" class="empty-state"><div class="empty-icon">📭</div><p>Başvuru bulunamadı</p></td></tr>';
+    } else {
+      allBody.innerHTML = requests.map(r => `
+        <tr>
+          <td>
+            <div style="display:flex;align-items:center;gap:8px">
+              <span style="font-size:24px">${r.icon}</span>
+              <div>
+                <div style="font-weight:700;font-size:14px">${r.category_name}</div>
+                <div style="font-size:12px;color:#64748b">${r.category_slug}</div>
+              </div>
+            </div>
+          </td>
+          <td>
+            <span class="badge badge-${r.status}">
+              ${r.status === 'pending' ? '⏳ Bekliyor' : r.status === 'approved' ? '✅ Onaylandı' : '❌ Reddedildi'}
+            </span>
+          </td>
+          <td>
+            <div style="font-size:13px;font-weight:600">${r.user_name || 'Bilinmiyor'}</div>
+            <div style="font-size:11px;color:#94a3b8">${r.user_email || ''}</div>
+          </td>
+          <td style="font-size:12px;color:#64748b">
+            ${new Date(r.created_at).toLocaleDateString('tr-TR')}
+          </td>
+          <td>
+            ${r.reviewed_at ? `
+              <div style="font-size:11px;color:#64748b">
+                ${new Date(r.reviewed_at).toLocaleDateString('tr-TR')}
+              </div>
+            ` : '—'}
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    // İstatistikleri güncelle
+    loadCategoryRequestStats();
+  } catch (err) {
+    console.error('Load category requests error:', err);
+    pendingBody.innerHTML = '<tr><td colspan="5" style="color:#ef4444;text-align:center;padding:20px">Yükleme hatası</td></tr>';
+    allBody.innerHTML = '<tr><td colspan="5" style="color:#ef4444;text-align:center;padding:20px">Yükleme hatası</td></tr>';
+  }
+}
+
+/**
+ * Başvuruyu onayla/reddet
+ */
+async function reviewCategoryRequest(id, status, adminNote = '') {
+  try {
+    const result = await api(`/category-requests/${id}`, {
+      method: 'PATCH',
+      body: { status, admin_note: adminNote || null }
+    });
+
+    toast(result.message || 'Başvuru güncellendi', 'success');
+
+    // Onaylandıysa kategori bilgilerini göster
+    if (status === 'approved' && result.category_data) {
+      const msg = `
+Kategori Onaylandı!
+
+data.js'e eklenecek kod:
+{
+  slug: '${result.category_data.slug}',
+  name: '${result.category_data.name}',
+  icon: '${result.category_data.icon}',
+  description: '${result.category_data.description || ''}',
+  services: ${JSON.stringify(result.category_data.sample_services, null, 2)}
+}
+      `.trim();
+      
+      alert(msg);
+      
+      // Panoya kopyala
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(JSON.stringify(result.category_data, null, 2));
+        toast('Kategori verisi panoya kopyalandı', 'info');
+      }
+    }
+
+    // Listeyi yenile
+    loadCategoryRequests('pending');
+  } catch (err) {
+    console.error('Review error:', err);
+    toast(err.message || 'Güncelleme hatası', 'error');
+  }
+}
+
+/**
+ * Red dialog göster
+ */
+function showRejectDialog(id) {
+  const reason = prompt('Red nedeni (opsiyonel):');
+  if (reason !== null) { // null = cancel, '' = empty ok
+    reviewCategoryRequest(id, 'rejected', reason);
+  }
+}
+
+/**
+ * Kategori detaylarını göster
+ */
+function showCategoryDetails(request) {
+  const r = typeof request === 'string' ? JSON.parse(request.replace(/&quot;/g, '"')) : request;
+  
+  const details = `
+📋 Kategori Detayları
+
+Kategori: ${r.icon} ${r.category_name}
+Slug: ${r.category_slug}
+Açıklama: ${r.description || 'Yok'}
+
+Örnek Hizmetler:
+${r.sample_services.map((s, i) => `${i + 1}. ${s}`).join('\n')}
+
+Öneren: ${r.user_name} (${r.user_email})
+Tarih: ${new Date(r.created_at).toLocaleString('tr-TR')}
+Durum: ${r.status === 'pending' ? 'Bekliyor' : r.status === 'approved' ? 'Onaylandı' : 'Reddedildi'}
+
+${r.admin_note ? `Admin Notu: ${r.admin_note}` : ''}
+  `.trim();
+
+  alert(details);
+}
+
+// Tab değiştiğinde kategori başvurularını yükle
+const originalSwitchTab = window.switchTab;
+window.switchTab = function(tabName) {
+  if (originalSwitchTab) originalSwitchTab(tabName);
+  
+  if (tabName === 'category-requests') {
+    loadCategoryRequests('pending');
+    loadCategoryRequestStats();
+  }
+};
+
+</script>

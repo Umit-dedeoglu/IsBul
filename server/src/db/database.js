@@ -171,6 +171,24 @@ function initSchema() {
     CREATE INDEX IF NOT EXISTS idx_payments_token    ON payments(iyzico_token);
     CREATE INDEX IF NOT EXISTS idx_password_reset_token ON password_reset_tokens(token);
 
+    CREATE TABLE IF NOT EXISTS category_requests (
+      id                INTEGER PRIMARY KEY AUTOINCREMENT,
+      user_id           TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      category_name     TEXT NOT NULL,
+      category_slug     TEXT NOT NULL,
+      icon              TEXT NOT NULL,
+      description       TEXT,
+      sample_services   TEXT DEFAULT '[]',
+      status            TEXT DEFAULT 'pending',
+      admin_note        TEXT,
+      created_at        TEXT DEFAULT (datetime('now')),
+      reviewed_at       TEXT,
+      reviewed_by       TEXT REFERENCES users(id)
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_category_requests_user   ON category_requests(user_id);
+    CREATE INDEX IF NOT EXISTS idx_category_requests_status ON category_requests(status);
+
     CREATE INDEX IF NOT EXISTS idx_bookings_expert   ON bookings(expert_id);
     CREATE INDEX IF NOT EXISTS idx_bookings_customer ON bookings(customer_id);
     CREATE INDEX IF NOT EXISTS idx_calendar_expert   ON calendar_slots(expert_id);
@@ -214,6 +232,7 @@ function dbRun(sql, ...params) {
 function resetDb() {
   if (!db) return;
   db.run('DELETE FROM password_reset_tokens;'); // ✅ Şifre reset tokenları temizle
+  db.run('DELETE FROM category_requests;'); // ✅ Kategori başvuruları temizle
   db.run('DELETE FROM calendar_slots;');
   db.run('DELETE FROM payments;');
   db.run('DELETE FROM reviews;');
