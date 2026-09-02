@@ -329,17 +329,35 @@
       let topBanner = '';
       if (typeof KATEGORİLER !== 'undefined' && searchVal) {
         const foundKat = KATEGORİLER.find(k => k.label.toLocaleLowerCase('tr-TR').includes(searchVal));
-        if (foundKat) {
-          topBanner = `<div style="grid-column:1/-1;background:var(--primary);color:#fff;border-radius:12px;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-            <div style="display:flex;align-items:center;gap:12px;">
-              <span style="font-size:24px">${foundKat.icon}</span>
-              <div>
-                <h3 style="margin:0;font-size:18px;font-weight:700">${foundKat.label} Kategorisi</h3>
-                <p style="margin:4px 0 0;font-size:14px;opacity:0.9">${foundKat.desc}</p>
+        if (foundKat && foundKat.subCategories && foundKat.subCategories.length > 0) {
+          const subCatsHtml = foundKat.subCategories.map(sc => `
+            <div class="service-card-v2" style="cursor:pointer; width:100%; border: 1.5px solid var(--border); border-radius:16px; overflow:hidden; transition:all .3s ease;" 
+                 onclick="window.location='uzmanlar.html?arama=${encodeURIComponent(sc.label)}'">
+              <div class="service-card-v2__thumb" style="background:${typeof getColorForCategory === 'function' ? getColorForCategory(foundKat.cat) : '#e0f2fe'}; height:140px; display:flex; align-items:center; justify-content:center; font-size:48px; position:relative;">
+                ${sc.icon}
+                ${sc.hot ? '<span style="position:absolute; top:12px; right:12px; background:#ff4757; color:#fff; font-size:11px; font-weight:700; padding:4px 10px; border-radius:20px;">Popüler</span>' : ''}
+              </div>
+              <div class="service-card-v2__body" style="padding:20px;">
+                <h3 style="font-size:17px; font-weight:700; margin-bottom:8px; color:#1a202c;">${sc.label}</h3>
+                <p style="font-size:13px; color:var(--text-muted); line-height:1.5; margin-bottom:16px;">${sc.desc}</p>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <div style="font-size:14px; font-weight:700; color:var(--primary);">₺${sc.price}'den başlar</div>
+                  <div style="font-size:13px; font-weight:600; color:#475569; display:flex; align-items:center; gap:4px;">⭐ 4.9+</div>
+                </div>
               </div>
             </div>
-            <a href="hizmetler.html" style="background:#fff;color:var(--primary);padding:8px 16px;border-radius:20px;font-weight:600;text-decoration:none;font-size:14px">Hizmetlere Git</a>
-          </div>`;
+          `).join('');
+
+          topBanner = `
+            <div style="grid-column:1/-1; margin-bottom:16px;">
+              <h2 style="font-size:22px; font-weight:800; margin-bottom:16px; color:#1a202c;">${foundKat.label} Hizmetleri</h2>
+              <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(240px, 1fr)); gap:20px;">
+                ${subCatsHtml}
+              </div>
+              <div style="width:100%; height:1px; background:var(--border); margin:32px 0 16px 0;"></div>
+              <h2 style="font-size:20px; font-weight:800; color:#1a202c;">Tüm ${foundKat.label} Uzmanları</h2>
+            </div>
+          `;
         }
       }
 
