@@ -1,4 +1,4 @@
-﻿const { dbGet, dbAll, dbRun } = require('../../db');
+const { dbGet, dbAll, dbRun } = require('../../db');
 const cache = require('../../config/cache');
 const { sanitizeText } = require('../../utils/sanitize');
 
@@ -182,4 +182,50 @@ function formatExpert(row) {
   };
 }
 
-module.exports = { listExperts, getExpert, updateExpertProfile };
+/** GET /api/v1/experts/my-stats */
+async function getMyStats(req, res) {
+  try {
+    const expertId = req.user.id;
+    
+    // Get total earnings from completed bookings
+    const earningsRow = dbGet(`SELECT SUM(total_price) as total FROM bookings WHERE expert_id = ? AND status = 'completed'`, expertId);
+    
+    // Get bookings counts
+    const countsRow = dbGet(`
+      SELECT 
+        SUM(CASE WHEN status = 'completed' THEN 1 ELSE 0 END) as completed,
+        SUM(CASE WHEN status = 'pending' OR status = 'confirmed' THEN 1 ELSE 0 END) as pending
+      FROM bookings 
+      WHERE expert_id = ?
+    `, expertId);
+
+    // Get rating from profile
+    const profileRow = dbGet(`SELECT rating FROM expert_profiles WHERE user_id = ?`, expertId);
+
+    // Get historical earnings for charts (last 6 months approximation)
+    const history = dbAll(`
+      SELECT strftime('%Y-%m', date) as month, SUM(total_price) as total
+      FROM bookings
+      WHERE expert_id = ? AND status = 'completed'
+      GROUP BY month
+      ORDER BY month DESC
+      LIMIT 6
+    `, expertId);
+
+    return res.json({
+      success: true,
+      stats: {
+        totalEarnings: earningsRow?.total || 0,
+        completedBookings: countsRow?.completed || 0,
+        pendingBookings: countsRow?.pending || 0,
+        rating: profileRow?.rating || 5.0,
+        history: history.reverse()
+      }
+    });
+  } catch (err) {
+    console.error('[experts/my-stats]', err);
+    return res.status(500).json({ success: false, error: 'İstatistikler yüklenemedi.' });
+  }
+}
+
+module.exports = { listExperts, getExpert, updateExpertProfile, getMyStats };

@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="assets/css/styles.css?v=2" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <script src="https://unpkg.com/feather-icons"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     /* CSS Variables Override için */
     :root {
@@ -411,11 +412,58 @@
         </div>
       </div>
 
-      <!-- Panel: İstatistikler -->
       <div class="panel-content" id="panel-stats">
-        <div style="background: var(--white); border-radius: var(--radius); padding: 32px; border: 1.5px solid var(--border);">
-          <h2 style="font-size: 20px; font-weight: 900; margin-bottom: 24px; color: #1a202c !important;">Detaylı İstatistikler</h2>
-          <p style="color: #64748b !important;">Gelişmiş analitik özellikler yakında eklenecek...</p>
+        <div style="margin-bottom: 24px;">
+          <h2 style="font-size: 20px; font-weight: 900; color: #1a202c !important;">Performans Özeti</h2>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px;">
+          <div style="background: var(--white); border-radius: 12px; padding: 20px; border: 1.5px solid var(--border); display: flex; align-items: center; gap: 16px;">
+            <div style="width: 48px; height: 48px; border-radius: 50%; background: #e0e7ff; display: flex; align-items: center; justify-content: center; color: #3730a3;">
+              <i data-feather="dollar-sign"></i>
+            </div>
+            <div>
+              <div style="font-size: 13px; color: var(--text-muted); font-weight: 500;">Toplam Kazanç</div>
+              <div id="statTotalEarnings" style="font-size: 20px; font-weight: 800; color: var(--text);">0 ₺</div>
+            </div>
+          </div>
+
+          <div style="background: var(--white); border-radius: 12px; padding: 20px; border: 1.5px solid var(--border); display: flex; align-items: center; gap: 16px;">
+            <div style="width: 48px; height: 48px; border-radius: 50%; background: #d1fae5; display: flex; align-items: center; justify-content: center; color: #065f46;">
+              <i data-feather="check-circle"></i>
+            </div>
+            <div>
+              <div style="font-size: 13px; color: var(--text-muted); font-weight: 500;">Tamamlanan İşler</div>
+              <div id="statCompleted" style="font-size: 20px; font-weight: 800; color: var(--text);">0</div>
+            </div>
+          </div>
+
+          <div style="background: var(--white); border-radius: 12px; padding: 20px; border: 1.5px solid var(--border); display: flex; align-items: center; gap: 16px;">
+            <div style="width: 48px; height: 48px; border-radius: 50%; background: #fef3c7; display: flex; align-items: center; justify-content: center; color: #92400e;">
+              <i data-feather="clock"></i>
+            </div>
+            <div>
+              <div style="font-size: 13px; color: var(--text-muted); font-weight: 500;">Bekleyen İşler</div>
+              <div id="statPending" style="font-size: 20px; font-weight: 800; color: var(--text);">0</div>
+            </div>
+          </div>
+
+          <div style="background: var(--white); border-radius: 12px; padding: 20px; border: 1.5px solid var(--border); display: flex; align-items: center; gap: 16px;">
+            <div style="width: 48px; height: 48px; border-radius: 50%; background: #fef08a; display: flex; align-items: center; justify-content: center; color: #854d0e;">
+              <i data-feather="star"></i>
+            </div>
+            <div>
+              <div style="font-size: 13px; color: var(--text-muted); font-weight: 500;">Ortalama Puan</div>
+              <div id="statRating" style="font-size: 20px; font-weight: 800; color: var(--text);">5.0</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="background: var(--white); border-radius: 12px; padding: 24px; border: 1.5px solid var(--border);">
+          <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 20px; color: var(--text);">Aylık Kazanç Grafiği</h3>
+          <div style="height: 300px; position: relative;">
+            <canvas id="earningsChart"></canvas>
+          </div>
         </div>
       </div>
     </div>
@@ -849,7 +897,78 @@
         btn.textContent = originalText;
         btn.disabled = false;
       }
+    // İstatistik Yükleme
+    let chartInstance = null;
+    async function loadExpertStats() {
+      try {
+        const res = await api('/experts/my-stats');
+        if (res.success && res.stats) {
+          document.getElementById('statTotalEarnings').textContent = res.stats.totalEarnings.toLocaleString('tr-TR') + ' ₺';
+          document.getElementById('statCompleted').textContent = res.stats.completedBookings;
+          document.getElementById('statPending').textContent = res.stats.pendingBookings;
+          document.getElementById('statRating').textContent = (res.stats.rating || 5.0).toFixed(1);
+
+          // Grafiği çiz
+          if (res.stats.history && res.stats.history.length > 0) {
+            const ctx = document.getElementById('earningsChart').getContext('2d');
+            
+            // Eğer daha önce çizildiyse yokedip yeniden çiz (yenilenirse çakışmasın)
+            if (chartInstance) {
+              chartInstance.destroy();
+            }
+
+            const labels = res.stats.history.map(h => {
+              const [y, m] = h.month.split('-');
+              const date = new Date(y, m - 1);
+              return date.toLocaleDateString('tr-TR', { month: 'short', year: 'numeric' });
+            });
+            const data = res.stats.history.map(h => h.total);
+
+            chartInstance = new Chart(ctx, {
+              type: 'bar',
+              data: {
+                labels: labels,
+                datasets: [{
+                  label: 'Kazanç (₺)',
+                  data: data,
+                  backgroundColor: 'rgba(99, 102, 241, 0.2)',
+                  borderColor: '#6366f1',
+                  borderWidth: 2,
+                  borderRadius: 6,
+                  hoverBackgroundColor: 'rgba(99, 102, 241, 0.4)'
+                }]
+              },
+              options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                  legend: { display: false }
+                },
+                scales: {
+                  y: { beginAtZero: true, ticks: { callback: (val) => val + ' ₺' } }
+                }
+              }
+            });
+          }
+        }
+      } catch (err) {
+        console.error('İstatistikler yüklenemedi', err);
+      }
     }
+
+    // Tab geçişlerinde istatistik tabına tıklandığında yükle
+    document.addEventListener('DOMContentLoaded', () => {
+      // Tab butonları
+      const tabBtns = document.querySelectorAll('.tab-btn');
+      tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (btn.getAttribute('data-tab') === 'panel-stats') {
+            loadExpertStats();
+          }
+        });
+      });
+      feather.replace();
+    });
   </script>
 
   <script src="/assets/js/pwa.js" defer></script>
