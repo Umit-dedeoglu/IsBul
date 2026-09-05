@@ -1,7 +1,7 @@
-/**
- * İşBul – Veritabanı katmanı
- * sql.js kullanır — saf JavaScript SQLite, Windows'ta derleme gerektirmez
- * Disk üzerine periyodik kayıt yapar
+﻿/**
+ * Ä°ÅŸBul â€“ VeritabanÄ± katmanÄ±
+ * sql.js kullanÄ±r â€” saf JavaScript SQLite, Windows'ta derleme gerektirmez
+ * Disk Ã¼zerine periyodik kayÄ±t yapar
  */
 const path = require('path');
 const fs   = require('fs');
@@ -18,8 +18,8 @@ let db   = null;
 let SQL  = null;
 
 /**
- * sql.js asenkron başlatır, sonra sync kullanılır.
- * getDb() sync çağrıları için initDb() önceden çalıştırılmış olmalı.
+ * sql.js asenkron baÅŸlatÄ±r, sonra sync kullanÄ±lÄ±r.
+ * getDb() sync Ã§aÄŸrÄ±larÄ± iÃ§in initDb() Ã¶nceden Ã§alÄ±ÅŸtÄ±rÄ±lmÄ±ÅŸ olmalÄ±.
  */
 async function initDb() {
   if (db) return db;
@@ -41,14 +41,14 @@ async function initDb() {
 }
 
 function getDb() {
-  if (!db) throw new Error('Veritabanı henüz başlatılmadı. initDb() çağırın.');
+  if (!db) throw new Error('VeritabanÄ± henÃ¼z baÅŸlatÄ±lmadÄ±. initDb() Ã§aÄŸÄ±rÄ±n.');
   return db;
 }
 
-/** Disk üzerine kaydet */
+/** Disk Ã¼zerine kaydet */
 function saveDb() {
   if (!db) return;
-  // :memory: database'i kaydetmeye çalışma
+  // :memory: database'i kaydetmeye Ã§alÄ±ÅŸma
   const isMemory = DB_PATH === ':memory:' || process.env.DB_PATH === ':memory:';
   if (isMemory) return;
   
@@ -56,7 +56,7 @@ function saveDb() {
     const data = db.export();
     fs.writeFileSync(DB_PATH, Buffer.from(data));
   } catch (e) {
-    console.error('[DB] Kayıt hatası:', e.message);
+    console.error('[DB] KayÄ±t hatasÄ±:', e.message);
   }
 }
 
@@ -89,12 +89,12 @@ function initSchema() {
       user_id       TEXT PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
       price         INTEGER DEFAULT 300,
       bio           TEXT DEFAULT '',
-      city          TEXT DEFAULT 'İstanbul',
+      city          TEXT DEFAULT 'Ä°stanbul',
       tags          TEXT DEFAULT '[]',
       hours         TEXT DEFAULT '',
       rating        REAL DEFAULT 5.0,
       review_count  INTEGER DEFAULT 0,
-      experience    TEXT DEFAULT '1 yıl',
+      experience    TEXT DEFAULT '1 yÄ±l',
       is_elite      INTEGER DEFAULT 0,
       created_at    TEXT DEFAULT (datetime('now')),
       updated_at    TEXT DEFAULT (datetime('now'))
@@ -124,9 +124,9 @@ function initSchema() {
     CREATE TABLE IF NOT EXISTS calendar_slots (
       id          INTEGER PRIMARY KEY AUTOINCREMENT,
       expert_id   TEXT NOT NULL,
-      slot        TEXT NOT NULL,
+      slot_key    TEXT NOT NULL,
       booking_id  TEXT,
-      UNIQUE(expert_id, slot)
+      UNIQUE(expert_id, slot_key)
     );
 
     CREATE TABLE IF NOT EXISTS reviews (
@@ -195,9 +195,9 @@ function initSchema() {
   `);
 }
 
-/* ── sql.js query wrappers (better-sqlite3 API'siyle uyumlu) ── */
+/* â”€â”€ sql.js query wrappers (better-sqlite3 API'siyle uyumlu) â”€â”€ */
 
-/** Tek satır döndür */
+/** Tek satÄ±r dÃ¶ndÃ¼r */
 function dbGet(sql, ...params) {
   const stmt = db.prepare(sql);
   stmt.bind(params);
@@ -210,7 +210,7 @@ function dbGet(sql, ...params) {
   return undefined;
 }
 
-/** Çok satır döndür */
+/** Ã‡ok satÄ±r dÃ¶ndÃ¼r */
 function dbAll(sql, ...params) {
   const results = [];
   const stmt = db.prepare(sql);
@@ -222,17 +222,17 @@ function dbAll(sql, ...params) {
   return results;
 }
 
-/** INSERT/UPDATE/DELETE çalıştır */
+/** INSERT/UPDATE/DELETE Ã§alÄ±ÅŸtÄ±r */
 function dbRun(sql, ...params) {
   db.run(sql, params);
   saveDb();
 }
 
-/** Test için veritabanını sıfırla */
+/** Test iÃ§in veritabanÄ±nÄ± sÄ±fÄ±rla */
 function resetDb() {
   if (!db) return;
-  db.run('DELETE FROM password_reset_tokens;'); // ✅ Şifre reset tokenları temizle
-  db.run('DELETE FROM category_requests;'); // ✅ Kategori başvuruları temizle
+  db.run('DELETE FROM password_reset_tokens;'); // âœ… Åifre reset tokenlarÄ± temizle
+  db.run('DELETE FROM category_requests;'); // âœ… Kategori baÅŸvurularÄ± temizle
   db.run('DELETE FROM calendar_slots;');
   db.run('DELETE FROM payments;');
   db.run('DELETE FROM reviews;');
@@ -241,10 +241,11 @@ function resetDb() {
   db.run('DELETE FROM users;');
 }
 
-/** Bağlantıyı kapat */
+/** BaÄŸlantÄ±yÄ± kapat */
 function closeDb() {
   if (saveInterval) { clearInterval(saveInterval); saveInterval = null; }
   if (db) { saveDb(); db.close(); db = null; }
 }
 
 module.exports = { initDb, getDb, saveDb, startAutoSave, resetDb, closeDb, dbGet, dbAll, dbRun };
+
