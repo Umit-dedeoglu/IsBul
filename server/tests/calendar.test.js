@@ -12,7 +12,7 @@ describe('GET /api/calendar/:expertId/slots', () => {
 
   test('dolu slotlar döner', async () => {
     dbRun(
-      'INSERT INTO calendar_slots (expert_id, slot, booking_id) VALUES (?,?,?)',
+      'INSERT INTO calendar_slots (expert_id, slot_key, booking_id) VALUES (?,?,?)',
       'exp1', '2026-08-21_11:00', 'rez_test'
     );
     const res = await request(app).get('/api/calendar/exp1/slots');
@@ -21,8 +21,8 @@ describe('GET /api/calendar/:expertId/slots', () => {
   });
 
   test('belirli tarih için slot sorgusu', async () => {
-    dbRun('INSERT INTO calendar_slots (expert_id, slot) VALUES (?,?)', 'exp2','2026-09-01_09:00');
-    dbRun('INSERT INTO calendar_slots (expert_id, slot) VALUES (?,?)', 'exp2','2026-09-02_10:00');
+    dbRun('INSERT INTO calendar_slots (expert_id, slot_key) VALUES (?,?)', 'exp2','2026-09-01_09:00');
+    dbRun('INSERT INTO calendar_slots (expert_id, slot_key) VALUES (?,?)', 'exp2','2026-09-02_10:00');
 
     const res = await request(app).get('/api/calendar/exp2/slots?date=2026-09-01');
     expect(res.status).toBe(200);
@@ -41,7 +41,7 @@ describe('POST /api/calendar/:expertId/check', () => {
   });
 
   test('dolu slot çakışma döner', async () => {
-    dbRun('INSERT INTO calendar_slots (expert_id, slot) VALUES (?,?)', 'exp3','2026-10-02_14:00');
+    dbRun('INSERT INTO calendar_slots (expert_id, slot_key) VALUES (?,?)', 'exp3','2026-10-02_14:00');
 
     const res = await request(app)
       .post('/api/calendar/exp3/check')
@@ -51,3 +51,4 @@ describe('POST /api/calendar/:expertId/check', () => {
     expect(res.body.conflictSlot).toBe('2026-10-02_14:00');
   });
 });
+

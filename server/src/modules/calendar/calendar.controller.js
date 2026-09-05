@@ -9,12 +9,12 @@ async function getSlots(req, res) {
     let rows;
     if (date) {
       rows = await dbAll(
-        'SELECT slot FROM calendar_slots WHERE expert_id = ? AND slot LIKE ?',
+        'SELECT slot_key FROM calendar_slots WHERE expert_id = ? AND slot_key LIKE ?',
         expertId, `${date}_%`
       );
     } else {
       rows = await dbAll(
-        'SELECT slot FROM calendar_slots WHERE expert_id = ?',
+        'SELECT slot_key FROM calendar_slots WHERE expert_id = ?',
         expertId
       );
     }
@@ -22,7 +22,7 @@ async function getSlots(req, res) {
     const list = Array.isArray(rows) ? rows : [];
     const slots = {};
     list.forEach(r => {
-      const key = r.slot || r.slot_key;
+      const key = r.slot_key;
       if (key) slots[key] = true;
     });
 
@@ -44,14 +44,14 @@ async function checkSlots(req, res) {
 
     for (const slot of slots) {
       const conflict = await dbGet(
-        'SELECT slot FROM calendar_slots WHERE expert_id = ? AND slot = ?',
+        'SELECT slot_key FROM calendar_slots WHERE expert_id = ? AND slot_key = ?',
         expertId, slot
       );
       if (conflict) {
         return res.json({
           success: true,
           available: false,
-          conflictSlot: conflict.slot
+          conflictSlot: conflict.slot_key
         });
       }
     }
@@ -64,3 +64,4 @@ async function checkSlots(req, res) {
 }
 
 module.exports = { getSlots, checkSlots };
+

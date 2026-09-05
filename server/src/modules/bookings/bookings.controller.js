@@ -25,7 +25,7 @@ async function createBooking(req, res) {
     // Çakışma kontrolü
     for (const slot of allSlots) {
       const conflict = await dbGet(
-        'SELECT slot FROM calendar_slots WHERE expert_id = ? AND slot = ?',
+        'SELECT slot_key FROM calendar_slots WHERE expert_id = ? AND slot_key = ?',
         expertId, slot
       );
       if (conflict) {
@@ -56,13 +56,13 @@ async function createBooking(req, res) {
         if (isPostgres) {
           const slotId = `cs_${Date.now()}_${Math.random().toString(36).slice(2,4)}`;
           await dbRun(
-            'INSERT INTO calendar_slots (id, expert_id, slot, booking_id) VALUES (?,?,?,?)',
+            'INSERT INTO calendar_slots (id, expert_id, slot_key, booking_id) VALUES (?,?,?,?)',
             slotId, expertId, slot, id
           );
         } else {
-          // SQLite: id AUTOINCREMENT, slot kolonu kullan
+          // SQLite: id AUTOINCREMENT, slot_key kolonu kullan
           await dbRun(
-            'INSERT OR IGNORE INTO calendar_slots (expert_id, slot, booking_id) VALUES (?,?,?)',
+            'INSERT OR IGNORE INTO calendar_slots (expert_id, slot_key, booking_id) VALUES (?,?,?)',
             expertId, slot, id
           );
         }
@@ -181,7 +181,7 @@ async function updateStatus(req, res) {
       })();
       for (const s of slotArr) {
         await dbRun(
-          'DELETE FROM calendar_slots WHERE expert_id = ? AND slot = ?',
+          'DELETE FROM calendar_slots WHERE expert_id = ? AND slot_key = ?',
           booking.expert_id, s
         );
       }
@@ -220,3 +220,4 @@ function formatBooking(b) {
 }
 
 module.exports = { createBooking, getMyBookings, getExpertBookings, getBooking, updateStatus };
+
