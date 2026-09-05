@@ -1,0 +1,2460 @@
+{
+  "timestamp": "2026-08-21T09:30:17.572Z",
+  "summary": {
+    "total": 17,
+    "passed": 5,
+    "failed": 1,
+    "warnings": 11
+  },
+  "pages": [
+    {
+      "name": "Ana Sayfa",
+      "path": "index.html",
+      "url": "https://isbul.online/index.html",
+      "critical": true,
+      "timestamp": "2026-08-21T09:30:17.731Z",
+      "technical": {
+        "loadTime": 7296,
+        "status": 200,
+        "consoleErrors": [
+          "⚠️ Sayfada hata mesajları görünüyor: 500",
+          "Failed to load resource: the server responded with a status of 503 ()",
+          "Failed to load resource: the server responded with a status of 503 ()",
+          "Failed to load resource: the server responded with a status of 503 ()",
+          "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+        ],
+        "networkErrors": [
+          {
+            "url": "https://api.isbul.online/api/health",
+            "status": 503
+          },
+          {
+            "url": "https://api.isbul.online/api/admin/stats",
+            "status": 503
+          },
+          {
+            "url": "https://api.isbul.online/api/admin/applications",
+            "status": 503
+          },
+          {
+            "url": "https://isbul.online/api/v1/bookings/my",
+            "status": 401
+          }
+        ],
+        "accessibility": [
+          "10 input'ta label eksik",
+          "28 buton çok küçük (< 44x44px)"
+        ],
+        "buttons": [
+          {
+            "text": "Giriş Yap",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Ücretsiz Kaydol",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Boş",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Mobilya Montajı",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Ev Temizlikçi",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "TV Montajı",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "nakliyat",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Boyacı",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "🕐 Bugün Müsait",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Profil",
+            "visible": true,
+            "enabled": true
+          }
+        ],
+        "links": [
+          {
+            "href": "index.html",
+            "text": "⚡\n        İşBul"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Hizmetler"
+          },
+          {
+            "href": "nasil-calisir.html",
+            "text": "Nasıl Çalışır?"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Ol"
+          },
+          {
+            "href": "mailto:Kurumsal@isBul.com.tr",
+            "text": "Kurumsal"
+          },
+          {
+            "href": "uzman-profil.html?id=e1",
+            "text": "Profil"
+          },
+          {
+            "href": "uzmanlar.html?kategori=montaj",
+            "text": "Uzmanları GÖR"
+          },
+          {
+            "href": "uzmanlar.html?kategori=montaj",
+            "text": "🔧\n          Mobilya Montajı\n          Tüm marka mobilya montajı\n          \n            ₺200'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=temizlik",
+            "text": "🧹\n          Ev Temizliği\n          Standart & derin temizlik\n          \n            ₺250'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=nakliyat",
+            "text": "🚚\n          Nakliyat & Taşıma\n          Ev ve ofis taşıma hizmetleri\n          \n            ₺500'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=elektrik",
+            "text": "⚡\n          Elektrikçi\n          Priz, aydınlatma, panel\n          \n            ₺280'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=tesisat",
+            "text": "🔧\n          Tesisatçı\n          Su, doğalgaz, kalorifer\n          \n            ₺300'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=boya",
+            "text": "🎨\n          Boyacı\n          İç cephe ve dekoratif boya\n          \n            ₺350'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=montaj",
+            "text": "📺\n          TV Montajı\n          Duvara askı ve bağlantı\n          \n            ₺220'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=bahce",
+            "text": "🌱\n          Bahçe Bakımı\n          Çim biçme, budama, düzenleme\n          \n            ₺200'den başlar\n            ›"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "📋\n          Tüm Hizmetler\n          30+ farklı kategori\n          \n            Keşfet\n            ›"
+          },
+          {
+            "href": "nasil-calisir.html",
+            "text": "Daha Fazla Bilgi"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Olarak Kaydol »"
+          },
+          {
+            "href": "index.html",
+            "text": "⚡\n            İşBul"
+          },
+          {
+            "href": "https://www.linkedin.com/in/%C3%BCmit-yakup-dedeo%C4%9Flu-4321212a7/",
+            "text": "🔗"
+          }
+        ]
+      },
+      "ai": {
+        "status": "warning",
+        "issues": [],
+        "positive": [],
+        "overall": "\n<think>\nThe user wants a detailed QA analysis of the provided screenshots of the `isbul.online` website.\n\n**1. Analyze the Images:**\n\n*   **Image 1 (Top):**\n    *   **Header:** \"isbul\" logo, \"Hizmetler\", \"Nasıl Çalışır?\", \"Ücretsiz Ol\", \"Kullanıcı\", \"Giriş Yap\", \"Ücretsiz Kayıt Ol\".\n    *   **Hero Section:** \"Güvenilir hizmet, tek platformda\". Search bar with \"Kategori\" and \"Şehir\". Filter buttons: \"Popüler\", \"En Yüksek Puanlı\", \"En Yakındaki\", \"En Ucuz\", \"Yeni\", \"En Uzun Süreli\".\n    *   **Floating Cards:** \"Mehmet Yılmaz\", \"Neslihan Demir\", \"Ahmet Kaya\".\n    *   **Stats Bar:** 50.000+, 8.500, 81, 98%.\n    *   **Categories:** \"Popüler Hizmet Kategorileri\".\n    *   **Issues:** The layout looks a bit stretched vertically. The \"Popüler Hizmet Kategorileri\" section is empty below the title.\n\n*   **Image 2 (Middle):**\n    *   **How it Works:** \"Nasıl Çalışır?\". Two buttons: \"Hizmet Almak İstiyorum\", \"Hizmet Satmak İstiyorum\".\n    *   **Trust Section:** \"Güvenle Hizmet Alın\".\n    *   **Issues:** The \"Nasıl Çalışır?\" section is very sparse. The \"Güvenle Hizmet Alın\" section is completely empty.\n\n*   **Image 3 (Bottom):**\n    *   **Testimonials:** \"Müşterilerimiz Ne Diyor?\". Three cards with reviews.\n    *   **CTA:** \"Uzman mısınız? Para kazanmaya başlayın!\".\n    *   **Footer:** Logo, \"Hizmetler\", \"Şirket\", \"Lisanslar & İzin\", \"Destek\". Copyright info.\n    *   **Issues:** The footer links look a bit small. The \"Lisanslar & İzin\" section is empty.\n\n**2. Evaluate against Critical Checks:**\n\n*   **Admin Panel:** Not visible in screenshots (it's the homepage). Can't check.\n*   **Facebook Login:** Not visible in screenshots (login modal not open). Can't check.\n*   **Buttons:** \"Giriş Yap\", \"Ücretsiz Kayıt Ol\", \"Hizmet Almak İstiyorum\", \"Hizmet Satmak İstiyorum\", \"Uzman Olarak Kaydol\". They look functional visually.\n*   **Error Messages:** No \"404\" or \"Error\" text visible.\n*   **Layout:** Generally okay, but there are large empty spaces (white space) in the middle sections (\"Popüler Hizmet Kategorileri\", \"Güvenle Hizmet Alın\"). This suggests missing content or a layout bug where grid items aren't rendering.\n*   **Footer Links:** Visible.\n*   **Broken Images:** The floating cards in the hero section look like placeholders or simple UI elements, not necessarily broken images, but they look a bit generic.\n*   **Forms:** The search bar looks okay.\n*   **Modals:** Not open.\n*   **Menu:** Hamburger menu not visible (desktop view).\n\n**3. Evaluate against Warnings:**\n\n*   **Contrast:** White text on dark blue background is good. Dark text on white is good.\n*   **Typos:** \"Güvenilir hizmet, tek platformda\" - looks okay. \"Müşterilerimiz Ne Diyor?\" - okay.\n*   **Button Size:** \"Giriş Yap\" and \"Ücretsiz Kayıt Ol\" are standard size.\n*   **Spacing:** There is *too much* vertical whitespace in the middle sections. It looks like content is missing.\n*   **Alignment:** Generally centered.\n*   **Icons:** The floating cards have icons.\n*   **Loading:** No spinner visible.\n*   **Image Quality:** The hero background is a gradient, looks fine.\n*   **Responsive:** Hard to tell from static desktop screenshots, but the layout seems to be a standard desktop view.\n\n**4. Positive Observations:**\n\n*   Clean, modern design (dark mode header/footer).\n*   Clear value proposition (\"Güvenilir hizmet, tek platformda\").\n*   Good use of social proof (stats, testimonials).\n\n**5. Detailed Analysis:**\n\n*   **Buttons:** \"Giriş Yap\", \"Ücretsiz Kayıt Ol\", \"Hizmet Almak İstiyorum\", \"Hizmet Satmak İstiyorum\", \"Uzman Olarak Kaydol\".\n*   **Footer Links:** \"Hizmetler\", \"Şirket\", \"Lisanslar & İzin\", \"Destek\".\n*   **Color Palette:** Dark blue/purple gradient, white, light gray. Consistent.\n*   **Typography:** Sans-serif, readable.\n*   **Hierarchy:** Hero -> Stats -> Categories -> How it works -> Testimonials -> CTA -> Footer. Logical flow.\n\n**6. Construct JSON:**\n\n*   **Status:** \"warning\" (due to empty sections).\n*   **Critical Issues:**\n    *   \"Popüler Hizmet Kategorileri\" section is empty.\n    *   \"Güvenle Hizmet Alın\" section is empty.\n    *   \"Nasıl Çalışır?\" section is very sparse (only 2 buttons, no steps).\n*   **Warnings:**\n    *   Large empty spaces (white space) disrupt the flow.\n    *   \"Lisanslar & İzin\" in footer is empty.\n*   **Positive:**\n    *   Modern UI.\n    *   Clear CTA.\n    *   Good stats section.\n*   **Buttons:** List them.\n*   **Footer Links:** List them.\n*   **Color Contrast:** \"iyi\".\n*   **Mobile Responsive:** \"bilinmiyor\" (can't see mobile view).\n*   **Overall:** The site looks like a template where content hasn't been fully populated yet. The design is good, but the empty sections are a major issue.\n\n**Refining the \"Critical Issues\":**\nThe prompt asks to check for specific errors.\n- \"Admin Panel açılmıyor mu?\" -> Can't check.\n- \"Facebook login butonu VAR MI?\" -> Can't check.\n- \"Butonlar eksik, kırık veya çalışmaz görünüyor mu?\" -> Visually they look okay.\n- \"Sayfada '404', 'Error', 'Undefined' gibi hata mesajları var mı?\" -> No.\n- \"Layout tamamen bozuk mu?\" -> No, but empty sections look like a bug.\n- \"Footer linkleri yanlış sayfaya mı gidiyor?\" -> Can't click.\n- \"Resimlerde kırık icon var mı?\" -> No obvious broken images.\n- \"Form alanları bozuk mu?\" -> Search bar looks okay.\n- \"Modal/popup açılmamış mı?\" -> Not applicable.\n- \"Menü çalışmıyor mu?\" -> Can't click.\n\n**Refining the \"Warnings\":**\n- \"Renk kontrastı düşük mü?\" -> No.\n- \"Yazım hataları var mı?\" -> \"Güvenilir hizmet, tek platformda\" is a bit grammatically loose but acceptable marketing speak. \"Müşterilerimiz Ne Diyor?\" is correct.\n- \"Butonlar çok küçük mü?\" -> No.\n- \"Boşluklar tutarsız mı?\" -> Yes, huge gaps.\n- \"Hizalama problemleri var mı?\" -> No.\n- \"İkonlar eksik veya yanlış mı?\" -> No.\n- \"Loading indicator sonsuz dönüyor mu?\" -> No.\n- \"Görsel kalitesi düşük mü?\" -> No.\n- \"Responsive problemi var mı?\" -> Can't tell.\n- \"Tooltip/hover efektleri görünüyor mu?\" -> No.\n\n**Final Polish of JSON:**\nI need to be careful about the \"empty sections\". In a QA context, if a section is titled \"Popular Categories\" and has nothing under it, that's a critical content/layout error.\n\nLet's look closer at the \"Nasıl Çalışır?\" section. It has \"3 basit adımla uzmanlara ulaşın\" but then just two buttons. Where are the steps? This is a content missing issue.\n\nLet's look at \"Güvenle Hizmet Alın\". Just a title. Empty.\n\nLet's look at \"Popüler Hizmet Kategorileri\". Just a title. Empty.\n\nSo the main issue is **Missing Content/Empty Sections**.\n\n**Buttons List:**\n1. Giriş Yap\n2. Ücretsiz Kayıt Ol\n3. Hizmet Almak İstiyorum\n4. Hizmet Satmak İstiyorum\n5. Uzman Olarak Kaydol\n\n**Footer Links:**\n1. Hizmetler\n2. Şirket\n3. Lisanslar & İzin\n4. Destek\n\n**Overall:** The site is a \"shell\". The design is there, but the content is missing.\n\nOne"
+      },
+      "screenshots": {
+        "desktop": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\index-desktop.png",
+        "mobile": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\index-mobile.png"
+      },
+      "overall": "warning"
+    },
+    {
+      "name": "Admin Panel",
+      "path": "admin-panel.html",
+      "url": "https://isbul.online/admin-panel.html",
+      "critical": true,
+      "timestamp": "2026-08-21T09:30:38.767Z",
+      "technical": {
+        "loadTime": 4355,
+        "status": 200,
+        "consoleErrors": [
+          "Failed to load resource: the server responded with a status of 503 ()",
+          "Failed to load resource: the server responded with a status of 503 ()",
+          "Failed to load resource: the server responded with a status of 503 ()",
+          "⚠️ UYARI: Admin panel içeriği bulunamadı",
+          "⚠️ Sayfada hata mesajları görünüyor: 500",
+          "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+        ],
+        "networkErrors": [
+          {
+            "url": "https://api.isbul.online/api/health",
+            "status": 503
+          },
+          {
+            "url": "https://api.isbul.online/api/admin/stats",
+            "status": 503
+          },
+          {
+            "url": "https://api.isbul.online/api/admin/applications",
+            "status": 503
+          },
+          {
+            "url": "https://isbul.online/api/v1/bookings/my",
+            "status": 401
+          }
+        ],
+        "accessibility": [
+          "10 input'ta label eksik",
+          "28 buton çok küçük (< 44x44px)"
+        ],
+        "buttons": [
+          {
+            "text": "Giriş Yap",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Ücretsiz Kaydol",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Boş",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Mobilya Montajı",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Ev Temizlikçi",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "TV Montajı",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "nakliyat",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Boyacı",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "🕐 Bugün Müsait",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Profil",
+            "visible": true,
+            "enabled": true
+          }
+        ],
+        "links": [
+          {
+            "href": "index.html",
+            "text": "⚡\n        İşBul"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Hizmetler"
+          },
+          {
+            "href": "nasil-calisir.html",
+            "text": "Nasıl Çalışır?"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Ol"
+          },
+          {
+            "href": "mailto:Kurumsal@isBul.com.tr",
+            "text": "Kurumsal"
+          },
+          {
+            "href": "uzman-profil.html?id=e1",
+            "text": "Profil"
+          },
+          {
+            "href": "uzmanlar.html?kategori=montaj",
+            "text": "Uzmanları GÖR"
+          },
+          {
+            "href": "uzmanlar.html?kategori=montaj",
+            "text": "🔧\n          Mobilya Montajı\n          Tüm marka mobilya montajı\n          \n            ₺200'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=temizlik",
+            "text": "🧹\n          Ev Temizliği\n          Standart & derin temizlik\n          \n            ₺250'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=nakliyat",
+            "text": "🚚\n          Nakliyat & Taşıma\n          Ev ve ofis taşıma hizmetleri\n          \n            ₺500'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=elektrik",
+            "text": "⚡\n          Elektrikçi\n          Priz, aydınlatma, panel\n          \n            ₺280'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=tesisat",
+            "text": "🔧\n          Tesisatçı\n          Su, doğalgaz, kalorifer\n          \n            ₺300'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=boya",
+            "text": "🎨\n          Boyacı\n          İç cephe ve dekoratif boya\n          \n            ₺350'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=montaj",
+            "text": "📺\n          TV Montajı\n          Duvara askı ve bağlantı\n          \n            ₺220'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=bahce",
+            "text": "🌱\n          Bahçe Bakımı\n          Çim biçme, budama, düzenleme\n          \n            ₺200'den başlar\n            ›"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "📋\n          Tüm Hizmetler\n          30+ farklı kategori\n          \n            Keşfet\n            ›"
+          },
+          {
+            "href": "nasil-calisir.html",
+            "text": "Daha Fazla Bilgi"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Olarak Kaydol »"
+          },
+          {
+            "href": "index.html",
+            "text": "⚡\n            İşBul"
+          },
+          {
+            "href": "https://www.linkedin.com/in/%C3%BCmit-yakup-dedeo%C4%9Flu-4321212a7/",
+            "text": "🔗"
+          }
+        ]
+      },
+      "ai": {
+        "status": "warning",
+        "issues": [],
+        "positive": [],
+        "overall": "\n<think>\nThe user wants me to act as an experienced QA Test Expert.\nI need to analyze the provided screenshot of the \"Admin Panel\" page at `https://isbul.online/admin-panel.html`.\nHowever, looking closely at the provided images, they are NOT an Admin Panel. They are the **Landing Page** (Home Page) of the website `isbul.online`.\n\nLet's break down the visual evidence:\n1.  **Header:** \"Hizmetler\", \"Nasıl Çalışır?\", \"Ücretsiz Ol\", \"Kullanıcılar\". This is typical for a public-facing site, not an admin dashboard.\n2.  **Hero Section:** \"Güvenilir hizmet, tek platformda\". This is a value proposition for users, not admins.\n3.  **Stats:** \"50.000+ Tamamlanan Hizmet\", \"8.500 Aktif Üye\". Marketing stats.\n4.  **Sections:** \"Popüler Hizmet Kategorileri\", \"Nasıl Çalışır?\", \"Güvenle Hizmet Alın\", \"Müşterilerimiz Ne Diyor?\", \"Uzman mısınız? Para kazanmaya başlayın!\".\n5.  **Footer:** Standard footer with links like \"Hakkımızda\", \"Blog\", \"İletişim\".\n\n**CRITICAL REALIZATION:** The user provided a URL `https://isbul.online/admin-panel.html` but the screenshots show the **Home Page** (`index.html` or similar). The screenshots do *not* show an admin panel.\n\nTherefore, my analysis must reflect this discrepancy. I cannot analyze an \"Admin Panel\" if the screenshot is the \"Home Page\". I must report this as a critical error: \"The requested Admin Panel is not visible; instead, the Home Page is displayed.\"\n\nWait, let me look closer at the prompt. The prompt says: \"Sen çok deneyimli bir QA Test Uzmanısın. Bu web sayfasının ekran görüntüsünü pixel pixel inceleyip DETAYLI analiz yapacaksın.\" and then lists the URL as `https://isbul.online/admin-panel.html`.\n\nBut the images provided are clearly the landing page.\n- Image 1: Full landing page.\n- Image 2: Top part (Hero).\n- Image 3: Middle part (Categories).\n- Image 4: Middle part (How it works).\n- Image 5: Testimonials.\n- Image 6: Bottom part (Footer).\n\n**Hypothesis:** The user might have pasted the wrong screenshots, OR the URL `admin-panel.html` is actually redirecting to the home page, OR the user wants me to critique the *Home Page* but mistakenly called it Admin Panel in the prompt text.\n\n**Decision:** I must act as a strict QA tester. If I ask for an Admin Panel and get a Home Page, that is a **CRITICAL ERROR**. I will report that the page loaded is NOT the Admin Panel.\n\nHowever, looking at the prompt again: \"📄 SAYFA: Admin Panel\".\nAnd the screenshots are definitely the public site.\n\nLet's look for *any* admin elements.\n- Top right: \"Giriş Yap\", \"Ücretsiz Kayıt Ol\". These are user actions.\n- No sidebar menu typical of admin panels.\n- No \"Dashboard\", \"Users\", \"Settings\" tabs.\n\n**Conclusion:** The screenshots provided are of the **Landing Page**, not the Admin Panel. I will structure my response to highlight this major discrepancy first. I will then analyze the *visible* page (the Landing Page) as if it were the target, but note that it's the wrong page.\n\nActually, looking at the prompt's \"CRITICAL CONTROLS\":\n1. ❌ Admin Panel açılmıyor mu? (boş sayfa, hata mesajı var mı?) -> This is the key. The page *did* open, but it's the wrong page.\n\nLet's re-read the prompt carefully. \"Bu web sayfasının ekran görüntüsünü pixel pixel inceleyip DETAYLI analiz yapacaksın.\"\nThe user *provided* the screenshots. I must analyze *what is in the screenshots*.\nThe prompt *claims* it's the Admin Panel.\nMy job is to verify.\n\n**Analysis of the visible content (Landing Page):**\n- **Header:** Logo \"İşBul\", Nav links, Login/Register buttons.\n- **Hero:** \"Güvenilir hizmet, tek platformda\", Search bar (Kategori, İsim), Floating UI mockups.\n- **Stats:** 50.000+, 8.500, 81, 98%.\n- **Categories:** \"Popüler Hizmet Kategorileri\". (Empty grid? No, just headers visible in some crops, but full image shows empty space below header? Wait. In Image 1, under \"Popüler Hizmet Kategorileri\", there is a lot of white space. It looks like the grid is missing or not loaded.\n- **How it works:** \"Nasıl Çalışır?\". Two buttons: \"Hizmet Bul\", \"Hizmet Sat\".\n- **Trust:** \"Güvenle Hizmet Alın\". (Empty section? Just a header).\n- **Testimonials:** \"Müşterilerimiz Ne Diyor?\". 3 cards.\n- **CTA:** \"Uzman mısınız? Para kazanmaya başlayın!\".\n- **Footer:** Standard links.\n\n**Wait, looking at Image 1 (Full Page):**\n- Under \"Popüler Hizmet Kategorileri\", there is a HUGE white gap. No categories are listed.\n- Under \"Güvenle Hizmet Alın\", there is a HUGE white gap. No content.\n- This suggests the page is broken or content is missing.\n\n**Let's look at the \"Admin Panel\" claim again.**\nIf the URL is `admin-panel.html`, and it shows the Home Page, that's a routing error.\nBUT, maybe the user *wants* me to critique the Home Page but labeled it wrong?\nNo, the prompt is specific: \"📄 SAYFA: Admin Panel\".\nAnd the first critical check is: \"❌ Admin Panel açılmıyor mu?\"\n\n**Strategy:**\n1.  **Status:** Error.\n2.  **Critical Issue:** The page loaded is the **Home Page (Landing Page)**, NOT the Admin Panel. The URL `admin-panel.html` seems to be serving the home page content, or the wrong screenshots were provided.\n3.  **Secondary Analysis (of the visible Home Page):**\n    *   **Missing Content:** The \"Popüler Hizmet Kategorileri\" and \"Güvenle Hizmet Alın\" sections appear empty (just headers).\n    *   **Facebook Login:** The prompt asks to check for Facebook login. I see \"Giriş Yap\" and \"Ücretsiz Kayıt Ol\". I need to check if there's a Facebook icon. In the top right, I see \"Giriş Yap\" (Login) and \"Ücretsiz Kayıt Ol\" (Register). I don't see a specific Facebook button *on the main nav*. Usually, login modals have social buttons. I can't see the modal.\n    *   **Layout:** The layout looks generally okay, but the empty sections are a big issue.\n    *   **Footer:** Links look standard.\n\n**Refining the \"Admin Panel\" aspect:**\nThe prompt asks: \"❌ Admin Panel açılmıyor mu?\"\nMy answer: \"Evet, Admin Panel açılmıyor. Bunun yerine Ana Sayfa (Landing Page) görünüyor.\"\n\n**Let's look for specific errors in the visible Home Page:**\n- **Image 1:** Under \"Popüler Hizmet Kategorileri\", there is a massive white space. No cards.\n- **Image 1:** Under \"Güvenle Hizmet Alın\", massive white space. No content.\n- **Image 1:** \"Müşterilerimiz Ne Diyor?\" section has 3 cards. They look okay.\n- **Image 1:** \"Uzman mısınız?\" section looks okay.\n- **Image 1:** Footer looks okay.\n\n**Wait, is it possible that the \"Admin Panel\" is supposed to be a view *of* the site?** No, \"Admin Panel\" usually implies a dashboard.\n\n**Let's assume the user made a mistake in the prompt title but wants me to analyze the *screenshots provided*.**\nThe screenshots show a Landing Page.\nI will analyze the Landing Page but flag the \"Admin Panel\" mismatch as the #1 Critical Error.\n\n**Detailed Check of the Landing Page (as seen in screenshots):**\n1.  **Header:**\n    *   Logo: \"İşBul\" (Lightning bolt icon).\n    *   Nav: Hizmetler, Nasıl Çalışır?, Ücretsiz Ol, Kullanıcılar.\n    *   Buttons: \"Giriş Yap\" (Outline), \"Ücretsiz Kayıt Ol\" (Purple filled).\n    *   *Check:* Is there a Facebook login button? Not visible in the header.\n2.  **Hero:**\n    *   Text: \"Güvenilir hizmet, tek platformda\".\n    *   Search: \"Kategori\", \"İsim\".\n    *   Tags: \"Proje\", \"Mobil Uygulama\", \"Web Sitesi\", \"İç Mimar\", \"Yazılım"
+      },
+      "screenshots": {
+        "desktop": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\admin-panel-desktop.png",
+        "mobile": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\admin-panel-mobile.png"
+      },
+      "overall": "error"
+    },
+    {
+      "name": "Uzman Ol",
+      "path": "uzman-ol.html",
+      "url": "https://isbul.online/uzman-ol.html",
+      "critical": true,
+      "timestamp": "2026-08-21T09:31:25.265Z",
+      "technical": {
+        "loadTime": 744,
+        "status": 200,
+        "consoleErrors": [
+          "❌ KRİTİK: 1 adet Facebook login butonu bulundu (olmamalı!)",
+          "⚠️ Sayfada hata mesajları görünüyor: 500, null",
+          "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+        ],
+        "networkErrors": [
+          {
+            "url": "https://isbul.online/api/v1/bookings/my",
+            "status": 401
+          }
+        ],
+        "accessibility": [
+          "32 input'ta label eksik",
+          "23 buton çok küçük (< 44x44px)"
+        ],
+        "buttons": [
+          {
+            "text": "Giriş Yap",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Ücretsiz Kaydol",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Boş",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Hemen Ücretsiz Kaydol →",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Devam Et → Uzmanlık Alanı",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "← Geri",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Devam Et → Belgeler",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "← Geri",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Devam Et → Ödeme Bilgisi",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "← Geri",
+            "visible": false,
+            "enabled": true
+          }
+        ],
+        "links": [
+          {
+            "href": "index.html",
+            "text": "⚡\n        İşBul"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Hizmetler"
+          },
+          {
+            "href": "nasil-calisir.html",
+            "text": "Nasıl Çalışır?"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Ol"
+          },
+          {
+            "href": "mailto:Kurumsal@isbul.com.tr",
+            "text": "Kurumsal"
+          },
+          {
+            "href": "sartlar.html",
+            "text": "Kullanım Koşulları"
+          },
+          {
+            "href": "gizlilik.html",
+            "text": "Gizlilik Politikası"
+          },
+          {
+            "href": "kvkk.html",
+            "text": "KVKK Aydınlatma Metni"
+          },
+          {
+            "href": "nasil-calisir.html?rol=tasker",
+            "text": "📧\n            \n              Rehber\n              Uzman süreci Hakkında ı"
+          },
+          {
+            "href": "index.html",
+            "text": "⚡İşBul"
+          },
+          {
+            "href": "https://www.linkedin.com/in/%C3%BCmit-yakup-dedeo%C4%9Flu-4321212a7/",
+            "text": "🔗"
+          },
+          {
+            "href": "hizmetler.html?kategori=montaj",
+            "text": "Mobilya Montajı"
+          },
+          {
+            "href": "hizmetler.html?kategori=temizlik",
+            "text": "Ev Temizlişi"
+          },
+          {
+            "href": "hizmetler.html?kategori=nakliyat",
+            "text": "Nakliyat"
+          },
+          {
+            "href": "hakkimizda.html",
+            "text": "Hakkımızda"
+          },
+          {
+            "href": "blog.html",
+            "text": "Blog"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Ol"
+          },
+          {
+            "href": "sartlar.html#sigorta",
+            "text": "Sigorta"
+          }
+        ]
+      },
+      "ai": {
+        "status": "warning",
+        "issues": [],
+        "positive": [],
+        "overall": "\n<think>\nThe user wants a detailed QA analysis of the \"Uzman Ol\" (Become an Expert) page of the website `isbul.online`.\nI need to act as an experienced QA Test Expert.\nI need to examine the provided screenshots (which appear to be a composite of different states or views of the page) and provide a JSON output.\n\n**Analysis of the Screenshots:**\n\n*   **Image 1 (Top):** Shows the full landing page.\n    *   Header: Logo \"İşBul\", Menu (Hizmetler, Nasıl Çalışır?, Uzman Ol, Kurumsal), Buttons (Giriş Yap, Ücretsiz Kaydol).\n    *   Hero Section: \"Yeteneklerinizi paraya çevirin\", stats (1.8K, 8.500, 50K, %85), Testimonial, CTA button \"Hemen Ücretsiz Kaydol\".\n    *   Form Section: \"Profil Tamamlanma 0%\", Steps (Kişisel Bilgiler, Uzmanlık Alanı, Belgeler, Ödeme Bilgisi). Form fields: Ad, Soyad, E-posta, Telefon, Şehir, İlçe, Şifre, Şifre Tekrar. Button \"Devam Et -> Uzmanlık Alanı\".\n    *   Testimonials: \"Uzmanlarımız Ne Diyor?\" section with reviews.\n    *   Footer: Logo, Links (Hizmetler, Şirket, Uzmanlar, Destek), Copyright.\n\n*   **Image 2 (Middle):** Shows a slightly different view, possibly scrolled or a different breakpoint.\n    *   Header: Same.\n    *   Hero Section: Similar content but layout slightly different. \"Şu an 8.500+ uzman aktif olarak çalışıyor\".\n    *   Form Section: \"Profil Tamamlanma 0%\". Steps visible. Form fields visible.\n    *   Testimonials: \"Uzmanlarımız Ne Diyor?\".\n    *   Footer: Same.\n\n*   **Image 3 (Bottom):** Shows the bottom part of the page, focusing on the form and footer.\n    *   Form: \"Profil Tamamlanma 0%\". Steps. Form fields (Ad, Soyad, E-posta, Telefon, Şehir, İlçe, Şifre, Şifre Tekrar). Button \"Devam Et -> Uzmanlık Alanı\".\n    *   Testimonials: \"Uzmanlarımız Ne Diyor?\".\n    *   Footer: Same.\n\n**Detailed Checks based on the prompt:**\n\n*   **Critical Checks:**\n    1.  *Admin Panel:* Not visible in screenshots. Cannot verify if it opens or not from static images. I will assume it's not part of the public view.\n    2.  *Facebook Login:* I need to look for a Facebook button. In the header, there are \"Giriş Yap\" and \"Ücretsiz Kaydol\". In the form, there is no social login visible. The prompt asks if Facebook login button EXISTS (it shouldn't). I don't see one. This is good.\n    3.  *Buttons:* \"Giriş Yap\", \"Ücretsiz Kaydol\", \"Hemen Ücretsiz Kaydol\", \"Devam Et -> Uzmanlık Alanı\". They look functional (styled correctly).\n    4.  *Error Messages:* No \"404\", \"Error\", \"Undefined\" visible.\n    5.  *Layout:* Looks generally clean. The form is centered. The hero section is aligned.\n    6.  *Footer Links:* \"Hizmetler\", \"Şirket\", \"Uzmanlar\", \"Destek\". Sublinks: \"Mobilya Montaj\", \"Ev Temizliği\", \"Nakliyat\", \"Hakkımızda\", \"Blog\", \"İletişim\", \"KVKK\". Looks correct.\n    7.  *Broken Icons:* The logo icon (lightning bolt) looks fine. The checkmark icon in the form looks fine. The chat bubble icon looks fine.\n    8.  *Form Fields:* Inputs look standard. Placeholders are visible (\"Adınız\", \"Soyadınız\", etc.).\n    9.  *Modal/Popup:* No modal is open.\n    10. *Menu:* Hamburger menu is not visible (desktop view). Dropdowns not visible.\n\n*   **Warnings:**\n    1.  *Color Contrast:* The white text on the dark blue gradient background looks good. The dark text on the white form background looks good.\n    2.  *Spelling:* \"Yeteneklerinizi paraya çevirin\", \"Kendi programınızı belirleyin...\", \"Profil Tamamlanma\", \"Kişisel Bilgiler\". Turkish looks correct. \"İşBul\" logo is correct.\n    3.  *Button Size:* Buttons look adequately sized.\n    4.  *Spacing:* Padding seems consistent.\n    5.  *Alignment:* Text alignment seems centered or left-aligned appropriately.\n    6.  *Icons:* Checkmark, stars, lightning bolt. All seem present.\n    7.  *Loading:* No loading spinner visible.\n    8.  *Image Quality:* The screenshots are clear.\n    9.  *Responsive:* The screenshots show a desktop view. I can't fully judge mobile responsiveness without a mobile screenshot, but the layout looks like a standard desktop layout. The prompt asks about \"mobile responsive\" in the JSON. I will infer based on the desktop view structure (flex/grid likely used).\n    10. *Tooltip/Hover:* Cannot test hover on static images.\n\n*   **Positive Observations:**\n    1.  Clear value proposition (\"Yeteneklerinizi paraya çevirin\").\n    2.  Trust signals (stats, testimonials).\n    3.  Clear form structure with progress bar.\n\n*   **Detailed Analysis:**\n    *   *Buttons:* \"Giriş Yap\", \"Ücretsiz Kaydol\" (Header), \"Hemen Ücretsiz Kaydol\" (Hero), \"Devam Et -> Uzmanlık Alanı\" (Form).\n    *   *Footer Links:* Hizmetler (Mobilya Montaj, Ev Temizliği, Nakliyat), Şirket (Hakkımızda, Blog), Uzmanlar (Uzman Ol, Şikayet), Destek (İletişim, KVKK).\n    *   *Color Palette:* Dark blue/purple gradient for hero, white for form, dark for footer. Consistent.\n    *   *Typography:* Sans-serif font. Headings are bold. Body text is readable.\n    *   *Visual Hierarchy:* Hero text is largest. Form is prominent.\n\n**Constructing the JSON:**\n\n*   `status`: \"success\" (No critical errors found in the visual inspection).\n*   `criticalIssues`: Empty array (based on visual inspection). Wait, let me look closer at the form.\n    *   In the form, \"Şehir\" and \"İlçe\" are dropdowns.\n    *   \"Şifre\" and \"Şifre Tekrar\" are inputs.\n    *   The button says \"Devam Et -> Uzmanlık Alanı\". This implies a multi-step form.\n    *   Is there a Facebook button? I don't see one. The prompt says \"Facebook login button VAR MI? (OLMAMALI! Sadece Google olmalı)\". I don't see Google either. I only see \"Giriş Yap\" and \"Ücretsiz Kaydol\". This might be a warning if social login is expected but missing, or just a design choice. The prompt implies Facebook *should not* be there. So if it's not there, that's good.\n    *   Wait, looking at the very top right of the first image, there is a \"Giriş Yap\" button. Usually, social logins are inside a modal or on a login page. Since I can't click, I can't see inside. But on the main page, no Facebook button is visible.\n    *   Let's check the text carefully. \"İşBul\" logo.\n    *   \"Uzman Ol\" is in the menu.\n    *   \"Hemen Ücretsiz Kaydol\" button.\n    *   Form fields: Ad, Soyad, E-posta, Telefon, Şehir, İlçe, Şifre, Şifre Tekrar.\n    *   The prompt asks about \"Admin Panel açılmıyor mu?\". I can't check that. I will assume it's not a visible error on the public page.\n    *   \"Footer linkleri yanlış sayfaya mı gidiyor?\". I can't click. I will assume they are correct based on labels.\n\n*   `warnings`:\n    *   Maybe the \"Şehir\" and \"İlçe\" dropdowns look a bit plain? No, they look standard.\n    *   The \"Profil Tamamlanma 0%\" is at the top of the form.\n    *   The form is quite long.\n    *   Is there a \"Google\" login button? The prompt says \"Sadece Google olmalı\". I don't see a Google button either. This might be a warning if the requirement is to have Google login but it's"
+      },
+      "screenshots": {
+        "desktop": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\uzman-ol-desktop.png",
+        "mobile": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\uzman-ol-mobile.png"
+      },
+      "overall": "warning"
+    },
+    {
+      "name": "Uzmanlar",
+      "path": "uzmanlar.html",
+      "url": "https://isbul.online/uzmanlar.html",
+      "critical": false,
+      "timestamp": "2026-08-21T09:32:12.769Z",
+      "technical": {
+        "loadTime": 891,
+        "status": 200,
+        "consoleErrors": [
+          "❌ KRİTİK: 1 adet Facebook login butonu bulundu (olmamalı!)",
+          "⚠️ Sayfada hata mesajları görünüyor: 500, null",
+          "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+        ],
+        "networkErrors": [
+          {
+            "url": "https://isbul.online/api/v1/bookings/my",
+            "status": 401
+          }
+        ],
+        "accessibility": [
+          "9 input'ta label eksik",
+          "52 buton çok küçük (< 44x44px)"
+        ],
+        "buttons": [
+          {
+            "text": "Giriş Yap",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Ücretsiz Kaydol",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Boş",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Rezervasyon",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Rezervasyon",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Rezervasyon",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Rezervasyon",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Rezervasyon",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Rezervasyon",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Rezervasyon",
+            "visible": true,
+            "enabled": true
+          }
+        ],
+        "links": [
+          {
+            "href": "index.html",
+            "text": "⚡\n        İşBul"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Hizmetler"
+          },
+          {
+            "href": "nasil-calisir.html",
+            "text": "Nasıl Çalışır?"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Ol"
+          },
+          {
+            "href": "mailto:Kurumsal@isbul.com.tr",
+            "text": "Kurumsal"
+          },
+          {
+            "href": "uzman-profil.html?id=u_demo_expert_001",
+            "text": "Profil"
+          },
+          {
+            "href": "uzman-profil.html?id=u_admin_1786796589448",
+            "text": "Profil"
+          },
+          {
+            "href": "uzman-profil.html?id=u_1786796590041_dg74g",
+            "text": "Profil"
+          },
+          {
+            "href": "uzman-profil.html?id=e1",
+            "text": "Profil"
+          },
+          {
+            "href": "uzman-profil.html?id=e2",
+            "text": "Profil"
+          },
+          {
+            "href": "uzman-profil.html?id=e5",
+            "text": "Profil"
+          },
+          {
+            "href": "uzman-profil.html?id=u_demo_1787304624043_60tibczlx",
+            "text": "Profil"
+          },
+          {
+            "href": "uzman-profil.html?id=e15",
+            "text": "Profil"
+          },
+          {
+            "href": "uzman-profil.html?id=u_demo_1787304624043_now6ua01l",
+            "text": "Profil"
+          },
+          {
+            "href": "uzman-profil.html?id=e3",
+            "text": "Profil"
+          },
+          {
+            "href": "uzman-profil.html?id=e21",
+            "text": "Profil"
+          },
+          {
+            "href": "uzman-profil.html?id=e17",
+            "text": "Profil"
+          },
+          {
+            "href": "uzman-profil.html?id=e8",
+            "text": "Profil"
+          },
+          {
+            "href": "uzman-profil.html?id=e27",
+            "text": "Profil"
+          },
+          {
+            "href": "uzman-profil.html?id=u_demo_1787304624043_tv5m3rz8x",
+            "text": "Profil"
+          }
+        ]
+      },
+      "ai": {
+        "status": "warning",
+        "issues": [],
+        "positive": [],
+        "overall": "\n<think>\nThe user wants a detailed QA analysis of the \"Uzmanlar\" (Experts) page based on the provided screenshots.\n\n**1. Initial Scan & Layout Assessment:**\n*   **Page Structure:** Header (Logo, Login/Register), Hero Section (Title \"Uzman Listesi\", Filters), Main Content (Grid of Expert Cards), Footer.\n*   **Visual Style:** Clean, white background, purple/blue accent colors. Looks like a modern SaaS or marketplace design.\n*   **Responsiveness:** The screenshots show a desktop view. The layout seems to be a 3-column grid.\n\n**2. Detailed Element Inspection (Pixel Peeping):**\n\n*   **Header:**\n    *   Logo: \"isbul\" (top left).\n    *   Nav: \"Giriş Yap\" (Login), \"Kayıt Ol\" (Register) buttons.\n    *   *Check:* Are there social login buttons? I see \"Giriş Yap\" and \"Kayıt Ol\". I need to check if there's a Facebook login button visible. Looking closely at the top right, I see \"Giriş Yap\" and \"Kayıt Ol\". No explicit Facebook button is visible in the header itself, but usually, these are inside a modal. The prompt asks specifically about \"Facebook login button VAR MI? (OLMAMALI! Sadece Google olmalı)\". I need to be careful here. I can't click, but I can look for icons. I don't see a Facebook icon in the header.\n\n*   **Hero Section:**\n    *   Title: \"Uzman Listesi\" (Expert List).\n    *   Subtitle: \"Bütçenize uygun uzmanları, işini en iyi yapanları görelim.\" (Let's see experts suitable for your budget, those who do the job best).\n    *   Filters: \"44 Uzman Bulundu\" (44 Experts Found), \"Tüm İş Türleri\" (All Job Types), \"En Yüksek Puan\" (Highest Score), \"En Düşük Puan\" (Lowest Score).\n    *   *Check:* Are filters working? I can't test functionality, but they look present.\n\n*   **Main Content (Expert Cards):**\n    *   **Card Structure:** Avatar, Name, Rating (Stars), Price, Tags (Skills), \"Profil\" (Profile) button, \"Mesaj Gönder\" (Send Message) button.\n    *   **Card 1 (Zeynep Özdemir):**\n        *   Name: Zeynep Özdemir.\n        *   Rating: 4.9 (120).\n        *   Price: 5,000 TL.\n        *   Tags: \"İçerik Yazarlığı\", \"SEO\", \"Sosyal Medya\".\n        *   Buttons: \"Profil\", \"Mesaj Gönder\".\n    *   **Card 2 (Ahmet Yılmaz):**\n        *   Name: Ahmet Yılmaz.\n        *   Rating: 4.8 (95).\n        *   Price: 5,000 TL.\n        *   Tags: \"Web Tasarım\", \"UI/UX\", \"Frontend\".\n        *   Buttons: \"Profil\", \"Mesaj Gönder\".\n    *   **Card 3 (Elif Kaya):**\n        *   Name: Elif Kaya.\n        *   Rating: 4.7 (80).\n        *   Price: 5,000 TL.\n        *   Tags: \"Grafik Tasarım\", \"Logo\", \"Marka Kimliği\".\n        *   Buttons: \"Profil\", \"Mesaj Gönder\".\n    *   *Observation:* The cards look consistent. The \"Profil\" button is purple/blue. The \"Mesaj Gönder\" button is a lighter purple/blue.\n    *   *Check:* Are there any broken images? The avatars look like generic placeholders (colored circles with initials). This is acceptable for a demo/placeholder state but might be a warning if real photos are expected.\n    *   *Check:* Text alignment. Looks centered or left-aligned consistently.\n\n*   **Footer:**\n    *   Logo: \"isbul\".\n    *   Columns: \"Hakkımızda\", \"Hizmetler\", \"Destek\", \"İletişim\".\n    *   Links: \"Hakkımızda\", \"Nasıl Çalışır\", \"SSS\", \"Blog\", \"Gizlilik Politikası\", \"Kullanım Şartları\", \"Destek Merkezi\", \"İletişim\", \"Facebook\", \"Twitter\", \"Instagram\".\n    *   *Check:* Are footer links correct? They look standard.\n    *   *Check:* Copyright text: \"© 2024 isbul. Tüm hakları saklıdır.\"\n\n**3. Specific Checks from Prompt:**\n\n*   **Admin Panel:** Not visible on this page.\n*   **Facebook Login:** I don't see a Facebook login button in the header. The prompt says \"Facebook login button VAR MI? (OLMAMALI! Sadece Google olmalı)\". This implies a specific requirement. Since I can't click \"Giriş Yap\", I can't see the modal. However, looking at the header, there are no social icons. I will note that I cannot verify the modal content but the header looks clean.\n*   **Buttons:** \"Profil\" and \"Mesaj Gönder\" are on every card. \"Giriş Yap\" and \"Kayıt Ol\" in header. Filter buttons.\n*   **404/Error:** No visible error messages.\n*   **Layout:** Looks good. 3-column grid.\n*   **Footer Links:** Look standard.\n*   **Broken Icons:** Avatars are placeholders (initials). This is a design choice, not necessarily a \"broken icon\" unless they are supposed to be photos.\n*   **Form Fields:** No forms visible on the main page (except maybe filters, but they look like dropdowns/buttons).\n*   **Modal/Popup:** None open.\n*   **Menu:** Hamburger menu not visible (desktop view).\n\n**4. Warnings & Positives:**\n\n*   **Contrast:** Text is dark grey on white. Good contrast. Purple buttons on white. Good contrast.\n*   **Typos:** \"Uzman Listesi\" looks correct. \"Bütçenize uygun uzmanları...\" looks correct.\n*   **Button Size:** Buttons look reasonably sized for desktop.\n*   **Spacing:** Consistent padding between cards.\n*   **Alignment:** Cards are aligned in a grid.\n*   **Icons:** Star icons for ratings look fine.\n*   **Loading:** No loading spinner visible.\n*   **Image Quality:** Avatars are vector-style placeholders. Sharp.\n*   **Responsive:** Can't fully test mobile, but the grid suggests it will stack.\n\n**5. Constructing the JSON:**\n\n*   **Status:** \"success\" (mostly looks functional and clean).\n*   **Critical Issues:** None found in the static view.\n*   **Warnings:**\n    *   Avatars are placeholders (initials). If this is a live site, this is a warning. If it's a demo, it's fine. I'll mark it as a warning about \"Placeholder Images\".\n    *   The \"Facebook Login\" check: I need to mention that I cannot verify the login modal content, but the header doesn't show a Facebook button.\n*   **Positives:**\n    *   Clean grid layout.\n    *   Clear pricing and rating visibility.\n    *   Consistent button styling.\n*   **Buttons:** List \"Giriş Yap\", \"Kayıt Ol\", \"Profil\", \"Mesaj Gönder\", Filter buttons.\n*   **Footer Links:** List the columns.\n*   **Color Contrast:** \"iyi\".\n*   **Mobile Responsive:** \"iyi\" (based on grid structure).\n*   **Overall:** Professional look, clear hierarchy.\n\n**Refining the Analysis:**\n\n*   *Wait, looking closer at the first screenshot (top left corner):* There is a tiny \"Giriş Yap\" and \"Kayıt Ol\" button.\n*   *Looking at the cards:* The \"Profil\" button is a solid purple pill. The \"Mesaj Gönder\" button is a lighter purple outline or lighter fill.\n*   *Looking at the footer:* \"Hakkımızda\", \"Hizmetler\", \"Destek\", \"İletişim\".\n*   *Looking at the filters:* \"44 Uzman Bulundu\", \"Tüm İş Türleri\", \"En Yüksek Puan\", \"En Düşük Puan\".\n\n**Self-Correction on \"Facebook Login\":** The prompt says \"Facebook login button VAR MI? (OLMAMALI! Sadece Google olmalı)\". This is a specific constraint. I need to look *very* closely at the header.\n*   Top right: \"Giriş Yap\" (Login), \"Kayıt Ol\" (Register).\n*   I do *not* see a Facebook icon. This is good. It meets the requirement \"Sadece Google olmalı\" (Only Google should be there - implying no Facebook). Wait, the prompt says \"Facebook"
+      },
+      "screenshots": {
+        "desktop": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\uzmanlar-desktop.png",
+        "mobile": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\uzmanlar-mobile.png"
+      },
+      "overall": "warning"
+    },
+    {
+      "name": "Uzman Panel",
+      "path": "uzman-panel.html",
+      "url": "https://isbul.online/uzman-panel.html",
+      "critical": true,
+      "timestamp": "2026-08-21T09:32:59.070Z",
+      "technical": {
+        "loadTime": 1121,
+        "status": 200,
+        "consoleErrors": [
+          "⚠️ Sayfada hata mesajları görünüyor: 500",
+          "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+        ],
+        "networkErrors": [
+          {
+            "url": "https://isbul.online/api/v1/bookings/my",
+            "status": 401
+          }
+        ],
+        "accessibility": [
+          "10 input'ta label eksik",
+          "28 buton çok küçük (< 44x44px)"
+        ],
+        "buttons": [
+          {
+            "text": "Giriş Yap",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Ücretsiz Kaydol",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Boş",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Mobilya Montajı",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Ev Temizlikçi",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "TV Montajı",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "nakliyat",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Boyacı",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "🕐 Bugün Müsait",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Profil",
+            "visible": true,
+            "enabled": true
+          }
+        ],
+        "links": [
+          {
+            "href": "index.html",
+            "text": "⚡\n        İşBul"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Hizmetler"
+          },
+          {
+            "href": "nasil-calisir.html",
+            "text": "Nasıl Çalışır?"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Ol"
+          },
+          {
+            "href": "mailto:Kurumsal@isBul.com.tr",
+            "text": "Kurumsal"
+          },
+          {
+            "href": "uzman-profil.html?id=e1",
+            "text": "Profil"
+          },
+          {
+            "href": "uzmanlar.html?kategori=montaj",
+            "text": "Uzmanları GÖR"
+          },
+          {
+            "href": "uzmanlar.html?kategori=montaj",
+            "text": "🔧\n          Mobilya Montajı\n          Tüm marka mobilya montajı\n          \n            ₺200'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=temizlik",
+            "text": "🧹\n          Ev Temizliği\n          Standart & derin temizlik\n          \n            ₺250'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=nakliyat",
+            "text": "🚚\n          Nakliyat & Taşıma\n          Ev ve ofis taşıma hizmetleri\n          \n            ₺500'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=elektrik",
+            "text": "⚡\n          Elektrikçi\n          Priz, aydınlatma, panel\n          \n            ₺280'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=tesisat",
+            "text": "🔧\n          Tesisatçı\n          Su, doğalgaz, kalorifer\n          \n            ₺300'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=boya",
+            "text": "🎨\n          Boyacı\n          İç cephe ve dekoratif boya\n          \n            ₺350'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=montaj",
+            "text": "📺\n          TV Montajı\n          Duvara askı ve bağlantı\n          \n            ₺220'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=bahce",
+            "text": "🌱\n          Bahçe Bakımı\n          Çim biçme, budama, düzenleme\n          \n            ₺200'den başlar\n            ›"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "📋\n          Tüm Hizmetler\n          30+ farklı kategori\n          \n            Keşfet\n            ›"
+          },
+          {
+            "href": "nasil-calisir.html",
+            "text": "Daha Fazla Bilgi"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Olarak Kaydol »"
+          },
+          {
+            "href": "index.html",
+            "text": "⚡\n            İşBul"
+          },
+          {
+            "href": "https://www.linkedin.com/in/%C3%BCmit-yakup-dedeo%C4%9Flu-4321212a7/",
+            "text": "🔗"
+          }
+        ]
+      },
+      "ai": {
+        "status": "warning",
+        "issues": [],
+        "positive": [],
+        "overall": "\n<think>\nThe user wants a detailed QA analysis of the provided webpage screenshots.\nThe page is \"Uzman Panel\" (Expert Panel) for a platform called \"isbul.online\".\nI need to check for specific errors, warnings, and positive aspects, and output the result in a specific JSON format.\n\n**Visual Analysis of the Screenshots:**\n\n*   **Screenshot 1 (Top):**\n    *   Header: Logo \"isbul\", Navigation (Hizmetler, Nasıl Çalışır?, Uzman Ol, Kurumsal), Buttons (Giriş Yap, Ücretsiz Kayıt).\n    *   Hero Section: \"Güvenilir hizmet, tek platformda\". Input field for search. Floating UI elements showing a profile card (\"Mehmet Kaya\", \"Web Geliştirici\") and a chat bubble.\n    *   Stats Bar: 32.888 Tamamlanan İşler, 5.591 Aktif Uzman, 53 Şehir, 63 Müşteri Memnuniyeti.\n    *   Categories Section: \"Popüler Hizmet Kategorileri\". It looks empty. There are no category cards visible. Just the title and subtitle.\n    *   Footer (Partial): Visible at the very bottom.\n\n*   **Screenshot 2 (Middle):**\n    *   \"Nasıl Çalışır?\" Section: Dark background. Title \"Nasıl Çalışır?\". Subtitle \"3 basit adımla uzmanlaşmak kolaydır\".\n    *   Steps: There are arrows pointing right, but the actual step content (icons, text) is missing or invisible. It's just empty space with arrows.\n    *   Buttons: \"Hemen Başla\", \"Daha Fazla Bilgi\".\n    *   \"Güvenle Hizmet Alın\" Section: Title only. Content is missing below it.\n\n*   **Screenshot 3 (Bottom):**\n    *   \"Müşterilerimiz Ne Diyor?\" Section: Three testimonial cards.\n        *   Card 1: \"Zeynep Yılmaz\", 5 stars. Text visible.\n        *   Card 2: \"Burak Ekici\", 5 stars. Text visible.\n        *   Card 3: \"Ali Aksoy\", 5 stars. Text visible.\n    *   Pagination: Dots below testimonials.\n    *   CTA Section: \"Uzman mısınız? Para kazanmaya başlayın!\". Dark blue card.\n        *   Text: \"Başka platformlarda çalışırken...\".\n        *   Stats: \"Ortalama Kazanç: ₺2.840\".\n        *   Button: \"Uzman Olarak Katıl\".\n    *   Footer: Full footer visible.\n        *   Columns: isbul (logo + text), Hizmetler, Sirket, Uzmanlar İçin, Destek.\n        *   Links: \"Hizmetler\", \"Nasıl Çalışır?\", \"Uzman Ol\", \"Kurumsal\", \"Blog\", \"Hakkımızda\", \"İletişim\", \"Gizlilik Politikası\", \"Kullanım Şartları\", \"SSS\", \"Destek Talebi\", \"İletişim\".\n        *   Copyright: \"© 2024 isbul. Tüm hakları saklıdır.\"\n        *   Social icons: Facebook, Twitter, LinkedIn (placeholders).\n\n**Detailed Check against Criteria:**\n\n1.  **Admin Panel:** Not visible in screenshots, but the URL is `uzman-panel.html`. This is likely a landing page for experts, not the actual admin dashboard. The prompt asks \"Admin Panel açılmıyor mu?\". Since I only see a landing page, I can't confirm if the *actual* admin panel works, but the page itself loads. However, looking closely at the URL `uzman-panel.html`, it suggests this *is* the page. If the user expects a dashboard and sees a landing page, that's a mismatch. But usually, \"Uzman Panel\" implies the login/landing page for experts. Let's assume the page content is what's being tested.\n2.  **Facebook Login:** I see \"Giriş Yap\" and \"Ücretsiz Kayıt\" buttons in the header. I don't see a specific \"Facebook Login\" button on the main view. The prompt says \"Facebook login butonu VAR MI? (OLMAMALI! Sadece Google olmalı)\". I don't see any social login buttons explicitly in the header. The footer has social icons, but those are for following, not logging in. So, this seems okay (no Facebook login button found).\n3.  **Buttons:**\n    *   Header: \"Giriş Yap\", \"Ücretsiz Kayıt\".\n    *   Hero: Search input (no button visible next to it? Or maybe the search icon is inside).\n    *   \"Nasıl Çalışır\": \"Hemen Başla\", \"Daha Fazla Bilgi\".\n    *   CTA: \"Uzman Olarak Katıl\".\n    *   Footer links act as buttons/links.\n    *   *Issue:* The \"Nasıl Çalışır\" section has arrows but no content.\n4.  **Error Messages:** No \"404\", \"Error\", \"Undefined\" text visible.\n5.  **Layout:**\n    *   \"Popüler Hizmet Kategorileri\" section is completely empty. This is a major layout/content issue.\n    *   \"Nasıl Çalışır\" section has arrows but no step content.\n    *   \"Güvenle Hizmet Alın\" section has a title but no content below it.\n    *   The layout is generally clean (dark mode theme), but missing content makes it look broken.\n6.  **Footer Links:** They seem to point to standard pages (Hakkımızda, Blog, etc.).\n7.  **Broken Icons:**\n    *   In the Hero section, the floating card has a profile picture placeholder (circle with person icon).\n    *   In the Testimonials, profile pictures are colored circles with initials (Z, B, A). This is acceptable.\n    *   In the Footer, social icons look like generic placeholders or simple icons.\n    *   *Critical:* The \"Nasıl Çalışır\" section has arrows `>` but no icons for the steps.\n8.  **Form Fields:** The search bar in the hero section looks okay.\n9.  **Modals:** None open.\n10. **Menu:** Hamburger menu icon is visible on mobile (implied by the layout, though screenshots look desktop/tablet). The desktop nav is visible.\n\n**Warnings:**\n1.  **Contrast:** Dark blue background with white text is generally good. Purple accents are visible.\n2.  **Typos:** \"Müşterilerimiz Ne Diyor?\" - looks correct. \"Güvenilir hizmet, tek platformda\" - correct. \"Uzman mısınız? Para kazanmaya başlayın!\" - correct.\n3.  **Button Size:** Buttons look standard size.\n4.  **Spacing:** The empty sections create weird large gaps.\n5.  **Alignment:** Generally centered.\n6.  **Icons:** Missing step icons in \"Nasıl Çalışır\".\n7.  **Loading:** No infinite loader visible.\n8.  **Image Quality:** Vector graphics look sharp.\n9.  **Responsive:** The screenshots show a desktop view. The layout seems to handle width okay, but the empty sections are the main issue.\n\n**Positive:**\n1.  Clean, modern dark UI design.\n2.  Clear value proposition in the Hero section.\n3.  Testimonials section is well-structured.\n\n**JSON Construction:**\n\n*   `status`: \"warning\" (due to missing content sections).\n*   `criticalIssues`:\n    *   \"Popüler Hizmet Kategorileri\" section is empty.\n    *   \"Nasıl Çalışır\" section is missing step content (only arrows visible).\n    *   \"Güvenle Hizmet Alın\" section is missing content below the title.\n*   `warnings`:\n    *   Search bar in Hero lacks a clear submit button (maybe just Enter key?).\n    *   Footer social icons look like placeholders.\n*   `positive`:\n    *   Modern dark theme.\n    *   Clear typography.\n    *   Testimonials look good.\n*   `buttons`: List all visible buttons.\n*   `footerLinks`: List footer links.\n*   `colorContrast`: \"iyi\" (Dark mode is usually good for contrast if done right).\n*   `mobileResponsive`: \"sorunlu\" (Can't fully judge without mobile screenshot, but the empty sections suggest content loading issues which affect all views). Let's say \"bilinmiyor\" or assume \"sorunlu\" due to missing content. Actually, the prompt asks for \"iyi\" | \"sorunlu\" | \"bozuk\". I will say \"sorunlu\" because of the missing content blocks.\n*   `overall`: Summary.\n\n**Refining the \"Facebook Login\" check:**\nThe prompt specifically asks: \"Facebook login butonu VAR MI? (OLMAMALI! Sadece Google olmalı)\".\nLooking at the header: \"Giriş Yap\" and \"Ücretsiz Kayıt\".\nLooking at the \""
+      },
+      "screenshots": {
+        "desktop": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\uzman-panel-desktop.png",
+        "mobile": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\uzman-panel-mobile.png"
+      },
+      "overall": "warning"
+    },
+    {
+      "name": "Profil",
+      "path": "profil.html",
+      "url": "https://isbul.online/profil.html",
+      "critical": false,
+      "timestamp": "2026-08-21T09:33:45.901Z",
+      "technical": {
+        "loadTime": 875,
+        "status": 200,
+        "consoleErrors": [
+          "Failed to load resource: the server responded with a status of 401 (Unauthorized)",
+          "❌ KRİTİK: 1 adet Facebook login butonu bulundu (olmamalı!)",
+          "⚠️ Sayfada hata mesajları görünüyor: 500, null"
+        ],
+        "networkErrors": [
+          {
+            "url": "https://isbul.online/api/v1/bookings/my",
+            "status": 401
+          }
+        ],
+        "accessibility": [
+          "17 input'ta label eksik",
+          "21 buton çok küçük (< 44x44px)"
+        ],
+        "buttons": [
+          {
+            "text": "Giriş Yap",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Ücretsiz Kaydol",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Boş",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "👤 Bilgilerim",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "📋 Rezervasyonlarım",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "🔒 Güvenlik",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "🔔 Bildirimler",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Hizmet Ara",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Uzman Ol",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "🚪 Çıkış Yap",
+            "visible": true,
+            "enabled": true
+          }
+        ],
+        "links": [
+          {
+            "href": "index.html",
+            "text": "⚡\n        İşBul"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Hizmetler"
+          },
+          {
+            "href": "nasil-calisir.html",
+            "text": "Nasıl Çalışır?"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Ol"
+          },
+          {
+            "href": "mailto:Kurumsal@isbul.com.tr",
+            "text": "Kurumsal"
+          },
+          {
+            "href": "index.html",
+            "text": "Ana Sayfa"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Hizmet Ara"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Ol"
+          },
+          {
+            "href": "uzmanlar.html",
+            "text": "🔍 Uzman Ara"
+          },
+          {
+            "href": "nasil-calisir.html",
+            "text": "❓ Nasıl Çalışır?"
+          },
+          {
+            "href": "blog.html",
+            "text": "📝 Blog"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Uzman Ara →"
+          },
+          {
+            "href": "index.html",
+            "text": "⚡İşBul"
+          },
+          {
+            "href": "https://www.linkedin.com/in/%C3%BCmit-yakup-dedeo%C4%9Flu-4321212a7/",
+            "text": "🔗"
+          },
+          {
+            "href": "uzmanlar.html?kategori=montaj",
+            "text": "Mobilya Montajı"
+          },
+          {
+            "href": "uzmanlar.html?kategori=temizlik",
+            "text": "Ev Temizliği"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Tüm Hizmetler"
+          },
+          {
+            "href": "hakkimizda.html",
+            "text": "Hakkımızda"
+          }
+        ]
+      },
+      "ai": {
+        "status": "warning",
+        "issues": [],
+        "positive": [],
+        "overall": "\n<think>\nThe user wants a detailed QA analysis of the provided screenshot of the \"Profil\" page on `isbul.online`.\n\n**1. Initial Scan & Layout Assessment:**\n*   **Main Element:** A modal window is open in the center of the screen. It's a login/signup modal.\n*   **Background:** The background is blurred, indicating the modal is active and overlaying the main content. The main content seems to be a profile page (\"Kullanıcı\" visible in the blurred background).\n*   **Footer:** The footer is visible at the bottom, partially obscured by the modal in some crops, but clearly visible in the full view.\n\n**2. Detailed Inspection - The Modal (Login/Signup):**\n*   **Header:** \"İşBul\" logo. Close button (X) is present.\n*   **Tabs:** \"Giriş Yap\" (Login) and \"Ücretsiz Kaydol\" (Sign up Free). \"Giriş Yap\" is active (purple underline).\n*   **Alert Box:** A yellow warning box says \"Profilinizi görüntülemek için giriş yapmanız gerekiyor.\" (You need to log in to view your profile). This makes sense for a profile page.\n*   **Social Login:** \"Google ile Giriş\" button is present.\n    *   *Check against requirements:* \"Facebook login butonu VAR MI? (OLMAMALI! Sadece Google olmalı)\". I see only Google. Good.\n*   **Divider:** \"veya e-posta ile\" (or with email).\n*   **Form Fields:**\n    *   \"E-posta\" (Email) input with placeholder \"ornek@mail.com\".\n    *   \"Şifre\" (Password) input with dots (masked).\n    *   \"şifremi unuttum\" (forgot password) link next to password.\n*   **Action Button:** \"Giriş Yap\" (Login) button. It's purple/blue.\n*   **Footer Link:** \"hesabınız yok mu? Kayıt olun\" (don't you have an account? Sign up).\n\n**3. Detailed Inspection - The Background (Profile Page):**\n*   **Top Bar:** Blurred, but looks like a standard navbar.\n*   **Profile Header:** \"Kullanıcı\" (User) text is visible. A large purple circle with a lightning bolt icon (placeholder avatar?) is visible.\n*   **Tabs/Menu:** Blurred tabs below the profile header. Looks like \"İlanlarım\", \"Favorilerim\", etc.\n*   **Main Content:** Very blurred, hard to read specific text, but structure looks like a dashboard.\n\n**4. Detailed Inspection - The Footer:**\n*   **Columns:**\n    *   **Hizmetler (Services):** Mobilya Montajı, Ev Temizliği, Tüm Hizmetler.\n    *   **Şirket (Company):** Hakkımızda, Blog.\n    *   **Uzmanlar (Experts):** Uzman Ol, Kazanç Hesapla.\n    *   **Destek (Support):** İletişim, KVKK.\n*   **Bottom Bar:** Copyright \"© 2026 İşBul Teknoloji A.Ş. Tüm hakları saklıdır.\" (Note: Year is 2026, which is in the future relative to now, but maybe intentional or a typo for 2024/2025. Wait, current year is 2024. 2026 is definitely a future date. This is a potential warning/error).\n*   **Badges:** \"SSL Güvenli\", \"KVKK Uyumlu\".\n*   **Floating Button:** A purple chat/support button with \"AI\" badge in the bottom right.\n\n**5. Checking Specific Requirements:**\n*   **Admin Panel:** Not visible here. This is a user profile page.\n*   **Facebook Login:** Not present. Only Google. (Pass)\n*   **Broken Buttons:** The \"Giriş Yap\" button looks solid. The \"Google ile Giriş\" button looks solid.\n*   **Error Messages:** The yellow box is an informational warning, not a system error like \"404\".\n*   **Layout:** The modal is centered. The footer is aligned. The background is blurred correctly.\n*   **Footer Links:** They look standard.\n*   **Broken Images:** The avatar is a generic icon, not a broken image icon.\n*   **Form Fields:** Look standard.\n*   **Modal:** It is open.\n*   **Menu:** The top menu is blurred but visible.\n\n**6. Analyzing \"Critical Issues\" & \"Warnings\":**\n*   **Copyright Year:** \"2026\" is suspicious. Unless this is a futuristic project, it's likely a typo for 2024 or 2025. I will flag this as a warning/error.\n*   **Blur:** The background is *very* blurred. This is standard for modals, but I need to make sure it's not *too* blurred to the point of being unusable if the modal closes (though I can't test interaction).\n*   **Contrast:** The text in the modal is dark grey on white. Good contrast. The footer is light text on dark background. Good contrast.\n*   **Typography:** Fonts look clean (sans-serif).\n*   **Spacing:** The modal spacing looks consistent.\n\n**7. Synthesizing the JSON:**\n\n*   **Status:** \"success\" (mostly looks functional, no critical crashes visible).\n*   **Critical Issues:**\n    *   Copyright year \"2026\" is likely a typo (unless intentional).\n    *   Wait, looking closely at the top right of the modal... is that a close button? Yes, an 'X'.\n    *   Is there a Facebook button? No.\n    *   Is the layout broken? No.\n*   **Warnings:**\n    *   The copyright year (2026).\n    *   The \"AI\" badge on the chat button is small.\n    *   The background blur is quite heavy, making the underlying content unreadable (which is correct behavior for a modal, but worth noting).\n*   **Positive:**\n    *   Clean modal design.\n    *   Clear call to action (Login).\n    *   Good footer structure.\n    *   \"Google ile Giriş\" is prominent.\n*   **Buttons:**\n    *   \"Google ile Giriş\"\n    *   \"Giriş Yap\" (Main purple button)\n    *   \"Kayıt olun\" (Link button)\n    *   \"şifremi unuttum\" (Link)\n    *   Close button (X)\n*   **Footer Links:**\n    *   Mobilya Montajı\n    *   Ev Temizliği\n    *   Tüm Hizmetler\n    *   Hakkımızda\n    *   Blog\n    *   Uzman Ol\n    *   Kazanç Hesapla\n    *   İletişim\n    *   KVKK\n*   **Color Contrast:** \"iyi\" (Good).\n*   **Mobile Responsive:** Can't fully judge from a desktop screenshot, but the modal looks responsive enough. I'll say \"iyi\" based on the modal width.\n\n**Refining the \"Critical Issues\":**\nActually, looking really closely at the top right of the *modal*, there is a small 'x'.\nLooking at the top right of the *page* (blurred), there is a purple button.\nLooking at the bottom right, there is a floating chat button.\n\nLet's look at the \"2026\" date again. It's definitely 2026. That's a clear error/typo.\n\nLet's look for \"Facebook Login\". I see \"Google ile Giriş\". I do *not* see Facebook. This is a PASS for the requirement \"Facebook login butonu VAR MI? (OLMAMALI!)\".\n\nLet's look for \"404\". No 404 visible.\n\nLet's look for \"Undefined\". No.\n\n**Final Polish of the JSON structure:**\n*   **Status:** success (The page loads, modal works, no crashes).\n*   **Critical Issues:**\n    *   Copyright year is 2026 (Future date).\n*   **Warnings:**\n    *   The background blur is very strong (might be intentional).\n    *   The \"AI\" badge on the chat widget is very small.\n*   **Positive:**\n    *   Clean UI.\n    *   Clear login flow.\n    *   Good footer organization.\n\nWait, let me double check the \"Facebook\" requirement.\n\"Facebook login butonu VAR MI? (OLMAMALI! Sadece Google olmalı)\" -> I see ONLY Google. So this is a PASS. I should mention this in \"Positive\" or just not list it as an error.\n\nLet's look at the \"Admin Panel\" requirement. \"Admin Panel açılmıyor mu?\". This is a user profile page (`/profil.html`), not an admin panel. So this requirement is N/A or Pass (it's not supposed to be an admin panel).\n\nLet's look at the \"Layout\". The"
+      },
+      "screenshots": {
+        "desktop": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\profil-desktop.png",
+        "mobile": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\profil-mobile.png"
+      },
+      "overall": "warning"
+    },
+    {
+      "name": "Uzman Profil",
+      "path": "uzman-profil.html",
+      "url": "https://isbul.online/uzman-profil.html",
+      "critical": false,
+      "timestamp": "2026-08-21T09:34:33.310Z",
+      "technical": {
+        "loadTime": 1152,
+        "status": 200,
+        "consoleErrors": [
+          "❌ KRİTİK: 1 adet Facebook login butonu bulundu (olmamalı!)",
+          "⚠️ Sayfada hata mesajları görünüyor: 500, null"
+        ],
+        "networkErrors": [],
+        "accessibility": [
+          "9 input'ta label eksik",
+          "23 buton çok küçük (< 44x44px)"
+        ],
+        "buttons": [
+          {
+            "text": "Giriş Yap",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Ücretsiz Kaydol",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Boş",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "✅ Rezervasyon Yap",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "💬 Mesaj Gönder",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Genel Bakış",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Yorumlar (2)",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Hizmetler",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Fotoğraflar",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Tüm yorumları gör →",
+            "visible": true,
+            "enabled": true
+          }
+        ],
+        "links": [
+          {
+            "href": "index.html",
+            "text": "⚡\n        İşBul"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Hizmetler"
+          },
+          {
+            "href": "nasil-calisir.html",
+            "text": "Nasıl Çalışır?"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Ol"
+          },
+          {
+            "href": "mailto:Kurumsal@isbul.com.tr",
+            "text": "Kurumsal"
+          },
+          {
+            "href": "index.html",
+            "text": "Ana Sayfa"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Hizmetler"
+          },
+          {
+            "href": "uzman-profil.html?id=e14",
+            "text": "BÇ\n        Berk Çelik⭐ 4.89 · ₺260/saat"
+          },
+          {
+            "href": "uzman-profil.html?id=e10",
+            "text": "MÇ\n        Mustafa Çetin⭐ 4.85 · ₺300/saat"
+          },
+          {
+            "href": "uzman-profil.html?id=e24",
+            "text": "KÖ\n        Kadir Öztürk⭐ 4.86 · ₺250/saat"
+          },
+          {
+            "href": "nasil-calisir.html",
+            "text": "📧\n            \n              Rehber\n              nasıl Çalışır? ı"
+          }
+        ]
+      },
+      "ai": {
+        "status": "warning",
+        "issues": [],
+        "positive": [],
+        "overall": "\n<think>\nThe user wants a detailed QA analysis of the provided screenshots for the \"Uzman Profil\" (Expert Profile) page of the website `isbul.online`.\n\n**1. Initial Scan & Layout Analysis:**\n*   **Header:** Logo \"İşBul\" is centered. \"Ücretsiz Kaydol\" button is top right. Breadcrumb navigation is visible below the logo.\n*   **Profile Header:** Avatar (MA), Name (Mehmet Arslan), Rating (4.97), Location (İstanbul), Experience (8 yıl deneyim), Badges (Elite Uzman, Kimlik Doğrulandı, Sigortalı).\n*   **Pricing/Action Area:** Price (₺280), \"Rezervasyon Yap\" button (primary), \"Mesaj Gönder\" button (secondary).\n*   **Tabs:** \"Genel Bakış\", \"Yorumlar (2)\", \"Hizmetler\", \"Fotoğraflar\".\n*   **Main Content (Left Column):** \"Hakkımda\" section, \"Uzmanlık Alanları\" (tags), \"Son Müşteri Yorumları\".\n*   **Sidebar (Right Column):** \"Bu Hafta Müsaitlik\" (calendar grid), \"İstatistikler\" (Total tasks, avg time, join date, completion rate), \"Mesaj Gönder\" (dark card with input), \"Benzer Uzmanlar\" (list of other experts).\n*   **Floating Element:** A floating chat/message button is visible on the right side.\n\n**2. Detailed Inspection against Critical Checks:**\n*   **Admin Panel:** Not visible in these screenshots. This is a public profile page, so an admin panel shouldn't be open unless logged in as admin, which isn't indicated. No error messages about admin access.\n*   **Facebook Login:** I need to look closely at the header. I see \"Ücretsiz Kaydol\". I don't see a specific \"Login with Facebook\" button visible in the header area in these screenshots. The prompt asks if it *exists* (it shouldn't). I don't see it, which is good. Wait, looking at the very top right, there's just \"Ücretsiz Kaydol\". No social login buttons are immediately obvious in the header.\n*   **Broken Buttons:** \"Rezervasyon Yap\" looks solid. \"Mesaj Gönder\" looks solid. The calendar checkmarks look okay. The \"Tüm yorumları gör\" link looks okay.\n*   **Error Messages:** No \"404\", \"Error\", \"Undefined\" visible.\n*   **Layout:** The layout seems clean. Two-column layout on desktop (implied by the screenshots showing side-by-side content). The floating chat button is positioned correctly.\n*   **Footer:** The screenshots cut off before the footer is fully visible. I can see the bottom of the \"Benzer Uzmanlar\" section, but the actual footer links (About, Contact, Terms, etc.) are not in the provided images. I cannot analyze footer links.\n*   **Broken Images:** The avatar is a placeholder \"MA\". The \"Benzer Uzmanlar\" avatars are initials (BC, MC, KÖ). These are placeholders, not broken images (no red 'x' icon).\n*   **Forms:** The \"Mesajınızı yazın...\" input field looks standard.\n*   **Modals:** No modals are open.\n*   **Menu:** The top menu seems minimal (Logo, Kaydol). No hamburger menu visible (likely desktop view).\n\n**3. Detailed Inspection against Warnings:**\n*   **Contrast:** The text is dark grey/black on white/light grey background. Good contrast. The purple buttons have white text, good contrast.\n*   **Typos:** \"Mehmet Arslan\", \"İstanbul\", \"Rezervasyon Yap\", \"Mesaj Gönder\". Turkish characters (İ, ş, ü, ö, ğ, ç) seem correct. \"Möbiya\" is used instead of \"Mobilya\" in \"Möbiya Montaj\". This is a common typo in Turkish (confusing 'i' and 'ı'). \"Möbiya\" is incorrect; it should be \"Mobilya\".\n*   **Button Size:** Buttons look reasonably sized for desktop.\n*   **Spacing:** Spacing looks consistent.\n*   **Alignment:** Text alignment seems left-aligned mostly. The sidebar is right-aligned.\n*   **Icons:** Icons for location, checkmarks, stars seem present.\n*   **Loading:** No loading spinners visible.\n*   **Image Quality:** Images look sharp.\n*   **Responsive:** The screenshots show a desktop view. I need to infer mobile responsiveness. The layout is wide, suggesting a desktop-first design. The floating button suggests mobile friendliness.\n\n**4. Positive Observations:**\n*   Clean, modern design.\n*   Clear hierarchy (Name -> Rating -> Price -> Action).\n*   Trust signals (Elite Uzman, Kimlik Doğrulandı, Sigortalı).\n*   Availability calendar is a great feature.\n\n**5. Specific Data Extraction:**\n*   **Buttons:** \"Ücretsiz Kaydol\", \"Rezervasyon Yap\", \"Mesaj Gönder\" (in header/sidebar), \"Tüm yorumları gör\" (link/button).\n*   **Footer Links:** Not visible.\n*   **Colors:** Purple/Blue gradient for primary actions. Green for success/availability. White background.\n*   **Typography:** Sans-serif font. Headings are bold.\n\n**6. Refining the Analysis:**\n*   **Typo Check:** \"Möbiya Montaj\" is definitely a typo. It should be \"Mobilya Montaj\".\n*   **Missing Footer:** I must state that the footer is not visible in the screenshots.\n*   **Facebook Login:** I don't see it. The prompt says \"Facebook login butonu VAR MI? (OLMAMALI! Sadece Google olmalı)\". Since I don't see it, this is a pass (or N/A if not visible). Wait, looking really closely at the top right... just \"Ücretsiz Kaydol\". No social icons.\n*   **Layout:** The \"Fotoğraflar\" tab is visible but the content below it is empty/cut off.\n*   **Floating Button:** There is a floating chat button on the right.\n\n**7. Constructing the JSON:**\n*   **Status:** \"warning\" (due to the typo \"Möbiya\").\n*   **Critical Issues:** None found in the visible area.\n*   **Warnings:**\n    *   Typo: \"Möbiya Montaj\" -> \"Mobilya Montaj\".\n    *   Footer not visible (cannot verify links).\n    *   \"Fotoğraflar\" tab content is empty/cut off.\n*   **Positive:** Clean UI, Trust badges, Availability calendar.\n*   **Buttons:** List them.\n*   **Footer Links:** \"Not visible in screenshots\".\n*   **Color Contrast:** \"iyi\".\n*   **Mobile Responsive:** \"iyi\" (inferred from layout structure, though only desktop view is shown).\n*   **Overall:** Good profile page, clear information architecture.\n\n**Self-Correction/Refinement during thought process:**\n*   Wait, looking at the \"Uzmanlık Alanları\" section. The tags are \"Möbiya Montaj\", \"Raf Kurulum\", \"TV Montaj\", \"Gardrop\". \"Möbiya\" is definitely wrong.\n*   The \"Mesaj Gönder\" button appears twice: once in the top right action area and once in the dark card in the sidebar. This is redundant but functional.\n*   The \"Fotoğraflar\" tab is selected in the second screenshot? No, the first screenshot shows \"Genel Bakış\" selected (underlined). The second screenshot shows the same. Wait, looking at the tabs: \"Genel Bakış\", \"Yorumlar (2)\", \"Hizmetler\", \"Fotoğraflar\". In the first screenshot, \"Genel Bakış\" is underlined. In the second screenshot, the tabs are not clearly visible/underlined, but the content is the same. Actually, looking closely at the second screenshot, the tabs are not visible. It's a zoomed-in view of the top part.\n*   Let's re-examine the screenshots.\n    *   Screenshot 1: Full view. \"Genel Bakış\" is active.\n    *   Screenshot 2: Zoomed in on the top part (Header, Profile Info, Tabs).\n    *   Screenshot 3: Zoomed in on the top right (Price, Buttons).\n    *   Screenshot 4: Zoomed in on the bottom right (Stats, Message card, Similar experts).\n    *   Screenshot 5: Zoomed in on the bottom left (Reviews).\n    *   Screenshot 6: Zoomed in on the floating button.\n\n*   Okay, so I have a good view of the whole page.\n*   **Typo:** \"Möbiya\" is the main issue.\n*   **Footer:** Still not visible.\n*   **Facebook Login:** Not visible.\n*   **Admin Panel:** Not visible.\n\n**Final JSON Structure:**"
+      },
+      "screenshots": {
+        "desktop": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\uzman-profil-desktop.png",
+        "mobile": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\uzman-profil-mobile.png"
+      },
+      "overall": "warning"
+    },
+    {
+      "name": "Hizmetler",
+      "path": "hizmetler.html",
+      "url": "https://isbul.online/hizmetler.html",
+      "critical": false,
+      "timestamp": "2026-08-21T09:35:21.160Z",
+      "technical": {
+        "loadTime": 790,
+        "status": 200,
+        "consoleErrors": [],
+        "networkErrors": [],
+        "accessibility": [
+          "10 input'ta label eksik",
+          "27 buton çok küçük (< 44x44px)"
+        ],
+        "buttons": [
+          {
+            "text": "Giriş Yap",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Ücretsiz Kaydol",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Boş",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Ara",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Tümü",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Montaj",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Temizlik",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Nakliyat",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Elektrik",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Tesisat",
+            "visible": true,
+            "enabled": true
+          }
+        ],
+        "links": [
+          {
+            "href": "index.html",
+            "text": "⚡\n        İşBul"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Hizmetler"
+          },
+          {
+            "href": "nasil-calisir.html",
+            "text": "Nasıl Çalışır?"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Ol"
+          },
+          {
+            "href": "mailto:Kurumsal@isbul.com.tr",
+            "text": "Kurumsal"
+          },
+          {
+            "href": "uzmanlar.html?kategori=montaj",
+            "text": "🔧 Mobilya Montajı 24 uzman"
+          },
+          {
+            "href": "uzmanlar.html?kategori=temizlik",
+            "text": "🧹 Ev Temizliği 38 uzman"
+          },
+          {
+            "href": "uzmanlar.html?kategori=nakliyat",
+            "text": "🚚 Nakliyat 15 uzman"
+          },
+          {
+            "href": "uzmanlar.html?kategori=elektrik",
+            "text": "⚡ Elektrikçi 19 uzman"
+          },
+          {
+            "href": "uzmanlar.html?kategori=tesisat",
+            "text": "🔧 Tesisatçı 22 uzman"
+          },
+          {
+            "href": "uzmanlar.html?kategori=boya",
+            "text": "🎨 Boyacı 17 uzman"
+          },
+          {
+            "href": "uzmanlar.html?kategori=bahce",
+            "text": "🌱 Bahçe 11 uzman"
+          },
+          {
+            "href": "uzmanlar.html?kategori=diger",
+            "text": "🛠️ Diğer 46 uzman"
+          }
+        ]
+      },
+      "ai": {
+        "status": "warning",
+        "issues": [],
+        "positive": [],
+        "overall": "\n<think>\nThe user wants me to act as a QA Test Expert.\nI need to analyze the provided screenshot of the \"Hizmetler\" (Services) page for `isbul.online`.\nThe analysis needs to be detailed, covering critical errors, warnings, positive observations, and specific details like buttons and footer links.\nThe output must be in a specific JSON format.\n\n**Visual Analysis of the Screenshot:**\n\n1.  **Header:**\n    *   Logo: \"Isbul\" visible.\n    *   Menu: \"Hizmetler\", \"Nasıl Çalışır?\", \"Kullanıcı\", \"Kurumsal\".\n    *   Buttons: \"Giriş Yap\", \"Ücretsiz Kayıt Ol\".\n    *   Status: Looks okay. No obvious broken elements.\n\n2.  **Hero Section:**\n    *   Title: \"Tüm Hizmetler\".\n    *   Subtitle: \"İhtiyacınız olan her hizmeti bu listede bulabilirsiniz, güvenilirlik, puanlarımız...\"\n    *   Search Bar: \"Hizmet aramak için yazın...\" with a search button \"Ara\".\n    *   Status: Looks functional.\n\n3.  **Filter/Category Section (Left Sidebar):**\n    *   Selected Category: \"İşbul Elite\" (Purple card).\n    *   Categories: \"Müzik & Ses\", \"Ev Temizlik\", \"Grafik & Tasarım\", \"Yazılım\", \"İçerik\", \"Baskı\", \"Diğer\".\n    *   Price Range Slider: \"Sadece Ücretsiz\" to \"10000\".\n    *   Minimum Puan: \"4.5 ve üzeri\".\n    *   Status: Looks functional.\n\n4.  **Main Content Area (Service Cards):**\n    *   Grid layout of service cards.\n    *   Cards have: Icon, Title, Description, Price (\"₺500'den başlar\"), Rating (\"4.5 (120 puan)\").\n    *   Badges: \"Yeni\", \"En Çok Satan\", \"Elit\".\n    *   Specific Cards:\n        *   \"Müzik & Ses\" (Purple)\n        *   \"Grafik & Tasarım\" (Blue)\n        *   \"Ev Temizlik\" (Yellow)\n        *   \"Yazılım\" (Blue)\n        *   \"İçerik\" (Pink)\n        *   \"Baskı\" (Orange)\n        *   \"Diğer\" (Green)\n        *   \"Müzik & Ses\" (Blue - wait, duplicate category name? No, looks like \"Müzik & Ses\" again but different icon? Ah, looking closer at the second row, first card is \"Müzik & Ses\" again? No, let's look at the text.\n        *   Row 1: \"Müzik & Ses\", \"Grafik & Tasarım\", \"Ev Temizlik\".\n        *   Row 2: \"Müzik & Ses\" (Wait, the text says \"Müzik & Ses\" again? Let me zoom in. Ah, the second row first card says \"Müzik & Ses\". This looks like a data duplication error or a placeholder issue. Wait, looking closer at the second row, first card... it says \"Müzik & Ses\". The icon is a gear. The description says \"Ses düzenleme, podcast...\". This is a duplicate category title.\n        *   Row 2, 2nd card: \"İçerik\".\n        *   Row 2, 3rd card: \"Ev Temizlik\".\n        *   Row 3, 1st card: \"Müzik & Ses\" (Again? Icon is a hand).\n        *   Row 3, 2nd card: \"Grafik & Tasarım\" (Icon is lightning).\n        *   Row 3, 3rd card: \"Ev Temizlik\" (Icon is lightbulb).\n        *   Row 4, 1st card: \"Ev Temizlik\" (Icon is broom).\n        *   Row 4, 2nd card: \"Grafik & Tasarım\" (Icon is paint bucket).\n        *   Row 4, 3rd card: \"İçerik\" (Icon is palette).\n        *   Row 5, 1st card: \"Baskı\" (Icon is stone).\n        *   Row 5, 2nd card: \"Grafik & Tasarım\" (Icon is plant).\n        *   Row 5, 3rd card: \"İçerik\" (Icon is key).\n        *   Row 6, 1st card: \"Baskı\" (Icon is computer).\n    *   *Critical Observation:* The category titles on the cards seem to be repeating or mismatched with the icons. For example, the card with the \"Gear\" icon says \"Müzik & Ses\". The card with the \"Hand\" icon says \"Müzik & Ses\". This suggests a data binding issue in the backend or a template error where the wrong title is being pulled.\n    *   *Another Observation:* The \"Elit\" badge is on the \"Ev Temizlik\" card (Row 3, 3rd card).\n    *   *Another Observation:* The \"Yeni\" badge is on the \"Müzik & Ses\" card (Row 1, 1st card).\n\n5.  **Footer:**\n    *   Logo: \"Isbul\".\n    *   Links: \"Hizmetler\", \"Nasıl Çalışır?\", \"Kullanıcı\", \"Kurumsal\".\n    *   Columns: \"Hizmetler\" (Müzik & Ses, Ev Temizlik, Grafik & Tasarım, Yazılım, İçerik, Baskı, Diğer), \"Sıfır\" (Hakkımızda, Blog), \"Üyelik\" (Üyelik Girişi, Ücretsiz Kayıt Ol), \"Destek\" (İletişim).\n    *   Copyright: \"© 2024 Isbul Teknoloji A.Ş. Tüm hakları saklıdır.\"\n    *   Social Icons: Facebook, Twitter, Instagram (placeholders?).\n    *   Status: Looks okay.\n\n6.  **Floating Elements:**\n    *   Right side: A floating chat/help button (purple circle with a face).\n\n**Detailed Check against Critical List:**\n\n1.  **Admin Panel:** Not visible in screenshot. Cannot assess.\n2.  **Facebook Login:** Not visible in screenshot (only \"Giriş Yap\" button). Cannot assess if it's *inside* the login modal, but the button itself is generic.\n3.  **Buttons:** \"Giriş Yap\", \"Ücretsiz Kayıt Ol\", \"Ara\" (Search), Category filters. All look clickable.\n4.  **Error Messages:** No \"404\", \"Error\", \"Undefined\" visible.\n5.  **Layout:** Layout is generally clean. Grid is aligned.\n6.  **Footer Links:** Links look standard.\n7.  **Broken Icons:** Icons look like simple SVGs or emojis. No broken image placeholders visible.\n8.  **Form Fields:** Search bar looks okay.\n9.  **Modal/Popup:** None open.\n10. **Menu:** Hamburger menu not visible (desktop view).\n\n**Detailed Check against Warnings:**\n\n1.  **Color Contrast:** Dark blue header on white background. Good contrast. Text on cards is dark grey on light background. Good.\n2.  **Spelling:** \"İhtiyacınız olan her hizmeti bu listede bulabilirsiniz, güvenilirlik, puanlarımız...\" - The sentence structure is a bit weird. \"güvenilirlik, puanlarımız\" feels like a fragment. It should probably be \"güvenilirlik ve yüksek puanlarımızla...\" or similar.\n3.  **Button Size:** Buttons look standard size.\n4.  **Spacing:** Spacing seems consistent.\n5.  **Alignment:** Grid is aligned.\n6.  **Icons:** Icons are simple.\n7.  **Loading:** No loading spinner.\n8.  **Image Quality:** Icons are vector-like, sharp.\n9.  **Responsive:** This is a desktop screenshot. Cannot fully assess mobile, but the layout looks like a standard 3-column grid which usually collapses well.\n10. **Tooltip/Hover:** Cannot see hover states in a static image.\n\n**Specific Data Issues (The \"Müzik & Ses\" repetition):**\nLooking closely at the cards:\n- Card 1 (Purple): \"Müzik & Ses\"\n- Card 2 (Blue): \"Grafik & Tasarım\"\n- Card 3 (Yellow): \"Ev Temizlik\"\n- Card 4 (Blue): \"Müzik & Ses\" -> **ERROR**. Icon is a gear. Title is \"Müzik & Ses\". This is likely a \"Yazılım\" or \"Teknik Destek\" category based on the icon, but the text is wrong.\n- Card 5 (Pink): \"İçerik\"\n- Card "
+      },
+      "screenshots": {
+        "desktop": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\hizmetler-desktop.png",
+        "mobile": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\hizmetler-mobile.png"
+      },
+      "overall": "success"
+    },
+    {
+      "name": "Hakkımızda",
+      "path": "hakkimizda.html",
+      "url": "https://isbul.online/hakkimizda.html",
+      "critical": false,
+      "timestamp": "2026-08-21T09:36:18.694Z",
+      "technical": {
+        "loadTime": 750,
+        "status": 200,
+        "consoleErrors": [
+          "❌ KRİTİK: 1 adet Facebook login butonu bulundu (olmamalı!)",
+          "⚠️ Sayfada hata mesajları görünüyor: 500"
+        ],
+        "networkErrors": [],
+        "accessibility": [
+          "8 input'ta label eksik",
+          "17 buton çok küçük (< 44x44px)"
+        ],
+        "buttons": [
+          {
+            "text": "Giriş Yap",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Ücretsiz Kaydol",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Boş",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Hizmet Ara",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Uzman Ol",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Daha Fazla Bilgi →",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Hizmet Ara →",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Uzman Ol →",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "×",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "×",
+            "visible": false,
+            "enabled": true
+          }
+        ],
+        "links": [
+          {
+            "href": "index.html",
+            "text": "⚡\n        İşBul"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Hizmetler"
+          },
+          {
+            "href": "nasil-calisir.html",
+            "text": "Nasıl Çalışır?"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Ol"
+          },
+          {
+            "href": "mailto:Kurumsal@isbul.com.tr",
+            "text": "Kurumsal"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Hizmet Ara"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Ol"
+          },
+          {
+            "href": "nasil-calisir.html",
+            "text": "Daha Fazla Bilgi →"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Hizmet Ara →"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Ol →"
+          },
+          {
+            "href": "index.html",
+            "text": "⚡İşBul"
+          },
+          {
+            "href": "https://www.linkedin.com/in/%C3%BCmit-yakup-dedeo%C4%9Flu-4321212a7/",
+            "text": "🔗"
+          },
+          {
+            "href": "uzmanlar.html?kategori=montaj",
+            "text": "Mobilya Montajı"
+          },
+          {
+            "href": "uzmanlar.html?kategori=temizlik",
+            "text": "Ev Temizliği"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Tüm Hizmetler"
+          },
+          {
+            "href": "hakkimizda.html",
+            "text": "Hakkımızda"
+          },
+          {
+            "href": "blog.html",
+            "text": "Blog"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Ol"
+          },
+          {
+            "href": "nasil-calisir.html?rol=tasker",
+            "text": "Kazanç Hesapla"
+          }
+        ]
+      },
+      "ai": {
+        "status": "error",
+        "issues": [
+          {
+            "type": "error",
+            "message": "AI analizi yapılamadı: Connection error."
+          }
+        ],
+        "positive": [],
+        "overall": "AI analizi başarısız"
+      },
+      "screenshots": {
+        "desktop": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\hakkimizda-desktop.png",
+        "mobile": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\hakkimizda-mobile.png"
+      },
+      "overall": "warning"
+    },
+    {
+      "name": "Nasıl Çalışır",
+      "path": "nasil-calisir.html",
+      "url": "https://isbul.online/nasil-calisir.html",
+      "critical": false,
+      "timestamp": "2026-08-21T09:37:20.471Z",
+      "technical": {
+        "loadTime": 3566,
+        "status": 200,
+        "consoleErrors": [
+          "❌ KRİTİK: 1 adet Facebook login butonu bulundu (olmamalı!)",
+          "⚠️ Sayfada hata mesajları görünüyor: 500"
+        ],
+        "networkErrors": [],
+        "accessibility": [
+          "10 input'ta label eksik",
+          "21 buton çok küçük (< 44x44px)"
+        ],
+        "buttons": [
+          {
+            "text": "Giriş Yap",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Ücretsiz Kaydol",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Boş",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "👤 Hizmet Almak İstiyorum",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "⚡ Uzman Olmak İstiyorum",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Hemen Uzman Olarak Kaydol ı",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Hizmet Ara →",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Uzman Ol ı",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "×",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Giriş Yap",
+            "visible": false,
+            "enabled": true
+          }
+        ],
+        "links": [
+          {
+            "href": "index.html",
+            "text": "⚡\n        İşBul"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Hizmetler"
+          },
+          {
+            "href": "nasil-calisir.html",
+            "text": "Nasıl Çalışır?"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Ol"
+          },
+          {
+            "href": "mailto:Kurumsal@isbul.com.tr",
+            "text": "Kurumsal"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Hemen Uzman Olarak Kaydol ı"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Hizmet Ara →"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Ol ı"
+          },
+          {
+            "href": "index.html",
+            "text": "⚡İşBul"
+          },
+          {
+            "href": "https://www.linkedin.com/in/%C3%BCmit-yakup-dedeo%C4%9Flu-4321212a7/",
+            "text": "🔗"
+          },
+          {
+            "href": "hizmetler.html?kategori=montaj",
+            "text": "Mobilya Montajı"
+          },
+          {
+            "href": "hizmetler.html?kategori=temizlik",
+            "text": "Ev Temizliği"
+          },
+          {
+            "href": "hizmetler.html?kategori=nakliyat",
+            "text": "Nakliyat"
+          },
+          {
+            "href": "hizmetler.html?kategori=elektrik",
+            "text": "Elektrikçi"
+          },
+          {
+            "href": "hakkimizda.html",
+            "text": "Hakkımızda"
+          },
+          {
+            "href": "blog.html",
+            "text": "Blog"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Ol"
+          },
+          {
+            "href": "kvkk.html",
+            "text": "KVKK"
+          }
+        ]
+      },
+      "ai": {
+        "status": "error",
+        "issues": [
+          {
+            "type": "error",
+            "message": "AI analizi yapılamadı: Connection error."
+          }
+        ],
+        "positive": [],
+        "overall": "AI analizi başarısız"
+      },
+      "screenshots": {
+        "desktop": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\nasil-calisir-desktop.png",
+        "mobile": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\nasil-calisir-mobile.png"
+      },
+      "overall": "warning"
+    },
+    {
+      "name": "Blog",
+      "path": "blog.html",
+      "url": "https://isbul.online/blog.html",
+      "critical": false,
+      "timestamp": "2026-08-21T09:38:21.613Z",
+      "technical": {
+        "loadTime": 3573,
+        "status": 200,
+        "consoleErrors": [
+          "❌ KRİTİK: 1 adet Facebook login butonu bulundu (olmamalı!)"
+        ],
+        "networkErrors": [],
+        "accessibility": [
+          "10 input'ta label eksik",
+          "23 buton çok küçük (< 44x44px)"
+        ],
+        "buttons": [
+          {
+            "text": "Giriş Yap",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Ücretsiz Kaydol",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Boş",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Tümü",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Rehber",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "İpuçları",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Haberler",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Uzmanlar İçin",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Abone Ol",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "×",
+            "visible": false,
+            "enabled": true
+          }
+        ],
+        "links": [
+          {
+            "href": "index.html",
+            "text": "⚡\n        İşBul"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Hizmetler"
+          },
+          {
+            "href": "nasil-calisir.html",
+            "text": "Nasıl Çalışır?"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Ol"
+          },
+          {
+            "href": "mailto:Kurumsal@isbul.com.tr",
+            "text": "Kurumsal"
+          },
+          {
+            "href": "index.html",
+            "text": "⚡İşBul"
+          },
+          {
+            "href": "https://www.linkedin.com/in/%C3%BCmit-yakup-dedeo%C4%9Flu-4321212a7/",
+            "text": "🔗"
+          },
+          {
+            "href": "uzmanlar.html?kategori=montaj",
+            "text": "Mobilya Montajı"
+          },
+          {
+            "href": "uzmanlar.html?kategori=temizlik",
+            "text": "Ev Temizliği"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Tüm Hizmetler"
+          },
+          {
+            "href": "hakkimizda.html",
+            "text": "Hakkımızda"
+          },
+          {
+            "href": "blog.html",
+            "text": "Blog"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Ol"
+          },
+          {
+            "href": "nasil-calisir.html?rol=tasker",
+            "text": "Kazanç Hesapla"
+          },
+          {
+            "href": "kvkk.html",
+            "text": "KVKK"
+          },
+          {
+            "href": "nasil-calisir.html",
+            "text": "📚\n            RehberNasıl Çalışır? →"
+          }
+        ]
+      },
+      "ai": {
+        "status": "warning",
+        "issues": [],
+        "positive": [],
+        "overall": "\n<think>\nThe user wants a detailed QA analysis of the provided screenshot of the `isbul.online/blog.html` page.\nI need to act as an experienced QA Test Expert.\nThe output must be in a specific JSON format.\n\n**Visual Analysis of the Screenshot:**\n\n1.  **Header:**\n    *   Logo: \"İşBul\" is visible.\n    *   Menu: \"Hizmetler\", \"Nasıl Çalışır?\", \"Uzman Ol\", \"Kurumsal\".\n    *   Buttons: \"Giriş Yap\" (Outline), \"Ücretsiz Kaydol\" (Purple filled).\n    *   Status: Looks good. No obvious errors.\n\n2.  **Hero Section:**\n    *   Title: \"Rehberler, İpuçları & Haberler\".\n    *   Subtitle: \"Ev bakımı, hizmet rehberleri ve uzman tavsiyeleri\".\n    *   Status: Clear, readable.\n\n3.  **Filter/Search Bar:**\n    *   Search input: \"Makale ara...\"\n    *   Filter buttons: \"Tümü\" (Active/Purple), \"Rehber\", \"İpuçları\", \"Uzmanlar İçin\".\n    *   Count: \"7 makale\".\n    *   Status: Functional look.\n\n4.  **Featured Article (Top Card):**\n    *   Title: \"Mobilya Montajında Dikkat Edilmesi Gereken 10 Şey\".\n    *   Badge: \"Öne Çıkan\".\n    *   Image: Placeholder wrench icon on purple background.\n    *   Meta: \"İşBul Editörü\", \"12 Ağustos 2026\", \"5 dk okuma\".\n    *   Link: \"Okumaya Devam ->\".\n    *   Status: Looks good.\n\n5.  **Grid of Articles:**\n    *   Card 1: \"Ev Temizliğini Kolaylaştıran 7 Profesyonel Yöntem\" (Badge: İpuçları).\n    *   Card 2: \"Evde Elektrik Sorunları: Profesyonel Çözümler\" (Badge: Rehber).\n    *   Card 3: \"İşBul'da Aylık 10.000 TL Kazananların Sırları\" (Badge: Uzmanlar İçin).\n    *   Card 4: \"İşBul 81 İle Genişledi: Artık Tüm Türkiye'deyiz\" (Badge: Haberler).\n    *   Card 5: \"Stresiz Ev Taşma: Adım Adım Hazırlık Rehberi\" (Badge: Rehber).\n    *   Card 6: \"Bahçenizi İlahiye Hazırlamak İçin 8 Öneri\" (Badge: İpuçları).\n    *   Status: Grid layout is consistent. Cards have consistent padding and shadows.\n\n6.  **Newsletter Section:**\n    *   Title: \"Yeni Makalelerden Haberdar Olun\".\n    *   Input: \"E-posta adresiniz\".\n    *   Button: \"Abone Ol\".\n    *   Status: Looks good.\n\n7.  **Footer:**\n    *   Logo: \"İşBul\".\n    *   Columns: \"Hizmetler\", \"Şirket\", \"Uzmanlar İçin\", \"Destek\".\n    *   Links: \"Mobilya Montaj\", \"Ev Temizliği\", \"Tüm Hizmetler\", \"Hakkımızda\", \"Blog\", \"Uzman Ol\", \"Kazanç Hesapla\", \"İletişim\", \"KVKK\".\n    *   Badges: \"SSL Güvenli\", \"KVKK Uyumlu\".\n    *   Copyright: \"© 2026 İşBul Teknoloji A.Ş.\"\n    *   Status: Looks standard.\n\n**Critical Checks (from prompt):**\n1.  *Admin Panel:* Not visible in this screenshot (it's a public blog page). Cannot verify.\n2.  *Facebook Login:* Not visible on this page (only \"Giriş Yap\" button). Cannot verify if it's inside the modal, but the prompt asks about the *page*. The button says \"Giriş Yap\".\n3.  *Broken Buttons:* \"Giriş Yap\", \"Ücretsiz Kaydol\", \"Tümü\", \"Rehber\", \"İpuçları\", \"Uzmanlar İçin\", \"Okumaya Devam\", \"Abone Ol\". All look rendered correctly.\n4.  *Error Messages:* No \"404\", \"Error\", \"Undefined\" visible.\n5.  *Layout:* Layout seems clean. No overlapping elements.\n6.  *Footer Links:* Links look standard.\n7.  *Broken Images:* The images are actually icons/illustrations (wrench, broom, lightning, money bag, map, box, plant). They look like SVGs or high-quality icons, not broken placeholders (alt text visible). Wait, looking closely at the first card image, it's a wrench icon on a purple background. The other cards have similar icons. They look intentional, not broken.\n8.  *Form Fields:* Search bar and email input look standard.\n9.  *Modals:* None open.\n10. *Menu:* Hamburger menu not visible (desktop view).\n\n**Warnings:**\n1.  *Contrast:* Text is dark grey on white/light backgrounds. Looks okay. Purple buttons have white text (good contrast).\n2.  *Typos:* \"İlahiye\" in \"Bahçenizi İlahiye Hazırlamak İçin 8 Öneri\". Should probably be \"İlkbahara\". This is a typo.\n3.  *Button Size:* Buttons look adequate size.\n4.  *Spacing:* Spacing looks consistent.\n5.  *Alignment:* Centered and grid aligned.\n6.  *Icons:* Icons look consistent.\n7.  *Loading:* No loading spinner visible.\n8.  *Image Quality:* Icons are crisp.\n9.  *Responsive:* This is a desktop view. Cannot fully judge mobile, but the grid suggests it would stack.\n10. *Hover:* Cannot test hover on static image.\n\n**Positive Observations:**\n1.  Clean, modern design.\n2.  Good use of color coding for categories (purple, yellow, green, pink).\n3.  Clear hierarchy (Featured article is larger).\n\n**Detailed Analysis:**\n*   **Buttons:** \"Giriş Yap\", \"Ücretsiz Kaydol\", \"Tümü\", \"Rehber\", \"İpuçları\", \"Uzmanlar İçin\", \"Okumaya Devam\" (x7), \"Abone Ol\".\n*   **Footer Links:** \"Hizmetler\", \"Mobilya Montaj\", \"Ev Temizliği\", \"Tüm Hizmetler\", \"Şirket\", \"Hakkımızda\", \"Blog\", \"Uzmanlar İçin\", \"Uzman Ol\", \"Kazanç Hesapla\", \"Destek\", \"İletişim\", \"KVKK\".\n*   **Colors:** Purple (#6366f1 approx), Dark Blue (#0f172a approx), White, Light Grey. Consistent.\n*   **Typography:** Sans-serif, readable sizes.\n*   **Hierarchy:** Featured post is distinct. Grid is uniform.\n\n**Refining the \"Error\" about Facebook Login:**\nThe prompt asks: \"Facebook login butonu VAR MI? (OLMAMALI! Sadece Google olmalı)\".\nI cannot see the login modal. I can only see the \"Giriş Yap\" button. I cannot confirm this error based *only* on the screenshot. However, I should note that I cannot verify the login modal content.\n\n**Refining the \"Typo\":**\n\"Bahçenizi İlahiye Hazırlamak\" -> Definitely a typo for \"İlkbahara\".\n\n**Refining the \"Date\":**\n\"12 Ağustos 2026\", \"8 Ağustos 2026\", \"5 Ağustos 2026\", \"1 Ağustos 2026\", \"28 Temmuz 2026\", \"22 Temmuz 2026\", \"15 Temmuz 2026\".\nThe dates are in the future (2026). This might be intentional for a demo, or a bug in the date generation logic. I will flag this as a warning/observation.\n\n**Constructing the JSON:**\n\n*   `status`: \"warning\" (due to typo and future dates)\n*   `criticalIssues`: None visible in the screenshot itself (layout is fine).\n*   `warnings`:\n    *   Typo: \"İlahiye\" instead of \"İlkbahara\".\n    *   Dates: All dates are in 2026 (future).\n    *   Cannot verify Facebook login button (modal not open).\n*   `positive`: Clean UI, Good color coding, Clear hierarchy.\n*   `buttons`: List them.\n*   `footerLinks`: List them.\n*   `"
+      },
+      "screenshots": {
+        "desktop": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\blog-desktop.png",
+        "mobile": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\blog-mobile.png"
+      },
+      "overall": "warning"
+    },
+    {
+      "name": "Hesap Oluştur",
+      "path": "create-account.html",
+      "url": "https://isbul.online/create-account.html",
+      "critical": true,
+      "timestamp": "2026-08-21T09:39:29.228Z",
+      "technical": {
+        "loadTime": 748,
+        "status": 200,
+        "consoleErrors": [
+          "⚠️ Sayfada hata mesajları görünüyor: 500"
+        ],
+        "networkErrors": [],
+        "accessibility": [
+          "10 input'ta label eksik",
+          "30 buton çok küçük (< 44x44px)"
+        ],
+        "buttons": [
+          {
+            "text": "Giriş Yap",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Ücretsiz Kaydol",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "🚪 Çıkış Yap",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Boş",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Mobilya Montajı",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Ev Temizlikçi",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "TV Montajı",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "nakliyat",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "Boyacı",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "🕐 Bugün Müsait",
+            "visible": true,
+            "enabled": true
+          }
+        ],
+        "links": [
+          {
+            "href": "index.html",
+            "text": "⚡\n        İşBul"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Hizmetler"
+          },
+          {
+            "href": "nasil-calisir.html",
+            "text": "Nasıl Çalışır?"
+          },
+          {
+            "href": "uzman-panel.html",
+            "text": "Uzman Panelim"
+          },
+          {
+            "href": "mailto:Kurumsal@isBul.com.tr",
+            "text": "Kurumsal"
+          },
+          {
+            "href": "admin-panel.html",
+            "text": "🛡️ Admin Girişi"
+          },
+          {
+            "href": "profil.html",
+            "text": "👤 Profilim"
+          },
+          {
+            "href": "uzman-profil.html?id=e1",
+            "text": "Profil"
+          },
+          {
+            "href": "uzmanlar.html?kategori=montaj",
+            "text": "Uzmanları GÖR"
+          },
+          {
+            "href": "uzmanlar.html?kategori=montaj",
+            "text": "🔧\n          Mobilya Montajı\n          Tüm marka mobilya montajı\n          \n            ₺200'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=temizlik",
+            "text": "🧹\n          Ev Temizliği\n          Standart & derin temizlik\n          \n            ₺250'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=nakliyat",
+            "text": "🚚\n          Nakliyat & Taşıma\n          Ev ve ofis taşıma hizmetleri\n          \n            ₺500'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=elektrik",
+            "text": "⚡\n          Elektrikçi\n          Priz, aydınlatma, panel\n          \n            ₺280'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=tesisat",
+            "text": "🔧\n          Tesisatçı\n          Su, doğalgaz, kalorifer\n          \n            ₺300'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=boya",
+            "text": "🎨\n          Boyacı\n          İç cephe ve dekoratif boya\n          \n            ₺350'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=montaj",
+            "text": "📺\n          TV Montajı\n          Duvara askı ve bağlantı\n          \n            ₺220'den başlar\n            ›"
+          },
+          {
+            "href": "uzmanlar.html?kategori=bahce",
+            "text": "🌱\n          Bahçe Bakımı\n          Çim biçme, budama, düzenleme\n          \n            ₺200'den başlar\n            ›"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "📋\n          Tüm Hizmetler\n          30+ farklı kategori\n          \n            Keşfet\n            ›"
+          },
+          {
+            "href": "nasil-calisir.html",
+            "text": "Daha Fazla Bilgi"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Olarak Kaydol »"
+          }
+        ]
+      },
+      "ai": {
+        "status": "warning",
+        "issues": [],
+        "positive": [],
+        "overall": "\n<think>\nThe user wants me to act as an experienced QA Test Expert and analyze a specific webpage screenshot.\n\n**1. Analyze the Input Image:**\n*   **Visual Content:** The image shows a purple gradient background. In the center, there is a semi-transparent white card/modal.\n*   **Text on Card:** \"Uzman hesabınız aktifleştiriliyor...\" (Expert account is being activated...) and below it \"Lütfen bekleyin\" (Please wait).\n*   **Icon:** A loading spinner (circle with a gap) is visible above the text.\n*   **Other Elements:** There is a small floating button in the bottom right corner with a chat icon and an \"AI\" badge.\n*   **State:** The page is clearly in a \"loading\" or \"processing\" state. It is *not* the final \"Create Account\" form. It's a transitional screen.\n\n**2. Evaluate against Critical Checks (Errors):**\n*   *Admin Panel:* Not visible, but this is a user-facing page.\n*   *Facebook Login:* Not visible (because the form isn't visible).\n*   *Buttons:* No buttons visible yet, just a loading state.\n*   *Error Messages:* No \"404\" or \"Error\" text. The text is a status message.\n*   *Layout:* The layout seems centered and clean for a loading screen.\n*   *Footer:* Not visible.\n*   *Broken Icons:* The spinner looks okay. The chat icon looks okay.\n*   *Form Fields:* Not visible.\n*   *Modal:* The loading card acts like a modal. It is open.\n*   *Menu:* Not visible.\n\n**3. Evaluate against Warnings:**\n*   *Contrast:* White text on a semi-transparent white box over a purple background. It looks readable.\n*   *Spelling:* \"Uzman hesabınız aktifleştiriliyor...\" looks correct Turkish.\n*   *Button Size:* N/A (no buttons).\n*   *Spacing:* Looks centered.\n*   *Alignment:* Centered.\n*   *Icons:* Spinner is standard.\n*   *Loading Indicator:* It is present. The prompt asks if it spins infinitely. I can't see motion, but it's a loading state.\n*   *Image Quality:* The screenshot itself is a bit pixelated/low res, but the UI elements are clear enough.\n*   *Responsive:* Hard to tell without resizing, but the card is centered.\n\n**4. Evaluate Positive Observations:**\n*   *Feature 1:* Clear status message (\"Account is being activated\").\n*   *Feature 2:* Loading spinner provides feedback.\n*   *Feature 3:* \"AI\" chat support button is visible.\n\n**5. Detailed Analysis:**\n*   *Buttons:* Only the \"AI\" chat button is visible.\n*   *Footer Links:* None visible.\n*   *Color Palette:* Purple gradient (modern, tech-focused).\n*   *Typography:* Sans-serif, white, readable.\n*   *Visual Hierarchy:* The loading card is the focal point.\n\n**6. Formulate the JSON Response:**\n*   *Status:* \"warning\" (because the page is stuck in a loading state or just captured at that moment, preventing full analysis of the form).\n*   *Critical Issues:* The main issue is that the actual \"Create Account\" form is *not* visible. The user is stuck on a loading screen. This is a major functional block for testing the form itself.\n*   *Warnings:* The screenshot resolution is low.\n*   *Positive:* Good loading state design.\n*   *Buttons:* \"AI Chat Button\".\n*   *Footer Links:* Empty list (not visible).\n*   *Color Contrast:* \"iyi\" (White on purple/white overlay).\n*   *Mobile Responsive:* \"bilinmiyor\" (Can't tell from static image, but looks centered). Let's stick to \"iyi\" based on the centered card.\n*   *Overall:* The page is currently in a \"processing\" state. I cannot analyze the form fields, login buttons, or footer because they are hidden behind this loading overlay.\n\n**Refining the \"Critical Issue\":**\nThe prompt asks to analyze the \"Create Account\" page. The screenshot shows a loading screen *after* an action (likely clicking \"Create Account\").\n*   *Issue:* The form is not visible.\n*   *Issue:* Is this a permanent state? If the user is stuck here, it's a critical error. If it's just a snapshot, it's a limitation of the test. I will assume it's a snapshot of a loading state but note that the form is inaccessible.\n\n**Refining the \"Facebook Login\" check:**\nSince the form isn't there, I can't confirm Facebook login is *absent*, but I can confirm it's not *visible*.\n\n**Refining the \"AI Button\":**\nIt's a floating action button (FAB).\n\n**Final JSON Construction:**\n*   `status`: \"warning\" (Page is in a transitional state, full analysis impossible).\n*   `criticalIssues`: The form is hidden behind a loading screen.\n*   `warnings`: Screenshot quality is low.\n*   `positive`: Clear loading message.\n*   `buttons`: [\"AI Destek Butonu (Sağ Alt)\"]\n*   `footerLinks`: []\n*   `colorContrast`: \"iyi\"\n*   `mobileResponsive`: \"iyi\" (Assuming based on centering)\n*   `overall`: The page is currently displaying a \"loading/processing\" state (\"Uzman hesabınız aktifleştiriliyor...\"). Because of this overlay, the actual registration form, login buttons (Google/Facebook), and footer are completely hidden. I cannot verify the form fields or the absence of the Facebook button. The loading state itself is designed well with a spinner and clear text.\n\nLet's double check the \"Facebook Login\" requirement. \"Facebook login butonu VAR MI? (OLMAMALI! Sadece Google olmalı)\". Since I can't see the form, I can't verify this. I will add a warning about this.\n\nLet's look closer at the image.\n- Top part: Purple gradient.\n- Middle: Card with spinner.\n- Bottom right: AI chat icon.\n- Bottom part: White space? No, looking closely at the full image provided (it's a long strip of repeated sections or just a very tall screenshot).\n- Wait, looking at the full image provided in the prompt... it looks like the image is tiled or repeated?\n- Ah, the image provided is actually a long vertical strip.\n    - Top section: Loading card.\n    - Middle section: Just purple background.\n    - Bottom section: Loading card again?\n    - Actually, looking at the raw image data, it seems to be a single screenshot that might have been stitched or just a very tall view.\n    - Let's look at the bottom right of the *first* visible section. There is an \"AI\" button.\n    - Let's look at the bottom of the *last* visible section. There is an \"AI\" button.\n    - It looks like the screenshot captures a loading state.\n\n**Revised Plan:**\nThe screenshot shows a \"Loading\" state.\n1.  **Critical:** The actual form is missing. I can't test the \"Create Account\" functionality.\n2.  **Critical:** I cannot verify the \"No Facebook Login\" rule because the login section is hidden.\n3.  **Warning:** The page seems to be stuck or just captured during loading.\n4.  **Positive:** The loading message is clear.\n\nLet's write the JSON.\n</think>\n\n```json\n{\n  \"status\": \"warning\",\n  \"criticalIssues\": [\n    {\n      \"type\": \"error\",\n      \"severity\": \"critical\",\n      \"message\": \"Sayfa şu anda 'Yükleniyor' (Loading) durumunda. 'Uzman hesabınız aktifleştiriliyor...' mesajı ve spinner görünüyor. Bu nedenle asıl kayıt formu, input alanları ve butonlar görünmüyor. Test edilemiyor.\",\n      \"location\": \"Sayfa Orta (Modal/Overlay)\"\n    },\n    {\n      \"type\": \"error\",\n      \"severity\": \"critical\",\n      \"message\": \"Facebook login butonunun olup olmadığını kontrol edemiyorum çünkü form alanı bu yükleme ekranı tarafından gizlenmiş durumda.\",\n      \"location\": \"Görünmeyen Form Alanı\"\n    },\n    {\n      \"type\": \"error\",\n      \"severity\": \"critical\",\n      \"message\": \"Footer linkleri ve alt kısımdaki diğer elementler görünmüyor.\",\n      \"location\": \"Sayfa Altı\"\n    }\n  ],\n  \"warnings\": [\n    {\n      \"type\": \"warning\",\n      \"severity\": \"medium\",\n      \"message\": \"Ekran görüntüsü düşük çözünürlükte (pixelated). Metinler biraz bulanık görünüyor.\",\n      \"location\": \"Tüm Sayfa\"\n    },\n    {\n      \"type\": \"warning\",\n      \"severity\": \"low\",\n      \"message\": \"Y"
+      },
+      "screenshots": {
+        "desktop": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\create-account-desktop.png",
+        "mobile": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\create-account-mobile.png"
+      },
+      "overall": "warning"
+    },
+    {
+      "name": "Şifremi Unuttum",
+      "path": "forgot-password.html",
+      "url": "https://isbul.online/forgot-password.html",
+      "critical": false,
+      "timestamp": "2026-08-21T09:40:21.457Z",
+      "technical": {
+        "loadTime": 776,
+        "status": 200,
+        "consoleErrors": [],
+        "networkErrors": [],
+        "accessibility": [
+          "1 input'ta label eksik"
+        ],
+        "buttons": [
+          {
+            "text": "Sıfırlama Linki Gönder",
+            "visible": true,
+            "enabled": true
+          }
+        ],
+        "links": [
+          {
+            "href": "login.html",
+            "text": "← Giriş sayfasına dön"
+          }
+        ]
+      },
+      "ai": {
+        "status": "warning",
+        "issues": [],
+        "positive": [],
+        "overall": "\n<think>\nThe user wants a detailed QA analysis of the provided screenshot of a \"Forgot Password\" page.\nI need to act as an experienced QA Test Expert.\nThe output must be in a specific JSON format.\n\n**Analysis of the Screenshot:**\n1.  **Visual Layout:**\n    *   There is a purple gradient background.\n    *   There is a white card in the center (and partially visible on the right and bottom left in the collage, suggesting different states or just a collage of the same page).\n    *   The card contains a form.\n    *   Title: \"Şifremi Unuttum\" (I forgot my password).\n    *   Subtitle: \"E-posta adresinize şifre sıfırlama linki gönderilecektir.\" (A password reset link will be sent to your email address).\n    *   Input field: Label \"E-posta\", placeholder \"ornek@email.com\".\n    *   Button: \"Şifreleme Linki Gönder\" (Send Encryption Link - wait, \"Şifreleme\" usually means Encryption, but in this context, it likely means \"Password Reset Link\". It should probably be \"Şifre Sıfırlama Linki Gönder\").\n    *   Link below button: \"← Giriş sayfasına dön\" (Return to login page).\n\n2.  **Critical Checks (Errors):**\n    *   **Facebook Login:** I don't see a Facebook login button. This is good (matches the requirement \"Facebook login butonu VAR MI? (OLMAMALI! Sadece Google olmalı)\"). Wait, the prompt says \"Facebook login butonu VAR MI? (OLMAMALI! Sadece Google olmalı)\". This implies the *login* page should only have Google, or perhaps this page shouldn't have social logins at all. Since this is a \"Forgot Password\" page, social logins are usually irrelevant anyway. I don't see any social login buttons here, which is correct for a password reset flow.\n    *   **Broken Buttons:** The main button \"Şifreleme Linki Gönder\" looks intact. The link \"Giriş sayfasına dön\" looks intact.\n    *   **404/Error Messages:** No visible error messages like \"404\" or \"Undefined\".\n    *   **Layout:** The layout seems centered and clean. No obvious overlapping elements.\n    *   **Footer:** There is no visible footer in the screenshot. The bottom part is just white space or the gradient continues. Wait, looking closely at the bottom right image, there's a white area below the card. It looks like the page might be cut off or just has a lot of whitespace. There are no footer links visible.\n    *   **Images/Icons:** No broken images. The back arrow icon \"←\" is visible.\n    *   **Form Fields:** The input field looks standard.\n    *   **Modal/Popup:** It's not a modal, it's a full page view.\n    *   **Menu:** No menu visible (hamburger/dropdown). This is expected for a focused auth page.\n\n3.  **Warnings:**\n    *   **Color Contrast:** The purple button has white text. The contrast seems okay, but the purple is quite light. The background is a gradient purple. The text on the white card is dark grey/black, good contrast.\n    *   **Spelling/Grammar:**\n        *   \"Şifreleme Linki Gönder\" -> \"Şifreleme\" means Encryption. It should be \"Şifre Sıfırlama Linki Gönder\" (Send Password Reset Link). This is a significant UX copy error.\n        *   \"Giriş sayfasına dön\" -> Correct.\n        *   \"Şifremi Unuttum\" -> Correct.\n    *   **Button Size:** The button looks reasonably sized.\n    *   **Spacing:** Spacing looks consistent.\n    *   **Alignment:** Centered alignment looks good.\n    *   **Icons:** The back arrow is simple.\n    *   **Loading:** No loading indicator visible.\n    *   **Image Quality:** The screenshot itself is a bit low res/pixelated in the collage, but the UI elements look sharp enough.\n    *   **Responsive:** The card is centered. On mobile, it might be too wide if not responsive, but it looks like a standard desktop view. The collage shows different positions, which is weird. It looks like the same page shown in different positions or maybe a responsive test. The bottom left image shows the card cut off. The bottom right shows the card cut off. This suggests the screenshot is a collage of different states or just a poorly composed image. I will treat the central, complete card as the primary subject.\n\n4.  **Positive Observations:**\n    *   Clean, minimal design.\n    *   Clear call to action.\n    *   Easy to understand purpose.\n\n5.  **Detailed Analysis:**\n    *   **Buttons:** \"Şifreleme Linki Gönder\" (Primary), \"Giriş sayfasına dön\" (Link/Secondary).\n    *   **Footer Links:** None visible.\n    *   **Color Palette:** Purple gradient background, white card, purple button. Consistent.\n    *   **Typography:** Sans-serif font. Title is bold. Body text is regular.\n    *   **Visual Hierarchy:** Title -> Subtitle -> Input -> Button -> Back Link. Logical flow.\n\n**Refining the \"Şifreleme Linki Gönder\" issue:**\n\"Şifreleme\" = Encryption.\n\"Şifre Sıfırlama\" = Password Reset.\nThe button says \"Send Encryption Link\". This is technically incorrect terminology for a user. They want to reset their password, not encrypt something. This is a critical copy error.\n\n**Refining the \"Facebook Login\" check:**\nThe prompt asks: \"Facebook login butonu VAR MI? (OLMAMALI! Sadece Google olmalı)\".\nThis is a \"Forgot Password\" page. Usually, you don't have social logins here. You just enter your email. So the absence of Facebook/Google buttons is correct.\n\n**Refining the Footer:**\nThe prompt asks to list footer links. There are none visible. I should note this.\n\n**Refining the Collage:**\nThe image is a collage.\n- Top: Full card centered.\n- Bottom Right: Card shifted right, cut off.\n- Bottom Left: Card shifted left, cut off.\nThis looks like a responsive test or just a weird screenshot composition. I will focus on the top, complete card for the main analysis but mention the collage nature if relevant. Actually, looking closely, the bottom right and bottom left images are just cropped versions of the same page, possibly showing mobile views or just bad cropping. The bottom right one shows the card on the right side, which is unusual for a centered layout. The bottom left one shows the card on the left. This suggests the layout might be responsive or the screenshot is just a composite. I will assume the top image is the intended desktop view.\n\n**Final JSON Construction:**\n- `status`: \"warning\" (due to the copy error \"Şifreleme Linki Gönder\").\n- `criticalIssues`:\n    - \"Şifreleme Linki Gönder\" button text is incorrect. Should be \"Şifre Sıfırlama Linki Gönder\".\n- `warnings`:\n    - No footer visible.\n    - The collage nature of the screenshot makes it hard to assess responsive behavior fully, but the card seems to stay centered.\n- `positive`:\n    - Clean design.\n    - Clear instructions.\n    - Good contrast.\n- `buttons`: [\"Şifreleme Linki Gönder\", \"Giriş sayfasına dön\"]\n- `footerLinks`: [] (None visible)\n- `colorContrast`: \"iyi\"\n- `mobileResponsive`: \"iyi\" (Assuming the card is responsive based on the collage, though the collage is weird).\n- `overall`: Detailed evaluation.\n\nWait, let me double-check the \"Facebook login\" requirement. The prompt says \"Facebook login butonu VAR MI? (OLMAMALI! Sadece Google olmalı)\". This is a specific check for the *login* page usually. But this is the *forgot password* page. The prompt might be a generic template. I will note that there are no social login buttons, which is correct for this page type.\n\nOne more thing: The button text \"Şifreleme Linki Gönder\" is definitely wrong. \"Şifreleme\" means encryption. It should be \"Şifre Sıfırlama\" (Password Reset). This is a critical UX error.\n\nAlso, the input field has a placeholder \"ornek@email.com\". This is good.\n\nThe link \"Giriş sayfasına dön\" has a back arrow. This is good.\n\nLet's structure the JSON.\n</think>\n\n```json\n{\n  \"status\": \"warning\",\n  \"criticalIssues\": [\n    {\n      \"type\": \"error\",\n      \"severity\": \"critical\",\n      \"message\": \"Buton metni hatalı: 'Şifreleme Linki Gönder' yazıyor"
+      },
+      "screenshots": {
+        "desktop": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\forgot-password-desktop.png",
+        "mobile": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\forgot-password-mobile.png"
+      },
+      "overall": "success"
+    },
+    {
+      "name": "Şifre Sıfırla",
+      "path": "reset-password.html",
+      "url": "https://isbul.online/reset-password.html",
+      "critical": false,
+      "timestamp": "2026-08-21T09:41:00.228Z",
+      "technical": {
+        "loadTime": 1121,
+        "status": 200,
+        "consoleErrors": [],
+        "networkErrors": [],
+        "accessibility": [
+          "1 input'ta label eksik"
+        ],
+        "buttons": [
+          {
+            "text": "Sıfırlama Linki Gönder",
+            "visible": true,
+            "enabled": true
+          }
+        ],
+        "links": [
+          {
+            "href": "login.html",
+            "text": "← Giriş sayfasına dön"
+          }
+        ]
+      },
+      "ai": {
+        "status": "warning",
+        "issues": [],
+        "positive": [],
+        "overall": "\n<think>\nThe user wants a detailed QA analysis of the provided screenshot of a \"Reset Password\" page.\n\n1.  **Analyze the Image:**\n    *   **Visuals:** It's a split-screen layout. The top half is a purple gradient background with a centered white card. The bottom half is just white space (or a very light background) with a partial view of the same card on the right edge. Wait, looking closer, it seems like the screenshot is actually two different states or a very strange layout where the card is floating on the right side in the bottom section. Actually, looking at the full image provided, it looks like a single long screenshot or a composite.\n    *   **Top Section:** Centered card. Title: \"Şifremi Unuttum\". Subtext: \"E-posta adresinize şifre sıfırlama linki gönderilecektir.\" Input: \"E-posta\" (placeholder: \"ornek@email.com\"). Button: \"Şifirlama Linki Gönder\" (Purple). Link below: \"Giriş sayfasına dön\".\n    *   **Bottom Section:** This looks like a responsive view or a different breakpoint. The card is pushed to the far right edge, partially cut off. The background is the same purple gradient. The bottom right corner is white. This suggests a layout issue or a very specific responsive behavior where the card moves to the right.\n    *   **Content:**\n        *   Title: \"Şifremi Unuttum\" (Forgot Password).\n        *   Input Label: \"E-posta\".\n        *   Button Text: \"Şifirlama Linki Gönder\" (Send Reset Link).\n        *   Footer Link: \"Giriş sayfasına dön\" (Return to login page).\n    *   **Design:** Clean, modern, purple theme.\n    *   **Issues:**\n        *   The bottom part of the image shows the card floating weirdly on the right edge. This looks like a responsive design failure or a screenshot stitching error.\n        *   The top part looks centered and okay.\n        *   There is no Facebook login button (Good).\n        *   No visible errors like \"404\".\n        *   Typography looks legible.\n\n2.  **Evaluate against Critical Checks:**\n    *   *Admin Panel:* Not applicable here, this is a user-facing page.\n    *   *Facebook Login:* Not present (Correct).\n    *   *Buttons:* \"Şifirlama Linki Gönder\" is visible. \"Giriş sayfasına dön\" is a link/button.\n    *   *Errors:* No text errors visible.\n    *   *Layout:* The top part is fine. The bottom part is very strange. It looks like the card is stuck to the right edge. This is a major layout issue if it's meant to be centered.\n    *   *Footer Links:* Only \"Giriş sayfasına dön\" is visible inside the card. No standard site footer is visible in the screenshot.\n    *   *Images:* No images, just icons (maybe a lock icon? No, just text).\n    *   *Form Fields:* Input looks standard.\n    *   *Modals:* None.\n    *   *Menu:* No menu visible.\n\n3.  **Evaluate against Warnings:**\n    *   *Contrast:* White text on purple button is good. Black text on white card is good.\n    *   *Spelling:* \"Şifremi Unuttum\", \"Şifirlama Linki Gönder\". \"Şifirlama\" is a bit colloquial, usually \"Sıfırlama\" is preferred in formal UI, but acceptable.\n    *   *Button Size:* Looks okay on desktop.\n    *   *Spacing:* Looks consistent in the top card.\n    *   *Alignment:* Top card is centered. Bottom card is aligned right (weird).\n    *   *Icons:* No specific icons visible, maybe a small arrow next to the return link.\n    *   *Loading:* No loading spinner.\n    *   *Responsive:* The bottom part suggests a responsive issue where the card isn't centering correctly on wider screens or it's a specific \"right-aligned\" mode that looks broken.\n\n4.  **Positive Observations:**\n    *   Clean design.\n    *   Clear instructions.\n    *   No social login clutter (as requested).\n\n5.  **Construct JSON:**\n    *   *Status:* Warning (due to the weird layout in the bottom half).\n    *   *Critical Issues:* The layout in the bottom section is broken (card pushed to right edge).\n    *   *Warnings:* \"Şifirlama\" vs \"Sıfırlama\" (minor).\n    *   *Buttons:* \"Şifirlama Linki Gönder\".\n    *   *Footer Links:* \"Giriş sayfasına dön\".\n    *   *Color Contrast:* Good.\n    *   *Mobile Responsive:* Looks problematic based on the bottom crop.\n\n6.  **Refine Analysis:**\n    *   Wait, looking closely at the bottom image, it looks like the card is *partially* visible on the right. This might be a \"sticky\" element or just a bad screenshot crop. But assuming it's the actual page state, it's a layout error.\n    *   The prompt asks to check for \"Facebook login button\". It is NOT there. This is a PASS.\n    *   The prompt asks for \"Admin Panel\". Not visible.\n    *   The prompt asks for \"404/Error\". Not visible.\n\n    *Self-Correction on \"Şifirlama\":* \"Şifre sıfırlama\" is the standard term. \"Şifirlama\" is a common misspelling or colloquialism. I will flag this as a warning.\n\n    *Layout Analysis:* The top image shows a centered card. The bottom image shows the card pushed to the far right. This implies a responsive break point issue or a CSS flexbox/grid issue where `justify-content` is failing or set to `flex-end` unexpectedly.\n\n    *Final JSON Structure:*\n    *   Status: warning\n    *   Critical: Layout issue in the bottom view (card alignment).\n    *   Warnings: Spelling (\"Şifirlama\"), missing standard footer (only internal link).\n    *   Positive: Clean UI, correct absence of Facebook login.\n\n    *Let's look really closely at the bottom image again.* It looks like the card is floating on the right side of a white background, but the purple gradient is behind it. Actually, it looks like the screenshot is just a long scroll or two different states. The bottom part shows the card cut off on the right. This is definitely a layout bug.\n\n    *Let's check the text again.*\n    \"Şifremi Unuttum\"\n    \"E-posta adresinize şifre sıfırlama linki gönderilecektir.\" (Correct spelling here: \"sıfırlama\")\n    \"E-posta\"\n    \"ornek@email.com\"\n    \"Şifirlama Linki Gönder\" (Incorrect spelling here: \"Şifirlama\" -> should be \"Sıfırlama\")\n    \"Giriş sayfasına dön\"\n\n    *Okay, spelling inconsistency found!*\n    Subtext: \"şifre **sıfırlama** linki\" (Correct)\n    Button: \"**Şifirlama** Linki Gönder\" (Incorrect/Colloquial)\n\n    *Final Plan:*\n    1.  Highlight the spelling inconsistency.\n    2.  Highlight the layout issue in the bottom part of the screenshot.\n    3.  Confirm no Facebook button (Good).\n    4.  Confirm clean design.\n\n    *JSON Construction:*\n    *   `criticalIssues`: Layout alignment in the bottom view (card pushed to right edge).\n    *   `warnings`: Spelling inconsistency (\"Şifirlama\" vs \"Sıfırlama\").\n    *   `positive`: Clean UI, clear instructions, no unwanted social logins.\n    *   `buttons`: [\"Şifirlama Linki Gönder\"]\n    *   `footerLinks`: [\"Giriş sayfasına dön\"]\n    *   `colorContrast`: \"iyi\"\n    *   `mobileResponsive`: \"sorunlu\" (based on the bottom image showing misalignment)\n    *   `overall`: Summary of findings.\n\n    *Wait, looking at the bottom image again...* It looks like the card is actually *outside* the main container or the container is very wide and the card is aligned right. Or maybe it's a \"floating action button\" style? No, it's the same card. It's definitely a layout bug.\n\n    *One more check:* Is there a Facebook button? No.\n    Is there an Admin panel? No.\n    Are there errors? No.\n\n    *Let's refine the \"Critical Issues\".*\n    The bottom part of the screenshot shows the card pushed to the far right, partially cut off. This is a severe layout break.\n    The spelling \"Şifirlama\" is a warning,"
+      },
+      "screenshots": {
+        "desktop": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\reset-password-desktop.png",
+        "mobile": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\reset-password-mobile.png"
+      },
+      "overall": "success"
+    },
+    {
+      "name": "KVKK",
+      "path": "kvkk.html",
+      "url": "https://isbul.online/kvkk.html",
+      "critical": false,
+      "timestamp": "2026-08-21T09:41:45.375Z",
+      "technical": {
+        "loadTime": 1122,
+        "status": 200,
+        "consoleErrors": [],
+        "networkErrors": [],
+        "accessibility": [
+          "8 input'ta label eksik",
+          "17 buton çok küçük (< 44x44px)"
+        ],
+        "buttons": [
+          {
+            "text": "Giriş Yap",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Ücretsiz Kaydol",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "🚪 Çıkış Yap",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Boş",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "← Ana Sayfaya Dön",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "×",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Giriş Yap",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Ücretsiz Kaydol",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Google ile Giriş",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Giriş Yap",
+            "visible": false,
+            "enabled": true
+          }
+        ],
+        "links": [
+          {
+            "href": "index.html",
+            "text": "⚡İşBul"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Hizmetler"
+          },
+          {
+            "href": "nasil-calisir.html",
+            "text": "Nasıl Çalışır?"
+          },
+          {
+            "href": "uzman-panel.html",
+            "text": "Uzman Panelim"
+          },
+          {
+            "href": "admin-panel.html",
+            "text": "🛡️ Admin Girişi"
+          },
+          {
+            "href": "profil.html",
+            "text": "👤 Profilim"
+          },
+          {
+            "href": "index.html",
+            "text": "← Ana Sayfaya Dön"
+          }
+        ]
+      },
+      "ai": {
+        "status": "warning",
+        "issues": [],
+        "positive": [],
+        "overall": "\n<think>\nThe user wants a detailed QA analysis of a webpage screenshot.\nThe page is \"KVKK Aydınlatma Metni\" (Data Privacy Policy) for a site called \"işBul\".\nI need to look for specific errors (broken links, missing buttons, layout issues), warnings (typos, contrast), and positive aspects.\nThe output must be in a specific JSON format.\n\n**Visual Analysis:**\n1.  **Header:**\n    *   Logo: \"işBul\" with a lightning bolt icon. Looks clean.\n    *   User Profile: Top right, \"Ümit\" with a dropdown arrow. Looks functional.\n    *   Navigation: Not fully visible in the main content area, but the top bar seems standard.\n\n2.  **Main Content (KVKK Page):**\n    *   **Title:** \"KVKK Aydınlatma Metni\". Clear, bold.\n    *   **Subtitle:** \"6698 Sayılı Kişisel Verilerin Korunması Kanunu kapsamında. Son güncelleme: 1 Ocak 2026\". Note the date \"2026\". This is in the future relative to now (2024), but might be intentional for a demo or a specific future-dated policy. It's a potential warning (date accuracy).\n    *   **Section: Veri Sorumlusu:** \"işBul Teknoloji A.Ş.\", Email: \"kvkk@isbul.com.tr\". Looks correct.\n    *   **Section: İşlenen Kişisel Veriler:** A table structure.\n        *   Headers: Veri Kategorisi, Veri Türü, Amaç.\n        *   Rows: Kimlik, İletişim, Finansal, Teknik.\n        *   Content looks aligned.\n    *   **Section: Hukuki Dayanak:** Text block. Looks readable.\n    *   **Section: Haklarınızı Nasıl Kullanırsınız?:** Text block with email link.\n    *   **Alert Box:** Yellow box with checkmark icon: \"Bu metin bilgilendirme amaçlıdır.\" Looks good.\n    *   **Button:** \"Ana Sayfaya Dön\" (Return to Home Page). Centered, outlined button.\n\n3.  **Footer/Bottom Area:**\n    *   There is a floating action button (FAB) or chat widget in the bottom right corner. It's a purple circle with a chat bubble icon and a red \"AI\" badge.\n    *   The background has a very faint pattern (looks like \"işBul\" repeated).\n\n4.  **Checking against Critical Errors:**\n    *   *Admin Panel:* Not visible here, this is a public legal page. No error visible.\n    *   *Facebook Login:* Not visible on this specific page (KVKK page usually doesn't have login buttons, but the header has a user profile \"Ümit\", implying login is handled elsewhere or already done). The prompt asks if Facebook login button is *present* (it shouldn't be). I don't see a Facebook login button. I see a user profile \"Ümit\".\n    *   *Broken Buttons:* \"Ana Sayfaya Dön\" looks intact.\n    *   *404/Error:* No error messages visible.\n    *   *Layout:* Looks clean, centered card layout.\n    *   *Footer Links:* The footer isn't fully visible in the traditional sense (bottom of the page), but the \"Ana Sayfaya Dön\" button acts as navigation. Wait, looking closely at the bottom right, there's a chat widget.\n    *   *Broken Images:* Icons (lightning bolt, checkmark, chat bubble) look crisp.\n    *   *Forms:* No forms on this page.\n    *   *Modals:* None open.\n    *   *Menu:* The top right \"Ümit\" dropdown is visible.\n\n5.  **Checking against Warnings:**\n    *   *Contrast:* Text is dark grey/black on white. Good contrast.\n    *   *Typos:* \"1 Ocak 2026\" is suspicious (future date). \"işBul Teknoloji A.Ş.\" looks correct.\n    *   *Button Size:* \"Ana Sayfaya Dön\" is reasonably sized.\n    *   *Spacing:* Padding looks consistent.\n    *   *Alignment:* Table alignment is good.\n    *   *Icons:* Standard icons used.\n    *   *Responsive:* The screenshot shows a desktop view (wide). The card is centered. It looks like it would handle mobile okay, but I can't test it. The layout is a single column card, which is inherently responsive-friendly.\n\n6.  **Positive Observations:**\n    *   Clean, minimalist design.\n    *   Clear typography hierarchy (H1, H2, body text).\n    *   The table for data processing is easy to read.\n    *   The \"Ana Sayfaya Dön\" button provides clear navigation.\n\n7.  **Detailed Analysis:**\n    *   **Buttons:** \"Ana Sayfaya Dön\" (Return to Home), \"Ümit\" (User profile dropdown), Chat Widget (AI button).\n    *   **Footer Links:** Not explicitly visible as a standard footer bar, but the \"Ana Sayfaya Dön\" button serves the purpose.\n    *   **Color Palette:** White background, dark text, purple accents (logo, button outline, chat widget), yellow alert box. Consistent.\n    *   **Typography:** Sans-serif font, good readability.\n\n**Refining the \"Facebook Login\" check:**\nThe prompt asks: \"Facebook login butonu VAR MI? (OLMAMALI! Sadece Google olmalı)\".\nLooking at the top right, I see \"Ümit\" with a dropdown arrow. This implies the user is logged in. I don't see a \"Login with Facebook\" button. This is a PASS.\n\n**Refining the Date Warning:**\n\"Son güncelleme: 1 Ocak 2026\". This is definitely a warning. It's likely a placeholder date that hasn't been updated to the current year (2024/2025).\n\n**Refining the Chat Widget:**\nThere is a floating button with \"AI\" badge. This is a feature, not an error, but worth noting in \"buttons\".\n\n**Constructing the JSON:**\n*   Status: success (mostly clean).\n*   Critical Issues: None found based on visual inspection.\n*   Warnings: The date \"2026\" is a strong warning.\n*   Positive: Clean design, clear table, good contrast.\n*   Buttons: \"Ana Sayfaya Dön\", \"Ümit\" (Profile), \"AI Chat\" (Floating).\n*   Footer Links: None visible in traditional footer, just the return button.\n\nLet's double check the \"Facebook Login\" requirement. The prompt implies this is a specific test case. If I don't see it, I report it as not found (which is good).\n\nLet's look really closely at the top right. \"Ümit\" with a dropdown. It's a user profile.\nLet's look at the top left. Logo.\nLet's look at the very top. Is there a nav bar? It's cut off or minimal.\nWait, looking at the very top right corner of the *first* image crop, there is a \"Ümit\" dropdown.\nLooking at the *second* image crop (bottom right), there is the AI chat button.\n\nOkay, let's assemble the JSON.\n\n*   **Status:** success\n*   **Critical Issues:** Empty array.\n*   **Warnings:**\n    *   Date \"1 Ocak 2026\" is in the future.\n    *   The \"Ana Sayfaya Dön\" button is an outline button, might be less prominent than a filled button, but acceptable.\n*   **Positive:**\n    *   Clean, readable typography.\n    *   Well-structured table for data categories.\n    *   Clear visual hierarchy.\n*   **Buttons:**\n    *   \"Ana Sayfaya Dön\"\n    *   \"Ümit\" (User Profile Dropdown)\n    *   \"AI\" (Floating Chat Button)\n*   **Footer Links:**\n    *   (None visible in a traditional footer, only the return button).\n*   **Color Contrast:** iyi (good).\n*   **Mobile Responsive:** iyi (looks like a centered card layout which adapts well).\n*   **Overall:** The page is clean and professional. The main issue is the future date.\n\nWait, I need to check the \"Facebook Login\" specifically. The prompt says \"Facebook login butonu VAR MI? (OLMAMALI! Sadece Google olmalı)\".\nI see \"Ümit\" in the top right. This suggests the user is *already* logged in. I don't see a login screen. So I can't confirm if Facebook login *exists* on the login page, but on *this* page, it's not visible. I will assume the check is for the presence of the button on the current view. It is NOT present. This is good.\n\nOne detail: The prompt asks for \"Footer linkleri\". I don't see a footer with links like \"Privacy Policy"
+      },
+      "screenshots": {
+        "desktop": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\kvkk-desktop.png",
+        "mobile": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\kvkk-mobile.png"
+      },
+      "overall": "success"
+    },
+    {
+      "name": "Gizlilik",
+      "path": "gizlilik.html",
+      "url": "https://isbul.online/gizlilik.html",
+      "critical": false,
+      "timestamp": "2026-08-21T09:42:29.887Z",
+      "technical": {
+        "loadTime": 770,
+        "status": 200,
+        "consoleErrors": [
+          "❌ KRİTİK: 1 adet Facebook login butonu bulundu (olmamalı!)"
+        ],
+        "networkErrors": [],
+        "accessibility": [
+          "8 input'ta label eksik",
+          "18 buton çok küçük (< 44x44px)"
+        ],
+        "buttons": [
+          {
+            "text": "Giriş Yap",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Ücretsiz Kaydol",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "🚪 Çıkış Yap",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Boş",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "↩ Ana Sayfaya Dön",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "text": "×",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Giriş Yap",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Ücretsiz Kaydol",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Google ile Giriş",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Giriş Yap",
+            "visible": false,
+            "enabled": true
+          }
+        ],
+        "links": [
+          {
+            "href": "index.html",
+            "text": "⚡İşBul"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Hizmetler"
+          },
+          {
+            "href": "nasil-calisir.html",
+            "text": "Nasıl Çalışır?"
+          },
+          {
+            "href": "uzman-panel.html",
+            "text": "Uzman Panelim"
+          },
+          {
+            "href": "admin-panel.html",
+            "text": "🛡️ Admin Girişi"
+          },
+          {
+            "href": "profil.html",
+            "text": "👤 Profilim"
+          },
+          {
+            "href": "mailto:kvkk@isbul.com.tr",
+            "text": "kvkk@isbul.com.tr"
+          },
+          {
+            "href": "index.html",
+            "text": "↩ Ana Sayfaya Dön"
+          },
+          {
+            "href": "index.html",
+            "text": "⚡İşBul"
+          },
+          {
+            "href": "https://www.linkedin.com/in/%C3%BCmit-yakup-dedeo%C4%9Flu-4321212a7/",
+            "text": "🔗"
+          },
+          {
+            "href": "hizmetler.html?kategori=montaj",
+            "text": "Mobilya Montajı"
+          },
+          {
+            "href": "hizmetler.html?kategori=temizlik",
+            "text": "Ev Temizliği"
+          },
+          {
+            "href": "hizmetler.html?kategori=nakliyat",
+            "text": "Nakliyat"
+          },
+          {
+            "href": "hizmetler.html?kategori=elektrik",
+            "text": "Elektrikçi"
+          },
+          {
+            "href": "hakkimizda.html",
+            "text": "Hakkımızda"
+          },
+          {
+            "href": "blog.html",
+            "text": "Blog"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Ol"
+          },
+          {
+            "href": "gizlilik.html",
+            "text": "Gizlilik Politikası"
+          },
+          {
+            "href": "sartlar.html",
+            "text": "Kullanım Şartları"
+          }
+        ]
+      },
+      "ai": {
+        "status": "warning",
+        "issues": [],
+        "positive": [],
+        "overall": "\n<think>\nThe user wants a detailed QA analysis of the provided screenshot of the \"Gizlilik\" (Privacy) page for `isbul.online`.\n\n**1. Visual Inspection & Layout Analysis:**\n*   **Header:**\n    *   Logo \"İşBul\" is visible in the top center.\n    *   Top right: A user profile button \"Ümit\" with a dropdown arrow.\n    *   Top left: Empty space (maybe a hamburger menu icon is missing or not visible in this view, or it's just empty). Wait, looking closely at the top left, there's nothing. Usually, there's a menu.\n*   **Main Content (Privacy Policy):**\n    *   Title: \"Gizlilik Politikası\" (Privacy Policy).\n    *   Badge: \"Yasal\" (Legal).\n    *   Last updated: \"Son güncelleme: 1 Ocak 2026\" (Future date? Interesting, but maybe intentional for testing or just a placeholder).\n    *   Sections: 1. Toplanan Veriler, 2. Verilerin Kullanım Amacı, 3. Veri Güvenliği, 4. Üçüncü Taraflarla Paylaşım, 5. Haklarınız, 6. Çerezler.\n    *   Content: Text is readable.\n    *   Button: \"Ana Sayfaya Dön\" (Return to Home Page) at the bottom of the card.\n    *   Link: \"KVKK başvuruları: kvkk@isbul.com.tr\" inside a purple box.\n*   **Footer:**\n    *   Dark background.\n    *   Logo \"İşBul\" with tagline.\n    *   Columns: Hizmetler (Services), Şirket (Company), Uzmanlar (Experts), Destek (Support).\n    *   Links: Mobilya Montaj, Ev Temizliği, Nakliyat, Elektrikçi, Hakkımızda, Blog, Uzman Ol, Gizlilik Politikası, Kullanım Şartları, KVKK.\n    *   Bottom bar: Copyright \"© 2026 İşBul Teknoloji A.Ş.\", SSL Güvenli, KVKK Uyumlu badges.\n*   **Floating Elements:**\n    *   Bottom right: A purple chat bubble icon with a notification badge \"2\".\n\n**2. Critical Checks (Error Hunting):**\n*   **Admin Panel:** Not visible here, this is a public page.\n*   **Facebook Login:** Not visible on this specific page (it's a static text page), but the prompt asks to check if it exists. I don't see a login form here, just a user profile \"Ümit\".\n*   **Broken Buttons:** The \"Ana Sayfaya Dön\" button looks intact. The footer links look intact.\n*   **Error Messages:** No \"404\", \"Error\", \"Undefined\" visible.\n*   **Layout:** The layout seems clean. The main content is in a white card centered on a light background. The footer is full width.\n*   **Footer Links:** They seem to point to standard pages.\n*   **Broken Images:** The logo looks fine. Icons in the footer (SSL, KVKK) look fine.\n*   **Forms:** No forms on this page.\n*   **Modals:** None open.\n*   **Menu:** The top left is empty. Usually, there's a hamburger menu on mobile or a nav bar on desktop. In the screenshot, the top left is empty. This might be a layout issue or just how the \"Yasal\" pages are structured (minimal header). Wait, looking at the very top left, there is nothing. This might be intentional for legal pages, or a missing menu.\n\n**3. Warnings & Details:**\n*   **Contrast:** Text is dark grey on white. Good contrast. Footer is light text on dark background. Good contrast.\n*   **Typos:** \"Son güncelleme: 1 Ocak 2026\". The year is 2026. Current year is 2024/2025. This is a future date. It's a warning.\n*   **Button Size:** \"Ana Sayfaya Dön\" is a small pill button. Might be a bit small for mobile touch targets (44px height recommended). It looks a bit thin.\n*   **Spacing:** Spacing looks consistent.\n*   **Alignment:** Centered layout. Looks good.\n*   **Icons:** The chat icon has a notification badge.\n*   **Responsive:** The screenshot shows a desktop view (wide). I need to infer mobile issues. The \"Ana Sayfaya Dön\" button is quite small. The footer columns might stack on mobile.\n*   **Hover effects:** Can't see them in a static image.\n\n**4. Positive Observations:**\n*   Clean, minimalist design.\n*   Clear typography (sans-serif).\n*   Good use of whitespace.\n*   Legal info is structured with numbered headings.\n\n**5. Detailed Analysis:**\n*   **Buttons:**\n    1.  \"Ümit\" (User profile dropdown)\n    2.  \"Ana Sayfaya Dön\" (Back to home)\n    3.  Chat icon (floating button)\n*   **Footer Links:**\n    *   Hizmetler: Mobilya Montaj, Ev Temizliği, Nakliyat, Elektrikçi\n    *   Şirket: Hakkımızda, Blog\n    *   Uzmanlar: Uzman Ol\n    *   Destek: Gizlilik Politikası, Kullanım Şartları, KVKK\n*   **Color Palette:** White, Light Grey, Purple (primary), Dark Blue/Black (footer). Consistent.\n*   **Typography:** Looks like a modern sans-serif (Inter or Roboto). Headings are bold. Body text is readable.\n\n**6. Constructing the JSON:**\n*   **Status:** \"warning\" (due to the future date and potentially small button).\n*   **Critical Issues:** None strictly \"critical\" like a crash, but the future date is weird.\n*   **Warnings:**\n    *   Date is 2026 (Future).\n    *   \"Ana Sayfaya Dön\" button might be too small for mobile.\n    *   Top left navigation is missing (or hidden).\n*   **Positive:** Clean design, clear structure, good footer organization.\n*   **Buttons:** List them.\n*   **Footer Links:** List them.\n*   **Color Contrast:** \"iyi\" (Good).\n*   **Mobile Responsive:** \"sorunlu\" (Potentially, due to button size and missing menu visibility).\n*   **Overall:** Summarize.\n\n**Refining the \"Critical\" check:**\n*   Is the \"Ana Sayfaya Dön\" button broken? No, it looks like a standard button.\n*   Is the layout broken? No.\n*   Is the date a critical error? It's a data integrity issue. \"1 Ocak 2026\". Unless this is a test environment set in the future, it's an error. I will mark it as a warning/error depending on severity. Let's call it a warning for data accuracy.\n\n**Refining the \"Menu\" check:**\n*   The top left is empty. On a standard web app, there should be a menu or logo on the left. Here the logo is centered. This is a specific design choice for legal pages perhaps, but it feels like navigation is missing.\n\n**Refining the \"Facebook Login\" check:**\n*   The prompt asks \"Facebook login butonu VAR MI? (OLMAMALI! Sadece Google olmalı)\".\n*   I don't see a login screen here. I see a logged-in user \"Ümit\". So this check is N/A for this specific page, but I should note that no login buttons are visible, which is correct for a static policy page.\n\n**Final Polish of JSON:**\n*   Make sure to mention the \"1 Ocak 2026\" date.\n*   Mention the \"Ana Sayfaya Dön\" button size.\n*   Mention the missing top-left navigation element.\n\nLet's look closer at the footer.\n\"Hizmetler\", \"Şirket\", \"Uzmanlar\", \"Destek\".\nLinks under them are visible.\nBottom badges: \"SSL Güvenli\", \"KVKK Uyumlu\".\n\nLet's look at the main card again.\n\"KVKK başvuruları: kvkk@isbul.com.tr\" is in a purple box. This is a link or just text? It looks like a link (blue text).\n\"Ana Sayfaya Dön\" button has an arrow icon.\n\nOkay, ready to generate JSON.\n</think>\n\n```json\n{\n  \"status\": \"warning\",\n  \"criticalIssues\": [],\n  \"warnings\": [\n    {\n      \"type\": \"warning\",\n      \"severity\": \"medium\",\n      \"message\": \"Tarih hatası: 'Son güncelleme: 1 Ocak 2026' yazıyor. Bu tarih gelecekte (2026). Muhtemelen bir veri girdi hatası veya test ver"
+      },
+      "screenshots": {
+        "desktop": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\gizlilik-desktop.png",
+        "mobile": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\gizlilik-mobile.png"
+      },
+      "overall": "warning"
+    },
+    {
+      "name": "Şartlar",
+      "path": "sartlar.html",
+      "url": "https://isbul.online/sartlar.html",
+      "critical": false,
+      "timestamp": "2026-08-21T09:43:15.836Z",
+      "technical": {
+        "loadTime": 777,
+        "status": 200,
+        "consoleErrors": [],
+        "networkErrors": [],
+        "accessibility": [
+          "8 input'ta label eksik",
+          "17 buton çok küçük (< 44x44px)"
+        ],
+        "buttons": [
+          {
+            "text": "Giriş Yap",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Ücretsiz Kaydol",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "🚪 Çıkış Yap",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Boş",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "×",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Giriş Yap",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Ücretsiz Kaydol",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Google ile Giriş",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Giriş Yap",
+            "visible": false,
+            "enabled": true
+          },
+          {
+            "text": "Google ile Kayıt",
+            "visible": false,
+            "enabled": true
+          }
+        ],
+        "links": [
+          {
+            "href": "index.html",
+            "text": "⚡İşBul"
+          },
+          {
+            "href": "hizmetler.html",
+            "text": "Hizmetler"
+          },
+          {
+            "href": "nasil-calisir.html",
+            "text": "Nasıl Çalışır?"
+          },
+          {
+            "href": "uzman-panel.html",
+            "text": "Uzman Panelim"
+          },
+          {
+            "href": "admin-panel.html",
+            "text": "🛡️ Admin Girişi"
+          },
+          {
+            "href": "profil.html",
+            "text": "👤 Profilim"
+          },
+          {
+            "href": "mailto:hukuk@isbul.com.tr",
+            "text": "hukuk@isbul.com.tr"
+          },
+          {
+            "href": "index.html",
+            "text": "⚡İşBul"
+          },
+          {
+            "href": "https://www.linkedin.com/in/%C3%BCmit-yakup-dedeo%C4%9Flu-4321212a7/",
+            "text": "🔗"
+          },
+          {
+            "href": "hizmetler.html?kategori=montaj",
+            "text": "Mobilya Montajı"
+          },
+          {
+            "href": "hizmetler.html?kategori=temizlik",
+            "text": "Ev Temizliği"
+          },
+          {
+            "href": "hizmetler.html?kategori=nakliyat",
+            "text": "Nakliyat"
+          },
+          {
+            "href": "hizmetler.html?kategori=elektrik",
+            "text": "Elektrikçi"
+          },
+          {
+            "href": "hakkimizda.html",
+            "text": "Hakkımızda"
+          },
+          {
+            "href": "blog.html",
+            "text": "Blog"
+          },
+          {
+            "href": "uzman-ol.html",
+            "text": "Uzman Ol"
+          },
+          {
+            "href": "gizlilik.html",
+            "text": "Gizlilik Politikası"
+          },
+          {
+            "href": "sartlar.html",
+            "text": "Kullanım Şartları"
+          },
+          {
+            "href": "kvkk.html",
+            "text": "KVKK"
+          }
+        ]
+      },
+      "ai": {
+        "status": "warning",
+        "issues": [],
+        "positive": [],
+        "overall": "\n<think>\nBu görevde, bir QA Test Uzmanı olarak verilen ekran görüntülerini (desktop ve mobil görünümleri) detaylıca inceleyip, belirtilen kriterlere göre bir analiz raporu hazırlamam isteniyor.\n\n**1. Görsel Analiz ve İlk İzlenimler:**\n\n*   **Sayfa İçeriği:** \"Kullanım Şartları\" sayfası. Metin ağırlıklı, yasal bir metin.\n*   **Tasarım:** Temiz, beyaz arka plan üzerinde siyah/gri metinler. Footer koyu renkli.\n*   **Mobil Görünüm:** Mobilde de benzer bir yapı var, ancak metin akışı ve hizalama kontrol edilmeli.\n*   **Hata Kontrolü:**\n    *   Admin paneli yok (bu bir kullanıcı sayfası).\n    *   Facebook login butonu yok (sadece \"Ümit\" kullanıcısı var, login butonu görünmüyor, muhtemelen giriş yapılmış durumda veya bu sayfa login gerektirmiyor).\n    *   \"404\", \"Error\" gibi mesajlar yok.\n    *   Layout bozuk değil, metinler okunabilir.\n    *   Footer linkleri görünüyor.\n    *   Kırık ikon yok gibi görünüyor.\n    *   Form alanı yok (sadece metin ve bir mail linki).\n    *   Modal/popup yok.\n    *   Menü (hamburger) mobilde görünmüyor (üst kısımda sadece logo ve kullanıcı ismi var, menü ikonu yok gibi duruyor, bu bir sorun olabilir).\n\n**2. Detaylı İnceleme (Kritik Kontroller):**\n\n*   **Hatalar (Error):**\n    *   *Mobil Menü:* Mobil görünümde (ikinci görsel) üst kısımda hamburger menü ikonu yok. Sadece \"Ümit\" ve bir dropdown oku var. Kullanıcı nasıl navigasyon yapacak? Bu kritik bir UX hatası.\n    *   *Metin Kesilmesi:* İlk görselde (desktop), \"Kullanım Şartları\" başlığı altındaki metinler biraz sıkışık görünebilir ama okunabilir.\n    *   *Footer Linkleri:* Footer'daki linkler (\"Hizmetler\", \"Şirket\", \"Destek\") görünüyor. Linklerin çalışıp çalışmadığını test edemem ama görsel olarak yerleri doğru.\n    *   *Kırık Resim/İkon:* \"İşBul\" logosu var. Sosyal medya ikonları footer'da var (gri bir daire içinde).\n    *   *Yazım Hataları:* \"Son güncelleme: 1 Ocak 2026\" -> Tarih gelecekte. Bu bir veri hatası olabilir (veya test verisi). \"İşBul Teknoloji A.Ş.\" yazıyor.\n    *   *Butonlar:* \"Sorularınız için: hukuk@isbul.com.tr\" kısmı bir buton gibi görünüyor (mor kutu). Tıklanabilir mi? Görselden belli değil ama link gibi duruyor.\n\n*   **Uyarılar (Warning):**\n    *   *Renk Kontrastı:* Metinler gri, arka plan beyaz. Kontrast yeterli görünüyor ama bazı alt başlıklar (1. Genel Hükümler vb.) biraz daha belirgin olabilir.\n    *   *Mobil Responsive:* Mobilde metinler sola yaslı, okunabilir. Ancak üst kısımdaki navigasyon eksikliği büyük sorun.\n    *   *Hizalama:* Desktop'ta içerik ortalanmış (max-width ile). Mobilde de benzer.\n    *   *Footer:* Footer'daki \"Türkiye'nin güvenilir ev ve ofis hizmetleri platformu.\" yazısı biraz küçük.\n    *   *Tarih:* \"1 Ocak 2026\" tarihi garip. Şu an 2024 veya 2025 olabilir. Bu bir veri tutarsızlığı.\n\n*   **Olumlu Gözlemler:**\n    *   Temiz ve okunabilir tipografi.\n    *   Net bir hiyerarşi (Başlık, Alt Başlıklar, Paragraflar).\n    *   Footer düzeni iyi.\n    *   Yasal metinler düzenli listelenmiş.\n\n**3. JSON Formatı Hazırlığı:**\n\n*   `status`: \"warning\" (Mobil menü eksikliği ve tarih hatası nedeniyle).\n*   `criticalIssues`:\n    *   Mobilde navigasyon menüsü (hamburger menü) eksik.\n    *   Tarih hatası (2026).\n*   `warnings`:\n    *   Footer'daki sosyal medya ikonları çok küçük/soluk.\n    *   \"Sorularınız için\" kutusu buton mu link mi? Net değil.\n*   `positive`:\n    *   Okunabilirlik yüksek.\n    *   Hiyerarşi net.\n    *   Footer yapısı düzenli.\n*   `buttons`:\n    *   \"Sorularınız için: hukuk@isbul.com.tr\" (Link/Buton)\n    *   \"Ümit\" (Dropdown/Profil)\n*   `footerLinks`:\n    *   Hizmetler (Mobilya Montaj, Ev Temizliği, Nakliyat, Elektrikçi)\n    *   Şirket (Hakkımızda, Blog)\n    *   Destek (Gizlilik Politikası, Kullanım Şartları, KVKK)\n*   `colorContrast`: \"iyi\"\n*   `mobileResponsive`: \"sorunlu\" (Menü eksikliği nedeniyle)\n*   `overall`: Genel olarak temiz bir yasal sayfa. Ancak mobilde navigasyon eksikliği ciddi bir UX sorunu. Tarih hatası dikkat çekici.\n\n**4. Son Kontrol ve Rafine Etme:**\n\n*   *Mobil Menü:* İkinci görselde sağ üstte \"Ümit\" ve bir ok var. Sol üstte logo var. Hamburger menü yok. Bu kesinlikle bir hata.\n*   *Tarih:* \"1 Ocak 2026\". Bu muhtemelen bir placeholder veya hata.\n*   *Footer Linkleri:* \"Hizmetler\", \"Şirket\", \"Destek\" başlıkları var. Alt linkler de var.\n*   *Butonlar:* Sadece \"Sorularınız için\" kısmı etkileşimli görünüyor.\n*   *Yazım:* \"İşBul\" yazımı tutarlı.\n\n**JSON Oluşturma:**\n\n*   `criticalIssues`: Mobil menü eksikliği, Tarih hatası.\n*   `warnings`: Footer sosyal ikonları, \"Sorularınız için\" elemanı belirsizliği.\n*   `positive`: Tipografi, Hiyerarşi, Footer düzeni.\n*   `buttons`: \"Sorularınız için: hukuk@isbul.com.tr\", \"Ümit\" (Profil).\n*   `footerLinks`: Listele.\n*   `colorContrast`: \"iyi\".\n*   `mobileResponsive`: \"sorunlu\".\n*   `overall`: Detaylı değerlendirme.\n\nBu adımları takip ederek JSON'u oluşturacağım.\n</think>\n\n```json\n{\n  \"status\": \"warning\",\n  \"criticalIssues\": [\n    {\n      \"type\": \"error\",\n      \"severity\": \"critical\",\n      \"message\": \"Mobil görünümde (2. görsel) navigasyon menüsü (hamburger menü) eksik. Kullanıcı sayfalar arası geçiş yapamıyor.\",\n      \"location\": \"Mobil Header (Sağ üst köşe)\"\n    },\n    {\n      \"type\": \"error\",\n      \"severity\": \"critical\",\n      \"message\": \"Tarih hatası: 'Son güncelleme: 1 Ocak 2026' yazıyor. Bu tarih gelecekte, muhtemelen bir veri hatası veya placeholder.\",\n      \"location\": \"Başlık altı (Son güncelleme tarihi)\"\n    },\n    {\n      \"type\": \"error\",\n      \"severity\": \"critical\",\n      \"message\": \"Mobilde 'Ümit' profil butonu var ama geri dönme veya menü açma butonu yok. Kullanıcı mahsur kalabilir.\",\n      \"location\": \"Mobil Header\"\n    }\n  ],\n  \"warnings\": [\n    {\n      \"type\": \"warning\",\n      \"severity\": \"medium\",\n      \"message\": \"'Sorularınız için: hukuk@isbul.com.tr' elemanı buton mu link mi? Görsel olarak buton gibi (mor kutu) ama işlevi mail linki. Kullanıcı deneyimi açısından netleştirilmeli.\",\n      \"location\": \"Sayfa altı (İletişim kutusu)\""
+      },
+      "screenshots": {
+        "desktop": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\sartlar-desktop.png",
+        "mobile": "C:\\Users\\umity\\Desktop\\ufakisler\\isbul\\tests\\screenshots\\sartlar-mobile.png"
+      },
+      "overall": "success"
+    }
+  ]
+}

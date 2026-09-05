@@ -2,6 +2,156 @@
    İşBul – Veri Tabanı (data.js)
    ============================================================ */
 
+/* ---------- MERKEZİ KATEGORİ LİSTESİ ----------
+ * Sahibinden.com ve benzer platformların kategori yapısından esinlenilerek oluşturuldu
+ * cat: URL'de kullanılan slug (uzmanlar.html?kategori=elektrik)
+ * label: Görüntülenen isim
+ * icon: Emoji ikonu
+ * tags: Alt hizmetler (arama ve eşleştirme için)
+ * desc: Kategori açıklaması
+ */
+const KATEGORİLER = [
+  {
+    cat: 'temizlik',
+    label: 'Temizlik Hizmetleri',
+    icon: '🧹',
+    desc: 'Ev, ofis, derin temizlik',
+    tags: ['Temizlik', 'Ev Temizliği', 'Ofis Temizliği', 'Derin Temizlik', 'Cam Silme', 'Halı Yıkama', 'Koltuk Yıkama', 'Perde Yıkama']
+  },
+  {
+    cat: 'nakliyat',
+    label: 'Nakliyat & Taşımacılık',
+    icon: '🚚',
+    desc: 'Evden eve, ofis, eşya taşıma',
+    tags: ['Nakliyat', 'Taşıma', 'Evden Eve Nakliyat', 'Ofis Taşıma', 'Eşya Taşıma', 'Asansörlü Taşıma', 'Parça Eşya Taşıma', 'Şehir İçi Taşıma', 'Şehirler Arası Taşıma']
+  },
+  {
+    cat: 'tadilat',
+    label: 'Tadilat & Dekorasyon',
+    icon: '🏗️',
+    desc: 'Boya, alçı, duvar kağıdı',
+    tags: ['Boya', 'Tadilat', 'Boya Badana', 'İç Cephe Boyama', 'Dış Cephe Boyama', 'Duvar Kağıdı', 'Alçıpan', 'Asma Tavan', 'Dekoratif Boya', 'Alçı Süsleme']
+  },
+  {
+    cat: 'elektrik',
+    label: 'Elektrik İşleri',
+    icon: '⚡',
+    desc: 'Elektrik tesisatı, arıza, montaj',
+    tags: ['Elektrik', 'Elektrik Tesisatı', 'Priz Montajı', 'Elektrik Arızası', 'Aydınlatma Montajı', 'Elektrik Pano İşleri', 'Jeneratör İşleri', 'Sigorta Takviyesi', 'LED Montajı']
+  },
+  {
+    cat: 'tesisat',
+    label: 'Tesisat İşleri',
+    icon: '🔧',
+    desc: 'Su, doğalgaz, kalorifer',
+    tags: ['Tesisat', 'Tesisatçı', 'Su Tesisatı', 'Doğalgaz Tesisatı', 'Kalorifer Tesisatı', 'Tıkanıklık Açma', 'Musluk Tamiri', 'Kombi Bakımı', 'Sıhhi Tesisat', 'Petek Temizliği']
+  },
+  {
+    cat: 'mobilya-montaj',
+    label: 'Mobilya Montajı',
+    icon: '🪛',
+    desc: 'Mobilya kurulum, dolap, raf',
+    tags: ['Mobilya Montajı', 'Montaj', 'Dolap Montajı', 'Gardırop Montajı', 'Yatak Montajı', 'Raf Montajı', 'Masa Montajı', 'Mutfak Dolapları', 'Vestiyer']
+  },
+  {
+    cat: 'beyaz-esya',
+    label: 'Beyaz Eşya Servisi',
+    icon: '🔌',
+    desc: 'Beyaz eşya tamir, montaj',
+    tags: ['Beyaz Eşya Tamiri', 'Çamaşır Makinesi Tamiri', 'Bulaşık Makinesi Tamiri', 'Buzdolabı Tamiri', 'Fırın Tamiri', 'Ankastre Montajı']
+  },
+  {
+    cat: 'klima',
+    label: 'Klima & Kombi',
+    icon: '❄️',
+    desc: 'Klima montaj, bakım, servis',
+    tags: ['Klima', 'Klima Montajı', 'Klima Bakımı', 'Klima Tamiri', 'Klima Gazı Dolumu', 'Kombi', 'Kombi Montajı', 'Kombi Bakımı', 'Kombi Tamiri']
+  },
+  {
+    cat: 'zemin-kaplama',
+    label: 'Zemin Kaplama',
+    icon: '🏠',
+    desc: 'Parke, laminat, seramik',
+    tags: ['Parke Döşeme', 'Laminat Döşeme', 'Seramik Döşeme', 'Fayans Döşeme', 'Granit Döşeme', 'Mermer Döşeme', 'Vinil Döşeme', 'Halıfleks']
+  },
+  {
+    cat: 'cam-balkon',
+    label: 'Cam & PVC',
+    icon: '🪟',
+    desc: 'Cam balkon, pencere, pvc',
+    tags: ['Cam Balkon', 'PVC Pencere', 'Alüminyum Doğrama', 'Cam Filmi', 'Pencere Tamiri', 'Sineklik Montajı', 'Jaluzi', 'Panjur']
+  },
+  {
+    cat: 'bahce',
+    label: 'Bahçe & Peyzaj',
+    icon: '🌳',
+    desc: 'Bahçe bakımı, çim, budama',
+    tags: ['Bahçe', 'Bahçe Bakımı', 'Çim Biçme', 'Ağaç Budama', 'Peyzaj Düzenleme', 'Sulama Sistemi', 'Çit Çekme', 'Toprak İşleme', 'Gübreleme']
+  },
+  {
+    cat: 'cilingir',
+    label: 'Çilingir',
+    icon: '🔑',
+    desc: 'Kapı açma, kilit değişimi',
+    tags: ['Çilingir', 'Kapı Açma', 'Kilit Değişimi', 'Anahtar Çoğaltma', 'Oto Kilit Açma', 'Elektronik Kilit', 'Kale Kilit', 'Kilit Tamiri']
+  },
+  {
+    cat: 'perde-stor',
+    label: 'Perde & Stor',
+    icon: '🪟',
+    desc: 'Perde montaj, stor perde',
+    tags: ['Perde Montajı', 'Stor Perde', 'Jaluzi', 'Tül Montajı', 'Zebra Perde', 'Dikey Perde', 'Panel Perde', 'Perde Yıkama']
+  },
+  {
+    cat: 'uydu-anten',
+    label: 'Uydu & Anten',
+    icon: '📡',
+    desc: 'Uydu, anten, sinyal',
+    tags: ['Uydu Kurulumu', 'Çanak Anten', 'Anten Montajı', 'Sinyal Ayarı', 'Uydu Tamiri', 'Merkezi Uydu', 'Kablo TV']
+  },
+  {
+    cat: 'kalorifer-petek',
+    label: 'Kalorifer & Petek',
+    icon: '🔥',
+    desc: 'Petek, kalorifer, temizlik',
+    tags: ['Kalorifer Tesisatı', 'Petek Temizliği', 'Petek Değişimi', 'Radyatör Bakımı', 'Kalorifer Kazan', 'Yerden Isıtma']
+  },
+  {
+    cat: 'yalitim',
+    label: 'Yalıtım İşleri',
+    icon: '🛡️',
+    desc: 'Isı, ses, su yalıtımı',
+    tags: ['Isı Yalıtımı', 'Ses Yalıtımı', 'Su Yalıtımı', 'Çatı Yalıtımı', 'Zemin Yalıtımı', 'Mantolama']
+  },
+  {
+    cat: 'kapı-pencere',
+    label: 'Kapı & Pencere',
+    icon: '🚪',
+    desc: 'Kapı montaj, pencere tamir',
+    tags: ['Kapı Montajı', 'Pencere Montajı', 'Kapı Tamiri', 'Menteşe Değişimi', 'Eşik Montajı', 'Otomatik Kapı', 'Çelik Kapı']
+  },
+  {
+    cat: 'hasar-onarim',
+    label: 'Hasar Onarımı',
+    icon: '🔨',
+    desc: 'Tamir, bakım, onarım',
+    tags: ['Duvar Tamiri', 'Fayans Tamiri', 'Sıva Tamiri', 'Çatı Tamiri', 'Nem Sorunu', 'Su Kaçağı', 'Boya Rötuşu']
+  },
+  {
+    cat: 'diger',
+    label: 'Diğer Hizmetler',
+    icon: '🛠️',
+    desc: 'Listelenmeyen hizmetler',
+    tags: ['Saksı Taşıma', 'Resim Asma', 'Tablo Montajı', 'Ayna Asma', 'Banyo Aksesuarları', 'Havlu Askısı', 'Raflar', 'TV Ünitesi Montajı']
+  }
+];
+
+// Kolay erişim için map
+const KATEGORİ_MAP = Object.fromEntries(KATEGORİLER.map(k => [k.cat, k]));
+
+// Uzman paneli select için tüm tag'ler (tekrarsız, sıralı)
+const TÜM_KATEGORİ_TAGLERİ = [...new Set(KATEGORİLER.flatMap(k => k.tags))].sort();
+
 /* ---------- 81 İL VE İLÇELERİ ---------- */
 const ILLER = {
   "Adana":        ["Aladağ","Ceyhan","Çukurova","Feke","İmamoğlu","Karaisalı","Karataş","Kozan","Pozantı","Saimbeyli","Sarıçam","Seyhan","Tufanbeyli","Yumurtalık","Yüreğir"],
@@ -164,6 +314,25 @@ const TÜM_UZMANLAR = [
 
 /* ---------- YARDIMCI FONKSİYONLAR ---------- */
 
+/** Tag'i merkezi KATEGORİLER listesine göre kategori slug'una çevir */
+function tagToCategory(tag) {
+  if (typeof KATEGORİLER === 'undefined') return 'diger';
+  const t = tag.toLowerCase().trim();
+  for (const k of KATEGORİLER) {
+    if (k.tags.some(kt => kt.toLowerCase() === t || t.includes(kt.toLowerCase()) || kt.toLowerCase().includes(t))) {
+      return k.cat;
+    }
+  }
+  return 'diger';
+}
+
+/** Uzman tag listesini → benzersiz kategori slug listesine çevir */
+function tagsToCategoryList(tags) {
+  if (!tags || !tags.length) return ['diger'];
+  const cats = [...new Set(tags.map(tagToCategory))];
+  return cats;
+}
+
 /** localStorage'daki gerçek uzman kullanıcılarını TÜM_UZMANLAR formatına dönüştür */
 function getRealExperts() {
   try {
@@ -177,19 +346,7 @@ function getRealExperts() {
         avatar:     u.avatar || (u.firstName[0] + u.lastName[0]).toUpperCase(),
         color:      u.color || '#6C63FF',
         title:      (u.expertData.tags && u.expertData.tags[0]) ? u.expertData.tags[0] + ' Uzmanı' : 'Uzman',
-        categories: u.expertData.categories || (u.expertData.tags || []).map(t => {
-          // Tag'i kategoriye dönüştür (küçük harf + boşluk kaldır)
-          const tag = t.toLowerCase().trim();
-          if (tag.includes('mobilya')) return 'montaj';
-          if (tag.includes('tv')) return 'tv';
-          if (tag.includes('elektrik')) return 'elektrik';
-          if (tag.includes('tesisat')) return 'tesisat';
-          if (tag.includes('boya')) return 'boya';
-          if (tag.includes('temizlik')) return 'temizlik';
-          if (tag.includes('bahçe') || tag.includes('bahce')) return 'bahce';
-          if (tag.includes('nakliyat')) return 'nakliyat';
-          return 'diger';
-        }),
+        categories: tagsToCategoryList(u.expertData.tags),
         rating:     u.expertData.rating || 5.0,
         reviews:    u.expertData.reviews || 0,
         price:      u.expertData.price || 300,
@@ -199,7 +356,7 @@ function getRealExperts() {
         tags:       u.expertData.tags || [],
         hours:      u.expertData.hours || '',
         reviewList: [],
-        isRealUser: true   // gerçek kullanıcı işareti
+        isRealUser: true
       }));
   } catch(e) { return []; }
 }

@@ -5,23 +5,19 @@
  */
 
 // Ortama göre otomatik base URL tespiti
-// Canlıya alındığında BACKEND_URL sabitini kendi domain'inize göre güncellemeniz yeterli.
-const BACKEND_URL = (() => {
-  const h = window.location.hostname;
-  if (h === 'localhost' || h === '127.0.0.1') {
-    return 'http://localhost:3001';
-  }
-  // AWS Production IP
-  if (h === '34.239.191.168') {
-    return 'http://34.239.191.168:3001';
-  }
-  // Production domain - api subdomain
-  if (h === 'isbul.online' || h === 'www.isbul.online') {
-    return 'https://isbul-backend.onrender.com';
-  }
-  // Canlı ortam — api subdomain kullan
-  return `https://api.${h}`; // https://api.isbul.online
-})();
+// config.js'den al
+const BACKEND_URL = window.ISBUL_CONFIG 
+  ? window.ISBUL_CONFIG.backendUrl
+  : (() => {
+      const h = window.location.hostname;
+      if (h === 'localhost' || h === '127.0.0.1') {
+        return 'http://localhost:3001';
+      }
+      if (h === 'isbul.online' || h === 'www.isbul.online') {
+        return 'https://isbul-backend.onrender.com';
+      }
+      return `https://api.${h}`;
+    })();
 
 const API_BASE = `${BACKEND_URL}/api/v1`;
 
@@ -45,16 +41,20 @@ const TokenManager = {
 ───────────────────────────────────────────────────────── */
 async function apiFetch(path, options = {}) {
   try {
+    const hasBody = !!options.body;
     const res = await fetch(`${API_BASE}${path}`, {
-      headers: TokenManager.headers(),
+      headers: {
+        ...(hasBody ? { 'Content-Type': 'application/json' } : {}),
+        ...TokenManager.headers(),
+      },
       ...options,
-      body: options.body ? JSON.stringify(options.body) : undefined,
+      body: hasBody ? JSON.stringify(options.body) : undefined,
+      signal: AbortSignal.timeout(10000),
     });
     const data = await res.json();
     return { ok: res.ok, status: res.status, data };
   } catch (err) {
-    // API erişilemiyorsa (sunucu kapalı vb.)
-    console.warn(`[API] ${path} erişilemedi, localStorage fallback:`, err.message);
+    console.warn(`[API] ${path} erişilemedi:`, err.message);
     return { ok: false, status: 0, data: null, offline: true };
   }
 }
@@ -67,7 +67,7 @@ let _apiAvailable = null; // null = henüz kontrol edilmedi
 async function checkApiAvailability() {
   if (_apiAvailable !== null) return _apiAvailable;
   try {
-    const res = await fetch(`${API_BASE}/health`, { signal: AbortSignal.timeout(2000) });
+    const res = await fetch(`${API_BASE}/health`, { signal: AbortSignal.timeout(8000) });
     _apiAvailable = res.ok;
   } catch {
     _apiAvailable = false;
@@ -110,7 +110,9 @@ const AuthAPI = {
       method: 'POST',
       body: { firstName, lastName, email, password, role }
     });
-    if (offline) return null; // localStorage fallback
+    if (offline) {
+      return { success: false, error: 'Sunucuya bağlanılamıyor. Lütfen tekrar deneyin.' };
+    }
     if (ok && data.token) {
       TokenManager.set(data.token);
       return { success: true, user: data.user, token: data.token };
@@ -127,7 +129,10 @@ const AuthAPI = {
       method: 'POST',
       body: { email, password }
     });
-    if (offline) return null;
+    if (offline) {
+      // API'ye ulaşılamadı, hata göster
+      return { success: false, error: 'Sunucuya bağlanılamıyor. Lütfen tekrar deneyin.' };
+    }
     if (ok && data.token) {
       TokenManager.set(data.token);
       return { success: true, user: data.user, token: data.token };

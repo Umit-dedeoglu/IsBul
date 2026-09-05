@@ -1,23 +1,31 @@
 ﻿const { dbAll, dbGet } = require('../../db');
 
 /** GET /api/calendar/:expertId/slots */
-function getSlots(req, res) {
+async function getSlots(req, res) {
   try {
     const { expertId } = req.params;
     const { date }     = req.query;
 
     let rows;
     if (date) {
-      rows = dbAll(
-        "SELECT slot_key FROM calendar_slots WHERE expert_id = ? AND slot_key LIKE ?",
+      rows = await dbAll(
+        'SELECT slot FROM calendar_slots WHERE expert_id = ? AND slot LIKE ?',
         expertId, `${date}_%`
       );
     } else {
-      rows = dbAll('SELECT slot_key FROM calendar_slots WHERE expert_id = ?', expertId);
+      rows = await dbAll(
+        'SELECT slot FROM calendar_slots WHERE expert_id = ?',
+        expertId
+      );
     }
 
+    const list = Array.isArray(rows) ? rows : [];
     const slots = {};
-    rows.forEach(r => { slots[r.slot_key] = true; });
+    list.forEach(r => {
+      const key = r.slot || r.slot_key;
+      if (key) slots[key] = true;
+    });
+
     return res.json({ success: true, slots });
   } catch (err) {
     console.error('[calendar/slots]', err);
@@ -26,7 +34,7 @@ function getSlots(req, res) {
 }
 
 /** POST /api/calendar/:expertId/check */
-function checkSlots(req, res) {
+async function checkSlots(req, res) {
   try {
     const { expertId } = req.params;
     const { slots }    = req.body;
@@ -35,12 +43,16 @@ function checkSlots(req, res) {
       return res.status(400).json({ success: false, error: 'Slot listesi gereklidir.' });
 
     for (const slot of slots) {
-      const conflict = dbGet(
-        'SELECT slot_key FROM calendar_slots WHERE expert_id = ? AND slot_key = ?',
+      const conflict = await dbGet(
+        'SELECT slot FROM calendar_slots WHERE expert_id = ? AND slot = ?',
         expertId, slot
       );
       if (conflict) {
-        return res.json({ success: true, available: false, conflictSlot: conflict.slot_key });
+        return res.json({
+          success: true,
+          available: false,
+          conflictSlot: conflict.slot
+        });
       }
     }
 

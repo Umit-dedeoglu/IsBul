@@ -1,4 +1,4 @@
-/**
+﻿/**
  * ��Bul API � Ana Uygulama
  *
  * Mimari: Mod�ler Monolith
@@ -9,7 +9,39 @@
  *   Ba�ar�: { success: true, data: {...}, meta: {...}, timestamp }
  *   Hata:   { success: false, error: { code, message }, timestamp }
  */
-require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') });
+// Test ortamında .env yükleme — DATABASE_URL zaten setup.js'de silinmiş
+if (process.env.NODE_ENV !== 'test') {
+  require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') });
+} else {
+  require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') });
+  // Test ortamında production DB'yi devre dışı bırak
+  delete process.env.DATABASE_URL;
+}
+
+// Sentry — en başta init edilmeli
+const Sentry = require('@sentry/node');
+Sentry.init({
+  dsn: process.env.SENTRY_DSN,
+  environment: process.env.NODE_ENV || 'development',
+  tracesSampleRate: 1.0,
+  enabled: !!process.env.SENTRY_DSN,
+});
+
+const logger = require('./config/logger');
+global.logger = logger;
+
+// Tüm console.error çağrılarını Sentry'e de gönder
+const originalConsoleError = console.error;
+console.error = function(...args) {
+  originalConsoleError.apply(console, args);
+  if (args[0] instanceof Error) {
+    Sentry.captureException(args[0]);
+  } else if (typeof args[0] === 'string' && args[0].startsWith('[')) {
+    // [module/action] formatındaki hatalar
+    const err = args[1] instanceof Error ? args[1] : new Error(args.join(' '));
+    Sentry.captureMessage(args.join(' '), 'error');
+  }
+};
 const express  = require('express');
 const cors     = require('cors');
 const helmet   = require('helmet');
@@ -28,7 +60,16 @@ const { swaggerUi, swaggerDocument, swaggerOptions } = require('./config/swagger
 const app = express();
 // �� G�venlik ��������������������������������������������
 app.use(helmet({
-  contentSecurityPolicy: false, // Swagger UI i�in kapal�
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc:  ["'self'", "'unsafe-inline'", "'unsafe-eval'", "cdn.jsdelivr.net"],
+      styleSrc:   ["'self'", "'unsafe-inline'", "cdn.jsdelivr.net"],
+      imgSrc:     ["'self'", "data:", "cdn.jsdelivr.net"],
+      connectSrc: ["'self'", "https://isbul-backend.onrender.com"],
+    },
+  },
+  crossOriginEmbedderPolicy: false,
 }));
 // �� CORS � Web ve Mobil ��in Geni�letilmi� ��������������
 const allowedOrigins = [
@@ -60,7 +101,7 @@ app.use(cors({
 }));
 // �� Logging ���������������������������������������������
 if (process.env.NODE_ENV !== 'test') {
-  app.use(morgan('dev'));
+  app.use(morgan('combined', { stream: { write: (msg) => logger.http(msg.trim()) } }));
 }
 // �� Body Parser �����������������������������������������
 app.use(express.json({ limit: '10mb' }));
@@ -86,6 +127,8 @@ v1.use('/reviews',       _actionLimiter, require('./modules/reviews/reviews.rout
 v1.use('/notifications',                 require('./modules/notifications/notifications.routes'));
 v1.use('/admin',                         require('./modules/admin/admin.routes'));
 v1.use('/chatbot',       _actionLimiter, require('./modules/chatbot/chatbot.routes'));
+v1.use('/payments',      _actionLimiter, require('./modules/payments/payments.routes'));
+v1.use('/category-requests',             require('./modules/categories/category-requests.routes'));
 // v1 router'� iki prefix'e ba�la � geriye d�n�k uyumluluk
 app.use('/api/v1', v1);
 app.use('/api',    v1);   // eski /api/... URL'leri �al��maya devam eder
@@ -152,6 +195,7 @@ app.use((req, res) => {
 });
 // �� Global Error Handler ���������������������������������
 app.use((err, req, res, next) => {
+  Sentry.captureException(err);
   // CORS hatas�
   if (err.message?.startsWith('CORS:')) {
     return res.status(403).json({

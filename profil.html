@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <script src="assets/js/analytics.js" defer></script>
+  <!-- Config - Backend URL ve sabitler -->
+  <script src="assets/js/config.js"></script>
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>profilim  | İşBul</title>
@@ -138,25 +140,7 @@
 <body class="profil-page">
 
   <!-- NAVBAR -->
-  <header class="navbar scrolled" id="navbar">
-    <div class="container navbar__inner">
-      <a href="index.html" class="navbar__logo">
-        <span class="logo-icon">⚡</span>
-        <span class="logo-text"><strong>İşBul</strong></span>
-      </a>
-      <nav class="navbar__links" id="navLinks">
-        <a href="hizmetler.html">Hizmetler</a>
-        <a href="nasil-calisir.html">Nasıl Çalışır?</a>
-        <a href="uzman-ol.html">Uzman Ol</a>
-        <a href="mailto:Kurumsal@isbul.com.tr">Kurumsal</a>
-      </nav>
-      <div class="navbar__actions">
-        <button onclick="openAuthModal('login')" class="btn btn--ghost">Giriş Yap</button>
-        <button onclick="openAuthModal('register')" class="btn btn--primary">Ücretsiz Kaydol</button>
-        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
-      </div>
-    </div>
-  </header>
+    <div id="navbar-container"></div>
 
   <!-- PROFIL HERO -->
   <div class="profil-hero" id="profilHero">
@@ -349,43 +333,6 @@
     </div>
   </div>
 
-  <!-- AUTH MODAL -->
-  <div class="modal-overlay" id="authModal">
-    <div class="auth-modal-inner">
-      <div class="auth-modal-header">
-        <span class="navbar__logo"><span class="logo-icon">⚡</span><span class="logo-text"><strong>İşBul</strong></span></span>
-        <button class="auth-modal-close" id="authModalClose">×</button>
-      </div>
-      <div class="auth-tabs">
-        <button class="auth-tab active" data-tab="login">Giriş Yap</button>
-        <button class="auth-tab" data-tab="register">Ücretsiz Kaydol</button>
-      </div>
-      <div class="auth-body">
-        <div class="auth-panel active" id="auth-login">
-          <div class="auth-social"><button class="auth-social-btn" onclick="handleOAuth('google')"><svg width="18" height="18" viewBox="0 0 18 18" style="margin-right:8px"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"/><path fill="#FBBC05" d="M3.964 10.707c-.18-.54-.282-1.117-.282-1.707s.102-1.167.282-1.707V4.961H.957C.347 6.175 0 7.55 0 9s.348 2.825.957 4.039l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.961L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"/></svg> Google ile Giriş</button></div>
-          <div class="auth-divider">veya e-posta ile</div>
-          <form id="loginForm" novalidate>
-            <div class="form-group"><label>E-posta</label><input type="email" name="email" placeholder="ornek@mail.com" /></div>
-            <div class="form-group"><label>şifre <a href="#" class="auth-forgot" onclick="showToast('Sıfırlama başlantısı gönderildi!','info');return false">şifremi unuttum</a></label><input type="password" name="password" placeholder="••••••" /></div>
-            <button type="submit" class="auth-submit">Giriş Yap</button>
-          </form>
-          <p class="auth-footer">hesabınız yok mu? <a href="#" onclick="document.querySelector('[data-tab=register]').click();return false">Kayıt olun</a></p>
-        </div>
-        <div class="auth-panel" id="auth-register">
-          <div class="auth-social"><button class="auth-social-btn" onclick="handleOAuth('google')"><svg width="18" height="18" viewBox="0 0 18 18" style="margin-right:8px"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"/><path fill="#FBBC05" d="M3.964 10.707c-.18-.54-.282-1.117-.282-1.707s.102-1.167.282-1.707V4.961H.957C.347 6.175 0 7.55 0 9s.348 2.825.957 4.039l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.961L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"/></svg> Google ile Kayıt</button><button class="auth-social-btn" onclick="handleOAuth('facebook')">✓ Facebook ile Kayıt</button></div>
-          <div class="auth-divider">veya e-posta ile</div>
-          <form id="registerForm" novalidate>
-            <div class="form-group" style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div><label>Ad</label><input type="text" name="regFirstName" placeholder="Adınız" /></div><div><label>Soyad</label><input type="text" name="regLastName" placeholder="Soyadınız" /></div></div>
-            <div class="form-group"><label>E-posta</label><input type="email" name="regEmail" placeholder="ornek@mail.com" /></div>
-            <div class="form-group"><label>şifre</label><input type="password" name="regPassword" placeholder="En az 8 karakter" /></div>
-            <div class="form-group"><label>şifre Tekrar</label><input type="password" name="regPasswordConfirm" placeholder="Tekrar girin" /></div>
-            <button type="submit" class="auth-submit">Hesap oluştur</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- ıLETİşıM MODAL -->
   <div class="modal-overlay" id="contactModal">
     <div style="background:var(--white);border-radius:20px;max-width:480px;width:92%;position:relative;padding:0;overflow:hidden">
@@ -404,6 +351,7 @@
   </div>
 
   <script src="assets/js/data.js"></script>
+    <script src="assets/js/component-loader.js"></script>
   <script src="assets/js/api-client.js"></script>
   <script src="assets/js/app.js"></script>
   <script>
@@ -683,6 +631,17 @@
                   🚫 İptal Et
                 </button>
               ` : ''}
+              ${r.status === 'confirmed' ? `
+                <button onclick="openPaymentModal('${r.id}', ${r.totalPrice||r.price||0})"
+                  style="margin-top:6px;padding:6px 12px;border-radius:8px;background:#6C63FF;color:#fff;border:none;font-size:12px;font-weight:600;cursor:pointer;width:100%;">
+                  💳 Ödeme Yap
+                </button>
+              ` : ''}
+              ${r.status === 'completed' ? `
+                <div style="margin-top:6px;padding:5px 10px;border-radius:8px;background:#d1fae5;color:#065f46;font-size:11px;font-weight:600;text-align:center;">
+                  ✅ Ödendi
+                </div>
+              ` : ''}
             </div>
           </div>`).join('');
       }
@@ -780,37 +739,123 @@
 
   </script>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer__top">
-        <div class="footer__brand">
-          <a href="index.html" class="navbar__logo"><span class="logo-icon">⚡</span><span class="logo-text"><strong>İşBul</strong></span></a>
-          <p>Türkiye'nin güvenilir ev ve ofis hizmetleri platformu.</p>
-          <div class="footer__social">
-            <a href="https://www.linkedin.com/in/%C3%BCmit-yakup-dedeo%C4%9Flu-4321212a7/" target="_blank" rel="noopener" aria-label="LinkedIn">🔗</a>
-          </div>
+  <!-- İYZİCO ÖDEME MODALI -->
+  <div id="paymentModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;align-items:center;justify-content:center;">
+    <div style="background:#fff;border-radius:20px;max-width:480px;width:92%;max-height:90vh;overflow-y:auto;padding:0;position:relative;">
+      <!-- Header -->
+      <div style="padding:20px 24px 16px;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;justify-content:space-between;">
+        <div>
+          <div style="font-size:18px;font-weight:800;color:#1a202c;">💳 Ödeme Yap</div>
+          <div style="font-size:13px;color:#64748b;margin-top:2px;" id="paymentModalSubtitle">Rezervasyon ödemesi</div>
         </div>
-        <div class="footer__links">
-          <div class="footer__col"><h4>Hizmetler</h4><a href="uzmanlar.html?kategori=montaj">Mobilya Montajı</a><a href="uzmanlar.html?kategori=temizlik">Ev Temizliği</a><a href="hizmetler.html">Tüm Hizmetler</a></div>
-          <div class="footer__col"><h4>Şirket</h4><a href="hakkimizda.html">Hakkımızda</a><a href="blog.html">Blog</a></div>
-          <div class="footer__col"><h4>Uzmanlar</h4><a href="uzman-ol.html">Uzman Ol</a><a href="nasil-calisir.html?rol=tasker">Kazanç Hesapla</a></div>
-          <div class="footer__col"><h4>Destek</h4><a href="#" onclick="document.getElementById('contactModal').classList.add('active');document.body.style.overflow='hidden';return false">İletişim</a><a href="kvkk.html">KVKK</a></div>
-        </div>
+        <button onclick="closePaymentModal()" style="width:32px;height:32px;border-radius:50%;background:#f3f4f6;border:none;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;">×</button>
       </div>
-      <div class="footer__bottom">
-        <p>© 2026 İşBul Teknoloji A.Ş. Tüm hakları saklıdır.</p>
-        <div class="footer__badges"><span class="footer-badge">🔒 SSL Güvenli</span><span class="footer-badge">✅ KVKK Uyumlu</span></div>
+
+      <!-- Sandbox uyarısı -->
+      <div style="margin:16px 24px 0;padding:10px 14px;background:#fef3c7;border-radius:8px;font-size:13px;color:#92400e;display:flex;gap:8px;align-items:center;">
+        <span>⚠️</span>
+        <span><strong>Test modu</strong> — Gerçek ödeme alınmaz. Test kartı: 5528790000000008</span>
+      </div>
+
+      <!-- İyzico form container -->
+      <div id="iyzico-checkout-form" style="padding:16px 24px 24px;"></div>
+
+      <!-- Loading -->
+      <div id="paymentLoading" style="padding:40px;text-align:center;display:none;">
+        <div style="width:40px;height:40px;border:3px solid #e5e7eb;border-top-color:#6C63FF;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px;"></div>
+        <p style="color:#64748b;font-size:14px;">Ödeme formu yükleniyor...</p>
       </div>
     </div>
-  </footer>
+  </div>
 
+  <script>
+    // İyzico ödeme modal
+    window.openPaymentModal = async function(bookingId, amount) {
+      const modal = document.getElementById('paymentModal');
+      const formContainer = document.getElementById('iyzico-checkout-form');
+      const loading = document.getElementById('paymentLoading');
+      const subtitle = document.getElementById('paymentModalSubtitle');
+
+      subtitle.textContent = `Tutar: ₺${amount.toLocaleString('tr-TR')}`;
+      formContainer.innerHTML = '';
+      loading.style.display = 'block';
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+
+      try {
+        const token = localStorage.getItem('isbul_jwt');
+        const apiBase = (window.ISBUL_CONFIG && window.ISBUL_CONFIG.backendUrl)
+          ? window.ISBUL_CONFIG.backendUrl + '/api/v1'
+          : 'https://isbul-backend.onrender.com/api/v1';
+
+        const res = await fetch(`${apiBase}/payments/initialize`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+          body: JSON.stringify({ bookingId })
+        });
+
+        const data = await res.json();
+        loading.style.display = 'none';
+
+        if (!data.success) {
+          formContainer.innerHTML = `<div style="padding:20px;text-align:center;color:#ef4444;">❌ ${data.error}</div>`;
+          return;
+        }
+
+        // İyzico checkout formunu inject et
+        formContainer.innerHTML = data.checkoutFormContent;
+
+        // Script tag'larını çalıştır
+        formContainer.querySelectorAll('script').forEach(oldScript => {
+          const newScript = document.createElement('script');
+          if (oldScript.src) {
+            newScript.src = oldScript.src;
+          } else {
+            newScript.textContent = oldScript.textContent;
+          }
+          document.head.appendChild(newScript);
+          oldScript.remove();
+        });
+
+      } catch (err) {
+        loading.style.display = 'none';
+        formContainer.innerHTML = `<div style="padding:20px;text-align:center;color:#ef4444;">❌ Ödeme formu yüklenemedi. Lütfen tekrar deneyin.</div>`;
+        console.error('[payment]', err);
+      }
+    };
+
+    window.closePaymentModal = function() {
+      document.getElementById('paymentModal').style.display = 'none';
+      document.body.style.overflow = '';
+    };
+
+    // URL'de ödeme sonucu varsa göster
+    (function checkPaymentResult() {
+      const params = new URLSearchParams(window.location.search);
+      const result = params.get('payment');
+      if (result === 'success') {
+        setTimeout(() => {
+          if (typeof showToast === 'function') showToast('✅ Ödemeniz başarıyla tamamlandı!', 'success');
+        }, 500);
+        // URL'i temizle
+        window.history.replaceState({}, '', window.location.pathname);
+      } else if (result === 'failed' || result === 'error') {
+        setTimeout(() => {
+          if (typeof showToast === 'function') showToast('❌ Ödeme başarısız. Lütfen tekrar deneyin.', 'error');
+        }, 500);
+        window.history.replaceState({}, '', window.location.pathname);
+      }
+    })();
+  </script>
 
   <!-- AI Chatbot Widget -->
   <link rel="stylesheet" href="assets/css/chatbot.css" />
   <script src="assets/js/chatbot.js"></script>
   <script src="/assets/js/pwa.js" defer></script>
   <script src="/assets/js/mobile-nav.js" defer></script>
+
+  <!-- FOOTER -->
+  <div id="footer-container"></div>
 </body>
 </html>
 

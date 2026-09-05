@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="assets/js/analytics.js" defer></script>
+  <title>Kategori Öner – İşBul</title>
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      width: 100%;
+      background: #fff;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 900;
+      color: #1e293b;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: #64748b;
+      margin-bottom: 32px;
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      color: #334155;
+      margin-bottom: 8px;
+    }
+
+    label .required {
+      color: #ef4444;
+    }
+
+    input[type="text"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      transition: border-color 0.2s;
+      box-sizing: border-box;
+    }
+
+    input[type="text"]:focus,
+    textarea:focus,
+    select:focus {
+      outline: none;
+      border-color: #6C63FF;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .hint {
+      font-size: 12px;
+      color: #94a3b8;
+      margin-top: 4px;
+    }
+
+    .service-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .service-item {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .service-item input {
+      flex: 1;
+    }
+
+    .btn-remove {
+      padding: 8px 12px;
+      background: #fee2e2;
+      color: #dc2626;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .btn-remove:hover {
+      background: #fecaca;
+    }
+
+    .btn-add {
+      margin-top: 8px;
+      padding: 8px 16px;
+      background: #ede9ff;
+      color: #6C63FF;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .btn-add:hover {
+      background: #ddd6fe;
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #6C63FF 0%, #764ba2 100%);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      margin-top: 32px;
+    }
+
+    .btn-submit:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(108, 99, 255, 0.3);
+    }
+
+    .btn-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .my-requests {
+      margin-top: 40px;
+      padding-top: 32px;
+      border-top: 2px solid #f1f5f9;
+    }
+
+    .my-requests h2 {
+      font-size: 20px;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 16px;
+    }
+
+    .request-card {
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+      border-left: 4px solid #6C63FF;
+    }
+
+    .request-card.approved {
+      border-left-color: #10b981;
+      background: #f0fdf4;
+    }
+
+    .request-card.rejected {
+      border-left-color: #ef4444;
+      background: #fef2f2;
+    }
+
+    .request-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .request-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .badge {
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .badge.pending {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .badge.approved {
+      background: #d1fae5;
+      color: #065f46;
+    }
+
+    .badge.rejected {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .request-date {
+      font-size: 12px;
+      color: #64748b;
+      margin-bottom: 8px;
+    }
+
+    .admin-note {
+      background: #fff;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      color: #475569;
+      margin-top: 8px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 24px;
+      color: #6C63FF;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #1e293b;
+      color: #fff;
+      padding: 16px 24px;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 9999;
+      max-width: 400px;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .toast.success {
+      background: #059669;
+    }
+
+    .toast.error {
+      background: #dc2626;
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding: 24px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+    }
+  </style>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/api-client.js"></script>
+  <script src="assets/js/data.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <a href="index.html" class="back-link">← Ana Sayfaya Dön</a>
+  
+  <h1>💡 Yeni Kategori Öner</h1>
+  <p class="subtitle">İşBul'da henüz bulunmayan bir hizmet kategorisi önerebilirsiniz. Öneriniz incelenecek ve uygunsa sisteme eklenecektir.</p>
+
+  <form id="categoryForm">
+    <div class="form-group">
+      <label>Kategori Adı <span class="required">*</span></label>
+      <input type="text" id="categoryName" required placeholder="Örn: Yoga Eğitmeni, Araba Bakımı, vb." />
+      <div class="hint">Kategori adı benzersiz olmalıdır</div>
+    </div>
+
+    <div class="form-group">
+      <label>İkon (Emoji) <span class="required">*</span></label>
+      <input type="text" id="categoryIcon" required placeholder="Örn: 🧘, 🚗, 🎨" maxlength="2" />
+      <div class="hint">Kategoriyi temsil eden bir emoji seçin</div>
+    </div>
+
+    <div class="form-group">
+      <label>Açıklama</label>
+      <textarea id="categoryDesc" placeholder="Bu kategori hangi hizmetleri içerir?"></textarea>
+      <div class="hint">Kategorinin kapsamını kısaca açıklayın</div>
+    </div>
+
+    <div class="form-group">
+      <label>Örnek Hizmetler <span class="required">*</span> (en az 3)</label>
+      <div class="service-list" id="serviceList">
+        <div class="service-item">
+          <input type="text" placeholder="Hizmet 1" required />
+        </div>
+        <div class="service-item">
+          <input type="text" placeholder="Hizmet 2" required />
+        </div>
+        <div class="service-item">
+          <input type="text" placeholder="Hizmet 3" required />
+        </div>
+      </div>
+      <button type="button" class="btn-add" onclick="addService()">+ Hizmet Ekle</button>
+      <div class="hint">Bu kategoriye girebilecek örnek hizmetler</div>
+    </div>
+
+    <button type="submit" class="btn-submit" id="submitBtn">Öneriyi Gönder</button>
+  </form>
+
+  <div class="my-requests" id="myRequestsSection" style="display:none;">
+    <h2>📋 Başvurularım</h2>
+    <div id="myRequestsList"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const API_BASE = window.API_CONFIG?.BASE_URL || 'http://localhost:3001/api';
+  let currentUser = null;
+
+  // Toast göster
+  function showToast(message, type = 'success') {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.className = `toast show ${type}`;
+    setTimeout(() => toast.className = 'toast', 3000);
+  }
+
+  // Yeni hizmet input ekle
+  function addService() {
+    const list = document.getElementById('serviceList');
+    const item = document.createElement('div');
+    item.className = 'service-item';
+    item.innerHTML = `
+      <input type="text" placeholder="Hizmet ${list.children.length + 1}" />
+      <button type="button" class="btn-remove" onclick="removeService(this)">Sil</button>
+    `;
+    list.appendChild(item);
+  }
+
+  // Hizmet input sil
+  function removeService(btn) {
+    const list = document.getElementById('serviceList');
+    if (list.children.length > 3) {
+      btn.parentElement.remove();
+    } else {
+      showToast('En az 3 hizmet girmelisiniz', 'error');
+    }
+  }
+
+  // Form gönder
+  document.getElementById('categoryForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById('categoryName').value.trim();
+    const icon = document.getElementById('categoryIcon').value.trim();
+    const desc = document.getElementById('categoryDesc').value.trim();
+
+    // Hizmetleri topla
+    const serviceInputs = document.querySelectorAll('#serviceList input');
+    const services = Array.from(serviceInputs)
+      .map(inp => inp.value.trim())
+      .filter(v => v);
+
+    if (services.length < 3) {
+      showToast('En az 3 örnek hizmet girmelisiniz', 'error');
+      return;
+    }
+
+    // Kategori zaten var mı kontrol et
+    if (window.KATEGORİLER) {
+      const exists = window.KATEGORİLER.some(k => 
+        k.name.toLowerCase() === name.toLowerCase()
+      );
+      if (exists) {
+        showToast('Bu kategori zaten mevcut', 'error');
+        return;
+      }
+    }
+
+    const submitBtn = document.getElementById('submitBtn');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Gönderiliyor...';
+
+    try {
+      const token = localStorage.getItem('auth_token');
+      if (!token) {
+        showToast('Öneri göndermek için giriş yapmalısınız', 'error');
+        setTimeout(() => window.location.href = 'index.html', 2000);
+        return;
+      }
+
+      const response = await fetch(`${API_BASE}/category-requests`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          category_name: name,
+          icon: icon,
+          description: desc || null,
+          sample_services: services
+        })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        showToast('Öneriniz başarıyla gönderildi!', 'success');
+        document.getElementById('categoryForm').reset();
+        loadMyRequests(); // Listeyi güncelle
+      } else {
+        showToast(data.error || 'Bir hata oluştu', 'error');
+      }
+    } catch (error) {
+      console.error('Submit error:', error);
+      showToast('Bağlantı hatası', 'error');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Öneriyi Gönder';
+    }
+  });
+
+  // Kullanıcının başvurularını yükle
+  async function loadMyRequests() {
+    const token = localStorage.getItem('auth_token');
+    if (!token) return;
+
+    try {
+      const response = await fetch(`${API_BASE}/category-requests/my`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+
+      if (response.ok) {
+        const requests = await response.json();
+        if (requests.length > 0) {
+          document.getElementById('myRequestsSection').style.display = 'block';
+          const list = document.getElementById('myRequestsList');
+          list.innerHTML = requests.map(r => `
+            <div class="request-card ${r.status}">
+              <div class="request-header">
+                <div class="request-name">${r.icon} ${r.category_name}</div>
+                <div class="badge ${r.status}">${
+                  r.status === 'pending' ? 'İnceleniyor' :
+                  r.status === 'approved' ? 'Onaylandı' : 'Reddedildi'
+                }</div>
+              </div>
+              <div class="request-date">
+                ${new Date(r.created_at).toLocaleDateString('tr-TR', {
+                  year: 'numeric', month: 'long', day: 'numeric'
+                })}
+              </div>
+              ${r.description ? `<div style="font-size:13px;color:#64748b;margin-top:8px">${r.description}</div>` : ''}
+              ${r.admin_note ? `
+                <div class="admin-note">
+                  <strong>Admin Notu:</strong> ${r.admin_note}
+                </div>
+              ` : ''}
+            </div>
+          `).join('');
+        }
+      }
+    } catch (error) {
+      console.error('Load requests error:', error);
+    }
+  }
+
+  // Sayfa yüklendiğinde
+  window.addEventListener('DOMContentLoaded', () => {
+    loadMyRequests();
+  });
+</script>
+
+</body>
+</html>

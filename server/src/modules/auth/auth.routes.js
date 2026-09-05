@@ -9,6 +9,7 @@ const { signToken } = require('../../config/jwt');
 // E-posta / şifre
 router.post('/register', ctrl.register);
 router.post('/login',    ctrl.login);
+router.post('/logout',   authenticate, ctrl.logout);
 router.get('/me',        authenticate, ctrl.me);
 router.post('/forgot-password', pwReset.forgotPassword);
 router.post('/reset-password',  pwReset.resetPassword);

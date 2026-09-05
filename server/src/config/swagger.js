@@ -17,8 +17,8 @@ const swaggerDocument = {
     },
   },
   servers: [
-    { url: 'http://localhost:3001/api/v1', description: 'Geliştirme Sunucusu' },
-    { url: 'https://api.isbul.com/v1',    description: 'Üretim Sunucusu (yakında)' },
+    { url: 'https://isbul-backend.onrender.com/api/v1', description: 'Production' },
+    { url: 'http://localhost:3001/api/v1',               description: 'Development' },
   ],
   components: {
     securitySchemes: {

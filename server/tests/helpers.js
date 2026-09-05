@@ -1,11 +1,10 @@
-﻿const request = require('supertest');
+﻿// Test ortamı env'leri require'dan ÖNCE set edilmeli — setup.js'de yapılıyor
+const request = require('supertest');
+const TEST_SETUP_KEY = 'test_setup_key_123';
 const { app, initDb } = require('../src/app');
-const { resetDb, closeDb, dbRun, dbGet } = require('../src/db/database');  // Test'te SQLite kullan
+const { resetDb, closeDb, dbRun, dbGet } = require('../src/db/database');
 
-// Testler başlamadan DB'yi başlat
 beforeAll(async () => {
-  process.env.DB_PATH    = ':memory:';
-  process.env.NODE_ENV   = 'test';
   await initDb();
 });
 
@@ -21,4 +20,4 @@ async function registerAndLogin(data = {}) {
   return { token: regRes.body.token, user: regRes.body.user, raw: user };
 }
 
-module.exports = { app, request, resetDb, closeDb, registerAndLogin, dbRun, dbGet };
+module.exports = { app, request, resetDb, closeDb, registerAndLogin, dbRun, dbGet, TEST_SETUP_KEY };

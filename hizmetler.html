@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <script src="assets/js/analytics.js" defer></script>
+  <!-- Config - Backend URL ve sabitler -->
+  <script src="assets/js/config.js"></script>
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
@@ -191,27 +193,7 @@
 <body class="services-page">
 
   <!-- NAVBAR -->
-  <header class="navbar scrolled" id="navbar">
-    <div class="container navbar__inner">
-      <a href="index.html" class="navbar__logo">
-        <span class="logo-icon">⚡</span>
-        <span class="logo-text"><strong>İşBul</strong></span>
-      </a>
-      <nav class="navbar__links" id="navLinks">
-        <a href="hizmetler.html" style="color:var(--primary);font-weight:700">Hizmetler</a>
-        <a href="nasil-calisir.html">Nasıl Çalışır?</a>
-        <a href="uzman-ol.html">Uzman Ol</a>
-        <a href="mailto:Kurumsal@isbul.com.tr">Kurumsal</a>
-      </nav>
-      <div class="navbar__actions">
-        <button onclick="openAuthModal('login')" class="btn btn--ghost">Giriş Yap</button>
-        <button onclick="openAuthModal('register')" class="btn btn--primary">Ücretsiz Kaydol</button>
-        <button class="hamburger" id="hamburger" aria-label="Menüyü aç">
-          <span></span><span></span><span></span>
-        </button>
-      </div>
-    </div>
-  </header>
+    <div id="navbar-container"></div>
 
   <!-- PAGE HERO -->
   <section class="page-hero">
@@ -268,15 +250,8 @@
 
         <div class="sidebar-card">
           <div class="sidebar-card__title">Kategoriler</div>
-          <ul class="sidebar-list">
-            <li><a href="uzmanlar.html?kategori=montaj" class="sidebar-link" data-cat="montaj">🔧 Mobilya Montajı <span>24 uzman</span></a></li>
-            <li><a href="uzmanlar.html?kategori=temizlik" class="sidebar-link" data-cat="temizlik">🧹 Ev Temizliği <span>38 uzman</span></a></li>
-            <li><a href="uzmanlar.html?kategori=nakliyat" class="sidebar-link" data-cat="nakliyat">🚚 Nakliyat <span>15 uzman</span></a></li>
-            <li><a href="uzmanlar.html?kategori=elektrik" class="sidebar-link" data-cat="elektrik">⚡ Elektrikçi <span>19 uzman</span></a></li>
-            <li><a href="uzmanlar.html?kategori=tesisat" class="sidebar-link" data-cat="tesisat">🔧 Tesisatçı <span>22 uzman</span></a></li>
-            <li><a href="uzmanlar.html?kategori=boya" class="sidebar-link" data-cat="boya">🎨 Boyacı <span>17 uzman</span></a></li>
-            <li><a href="uzmanlar.html?kategori=bahce" class="sidebar-link" data-cat="bahce">🌱 Bahçe <span>11 uzman</span></a></li>
-            <li><a href="uzmanlar.html?kategori=diger" class="sidebar-link" data-cat="diger">🛠️ Diğer <span>46 uzman</span></a></li>
+          <ul class="sidebar-list" id="categoryList">
+            <!-- Kategoriler data.js'den dinamik yüklenecek -->
           </ul>
         </div>
 
@@ -590,101 +565,11 @@
       </main>
     </div>
   </div>
-
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer__top">
-        <div class="footer__brand">
-          <a href="index.html" class="navbar__logo"><span class="logo-icon">⚡</span><span class="logo-text"><strong>İşBul</strong></span></a>
-          <p>Türkiye'nin güvenilir ev ve ofis hizmetleri platformu.</p>
-          <div class="footer__social"><a href="https://www.linkedin.com/in/%C3%BCmit-yakup-dedeo%C4%9Flu-4321212a7/" target="_blank" rel="noopener" aria-label="LinkedIn" title="Ümit Yakup Dedeoğlu - LinkedIn">🔗</a></div>
-        </div>
-        <div class="footer__links">
-          <div class="footer__col">
-            <h4>Hizmetler</h4>
-            <a href="hizmetler.html?kategori=montaj">Mobilya Montajı</a>
-            <a href="hizmetler.html?kategori=temizlik">Ev Temizliği</a>
-            <a href="hizmetler.html?kategori=nakliyat">Nakliyat</a>
-            <a href="hizmetler.html?kategori=elektrik">Elektrikçi</a>
-          </div>
-          <div class="footer__col">
-            <h4>Şirket</h4>
-            <a href="hakkimizda.html">Hakkımızda</a>
-            <a href="blog.html">Blog</a>
-          </div>
-          <div class="footer__col">
-            <h4>Uzmanlar</h4>
-            <a href="uzman-ol.html">Uzman Ol</a>
-          </div>
-          <div class="footer__col">
-            <h4>Destek</h4>
-            <a href="#" onclick="document.getElementById('contactModal').classList.add('active');document.body.style.overflow='hidden';return false">İletişim</a>
-            <a href="kvkk.html">KVKK</a>
-          </div>
-        </div>
-      </div>
-      <div class="footer__bottom">
-        <p>© 2026 İşBul Teknoloji A.Ş. Tüm hakları saklıdır.</p>
-        <div class="footer__badges">
-          <span class="footer-badge">🔒 SSL Güvenli</span>
-          <span class="footer-badge">✓ KVKK Uyumlu</span>
-        </div>
-      </div>
-    </div>
-  </footer>
-
-  
   <script src="assets/js/data.js"></script>
+  <script src="assets/js/kategori-loader.js"></script>
+  <script src="assets/js/component-loader.js"></script>
   <script src="assets/js/api-client.js"></script>
   <script src="assets/js/app.js"></script>
-
-  <!-- AUTH MODAL -->
-  <div class="modal-overlay" id="authModal">
-    <div class="auth-modal-inner">
-      <div class="auth-modal-header">
-        <span class="navbar__logo"><span class="logo-icon">⚡</span><span class="logo-text"><strong>İşBul</strong></span></span>
-        <button class="auth-modal-close" id="authModalClose">×</button>
-      </div>
-      <div class="auth-tabs">
-        <button class="auth-tab active" data-tab="login">Giriş Yap</button>
-        <button class="auth-tab" data-tab="register">Ücretsiz Kaydol</button>
-      </div>
-      <div class="auth-body">
-        <div class="auth-panel active" id="auth-login">
-          <div class="auth-social">
-            <button class="auth-social-btn" onclick="handleOAuth('google')">✓ Google</button>
-            
-          </div>
-          <div class="auth-divider">veya e-posta ile</div>
-          <form id="loginForm" novalidate>
-            <div class="form-group"><label>E-posta</label><input type="email" name="email" placeholder="ornek@mail.com" required /></div>
-            <div class="form-group"><label>Şifre <a href="#" class="auth-forgot" onclick="showToast('Şifre sıfırlama e-postası gönderildi!','info');return false">Şifremi unuttum</a></label><input type="password" name="password" placeholder="••••••" required /></div>
-            <button type="submit" class="auth-submit">Giriş Yap</button>
-          </form>
-          <p class="auth-footer">Hesabınız yok mu? <a href="#" onclick="document.querySelector('[data-tab=register]').click();return false">Kayıt olun</a></p>
-        </div>
-        <div class="auth-panel" id="auth-register">
-          <div class="auth-social">
-            <button class="auth-social-btn" onclick="handleOAuth('google')">✓ Google</button>
-            
-          </div>
-          <div class="auth-divider">veya e-posta ile</div>
-          <form id="registerForm" novalidate>
-            <div class="form-group" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-              <div><label>Ad</label><input type="text" name="regFirstName" placeholder="Adınız" required /></div>
-              <div><label>Soyad</label><input type="text" name="regLastName" placeholder="Soyadınız" required /></div>
-            </div>
-            <div class="form-group"><label>E-posta</label><input type="email" name="regEmail" placeholder="ornek@mail.com" required /></div>
-            <div class="form-group"><label>Şifre</label><input type="password" name="regPassword" placeholder="En az 8 karakter" required /></div>
-            <div class="form-group"><label>Şifre Tekrar</label><input type="password" name="regPasswordConfirm" placeholder="Şifreyi tekrar girin" required /></div>
-            <button type="submit" class="auth-submit">Hesap oluştur</button>
-          </form>
-          <p class="auth-footer">Hesabınız var mı? <a href="#" onclick="document.querySelector('[data-tab=login]').click();return false">Giriş yapın</a></p>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- REZERVASYON MODAL -->
   <div class="modal-overlay" id="bookingModal">
@@ -764,6 +649,29 @@
   <script src="assets/js/chatbot.js"></script>
   <script src="/assets/js/pwa.js" defer></script>
   <script src="/assets/js/mobile-nav.js" defer></script>
+
+  <script>
+    // Kategorileri dinamik yükle
+    document.addEventListener('DOMContentLoaded', () => {
+      const categoryList = document.getElementById('categoryList');
+      if (categoryList && typeof KATEGORİLER !== 'undefined') {
+        categoryList.innerHTML = KATEGORİLER.map(kat => `
+          <li>
+            <a href="uzmanlar.html?kategori=${kat.cat}" class="sidebar-link" data-cat="${kat.cat}">
+              ${kat.icon} ${kat.label}
+              <span>-</span>
+            </a>
+          </li>
+        `).join('');
+      }
+      
+      // Mevcut filtreler çalışmaya devam etsin
+      if (typeof initServiceFilter === 'function') initServiceFilter();
+    });
+  </script>
+
+  <!-- FOOTER -->
+  <div id="footer-container"></div>
 </body>
 </html>
 

@@ -48,6 +48,10 @@ function getDb() {
 /** Disk üzerine kaydet */
 function saveDb() {
   if (!db) return;
+  // :memory: database'i kaydetmeye çalışma
+  const isMemory = DB_PATH === ':memory:' || process.env.DB_PATH === ':memory:';
+  if (isMemory) return;
+  
   try {
     const data = db.export();
     fs.writeFileSync(DB_PATH, Buffer.from(data));
@@ -120,9 +124,9 @@ function initSchema() {
     CREATE TABLE IF NOT EXISTS calendar_slots (
       id          INTEGER PRIMARY KEY AUTOINCREMENT,
       expert_id   TEXT NOT NULL,
-      slot_key    TEXT NOT NULL,
+      slot        TEXT NOT NULL,
       booking_id  TEXT,
-      UNIQUE(expert_id, slot_key)
+      UNIQUE(expert_id, slot)
     );
 
     CREATE TABLE IF NOT EXISTS reviews (
@@ -134,6 +138,56 @@ function initSchema() {
       service     TEXT,
       created_at  TEXT DEFAULT (datetime('now'))
     );
+
+    CREATE INDEX IF NOT EXISTS idx_bookings_expert   ON bookings(expert_id);
+    CREATE INDEX IF NOT EXISTS idx_bookings_customer ON bookings(customer_id);
+    CREATE INDEX IF NOT EXISTS idx_calendar_expert   ON calendar_slots(expert_id);
+
+    CREATE TABLE IF NOT EXISTS payments (
+      id                TEXT PRIMARY KEY,
+      booking_id        TEXT REFERENCES bookings(id) ON DELETE CASCADE,
+      customer_id       TEXT REFERENCES users(id) ON DELETE CASCADE,
+      amount            INTEGER NOT NULL,
+      currency          TEXT DEFAULT 'TRY',
+      status            TEXT DEFAULT 'pending',
+      iyzico_token      TEXT,
+      iyzico_payment_id TEXT,
+      conversation_id   TEXT,
+      created_at        TEXT DEFAULT (datetime('now')),
+      updated_at        TEXT DEFAULT (datetime('now'))
+    );
+
+    CREATE TABLE IF NOT EXISTS password_reset_tokens (
+      id          INTEGER PRIMARY KEY AUTOINCREMENT,
+      user_id     TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      token       TEXT NOT NULL UNIQUE,
+      expires_at  TEXT NOT NULL,
+      used        INTEGER DEFAULT 0,
+      created_at  TEXT DEFAULT (datetime('now'))
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_payments_booking  ON payments(booking_id);
+    CREATE INDEX IF NOT EXISTS idx_payments_customer ON payments(customer_id);
+    CREATE INDEX IF NOT EXISTS idx_payments_token    ON payments(iyzico_token);
+    CREATE INDEX IF NOT EXISTS idx_password_reset_token ON password_reset_tokens(token);
+
+    CREATE TABLE IF NOT EXISTS category_requests (
+      id                INTEGER PRIMARY KEY AUTOINCREMENT,
+      user_id           TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      category_name     TEXT NOT NULL,
+      category_slug     TEXT NOT NULL,
+      icon              TEXT NOT NULL,
+      description       TEXT,
+      sample_services   TEXT DEFAULT '[]',
+      status            TEXT DEFAULT 'pending',
+      admin_note        TEXT,
+      created_at        TEXT DEFAULT (datetime('now')),
+      reviewed_at       TEXT,
+      reviewed_by       TEXT REFERENCES users(id)
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_category_requests_user   ON category_requests(user_id);
+    CREATE INDEX IF NOT EXISTS idx_category_requests_status ON category_requests(status);
 
     CREATE INDEX IF NOT EXISTS idx_bookings_expert   ON bookings(expert_id);
     CREATE INDEX IF NOT EXISTS idx_bookings_customer ON bookings(customer_id);
@@ -177,7 +231,10 @@ function dbRun(sql, ...params) {
 /** Test için veritabanını sıfırla */
 function resetDb() {
   if (!db) return;
+  db.run('DELETE FROM password_reset_tokens;'); // ✅ Şifre reset tokenları temizle
+  db.run('DELETE FROM category_requests;'); // ✅ Kategori başvuruları temizle
   db.run('DELETE FROM calendar_slots;');
+  db.run('DELETE FROM payments;');
   db.run('DELETE FROM reviews;');
   db.run('DELETE FROM bookings;');
   db.run('DELETE FROM expert_profiles;');
