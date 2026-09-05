@@ -1007,3 +1007,34 @@ button { cursor: pointer; font-family: var(--font); border: none; background: no
   .user-menu-btn span:nth-child(2) { display: none; }
   .user-menu-btn span:nth-child(3) { display: none; }
 }
+.hero__cta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.btn--hero {
+  padding: 18px 36px;
+  font-size: 17px;
+  font-weight: 700;
+  box-shadow: 0 8px 24px rgba(0,0,0,.2);
+}
+
+.btn--hero:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0,0,0,.3);
+}
+
+.btn--outline {
+  color: rgba(255,255,255,.95);
+  border: 2.5px solid rgba(255,255,255,.5);
+  background: rgba(255,255,255,.08);
+  backdrop-filter: blur(8px);
+}
+
+.btn--outline:hover {
+  background: rgba(255,255,255,.18);
+  border-color: rgba(255,255,255,.8);
+}

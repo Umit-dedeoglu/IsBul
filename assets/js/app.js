@@ -961,66 +961,7 @@ function confirmBooking() {
 window.confirmBooking = confirmBooking;
 
 
-/* ---------- 6. HOMEPAGE SEARCH REDIRECT (Modal Disabled) ---------- */
-(function initSearchRedirect() {
-  const searchBtn = document.getElementById('searchBtn');
-  const searchQueryInput = document.getElementById('searchQuery');
-  const cityInput = document.getElementById('cityInput');
-
-  function performSearch() {
-    const query = searchQueryInput?.value.trim() || '';
-    const city = cityInput?.value.trim() || '';
-    
-    // Build redirect URL with query parameters
-    let redirectUrl = 'uzmanlar.html';
-    const params = new URLSearchParams();
-    
-    if (query) params.append('arama', query);
-    if (city) params.append('sehir', city);
-    
-    if (params.toString()) {
-      redirectUrl += '?' + params.toString();
-    }
-    
-    // Redirect to results page
-    window.location.href = redirectUrl;
-  }
-
-  // Search button click
-  if (searchBtn) {
-    searchBtn.addEventListener('click', performSearch);
-  }
-
-  // Enter key on search query input
-  if (searchQueryInput) {
-    searchQueryInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        performSearch();
-      }
-    });
-  }
-
-  // Enter key on city input
-  if (cityInput) {
-    cityInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        performSearch();
-      }
-    });
-  }
-
-  // Quick tags redirect
-  const quickTags = document.querySelectorAll('.quick-tag');
-  quickTags.forEach(tag => {
-    tag.addEventListener('click', () => {
-      const tagQuery = tag.getAttribute('data-query') || tag.textContent.trim();
-      if (searchQueryInput) searchQueryInput.value = tagQuery;
-      performSearch();
-    });
-  });
-})();
+/* ---------- 6. HOMEPAGE - NO SEARCH BOX (Removed, using CTA buttons instead) ---------- */
     /* ---------- 7. YORUMLAR SLÄ°DER ---------- */
 (function initReviewSlider() {
   const slider   = document.getElementById('reviewsSlider');
