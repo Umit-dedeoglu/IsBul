@@ -1,5 +1,5 @@
 /* ============================================================
-   ÝþBul – Ana Stil Dosyasý
+   ï¿½ï¿½Bul ï¿½ Ana Stil Dosyasï¿½
    ============================================================ */
 
 /* ---------- 1. RESET & VARIABLES ---------- */
@@ -124,7 +124,7 @@ button { cursor: pointer; font-family: var(--font); border: none; background: no
 
 .navbar__actions { display: flex; align-items: center; gap: 12px; }
 
-/* Transparan navbar (hero üzerinde) — butonlar beyaz */
+/* Transparan navbar (hero ï¿½zerinde) ï¿½ butonlar beyaz */
 .navbar:not(.scrolled) .btn--ghost {
   color: var(--white);
   border-color: rgba(255,255,255,.55);
@@ -134,13 +134,13 @@ button { cursor: pointer; font-family: var(--font); border: none; background: no
   background: rgba(255,255,255,.15);
   border-color: var(--white);
 }
-/* Scrolled navbar — butonlar koyu */
+/* Scrolled navbar ï¿½ butonlar koyu */
 .navbar.scrolled .btn--ghost {
   color: var(--text);
   border-color: var(--border);
   background: var(--white);
 }
-/* Ýç sayfalar: .scrolled sýnýfý baþtan var */
+/* ï¿½ï¿½ sayfalar: .scrolled sï¿½nï¿½fï¿½ baï¿½tan var */
 .navbar.scrolled .btn--primary { box-shadow: 0 4px 16px rgba(108,99,255,.35); }
 
 .hamburger { display: none; flex-direction: column; gap: 5px; padding: 4px; }
@@ -665,7 +665,7 @@ button { cursor: pointer; font-family: var(--font); border: none; background: no
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* ---------- 17. PAGE HEADERS (iç sayfalar) ---------- */
+/* ---------- 17. PAGE HEADERS (iï¿½ sayfalar) ---------- */
 .page-hero {
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
   padding: 140px 0 80px; text-align: center;
@@ -785,10 +785,10 @@ button { cursor: pointer; font-family: var(--font); border: none; background: no
   }
   .navbar__links.open a { color: var(--white); }
   .hamburger { display: flex; }
-  /* Mobilde her iki butonu da normal göster, küçük yap */
+  /* Mobilde her iki butonu da normal gï¿½ster, kï¿½ï¿½ï¿½k yap */
   .navbar__actions .btn--ghost,
   .navbar__actions .btn--primary { font-size: 12px; padding: 8px 12px; }
-  /* Hamburger açýkken navLinks içine auth eklenecek — JS ile */
+  /* Hamburger aï¿½ï¿½kken navLinks iï¿½ine auth eklenecek ï¿½ JS ile */
   .search-box { flex-direction: column; border-radius: var(--radius); overflow: hidden; }
   .search-box__input-wrap input { border-radius: 0; }
   .search-box__location { border-left: none; border-top: 1.5px solid var(--border); width: 100%; }
@@ -802,7 +802,7 @@ button { cursor: pointer; font-family: var(--font); border: none; background: no
   .tasker-cta__inner { padding: 32px 24px; }
   .signup-form-card { padding: 24px; }
   .form-row { grid-template-columns: 1fr; }
-  /* Auth modal içindeki form-row mobilde de 2 sütun kalsýn */
+  /* Auth modal iï¿½indeki form-row mobilde de 2 sï¿½tun kalsï¿½n */
   .auth-panel .form-row { grid-template-columns: 1fr 1fr !important; gap: 10px; }
   .hiw-step, .hiw-step:nth-child(even) { grid-template-columns: 1fr; }
   .review-card { min-width: calc(100%); width: 100%; }
@@ -833,7 +833,7 @@ button { cursor: pointer; font-family: var(--font); border: none; background: no
 .fade-up:nth-child(6) { transition-delay: .5s; }
 
 /* ============================================================
-   v2 EKLENTÝLER — Auth Modal, Booking Modal, Genel Ýyileþtirmeler
+   v2 EKLENTï¿½LER ï¿½ Auth Modal, Booking Modal, Genel ï¿½yileï¿½tirmeler
    ============================================================ */
 
 /* ---------- AUTH MODAL ---------- */
@@ -937,13 +937,13 @@ button { cursor: pointer; font-family: var(--font); border: none; background: no
   .booking-modal-inner { max-width: 100%; border-radius: 20px 20px 0 0; }
 }
 
-/* ---------- REZERVASYON BUTONU (hizmetler kartý) ---------- */
+/* ---------- REZERVASYON BUTONU (hizmetler kartï¿½) ---------- */
 .book-now-btn { cursor: pointer; }
 
-/* ---------- KURUMSAL SAYFASI LÝNK ---------- */
+/* ---------- KURUMSAL SAYFASI Lï¿½NK ---------- */
 .nav-kurumsal { position: relative; }
 
-/* ---------- FOOTER LÝNK DÜZELTME ---------- */
+/* ---------- FOOTER Lï¿½NK Dï¿½ZELTME ---------- */
 .footer__col a[href="sartlar.html"],
 .footer__col a[href="gizlilik.html"],
 .footer__col a[href="kvkk.html"] { color: rgba(255,255,255,.65); }
@@ -970,13 +970,13 @@ button { cursor: pointer; font-family: var(--font); border: none; background: no
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ---------- HÝZMET KARTI TAM TIKANABILIR ---------- */
+/* ---------- Hï¿½ZMET KARTI TAM TIKANABILIR ---------- */
 .service-card-v2 {
   cursor: pointer;
   user-select: none;
 }
 .service-card-v2::after {
-  content: 'Uzmanlarý Gör ›';
+  content: 'Uzmanlarï¿½ Gï¿½r ï¿½';
   display: block;
   text-align: center;
   padding: 10px;
@@ -994,7 +994,7 @@ button { cursor: pointer; font-family: var(--font); border: none; background: no
   max-height: 44px;
 }
 
-/* ---------- KULLANICI MENÜ BUTONU ---------- */
+/* ---------- KULLANICI MENï¿½ BUTONU ---------- */
 .user-menu-btn {
   position: relative;
 }
@@ -1002,39 +1002,59 @@ button { cursor: pointer; font-family: var(--font); border: none; background: no
 .user-dropdown button {
   font-family: var(--font);
 }
-/* Mobilde kullanýcý menüsü */
+/* Mobilde kullanï¿½cï¿½ menï¿½sï¿½ */
 @media (max-width: 768px) {
   .user-menu-btn span:nth-child(2) { display: none; }
   .user-menu-btn span:nth-child(3) { display: none; }
 }
-.hero__cta {
+/* Hero Features - Decorative Info Cards */
+.hero__features {
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 32px;
+  gap: 20px;
+  margin-top: 40px;
   flex-wrap: wrap;
 }
 
-.btn--hero {
-  padding: 18px 36px;
-  font-size: 17px;
-  font-weight: 700;
-  box-shadow: 0 8px 24px rgba(0,0,0,.2);
-}
-
-.btn--hero:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 32px rgba(0,0,0,.3);
-}
-
-.btn--outline {
-  color: rgba(255,255,255,.95);
-  border: 2.5px solid rgba(255,255,255,.5);
+.feature-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 24px;
+  border-radius: 16px;
   background: rgba(255,255,255,.08);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,.15);
 }
 
-.btn--outline:hover {
-  background: rgba(255,255,255,.18);
-  border-color: rgba(255,255,255,.8);
+.feature-badge__icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(108,99,255,.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
 }
+
+.feature-badge__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.feature-badge__text strong {
+  font-size: 14px;
+  font-weight: 700;
+  color: rgba(255,255,255,.95);
+  line-height: 1.2;
+}
+
+.feature-badge__text span {
+  font-size: 12px;
+  color: rgba(255,255,255,.6);
+  line-height: 1.2;
+}
+
