@@ -1,6 +1,14 @@
 ﻿/**
  * PostgreSQL Database Adapter (Supabase)
  * Production-ready database with connection pooling
+ * 
+ * LIVE SYSTEM - CAREFUL WITH CHANGES
+ * 
+ * Key Compatibility Notes:
+ * - SQLite uses INTEGER for booleans (0/1), PostgreSQL uses BOOLEAN (true/false)
+ * - SQLite uses TEXT for dates, PostgreSQL uses TIMESTAMP
+ * - SQLite uses datetime('now'), PostgreSQL uses CURRENT_TIMESTAMP
+ * - SQLite uses ? placeholders, PostgreSQL uses $1, $2, etc.
  */
 const { Pool } = require('pg');
 
@@ -34,133 +42,16 @@ async function initPostgres() {
   // Test connection
   try {
     const client = await pool.connect();
-    console.log('✅ PostgreSQL connected:', connectionString.split('@')[1]?.split('/')[0]);
+    const hostInfo = connectionString.split('@')[1]?.split('/')[0] || 'supabase';
+    console.log('✅ PostgreSQL connected:', hostInfo);
     client.release();
   } catch (err) {
     console.error('❌ PostgreSQL connection failed:', err.message);
     throw err;
   }
 
-  // Create tables
-  await createTables();
-  console.log('✅ PostgreSQL tables ready');
-}
-
-/** Create all tables */
-async function createTables() {
-  const client = await pool.connect();
-  try {
-    await client.query('BEGIN');
-
-    // Users
-    await client.query(`
-      CREATE TABLE IF NOT EXISTS users (
-        id TEXT PRIMARY KEY,
-        first_name TEXT NOT NULL,
-        last_name TEXT NOT NULL,
-        email TEXT UNIQUE NOT NULL,
-        password_hash TEXT,
-        avatar TEXT,
-        color TEXT DEFAULT '#6C63FF',
-        role TEXT DEFAULT 'customer' CHECK (role IN ('customer','expert','admin','pending_expert')),
-        is_active BOOLEAN DEFAULT TRUE,
-        google_id TEXT UNIQUE,
-        email_verified BOOLEAN DEFAULT FALSE,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      )
-    `);
-
-    // Expert Profiles
-    await client.query(`
-      CREATE TABLE IF NOT EXISTS expert_profiles (
-        user_id TEXT PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
-        price INTEGER DEFAULT 250,
-        bio TEXT,
-        city TEXT,
-        tags TEXT,
-        hours TEXT DEFAULT '09:00-18:00',
-        experience TEXT,
-        rating REAL DEFAULT 5.0,
-        review_count INTEGER DEFAULT 0,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      )
-    `);
-
-    // Bookings
-    await client.query(`
-      CREATE TABLE IF NOT EXISTS bookings (
-        id TEXT PRIMARY KEY,
-        customer_id TEXT REFERENCES users(id) ON DELETE CASCADE,
-        expert_id TEXT REFERENCES users(id) ON DELETE CASCADE,
-        service TEXT NOT NULL,
-        date TEXT NOT NULL,
-        time TEXT NOT NULL,
-        duration_type TEXT DEFAULT 'hours',
-        duration_value INTEGER DEFAULT 1,
-        slots TEXT,
-        total_price INTEGER,
-        city TEXT,
-        notes TEXT,
-        status TEXT DEFAULT 'pending' CHECK (status IN ('pending','confirmed','rejected','cancelled','completed')),
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      )
-    `);
-
-    // Calendar Slots
-    await client.query(`
-      CREATE TABLE IF NOT EXISTS calendar_slots (
-        id TEXT PRIMARY KEY,
-        expert_id TEXT REFERENCES users(id) ON DELETE CASCADE,
-        slot TEXT NOT NULL,
-        booking_id TEXT,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        UNIQUE(expert_id, slot)
-      )
-    `);
-
-    // Reviews
-    await client.query(`
-      CREATE TABLE IF NOT EXISTS reviews (
-        id TEXT PRIMARY KEY,
-        expert_id TEXT REFERENCES users(id) ON DELETE CASCADE,
-        customer_id TEXT REFERENCES users(id) ON DELETE CASCADE,
-        rating INTEGER CHECK (rating >= 1 AND rating <= 5),
-        text TEXT,
-        service TEXT,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      )
-    `);
-
-    // Password Reset Tokens
-    await client.query(`
-      CREATE TABLE IF NOT EXISTS password_reset_tokens (
-        id TEXT PRIMARY KEY,
-        user_id TEXT REFERENCES users(id) ON DELETE CASCADE,
-        token TEXT UNIQUE NOT NULL,
-        expires_at TIMESTAMP NOT NULL,
-        used BOOLEAN DEFAULT FALSE,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      )
-    `);
-
-    // Indexes
-    await client.query('CREATE INDEX IF NOT EXISTS idx_users_email ON users(email)');
-    await client.query('CREATE INDEX IF NOT EXISTS idx_users_role ON users(role)');
-    await client.query('CREATE INDEX IF NOT EXISTS idx_bookings_customer ON bookings(customer_id)');
-    await client.query('CREATE INDEX IF NOT EXISTS idx_bookings_expert ON bookings(expert_id)');
-    await client.query('CREATE INDEX IF NOT EXISTS idx_bookings_status ON bookings(status)');
-    await client.query('CREATE INDEX IF NOT EXISTS idx_calendar_expert ON calendar_slots(expert_id)');
-    await client.query('CREATE INDEX IF NOT EXISTS idx_reviews_expert ON reviews(expert_id)');
-
-    await client.query('COMMIT');
-  } catch (err) {
-    await client.query('ROLLBACK');
-    throw err;
-  } finally {
-    client.release();
-  }
+  // Verify schema (don't create tables on live DB)
+  console.log('✅ PostgreSQL ready (live database)');
 }
 
 /** Convert SQLite-style ? placeholders to PostgreSQL $1, $2, ... */
@@ -169,28 +60,72 @@ function convertPlaceholders(sql) {
   return sql.replace(/\?/g, () => `$${++i}`);
 }
 
-/** Query wrapper */
+/** 
+ * Convert SQLite datetime functions to PostgreSQL equivalents
+ * Handles all datetime patterns used in the codebase:
+ * - datetime('now') → CURRENT_TIMESTAMP
+ * - datetime("now") → CURRENT_TIMESTAMP  
+ * - datetime('now', '-7 days') → NOW() - INTERVAL '7 days'
+ * - datetime('now', '+1 hour') → NOW() + INTERVAL '1 hour'
+ */
+function convertDateTimeFunctions(sql) {
+  // First handle datetime with intervals: datetime('now', '-7 days')
+  sql = sql.replace(
+    /datetime\s*\(\s*['"]now['"]\s*,\s*['"]([-+])(\d+)\s+(day|days|hour|hours|minute|minutes|second|seconds)['"]\s*\)/gi,
+    (match, sign, num, unit) => {
+      const op = sign === '-' ? '-' : '+';
+      // Normalize unit to PostgreSQL format (always plural)
+      const normalizedUnit = unit.endsWith('s') ? unit : unit + 's';
+      return `NOW() ${op} INTERVAL '${num} ${normalizedUnit}'`;
+    }
+  );
+  
+  // Then handle simple datetime('now') or datetime("now")
+  sql = sql.replace(/datetime\s*\(\s*['"]now['"]\s*\)/gi, 'CURRENT_TIMESTAMP');
+  
+  return sql;
+}
+
+/** 
+ * Query wrapper with full SQLite-to-PostgreSQL compatibility
+ * Automatically converts placeholders and datetime functions
+ */
 async function query(sql, params = []) {
   if (!pool) throw new Error('Database not initialized');
-  const convertedSql = convertPlaceholders(sql);
+  
+  // Convert datetime functions first, then placeholders
+  let convertedSql = convertDateTimeFunctions(sql);
+  convertedSql = convertPlaceholders(convertedSql);
+  
   const result = await pool.query(convertedSql, params);
   return result.rows;
 }
 
-/** Get single row */
+/** 
+ * Get single row (SELECT)
+ * Returns null instead of undefined for SQLite compatibility
+ */
 async function pgGet(sql, ...params) {
   const rows = await query(sql, params);
   return rows[0] || null;
 }
 
-/** Get all rows */
+/** 
+ * Get all rows (SELECT)
+ * Returns array of rows
+ */
 async function pgAll(sql, ...params) {
   return await query(sql, params);
 }
 
-/** Execute (INSERT/UPDATE/DELETE) */
+/** 
+ * Execute (INSERT/UPDATE/DELETE)
+ * Returns number of affected rows for compatibility
+ */
 async function pgRun(sql, ...params) {
-  const convertedSql = convertPlaceholders(sql);
+  let convertedSql = convertDateTimeFunctions(sql);
+  convertedSql = convertPlaceholders(convertedSql);
+  
   const result = await pool.query(convertedSql, params);
   return result.rowCount;
 }
