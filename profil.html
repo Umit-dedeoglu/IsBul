@@ -596,6 +596,7 @@
 
         const statusLabel = {
           pending:   '⏳ Onay Bekleniyor',
+          pending_customer_approval: '💰 Fiyat Teklifi Geldi',
           confirmed: '✅ Onaylandı',
           completed: '🏁 Tamamlandı',
           rejected:  '❌ Reddedildi',
@@ -603,6 +604,7 @@
         };
         const statusStyle = {
           pending:   'background:#fef3c7;color:#92400e;',
+          pending_customer_approval: 'background:#fef3c7;color:#d97706;',
           confirmed: 'background:#d1fae5;color:#065f46;',
           completed: 'background:#e0e7ff;color:#3730a3;',
           rejected:  'background:#fee2e2;color:#991b1b;',
@@ -624,7 +626,23 @@
               <span style="display:inline-block;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:700;${statusStyle[r.status]||statusStyle.pending}">
                 ${statusLabel[r.status]||'⏳ Bekliyor'}
               </span>
-              <div style="font-size:14px;font-weight:800;color:#6C63FF;margin-top:6px;">₺${(r.totalPrice||r.price||0).toLocaleString('tr-TR')}${r.totalPrice ? '' : '/saat'}</div>
+              ${r.status === 'pending_customer_approval' && r.counterOfferPrice ? `
+                <div style="font-size:12px;color:#64748b;margin-top:6px;text-decoration:line-through;">₺${(r.totalPrice||r.price||0).toLocaleString('tr-TR')}</div>
+                <div style="font-size:16px;font-weight:800;color:#d97706;">💰 ₺${r.counterOfferPrice.toLocaleString('tr-TR')}</div>
+                <div style="font-size:11px;color:#64748b;">Uzman Teklifi</div>
+              ` : `
+                <div style="font-size:14px;font-weight:800;color:#6C63FF;margin-top:6px;">₺${(r.totalPrice||r.price||0).toLocaleString('tr-TR')}${r.totalPrice ? '' : '/saat'}</div>
+              `}
+              ${r.status === 'pending_customer_approval' ? `
+                <button onclick="acceptCounterOffer('${r.id}')"
+                  style="margin-top:8px;padding:8px 12px;border-radius:8px;background:#10b981;color:#fff;border:none;font-size:12px;font-weight:700;cursor:pointer;width:100%;">
+                  ✅ Teklifi Kabul Et
+                </button>
+                <button onclick="cancelReservation('${r.id}')"
+                  style="margin-top:6px;padding:6px 12px;border-radius:8px;background:#fee2e2;color:#ef4444;border:none;font-size:11px;font-weight:600;cursor:pointer;width:100%;">
+                  ❌ Reddet
+                </button>
+              ` : ''}
               ${(r.status === 'pending' || r.status === 'confirmed') ? `
                 <button onclick="cancelReservation('${r.id}')"
                   style="margin-top:8px;padding:6px 12px;border-radius:8px;background:#fee2e2;color:#ef4444;border:none;font-size:12px;font-weight:600;cursor:pointer;width:100%;">
@@ -647,6 +665,21 @@
       }
 
       // İptal fonksiyonu — API öncelikli, localStorage fallback
+      
+      window.acceptCounterOffer = async function(rezId) {
+        if (!confirm('Bu fiyat teklifini kabul ediyor musunuz?')) return;
+        try {
+          const res = await fetch(`${API_BASE_URL}/api/bookings/${rezId}/accept-counter-offer`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('isbul_token')}` }
+          });
+          const data = await res.json();
+          if (data.success) { showToast('✅ Rezervasyon onaylandı!', 'success'); render(); }
+          else if (res.status === 409) showToast('⚠️ Üzgünüz, uzman bu saat için artık müsait değil.', 'error');
+          else showToast(data.error || 'Hata oluştu', 'error');
+        } catch (e) { showToast('Bir hata oluştu', 'error'); }
+      };
+
       window.cancelReservation = async function(rezId) {
         if (!confirm('Bu rezervasyonu iptal etmek istediğinize emin misiniz?')) return;
 
