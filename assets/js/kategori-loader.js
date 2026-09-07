@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Merkezi Kategori Loader
  * Tüm sayfalarda kategorileri tek kaynaktan yükler
  * data.js'deki KATEGORİLER array'ini kullanır
@@ -128,7 +128,6 @@ if (typeof document !== 'undefined') {
     if (path.includes('hizmetler.html')) {
       loadCategorySidebar();
       loadCategoryTabs();
-      renderCategoryCards();
     } else if (path.includes('uzmanlar.html')) {
       loadCategorySidebar();
     } else if (path.includes('uzman-panel.html')) {

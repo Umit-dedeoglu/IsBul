@@ -290,7 +290,7 @@
             </div>
             <div class="form-group">
               <label>Çalışma Şehri</label>
-              <select id="expertCity" onchange="handleCityChange(this)"></select>
+              <select id="expertCity"></select>
             </div>
             <div class="form-group">
               <label>Uzmanlık Alanları</label>
@@ -408,7 +408,6 @@
         if (city === session.city) opt.selected = true;
         citySelect.appendChild(opt);
       });
-      originalCity = session.city; // Başlangıç şehrini kaydet
 
       // Eğer kullanıcının expertData'sı varsa doldur
       if (session.expertData) {
@@ -453,7 +452,7 @@
         expertTags.forEach(tag => {
           const badge = document.createElement('div');
           badge.className = 'tag-badge';
-          badge.innerHTML = `${tag} <button type="button" onclick="removeTag('${tag}', this.parentElement)">&times;</button>`;
+          badge.innerHTML = `${tag} <button type="button" onclick="removeTag('${tag}')">&times;</button>`;
           tagsWrap.appendChild(badge);
         });
       }
@@ -527,26 +526,11 @@
       const select = document.getElementById('categorySelect');
       const val = select.value.trim();
       
-      if (!val) {
-        showToast('Lütfen bir kategori seçin', 'warning');
-        return;
-      }
-      if (expertTags.includes(val)) {
-        showToast('Bu kategori zaten ekli', 'warning');
-        return;
-      }
-      if (expertTags.length >= 5) {
-        showToast('En fazla 5 kategori ekleyebilirsiniz', 'error');
-        return;
-      }
-      if (!val) { showToast('Lütfen kategori seçin', 'warning'); return; }
-      if (expertTags.includes(val)) { showToast('Bu kategori zaten ekli', 'warning'); return; }
-      if (expertTags.length >= 5) { showToast('En fazla 5 kategori ekleyebilirsiniz', 'error'); return; }
       if (val && !expertTags.includes(val)) {
         expertTags.push(val);
         const badge = document.createElement('div');
         badge.className = 'tag-badge';
-        badge.innerHTML = `${val} <button type="button" onclick="removeExpertTag('${val}', this.parentElement, this.parentElement)">&times;</button>`;
+        badge.innerHTML = `${val} <button type="button" onclick="this.parentElement.remove(); expertTags=expertTags.filter(t=>t!=='${val}')">&times;</button>`;
         document.getElementById('expertTags').appendChild(badge);
         select.value = ''; // Reset select
       } else if (expertTags.includes(val)) {
@@ -555,70 +539,6 @@
     });
     
     // Enter tuşu ile ekleme desteği (eski input alanı kaldırıldı)
-    
-    // Şehir değişikliği kontrolü
-    let originalCity = null;
-    window.handleCityChange = function(selectEl) {
-      const newCity = selectEl.value;
-      if (!originalCity) {
-        originalCity = newCity;
-        return;
-      }
-      if (newCity === originalCity) return;
-      
-      // Uyarı modal
-      const message = `${originalCity} → ${newCity} şehir değişikliği yapıyorsunuz.\n\nBu değişiklik şunları etkiler:\n• Tüm uzmanlık kategorileriniz silinecek\n• Mevcut rezervasyonlarınız otomatik red edilecek\n• Profil onayı tekrar gözden geçirilebilir\n\nDevam etmek istiyor musunuz?`;
-      
-      if (!confirm(message)) {
-        selectEl.value = originalCity;
-        return;
-      }
-      
-      // Kategorileri temizle
-      expertTags = [];
-      document.getElementById('expertTags').innerHTML = '';
-      showToast('⚠️ Kategoriler temizlendi. Yeni şehir için kategorilerinizi ekleyin.', 'warning');
-      originalCity = newCity;
-    };
-    
-    // Kategori silme onayı
-    
-    let originalCity = null;
-    window.handleCityChange = function(selectEl) {
-      const newCity = selectEl.value;
-      if (!originalCity) { originalCity = newCity; return; }
-      if (newCity === originalCity) return;
-      const msg = originalCity + ' → ' + newCity + ' şehir değişikliği yapıyorsunuz.\n\nBu değişiklik şunları etkiler:\n• Tüm uzmanlık kategorileriniz silinecek\n• Mevcut rezervasyonlarınız otomatik red edilecek\n\nDevam etmek istiyor musunuz?';
-      if (!confirm(msg)) { selectEl.value = originalCity; return; }
-      expertTags = [];
-      document.getElementById('expertTags').innerHTML = '';
-      showToast('⚠️ Kategoriler temizlendi. Yeni şehir için kategorileri ekleyin.', 'warning');
-      originalCity = newCity;
-    };
-
-    window.removeExpertTag = function(tag, element) {
-      if (confirm(`"${tag}" kategorisini kaldırmak istediğinize emin misiniz?`)) {
-        expertTags = expertTags.filter(t => t !== tag);
-        element.remove();
-        showToast('Kategori kaldırıldı', 'info');
-      }
-    };
-
-    
-    async function cancelAllExpertBookings(expertId) {
-      try {
-        const bookingDB = JSON.parse(localStorage.getItem('isbul_booking_db') || '{}');
-        const toCancel = Object.values(bookingDB).filter(b => b.expertId === expertId && (b.status === 'pending' || b.status === 'confirmed'));
-        if (toCancel.length === 0) return;
-        if (typeof IsBulAPI !== 'undefined') {
-          for (const booking of toCancel) await IsBulAPI.bookings.updateStatus(booking.id, 'cancelled');
-        }
-        toCancel.forEach(b => { bookingDB[b.id].status = 'cancelled'; bookingDB[b.id].updatedAt = new Date().toISOString(); });
-        localStorage.setItem('isbul_booking_db', JSON.stringify(bookingDB));
-        showToast(toCancel.length + ' rezervasyon otomatik iptal edildi', 'info');
-      } catch (e) {}
-    }
-
     function removeTag(tag) {
       expertTags = expertTags.filter(t => t !== tag);
       // Badge zaten onclick ile kaldırülkeyor
@@ -628,12 +548,6 @@
     document.getElementById('profileForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       if (!session) return;
-
-      // Şehir değiştiyse rezervasyonları iptal et
-      if (session.city && session.city !== document.getElementById('expertCity').value) {
-        await cancelAllExpertBookings(session.id);
-      }
-
 
       const expertData = {
         price:      +document.getElementById('expertPrice').value || 300,
@@ -648,10 +562,6 @@
       const origText = btn.textContent;
       btn.textContent = 'Kaydediliyor...'; btn.disabled = true;
 
-      // Şehir değiştiyse mevcut rezervasyonları red et
-      if (session.city && session.city !== expertData.city) {
-      }
-      
       // API dene
       if (typeof IsBulAPI !== 'undefined') {
         const res = await IsBulAPI.experts.updateProfile(expertData);
@@ -698,38 +608,6 @@
     });
 
     // Rezervasyonları yükle – API öncelikli, localStorage fallback
-    
-    // Şehir değişikliğinde rezervasyonları iptal et
-    async function cancelAllExpertBookings(expertId, reason) {
-      try {
-        const bookingDB = JSON.parse(localStorage.getItem('isbul_booking_db') || '{}');
-        const toCancel = Object.values(bookingDB).filter(b => 
-          b.expertId === expertId && (b.status === 'pending' || b.status === 'confirmed')
-        );
-        
-        if (toCancel.length === 0) return;
-        
-        // API varsa kullan
-        if (typeof IsBulAPI !== 'undefined') {
-          for (const booking of toCancel) {
-            await IsBulAPI.bookings.updateStatus(booking.id, 'cancelled');
-          }
-        }
-        
-        // localStorage güncelle
-        toCancel.forEach(b => {
-          bookingDB[b.id].status = 'cancelled';
-          bookingDB[b.id].cancelReason = reason;
-          bookingDB[b.id].updatedAt = new Date().toISOString();
-        });
-        localStorage.setItem('isbul_booking_db', JSON.stringify(bookingDB));
-        
-        showToast(`${toCancel.length} rezervasyon otomatik iptal edildi`, 'info');
-      } catch (err) {
-        console.warn('Rezervasyon iptali hatası:', err);
-      }
-    }
-
     async function loadExpertBookings() {
       if (!session) return;
 
@@ -816,10 +694,6 @@
                 style="padding:7px 14px;border-radius:8px;background:#fee2e2;color:#ef4444;border:none;font-size:12px;font-weight:700;cursor:pointer;width:100%;margin-top:4px;">
                 ❌ Reddet
               </button>
-              <button onclick="openCounterOfferModal('${b.id}', ${b.totalPrice||b.price})"
-                style="padding:7px 14px;border-radius:8px;background:#fef3c7;color:#d97706;border:none;font-size:12px;font-weight:700;cursor:pointer;width:100%;margin-top:4px;">
-                💰 Fiyat Teklifi Ver
-              </button>
             ` : ''}
             ${b.status === 'confirmed' ? `
               <button onclick="updateBookingStatus('${b.id}','completed')"
@@ -884,15 +758,12 @@
   </script>
 
   <script src="/assets/js/pwa.js" defer></script>
-  <script src="/assets/js/mobile-nav.js" defer>let currentCounterOfferBookingId=null;window.openCounterOfferModal=function(id,price){currentCounterOfferBookingId=id;document.getElementById("counterOfferOriginalPrice").textContent="₺"+price.toLocaleString("tr-TR");document.getElementById("counterOfferPriceInput").value=price;document.getElementById("counterOfferModal").style.display="flex"};window.closeCounterOfferModal=function(){document.getElementById("counterOfferModal").style.display="none"};window.sendCounterOffer=async function(){const price=parseInt(document.getElementById("counterOfferPriceInput").value);if(!price)return;try{const res=await fetch(\/api/bookings/\/counter-offer\,{method:"POST",headers:{"Content-Type":"application/json",Authorization:\Bearer \},body:JSON.stringify({proposedPrice:price})});const data=await res.json();if(data.success){showToast("Teklif gönderildi!","success");closeCounterOfferModal();loadExpertBookings()}else showToast(data.error,"error")}catch(e){showToast("Hata","error")}};</script>
+  <script src="/assets/js/mobile-nav.js" defer></script>
 
   <!-- ========== FOOTER ========== -->
 
   <!-- FOOTER -->
   <div id="footer-container"></div>
-
-  <div class="modal-overlay" id="counterOfferModal" style="display:none"><div style="background:white;border-radius:16px;max-width:420px;width:92%;padding:0"><div style="background:linear-gradient(135deg,#fef3c7,#fbbf24);padding:24px;text-align:center"><button onclick="closeCounterOfferModal()" style="position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,.1);border:none;font-size:18px;cursor:pointer">×</button><div style="font-size:48px">💰</div><h3>Fiyat Teklifi Ver</h3></div><div style="padding:24px"><label>Orijinal Fiyat</label><div id="counterOfferOriginalPrice" style="padding:12px;background:#f1f5f9;border-radius:8px;margin-bottom:16px">₺0</div><label>Yeni Fiyat</label><input type="number" id="counterOfferPriceInput" style="width:100%;padding:14px;border:2px solid #e2e8f0;border-radius:8px;margin-bottom:20px" /><button onclick="sendCounterOffer()" style="width:100%;padding:14px;border-radius:10px;background:#6C63FF;color:white;border:none;cursor:pointer">Gönder</button></div></div></div>
-
 </body>
 </html>
 
