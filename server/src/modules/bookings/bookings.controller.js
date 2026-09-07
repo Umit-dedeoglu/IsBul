@@ -2,7 +2,7 @@
 const { sanitizeText } = require('../../utils/sanitize');
 
 function genId() {
-  return `rez_${Date.now()}_${Math.random().toString(36).slice(2,6)}`;
+  return \ez_\_\\;
 }
 
 /** POST /api/bookings */
@@ -20,7 +20,7 @@ async function createBooking(req, res) {
     if (totalPrice !== undefined && totalPrice < 0)
       return res.status(400).json({ success: false, error: 'Geçersiz fiyat.' });
 
-    const allSlots = Array.isArray(slots) && slots.length ? slots : [`${date}_${time}`];
+    const allSlots = Array.isArray(slots) && slots.length ? slots : [\\_\\];
 
     // Çakışma kontrolü
     for (const slot of allSlots) {
@@ -31,17 +31,17 @@ async function createBooking(req, res) {
       if (conflict) {
         return res.status(409).json({
           success: false,
-          error: `${slot.split('_')[1]} saati dolu. Lütfen başka bir saat seçin.`
+          error: \\ saati dolu. Lütfen başka bir saat seçin.\
         });
       }
     }
 
     const id = genId();
     await dbRun(
-      `INSERT INTO bookings
+      \INSERT INTO bookings
         (id, customer_id, expert_id, service, date, end_date, time, end_time,
          duration_type, duration_value, duration_label, total_price, slots, city, notes, status)
-       VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,'pending')`,
+       VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,'pending')\,
       id, session.id, expertId, service, date, endDate||date,
       time, endTime||time, durationType||'hours', durationValue||1,
       durationLabel||'', totalPrice||0,
@@ -49,12 +49,11 @@ async function createBooking(req, res) {
     );
 
     // Takvime işle — SQLite ve PostgreSQL uyumlu
-    // Takvime işle — her iki DB için sadece slot kolonu kullan
     for (const slot of allSlots) {
       try {
         const isPostgres = !!process.env.DATABASE_URL;
         if (isPostgres) {
-          const slotId = `cs_${Date.now()}_${Math.random().toString(36).slice(2,4)}`;
+          const slotId = \cs_\_\\;
           await dbRun(
             'INSERT INTO calendar_slots (id, expert_id, slot_key, booking_id) VALUES (?,?,?,?)',
             slotId, expertId, slot, id
@@ -98,11 +97,11 @@ async function getMyBookings(req, res) {
 async function getExpertBookings(req, res) {
   try {
     const bookings = await dbAll(
-      `SELECT b.*, u.first_name, u.last_name, u.avatar, u.color
+      \SELECT b.*, u.first_name, u.last_name, u.avatar, u.color
        FROM bookings b
        JOIN users u ON u.id = b.customer_id
        WHERE b.expert_id = ?
-       ORDER BY b.created_at DESC`,
+       ORDER BY b.created_at DESC\,
       req.user.id
     );
     const list = Array.isArray(bookings) ? bookings : [];
@@ -110,7 +109,7 @@ async function getExpertBookings(req, res) {
       success: true,
       bookings: list.map(b => ({
         ...formatBooking(b),
-        customerName:   `${b.first_name} ${b.last_name}`,
+        customerName:   \\ \\,
         customerAvatar: b.avatar,
         customerColor:  b.color,
       }))
@@ -165,7 +164,7 @@ async function updateStatus(req, res) {
     if (FORBIDDEN_TRANSITIONS[current]?.includes(status)) {
       return res.status(400).json({
         success: false,
-        error: `${current} durumundan ${status} durumuna geçiş yapılamaz.`
+        error: \\ durumundan \ durumuna geçiş yapılamaz.\
       });
     }
 
@@ -195,29 +194,129 @@ async function updateStatus(req, res) {
   }
 }
 
+/** POST /api/bookings/:id/counter-offer - Expert proposes new price */
+async function createCounterOffer(req, res) {
+  try {
+    const { proposedPrice } = req.body;
+    
+    if (!proposedPrice || proposedPrice < 0)
+      return res.status(400).json({ success: false, error: 'Geçerli bir fiyat girin.' });
+
+    const booking = await dbGet('SELECT * FROM bookings WHERE id = ?', req.params.id);
+    if (!booking) return res.status(404).json({ success: false, error: 'Rezervasyon bulunamadı.' });
+
+    // Only expert can create counter-offer
+    if (booking.expert_id !== req.user.id)
+      return res.status(403).json({ success: false, error: 'Sadece uzman fiyat teklifi verebilir.' });
+
+    // Can only counter-offer pending bookings
+    if (booking.status !== 'pending')
+      return res.status(400).json({ success: false, error: 'Sadece bekleyen rezervasyonlar için teklif verilebilir.' });
+
+    await dbRun(
+      \UPDATE bookings 
+       SET status = 'pending_customer_approval', 
+           counter_offer_price = ?,
+           updated_at = CURRENT_TIMESTAMP 
+       WHERE id = ?\,
+      proposedPrice, req.params.id
+    );
+
+    const updated = await dbGet('SELECT * FROM bookings WHERE id = ?', req.params.id);
+    return res.json({ success: true, booking: formatBooking(updated) });
+  } catch (err) {
+    console.error('[bookings/counter-offer]', err);
+    return res.status(500).json({ success: false, error: 'Sunucu hatası.' });
+  }
+}
+
+/** POST /api/bookings/:id/accept-counter-offer - Customer accepts counter-offer with Smart Guard */
+async function acceptCounterOffer(req, res) {
+  try {
+    const booking = await dbGet('SELECT * FROM bookings WHERE id = ?', req.params.id);
+    if (!booking) return res.status(404).json({ success: false, error: 'Rezervasyon bulunamadı.' });
+
+    // Only customer can accept
+    if (booking.customer_id !== req.user.id)
+      return res.status(403).json({ success: false, error: 'Sadece müşteri teklifi kabul edebilir.' });
+
+    // Must be in pending_customer_approval state
+    if (booking.status !== 'pending_customer_approval')
+      return res.status(400).json({ success: false, error: 'Bu rezervasyon için bekleyen teklif yok.' });
+
+    // 🛡️ SMART GUARD: Check if slots are STILL available
+    const slotArr = (() => {
+      try { return JSON.parse(booking.slots || '[]'); } catch { return []; }
+    })();
+
+    for (const slot of slotArr) {
+      const conflict = await dbGet(
+        'SELECT slot_key, booking_id FROM calendar_slots WHERE expert_id = ? AND slot_key = ?',
+        booking.expert_id, slot
+      );
+      
+      if (conflict && conflict.booking_id !== booking.id) {
+        return res.status(409).json({
+          success: false,
+          error: 'Üzgünüz, uzman bu saat için artık müsait değil.',
+          conflictSlot: slot
+        });
+      }
+    }
+
+    // All slots available - confirm booking
+    await dbRun(
+      \UPDATE bookings 
+       SET status = 'confirmed', 
+           total_price = counter_offer_price,
+           updated_at = CURRENT_TIMESTAMP 
+       WHERE id = ?\,
+      req.params.id
+    );
+
+    const updated = await dbGet('SELECT * FROM bookings WHERE id = ?', req.params.id);
+    return res.json({ 
+      success: true, 
+      booking: formatBooking(updated),
+      message: 'Rezervasyon onaylandı!'
+    });
+  } catch (err) {
+    console.error('[bookings/accept-counter-offer]', err);
+    return res.status(500).json({ success: false, error: 'Sunucu hatası.' });
+  }
+}
+
 function formatBooking(b) {
   if (!b) return null;
   return {
-    id:            b.id,
-    customerId:    b.customer_id,
-    expertId:      b.expert_id,
-    service:       b.service,
-    date:          b.date,
-    endDate:       b.end_date,
-    time:          b.time,
-    endTime:       b.end_time,
-    durationType:  b.duration_type,
-    durationValue: b.duration_value,
-    durationLabel: b.duration_label,
-    totalPrice:    b.total_price,
-    slots:         (() => { try { return JSON.parse(b.slots || '[]'); } catch { return []; } })(),
-    city:          b.city,
-    notes:         b.notes,
-    status:        b.status,
-    createdAt:     b.created_at,
-    updatedAt:     b.updated_at,
+    id:               b.id,
+    customerId:       b.customer_id,
+    expertId:         b.expert_id,
+    service:          b.service,
+    date:             b.date,
+    endDate:          b.end_date,
+    time:             b.time,
+    endTime:          b.end_time,
+    durationType:     b.duration_type,
+    durationValue:    b.duration_value,
+    durationLabel:    b.duration_label,
+    totalPrice:       b.total_price,
+    counterOfferPrice: b.counter_offer_price,
+    slots:            (() => { try { return JSON.parse(b.slots || '[]'); } catch { return []; } })(),
+    city:             b.city,
+    notes:            b.notes,
+    status:           b.status,
+    createdAt:        b.created_at,
+    updatedAt:        b.updated_at,
   };
 }
 
-module.exports = { createBooking, getMyBookings, getExpertBookings, getBooking, updateStatus };
-
+module.exports = { 
+  createBooking, 
+  getMyBookings, 
+  getExpertBookings, 
+  getBooking, 
+  updateStatus,
+  createCounterOffer,
+  acceptCounterOffer
+};
