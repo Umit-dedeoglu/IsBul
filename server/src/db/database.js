@@ -1,7 +1,7 @@
-﻿/**
- * Ä°ÅŸBul â€“ VeritabanÄ± katmanÄ±
- * sql.js kullanÄ±r â€” saf JavaScript SQLite, Windows'ta derleme gerektirmez
- * Disk Ã¼zerine periyodik kayÄ±t yapar
+/**
+ * İşBul – Veritabanı katmanı
+ * sql.js kullanır — saf JavaScript SQLite, Windows'ta derleme gerektirmez
+ * Disk üzerine periyodik kayıt yapar
  */
 const path = require('path');
 const fs   = require('fs');
@@ -18,8 +18,8 @@ let db   = null;
 let SQL  = null;
 
 /**
- * sql.js asenkron baÅŸlatÄ±r, sonra sync kullanÄ±lÄ±r.
- * getDb() sync Ã§aÄŸrÄ±larÄ± iÃ§in initDb() Ã¶nceden Ã§alÄ±ÅŸtÄ±rÄ±lmÄ±ÅŸ olmalÄ±.
+ * sql.js asenkron başlatır, sonra sync kullanılır.
+ * getDb() sync çağrıları için initDb() önceden çalıştırılmış olmalı.
  */
 async function initDb() {
   if (db) return db;
@@ -41,14 +41,14 @@ async function initDb() {
 }
 
 function getDb() {
-  if (!db) throw new Error('VeritabanÄ± henÃ¼z baÅŸlatÄ±lmadÄ±. initDb() Ã§aÄŸÄ±rÄ±n.');
+  if (!db) throw new Error('Veritabanı henüz başlatılmadı. initDb() çağırın.');
   return db;
 }
 
-/** Disk Ã¼zerine kaydet */
+/** Disk üzerine kaydet */
 function saveDb() {
   if (!db) return;
-  // :memory: database'i kaydetmeye Ã§alÄ±ÅŸma
+  // :memory: database'i kaydetmeye çalışma
   const isMemory = DB_PATH === ':memory:' || process.env.DB_PATH === ':memory:';
   if (isMemory) return;
   
@@ -56,7 +56,7 @@ function saveDb() {
     const data = db.export();
     fs.writeFileSync(DB_PATH, Buffer.from(data));
   } catch (e) {
-    console.error('[DB] KayÄ±t hatasÄ±:', e.message);
+    console.error('[DB] Kayıt hatası:', e.message);
   }
 }
 
@@ -89,36 +89,37 @@ function initSchema() {
       user_id       TEXT PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
       price         INTEGER DEFAULT 300,
       bio           TEXT DEFAULT '',
-      city          TEXT DEFAULT 'Ä°stanbul',
+      city          TEXT DEFAULT 'İstanbul',
       tags          TEXT DEFAULT '[]',
       hours         TEXT DEFAULT '',
       rating        REAL DEFAULT 5.0,
       review_count  INTEGER DEFAULT 0,
-      experience    TEXT DEFAULT '1 yÄ±l',
+      experience    TEXT DEFAULT '1 yıl',
       is_elite      INTEGER DEFAULT 0,
       created_at    TEXT DEFAULT (datetime('now')),
       updated_at    TEXT DEFAULT (datetime('now'))
     );
 
     CREATE TABLE IF NOT EXISTS bookings (
-      id               TEXT PRIMARY KEY,
-      customer_id      TEXT NOT NULL REFERENCES users(id),
-      expert_id        TEXT NOT NULL,
-      service          TEXT NOT NULL,
-      date             TEXT NOT NULL,
-      end_date         TEXT,
-      time             TEXT NOT NULL,
-      end_time         TEXT,
-      duration_type    TEXT DEFAULT 'hours',
-      duration_value   INTEGER DEFAULT 1,
-      duration_label   TEXT,
-      total_price      INTEGER,
-      slots            TEXT DEFAULT '[]',
-      city             TEXT,
-      notes            TEXT DEFAULT '',
-      status           TEXT DEFAULT 'pending',
-      created_at       TEXT DEFAULT (datetime('now')),
-      updated_at       TEXT DEFAULT (datetime('now'))
+      id                    TEXT PRIMARY KEY,
+      customer_id           TEXT NOT NULL REFERENCES users(id),
+      expert_id             TEXT NOT NULL,
+      service               TEXT NOT NULL,
+      date                  TEXT NOT NULL,
+      end_date              TEXT,
+      time                  TEXT NOT NULL,
+      end_time              TEXT,
+      duration_type         TEXT DEFAULT 'hours',
+      duration_value        INTEGER DEFAULT 1,
+      duration_label        TEXT,
+      total_price           INTEGER,
+      counter_offer_price   INTEGER,
+      slots                 TEXT DEFAULT '[]',
+      city                  TEXT,
+      notes                 TEXT DEFAULT '',
+      status                TEXT DEFAULT 'pending',
+      created_at            TEXT DEFAULT (datetime('now')),
+      updated_at            TEXT DEFAULT (datetime('now'))
     );
 
     CREATE TABLE IF NOT EXISTS calendar_slots (
@@ -195,9 +196,9 @@ function initSchema() {
   `);
 }
 
-/* â”€â”€ sql.js query wrappers (better-sqlite3 API'siyle uyumlu) â”€â”€ */
+/* ── sql.js query wrappers (better-sqlite3 API'siyle uyumlu) ── */
 
-/** Tek satÄ±r dÃ¶ndÃ¼r */
+/** Tek satır döndür */
 function dbGet(sql, ...params) {
   const stmt = db.prepare(sql);
   stmt.bind(params);
@@ -210,7 +211,7 @@ function dbGet(sql, ...params) {
   return undefined;
 }
 
-/** Ã‡ok satÄ±r dÃ¶ndÃ¼r */
+/** Çok satır döndür */
 function dbAll(sql, ...params) {
   const results = [];
   const stmt = db.prepare(sql);
@@ -222,17 +223,17 @@ function dbAll(sql, ...params) {
   return results;
 }
 
-/** INSERT/UPDATE/DELETE Ã§alÄ±ÅŸtÄ±r */
+/** INSERT/UPDATE/DELETE çalıştır */
 function dbRun(sql, ...params) {
   db.run(sql, params);
   saveDb();
 }
 
-/** Test iÃ§in veritabanÄ±nÄ± sÄ±fÄ±rla */
+/** Test için veritabanını sıfırla */
 function resetDb() {
   if (!db) return;
-  db.run('DELETE FROM password_reset_tokens;'); // âœ… Åifre reset tokenlarÄ± temizle
-  db.run('DELETE FROM category_requests;'); // âœ… Kategori baÅŸvurularÄ± temizle
+  db.run('DELETE FROM password_reset_tokens;'); // ✅ Şifre reset tokenları temizle
+  db.run('DELETE FROM category_requests;'); // ✅ Kategori başvuruları temizle
   db.run('DELETE FROM calendar_slots;');
   db.run('DELETE FROM payments;');
   db.run('DELETE FROM reviews;');
@@ -241,11 +242,10 @@ function resetDb() {
   db.run('DELETE FROM users;');
 }
 
-/** BaÄŸlantÄ±yÄ± kapat */
+/** Bağlantıyı kapat */
 function closeDb() {
   if (saveInterval) { clearInterval(saveInterval); saveInterval = null; }
   if (db) { saveDb(); db.close(); db = null; }
 }
 
 module.exports = { initDb, getDb, saveDb, startAutoSave, resetDb, closeDb, dbGet, dbAll, dbRun };
-
