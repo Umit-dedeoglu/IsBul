@@ -290,7 +290,7 @@
             </div>
             <div class="form-group">
               <label>Çalışma Şehri</label>
-              <select id="expertCity"></select>
+              <select id="expertCity" onchange="handleCityChange(this)"></select>
             </div>
             <div class="form-group">
               <label>Uzmanlık Alanları</label>
@@ -408,6 +408,7 @@
         if (city === session.city) opt.selected = true;
         citySelect.appendChild(opt);
       });
+      originalCity = session.city; // Başlangıç şehrini kaydet
 
       // Eğer kullanıcının expertData'sı varsa doldur
       if (session.expertData) {
@@ -452,7 +453,7 @@
         expertTags.forEach(tag => {
           const badge = document.createElement('div');
           badge.className = 'tag-badge';
-          badge.innerHTML = `${tag} <button type="button" onclick="removeTag('${tag}')">&times;</button>`;
+          badge.innerHTML = `${tag} <button type="button" onclick="removeTag('${tag}', this.parentElement)">&times;</button>`;
           tagsWrap.appendChild(badge);
         });
       }
@@ -526,11 +527,26 @@
       const select = document.getElementById('categorySelect');
       const val = select.value.trim();
       
+      if (!val) {
+        showToast('Lütfen bir kategori seçin', 'warning');
+        return;
+      }
+      if (expertTags.includes(val)) {
+        showToast('Bu kategori zaten ekli', 'warning');
+        return;
+      }
+      if (expertTags.length >= 5) {
+        showToast('En fazla 5 kategori ekleyebilirsiniz', 'error');
+        return;
+      }
+      if (!val) { showToast('Lütfen kategori seçin', 'warning'); return; }
+      if (expertTags.includes(val)) { showToast('Bu kategori zaten ekli', 'warning'); return; }
+      if (expertTags.length >= 5) { showToast('En fazla 5 kategori ekleyebilirsiniz', 'error'); return; }
       if (val && !expertTags.includes(val)) {
         expertTags.push(val);
         const badge = document.createElement('div');
         badge.className = 'tag-badge';
-        badge.innerHTML = `${val} <button type="button" onclick="this.parentElement.remove(); expertTags=expertTags.filter(t=>t!=='${val}')">&times;</button>`;
+        badge.innerHTML = `${val} <button type="button" onclick="removeExpertTag('${val}', this.parentElement, this.parentElement)">&times;</button>`;
         document.getElementById('expertTags').appendChild(badge);
         select.value = ''; // Reset select
       } else if (expertTags.includes(val)) {
@@ -539,6 +555,70 @@
     });
     
     // Enter tuşu ile ekleme desteği (eski input alanı kaldırıldı)
+    
+    // Şehir değişikliği kontrolü
+    let originalCity = null;
+    window.handleCityChange = function(selectEl) {
+      const newCity = selectEl.value;
+      if (!originalCity) {
+        originalCity = newCity;
+        return;
+      }
+      if (newCity === originalCity) return;
+      
+      // Uyarı modal
+      const message = `${originalCity} → ${newCity} şehir değişikliği yapıyorsunuz.\n\nBu değişiklik şunları etkiler:\n• Tüm uzmanlık kategorileriniz silinecek\n• Mevcut rezervasyonlarınız otomatik red edilecek\n• Profil onayı tekrar gözden geçirilebilir\n\nDevam etmek istiyor musunuz?`;
+      
+      if (!confirm(message)) {
+        selectEl.value = originalCity;
+        return;
+      }
+      
+      // Kategorileri temizle
+      expertTags = [];
+      document.getElementById('expertTags').innerHTML = '';
+      showToast('⚠️ Kategoriler temizlendi. Yeni şehir için kategorilerinizi ekleyin.', 'warning');
+      originalCity = newCity;
+    };
+    
+    // Kategori silme onayı
+    
+    let originalCity = null;
+    window.handleCityChange = function(selectEl) {
+      const newCity = selectEl.value;
+      if (!originalCity) { originalCity = newCity; return; }
+      if (newCity === originalCity) return;
+      const msg = originalCity + ' → ' + newCity + ' şehir değişikliği yapıyorsunuz.\n\nBu değişiklik şunları etkiler:\n• Tüm uzmanlık kategorileriniz silinecek\n• Mevcut rezervasyonlarınız otomatik red edilecek\n\nDevam etmek istiyor musunuz?';
+      if (!confirm(msg)) { selectEl.value = originalCity; return; }
+      expertTags = [];
+      document.getElementById('expertTags').innerHTML = '';
+      showToast('⚠️ Kategoriler temizlendi. Yeni şehir için kategorileri ekleyin.', 'warning');
+      originalCity = newCity;
+    };
+
+    window.removeExpertTag = function(tag, element) {
+      if (confirm(`"${tag}" kategorisini kaldırmak istediğinize emin misiniz?`)) {
+        expertTags = expertTags.filter(t => t !== tag);
+        element.remove();
+        showToast('Kategori kaldırıldı', 'info');
+      }
+    };
+
+    
+    async function cancelAllExpertBookings(expertId) {
+      try {
+        const bookingDB = JSON.parse(localStorage.getItem('isbul_booking_db') || '{}');
+        const toCancel = Object.values(bookingDB).filter(b => b.expertId === expertId && (b.status === 'pending' || b.status === 'confirmed'));
+        if (toCancel.length === 0) return;
+        if (typeof IsBulAPI !== 'undefined') {
+          for (const booking of toCancel) await IsBulAPI.bookings.updateStatus(booking.id, 'cancelled');
+        }
+        toCancel.forEach(b => { bookingDB[b.id].status = 'cancelled'; bookingDB[b.id].updatedAt = new Date().toISOString(); });
+        localStorage.setItem('isbul_booking_db', JSON.stringify(bookingDB));
+        showToast(toCancel.length + ' rezervasyon otomatik iptal edildi', 'info');
+      } catch (e) {}
+    }
+
     function removeTag(tag) {
       expertTags = expertTags.filter(t => t !== tag);
       // Badge zaten onclick ile kaldırülkeyor
@@ -548,6 +628,12 @@
     document.getElementById('profileForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       if (!session) return;
+
+      // Şehir değiştiyse rezervasyonları iptal et
+      if (session.city && session.city !== document.getElementById('expertCity').value) {
+        await cancelAllExpertBookings(session.id);
+      }
+
 
       const expertData = {
         price:      +document.getElementById('expertPrice').value || 300,
@@ -562,6 +648,10 @@
       const origText = btn.textContent;
       btn.textContent = 'Kaydediliyor...'; btn.disabled = true;
 
+      // Şehir değiştiyse mevcut rezervasyonları red et
+      if (session.city && session.city !== expertData.city) {
+      }
+      
       // API dene
       if (typeof IsBulAPI !== 'undefined') {
         const res = await IsBulAPI.experts.updateProfile(expertData);
@@ -608,6 +698,38 @@
     });
 
     // Rezervasyonları yükle – API öncelikli, localStorage fallback
+    
+    // Şehir değişikliğinde rezervasyonları iptal et
+    async function cancelAllExpertBookings(expertId, reason) {
+      try {
+        const bookingDB = JSON.parse(localStorage.getItem('isbul_booking_db') || '{}');
+        const toCancel = Object.values(bookingDB).filter(b => 
+          b.expertId === expertId && (b.status === 'pending' || b.status === 'confirmed')
+        );
+        
+        if (toCancel.length === 0) return;
+        
+        // API varsa kullan
+        if (typeof IsBulAPI !== 'undefined') {
+          for (const booking of toCancel) {
+            await IsBulAPI.bookings.updateStatus(booking.id, 'cancelled');
+          }
+        }
+        
+        // localStorage güncelle
+        toCancel.forEach(b => {
+          bookingDB[b.id].status = 'cancelled';
+          bookingDB[b.id].cancelReason = reason;
+          bookingDB[b.id].updatedAt = new Date().toISOString();
+        });
+        localStorage.setItem('isbul_booking_db', JSON.stringify(bookingDB));
+        
+        showToast(`${toCancel.length} rezervasyon otomatik iptal edildi`, 'info');
+      } catch (err) {
+        console.warn('Rezervasyon iptali hatası:', err);
+      }
+    }
+
     async function loadExpertBookings() {
       if (!session) return;
 
