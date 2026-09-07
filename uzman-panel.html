@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
@@ -10,7 +10,6 @@
   <link rel="stylesheet" href="assets/css/styles.css?v=2" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <script src="https://unpkg.com/feather-icons"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     /* CSS Variables Override için */
     :root {
@@ -304,53 +303,7 @@
                   Ekle
                 </button>
               </div>
-              <div style="margin-top: 12px; font-size: 13px; color: var(--text-muted);">
-                Aradığınız hizmeti bulamadınız mı? <a href="#" onclick="event.preventDefault(); document.getElementById('categorySuggestModal').classList.add('active');" style="color: var(--primary); font-weight: 600; text-decoration: none;">Kategori Önerin</a>
-              </div>
             </div>
-
-            <!-- Kategori Öneri Modalı -->
-            <div id="categorySuggestModal" class="modal">
-              <div class="modal-content" style="max-width: 500px;">
-                <div class="modal-header">
-                  <h3>Yeni Kategori Öner</h3>
-                  <button type="button" class="modal-close" onclick="document.getElementById('categorySuggestModal').classList.remove('active');">&times;</button>
-                </div>
-                <div class="modal-body">
-                  <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px;">
-                    Sistemde olmayan bir kategoride hizmet veriyorsanız, bize önerebilirsiniz. İncelendikten sonra sisteme eklenecektir.
-                  </p>
-                  <form id="categorySuggestForm" onsubmit="submitCategorySuggest(event)">
-                    <div class="form-group" style="margin-bottom: 16px;">
-                      <label>Kategori Adı</label>
-                      <input type="text" id="csName" class="form-control" placeholder="Örn: Evcil Hayvan Bakımı" required>
-                    </div>
-                    <div class="form-group" style="margin-bottom: 16px;">
-                      <label>Kategori İkonu (Emoji)</label>
-                      <input type="text" id="csIcon" class="form-control" placeholder="Örn: 🐾" required maxlength="5">
-                    </div>
-                    <div class="form-group" style="margin-bottom: 16px;">
-                      <label>Örnek Hizmetler (En az 3 adet, virgülle ayırın)</label>
-                      <input type="text" id="csServices" class="form-control" placeholder="Örn: Köpek Gezdirme, Kedi Bakımı, Evcil Hayvan Oteli" required>
-                    </div>
-                    <div class="form-group" style="margin-bottom: 24px;">
-                      <label>Açıklama (İsteğe bağlı)</label>
-                      <textarea id="csDesc" class="form-control" placeholder="Bu kategori hakkında ek bilgi..." rows="3"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn--primary" style="width: 100%;">Öneriyi Gönder</button>
-                  </form>
-                </div>
-              </div>
-            </div>
-            <style>
-              .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; }
-              .modal.active { display: flex; }
-              .modal-content { background: #fff; width: 90%; max-width: 500px; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-              .modal-header { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-              .modal-header h3 { margin: 0; font-size: 18px; font-weight: 700; }
-              .modal-close { background: none; border: none; font-size: 24px; cursor: pointer; color: var(--text-muted); }
-              .modal-body { padding: 20px; }
-            </style>
             <div class="form-group">
               <label>Çalışma Saatleri</label>
               <div style="border: 1.5px solid var(--border); border-radius: 10px; padding: 16px; background: #f9fafb;">
@@ -412,58 +365,11 @@
         </div>
       </div>
 
+      <!-- Panel: İstatistikler -->
       <div class="panel-content" id="panel-stats">
-        <div style="margin-bottom: 24px;">
-          <h2 style="font-size: 20px; font-weight: 900; color: #1a202c !important;">Performans Özeti</h2>
-        </div>
-        
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px;">
-          <div style="background: var(--white); border-radius: 12px; padding: 20px; border: 1.5px solid var(--border); display: flex; align-items: center; gap: 16px;">
-            <div style="width: 48px; height: 48px; border-radius: 50%; background: #e0e7ff; display: flex; align-items: center; justify-content: center; color: #3730a3;">
-              <i data-feather="dollar-sign"></i>
-            </div>
-            <div>
-              <div style="font-size: 13px; color: var(--text-muted); font-weight: 500;">Toplam Kazanç</div>
-              <div id="statTotalEarnings" style="font-size: 20px; font-weight: 800; color: var(--text);">0 ₺</div>
-            </div>
-          </div>
-
-          <div style="background: var(--white); border-radius: 12px; padding: 20px; border: 1.5px solid var(--border); display: flex; align-items: center; gap: 16px;">
-            <div style="width: 48px; height: 48px; border-radius: 50%; background: #d1fae5; display: flex; align-items: center; justify-content: center; color: #065f46;">
-              <i data-feather="check-circle"></i>
-            </div>
-            <div>
-              <div style="font-size: 13px; color: var(--text-muted); font-weight: 500;">Tamamlanan İşler</div>
-              <div id="statCompleted" style="font-size: 20px; font-weight: 800; color: var(--text);">0</div>
-            </div>
-          </div>
-
-          <div style="background: var(--white); border-radius: 12px; padding: 20px; border: 1.5px solid var(--border); display: flex; align-items: center; gap: 16px;">
-            <div style="width: 48px; height: 48px; border-radius: 50%; background: #fef3c7; display: flex; align-items: center; justify-content: center; color: #92400e;">
-              <i data-feather="clock"></i>
-            </div>
-            <div>
-              <div style="font-size: 13px; color: var(--text-muted); font-weight: 500;">Bekleyen İşler</div>
-              <div id="statPending" style="font-size: 20px; font-weight: 800; color: var(--text);">0</div>
-            </div>
-          </div>
-
-          <div style="background: var(--white); border-radius: 12px; padding: 20px; border: 1.5px solid var(--border); display: flex; align-items: center; gap: 16px;">
-            <div style="width: 48px; height: 48px; border-radius: 50%; background: #fef08a; display: flex; align-items: center; justify-content: center; color: #854d0e;">
-              <i data-feather="star"></i>
-            </div>
-            <div>
-              <div style="font-size: 13px; color: var(--text-muted); font-weight: 500;">Ortalama Puan</div>
-              <div id="statRating" style="font-size: 20px; font-weight: 800; color: var(--text);">5.0</div>
-            </div>
-          </div>
-        </div>
-
-        <div style="background: var(--white); border-radius: 12px; padding: 24px; border: 1.5px solid var(--border);">
-          <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 20px; color: var(--text);">Aylık Kazanç Grafiği</h3>
-          <div style="height: 300px; position: relative;">
-            <canvas id="earningsChart"></canvas>
-          </div>
+        <div style="background: var(--white); border-radius: var(--radius); padding: 32px; border: 1.5px solid var(--border);">
+          <h2 style="font-size: 20px; font-weight: 900; margin-bottom: 24px; color: #1a202c !important;">Detaylı İstatistikler</h2>
+          <p style="color: #64748b !important;">Gelişmiş analitik özellikler yakında eklenecek...</p>
         </div>
       </div>
     </div>
@@ -788,6 +694,10 @@
                 style="padding:7px 14px;border-radius:8px;background:#fee2e2;color:#ef4444;border:none;font-size:12px;font-weight:700;cursor:pointer;width:100%;margin-top:4px;">
                 ❌ Reddet
               </button>
+              <button onclick="openCounterOfferModal('${b.id}', ${b.totalPrice||b.price})"
+                style="padding:7px 14px;border-radius:8px;background:#fef3c7;color:#d97706;border:none;font-size:12px;font-weight:700;cursor:pointer;width:100%;margin-top:4px;">
+                💰 Fiyat Teklifi Ver
+              </button>
             ` : ''}
             ${b.status === 'confirmed' ? `
               <button onclick="updateBookingStatus('${b.id}','completed')"
@@ -849,137 +759,18 @@
     });
     // Her 30 saniyede bir yenile
     setInterval(loadExpertBookings, 30000);
-
-    // Kategori Öneri Gönderme
-    async function submitCategorySuggest(e) {
-      e.preventDefault();
-      const btn = e.target.querySelector('button[type="submit"]');
-      const originalText = btn.textContent;
-      
-      const name = document.getElementById('csName').value.trim();
-      const icon = document.getElementById('csIcon').value.trim();
-      const servicesStr = document.getElementById('csServices').value.trim();
-      const desc = document.getElementById('csDesc').value.trim();
-      
-      if (!name || !icon || !servicesStr) {
-        return showToast('Lütfen zorunlu alanları doldurun.', 'error');
-      }
-      
-      const services = servicesStr.split(',').map(s => s.trim()).filter(s => s);
-      if (services.length < 3) {
-        return showToast('Lütfen en az 3 adet örnek hizmet belirtin.', 'error');
-      }
-      
-      btn.textContent = 'Gönderiliyor...';
-      btn.disabled = true;
-      
-      try {
-        const res = await api('/category-requests', {
-          method: 'POST',
-          body: {
-            category_name: name,
-            icon: icon,
-            sample_services: services,
-            description: desc
-          }
-        });
-        
-        if (res.success) {
-          showToast(res.message || 'Öneriniz başarıyla alındı!', 'success');
-          document.getElementById('categorySuggestForm').reset();
-          document.getElementById('categorySuggestModal').classList.remove('active');
-        } else {
-          showToast(res.error?.message || 'Bir hata oluştu.', 'error');
-        }
-      } catch (err) {
-        showToast('Bağlantı hatası.', 'error');
-      } finally {
-        btn.textContent = originalText;
-        btn.disabled = false;
-      }
-    }
-    
-    // İstatistik Yükleme
-    let chartInstance = null;
-    async function loadExpertStats() {
-      try {
-        const res = await api('/experts/my-stats');
-        if (res.success && res.stats) {
-          document.getElementById('statTotalEarnings').textContent = res.stats.totalEarnings.toLocaleString('tr-TR') + ' ₺';
-          document.getElementById('statCompleted').textContent = res.stats.completedBookings;
-          document.getElementById('statPending').textContent = res.stats.pendingBookings;
-          document.getElementById('statRating').textContent = (res.stats.rating || 5.0).toFixed(1);
-
-          // Grafiği çiz
-          if (res.stats.history && res.stats.history.length > 0) {
-            const ctx = document.getElementById('earningsChart').getContext('2d');
-            
-            // Eğer daha önce çizildiyse yokedip yeniden çiz (yenilenirse çakışmasın)
-            if (chartInstance) {
-              chartInstance.destroy();
-            }
-
-            const labels = res.stats.history.map(h => {
-              const [y, m] = h.month.split('-');
-              const date = new Date(y, m - 1);
-              return date.toLocaleDateString('tr-TR', { month: 'short', year: 'numeric' });
-            });
-            const data = res.stats.history.map(h => h.total);
-
-            chartInstance = new Chart(ctx, {
-              type: 'bar',
-              data: {
-                labels: labels,
-                datasets: [{
-                  label: 'Kazanç (₺)',
-                  data: data,
-                  backgroundColor: 'rgba(99, 102, 241, 0.2)',
-                  borderColor: '#6366f1',
-                  borderWidth: 2,
-                  borderRadius: 6,
-                  hoverBackgroundColor: 'rgba(99, 102, 241, 0.4)'
-                }]
-              },
-              options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                  legend: { display: false }
-                },
-                scales: {
-                  y: { beginAtZero: true, ticks: { callback: (val) => val + ' ₺' } }
-                }
-              }
-            });
-          }
-        }
-      } catch (err) {
-        console.error('İstatistikler yüklenemedi', err);
-      }
-    }
-
-    // Tab geçişlerinde istatistik tabına tıklandığında yükle
-    document.addEventListener('DOMContentLoaded', () => {
-      // Tab butonları
-      const tabBtns = document.querySelectorAll('.tab-btn');
-      tabBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-          if (btn.getAttribute('data-tab') === 'panel-stats') {
-            loadExpertStats();
-          }
-        });
-      });
-      feather.replace();
-    });
   </script>
 
   <script src="/assets/js/pwa.js" defer></script>
-  <script src="/assets/js/mobile-nav.js" defer></script>
+  <script src="/assets/js/mobile-nav.js" defer>let currentCounterOfferBookingId=null;window.openCounterOfferModal=function(id,price){currentCounterOfferBookingId=id;document.getElementById("counterOfferOriginalPrice").textContent="₺"+price.toLocaleString("tr-TR");document.getElementById("counterOfferPriceInput").value=price;document.getElementById("counterOfferModal").style.display="flex"};window.closeCounterOfferModal=function(){document.getElementById("counterOfferModal").style.display="none"};window.sendCounterOffer=async function(){const price=parseInt(document.getElementById("counterOfferPriceInput").value);if(!price)return;try{const res=await fetch(\/api/bookings/\/counter-offer\,{method:"POST",headers:{"Content-Type":"application/json",Authorization:\Bearer \},body:JSON.stringify({proposedPrice:price})});const data=await res.json();if(data.success){showToast("Teklif gönderildi!","success");closeCounterOfferModal();loadExpertBookings()}else showToast(data.error,"error")}catch(e){showToast("Hata","error")}};</script>
 
   <!-- ========== FOOTER ========== -->
 
   <!-- FOOTER -->
   <div id="footer-container"></div>
+
+  <div class="modal-overlay" id="counterOfferModal" style="display:none"><div style="background:white;border-radius:16px;max-width:420px;width:92%;padding:0"><div style="background:linear-gradient(135deg,#fef3c7,#fbbf24);padding:24px;text-align:center"><button onclick="closeCounterOfferModal()" style="position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,.1);border:none;font-size:18px;cursor:pointer">×</button><div style="font-size:48px">💰</div><h3>Fiyat Teklifi Ver</h3></div><div style="padding:24px"><label>Orijinal Fiyat</label><div id="counterOfferOriginalPrice" style="padding:12px;background:#f1f5f9;border-radius:8px;margin-bottom:16px">₺0</div><label>Yeni Fiyat</label><input type="number" id="counterOfferPriceInput" style="width:100%;padding:14px;border:2px solid #e2e8f0;border-radius:8px;margin-bottom:20px" /><button onclick="sendCounterOffer()" style="width:100%;padding:14px;border-radius:10px;background:#6C63FF;color:white;border:none;cursor:pointer">Gönder</button></div></div></div>
+
 </body>
 </html>
 
